@@ -1,0 +1,3 @@
+[submodule "lucy-langs"]
+	path = lucy-langs
+	url = https://github.com/bobby-brennan/lucy-langs/

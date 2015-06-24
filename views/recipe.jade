@@ -1,0 +1,77 @@
+extends layout
+
+block body
+  script.
+    var RECIPE = !{JSON.stringify(recipe)};
+  script(src="/js/ng/input.js")
+  script(src="/js/ng/recipe.js")
+  link(href="/css/recipe.css" rel="stylesheet")
+  #Recipe.container-fluid(ng-controller="Recipe")
+    .row.console-row
+      #Answers.col-xs-12.col-md-6.col-no-bottom(ng-controller="Answers")
+        #Language.control-set(ng-controller="Language",ng-hide="controlSetIdx >= 0")
+          h3.header-no-top.text-regular {{ recipe.title }}
+          p {{ recipe.description }}
+          p Choose your programming language to start building!
+          .dropdown
+            button.btn.btn-info.btn-width-lg.btn-spaced(type='button',data-toggle='dropdown')
+              span {{ language ? language.label : 'Choose' }} &nbsp;
+              span.caret
+            ul.dropdown-menu
+              li(role="presentation",ng-repeat="language in languages")
+                a(role='menuitem',ng-click='setLanguage(language)') {{ language.label }}
+        .control-set(ng-if="controlSetIdx >= 0")
+          h3.header-no-top.text-regular {{ recipe.control_sets[controlSetIdx].title }}
+          p {{ recipe.control_sets[controlSetIdx].tip }}
+          .control-input.form-group(ng-repeat="input in recipe.control_sets[controlSetIdx].inputs")
+            div(ng-if="input.type === 'group'")
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title.text-regular
+                    a.link-fill.link-plain(data-toggle="collapse",href="#group{{$index}}")
+                      i.fa.fa-plus-square-o
+                      span &nbsp;{{ input.label }}
+                .panel-collapse.collapse(id="group{{$index}}")
+                  .panel-body
+                    div(ng-repeat="input in input.inputs")
+                      include ./includes/input.jade
+            include ./includes/input.jade
+          a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 !== recipe.control_sets.length',
+                                                 ng-click='setControlSet(controlSetIdx + 1)') Next
+          a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 === recipe.control_sets.length',
+                                                 ng-click='openDemo()') Finish
+        .text-center
+          ul.pagination(ng-if="ready")
+            li(ng-class="{ active: controlSetIdx === -1}")
+              a(ng-click="setControlSet(-1)") 0
+            li(ng-class="{ active: controlSetIdx === $index }"
+               ng-repeat="controlSet in recipe.control_sets")
+              a(ng-click="setControlSet($index)") {{ $index + 1 }}
+
+      #Code.col-xs-12.col-md-6.col-no-bottom(ng-controller="Code",ng-hide="!ready")
+        .row
+          .btn-group.col-xs-4.col-no-right.col-no-bottom(role='group')
+            button.pin-bottom.pin-right.btn-group.btn.btn-default.width-full.btn-code-toolbar.dropdown-toggle(
+                    role='group',type='button',data-toggle='dropdown')
+              span.fa.fa-file-code-o
+              span &nbsp; {{ files[activeFileIdx].filename }} &nbsp;
+              span.caret
+            ul.dropdown-menu
+              li.nav(role='presentation',ng-repeat="file in files")
+                a(ng-click='setFile($index)')
+                  span(ng-if="file.type",ng-class="{fa: true, 'fa-desktop': file.type === 'client', 'fa-plug': file.type === 'server'}")
+                  span &nbsp;&nbsp;{{ file.filename }}
+          .btn-group.col-xs-4.col-no-left.col-no-right.col-no-bottom
+            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-right(ng-click='toggleExpand()')
+              i(ng-class="{fa: true, 'fa-expand': !expanded, 'fa-compress': expanded}")
+              span.hidden-xs &nbsp; {{ expanded ? 'Shrink' : 'Expand' }}
+          .btn-group.col-xs-4.col-no-left.col-no-bottom
+            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='exportToGitHub()')
+              i.fa.fa-github
+              span.hidden-xs &nbsp; (Coming Soon)
+         .row
+          .col-xs-12
+            .hljs-div.pin-top(hljs,source='getActiveCode()')
+    .row.demo-row
+      #Demo.col-xs-12(ng-controller="Demo",ng-if="ready")
+        iframe.demo-frame
