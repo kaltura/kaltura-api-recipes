@@ -1,0 +1,110 @@
+
+
+{
+  "provider": "kaltura",
+  "name": "video_search",
+  "title": "Kaltura Video Search",
+  "description": "Learn how to search through your video library using Kaltura's API",
+  "free": false,
+  "mashup": false,
+  "control_sets": [
+    {
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerID"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ],
+      "affects": "setup",
+      "tip": "You can find your info at http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration",
+      "title": "Authentication"
+    },
+    {
+      "inputs": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "Query",
+          "name": "nameLike"
+        }
+      ],
+      "affects": "list_media",
+      "tip": "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show.",
+      "title": "Filtering Results"
+    },
+    {
+      "inputs": [
+        {
+          "choices": [
+            {
+              "value": "27723522",
+              "label": "KDP3 Dark Skin"
+            },
+            {
+              "value": "27723532",
+              "label": "KDP3 Blue Skin"
+            },
+            {
+              "value": "27723542",
+              "label": "KDP3 Light Skin"
+            },
+            {
+              "value": "8704822",
+              "label": "508 Player"
+            },
+            {
+              "value": "24666891",
+              "label": "Hovering Controls Player"
+            },
+            {
+              "value": "24666901",
+              "label": "Player with Captions"
+            },
+            {
+              "value": "24666921",
+              "label": "Widescreen Player - Light Skin"
+            },
+            {
+              "value": "24666881",
+              "label": "Widescreen Player"
+            },
+            {
+              "value": "24666871",
+              "label": "Player with no share button"
+            }
+          ],
+          "default": "27723522",
+          "type": "radio",
+          "label": "Skin",
+          "name": "skin"
+        }
+      ],
+      "affects": "video_player",
+      "tip": "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id.",
+      "title": "Video Player"
+    }
+  ],
+  "pages": [
+    {
+      "view": "KalturaMediaListResponse",
+      "data": {
+        "action": "list"
+      }
+    }
+  ],
+  "views": [
+    "KalturaMediaListResponse",
+    "KalturaMediaEntry"
+  ],
+  "actions": [
+    {"service": "media", "action": "list"}
+  ]
+}
+
+

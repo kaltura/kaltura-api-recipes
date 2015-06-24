@@ -1,7 +1,5 @@
 var Express = require('express');
 
-var Recipes = require('./recipes.js');
-
 var App = Express();
 App.set('views', __dirname + '/views')
 App.set('view engine', 'jade');
