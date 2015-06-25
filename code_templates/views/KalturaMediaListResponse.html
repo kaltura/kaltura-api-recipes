@@ -1,3 +1,5 @@
-<lucy for="video in result">
-  <lucy include="KalturaMediaEntry"></lucy>
+<lucy for="video" in="result">
+  <lucy if="index < 5">
+    <lucy include="KalturaMediaEntry" resultvar="video"></lucy>
+  </lucy>
 </lucy>

@@ -1,6 +1,7 @@
 var Router = module.exports = require('express').Router();
-var CodeBuilder = require('../lucy-langs/builders/builders.js').Recipe;
+var CodeBuilders = require('../lucy-langs/builders/builders.js');
 
+var Async = require('async');
 var EJS = require('ejs');
 var FS = require('fs');
 var Path = require('path');
@@ -23,7 +24,7 @@ XMLParser(SchemaXML, function(err, result) {
       var actionJS = serviceJS.actions[action.$.name] = {parameters: {}};
       if (!action.param) return;
       action.param.forEach(function(param) {
-        var paramJS = actionJS[param.$.name] = {type: param.$.type};
+        var paramJS = actionJS.parameters[param.$.name] = {type: param.$.type};
       });
     });
   });
@@ -31,6 +32,14 @@ XMLParser(SchemaXML, function(err, result) {
   result.classes[0].class.forEach(function(cls) {
     var classJS = Schema.classes[cls.$.name] = {properties: {}};
     var props = cls.property || [];
+    if (cls.$.base) {
+      var copyBaseProps = function(baseName) {
+        var baseClass = result.classes[0].class.filter(function(baseClass) {return baseName === baseClass.$.name })[0];
+        if (baseClass.property) props = props.concat(baseClass.property);
+        if (baseClass.$.base) copyBaseProps(baseClass.$.base);
+      }
+      copyBaseProps(cls.$.base);
+    }
     props.forEach(function(prop) {
       var propJS = classJS.properties[prop.$.name] = {};
       if (prop.$.type.indexOf('Kaltura') === 0) {
@@ -59,31 +68,81 @@ Router.get('/:recipe', function(req, res) {
 });
 
 Router.post('/:recipe/code', function(req, res) {
-  var recipe = Recipes[req.params.recipe];
-  var actions = recipe.actions;
-  var views = recipe.views;
-  CodeBuilder.fixAnswers(req.body.answers, function(err, answers) {
-    if (err) return res.status(500).send('Error parsing answers');
-    var buildParams = {answers: answers, actions: {}, views: {}};
-    buildParams.main = recipe.pages[0];
-    buildParams.action_language = 'php';
-    buildParams.view_language = 'html-php';
-    actions.forEach(function(action) {
-      var codeParams = {objects: [], service: action.service, action: action.action}
-      var actionSchema = Schema.services[action.service].actions[action.action];
-      var rendered = EJS.render(CodeTemplates.actions.php, codeParams);
-      buildParams.actions[action.action] = {php: rendered};
-    });
-    views.forEach(function(view) {
-      buildParams.views[view] = {html: CodeTemplates.views[view]};
-    });
-    CodeBuilder.build(buildParams, function(err, files) {
-      if (err) return res.status(500).send('Error building code');
-      res.json(files);
-    });
+  buildRecipe(req, res, function(err, files) {
+    if (err) return res.status(500).send('Error building recipe');
+    else res.json(files);
   });
 });
 
+var buildRecipe = function(req, res, callback) {
+  var recipe = Recipes[req.params.recipe];
+  var actions = recipe.actions;
+  var views = recipe.views;
+  var language = req.body.language;
+  CodeBuilders.Recipe.fixAnswers(req.body.answers, function(err, answers) {
+    if (err) return res.status(500).send('Error parsing answers');
+    var buildParams = {answers: answers, actions: {}, views: {}};
+    buildParams.main = recipe.pages[0];
+    buildParams.action_language = language;
+    buildParams.view_language = language === 'php' ? 'html-php' : 'html-angular';
+    actions.forEach(function(action) {
+      var codeParams = {parameters: [], service: action.service, action: action.action}
+      var actionKey = action.action.indexOf('Action') === -1 ? action.action
+            : action.action.substring(0, action.action.length - 6);
+      var actionSchema = Schema.services[action.service].actions[actionKey];
+      for (parameter in actionSchema.parameters) {
+        var type = actionSchema.parameters[parameter].type;
+        var paramObject = {name: parameter, class: type}
+        codeParams.parameters.push(paramObject);
+        if (type.indexOf('Kaltura') === 0) paramObject.fields = [];
+        var cls = Schema.classes[type];
+        for (field in cls.properties) {
+          if (req.body.answers[field] !== undefined) {
+            var fieldType = cls.properties[field].type;
+            paramObject.fields.push({
+                name: field,
+                type: fieldType,
+                value: '<%- Lucy.code.variable("answers.' + field + '") %>'
+            })
+          }
+        }
+      }
+      for (key in req.body.answers) {
+        
+        if (actionSchema.parameters[key]) {
+          
+        } 
+      }
+      var rendered = EJS.render(CodeTemplates.actions[language], codeParams);
+      buildParams.actions[action.action] = {};
+      buildParams.actions[action.action][language] = rendered;
+    });
+    buildParams.actions.setup = {};
+    buildParams.actions.setup[language] = CodeTemplates.setups[language];
+    var ltmlViews = views.map(function(view) {return CodeTemplates.views[view]});
+    Async.map(
+      ltmlViews,
+      CodeBuilders.View.translateToEJS,
+      function(err, ejsTemplates) {
+        if (err) return res.status(500).send('Error translating LTML to EJS');
+        views.forEach(function(view, index) {
+          buildParams.views[view] = {html: ejsTemplates[index]};
+        });
+        CodeBuilders.Recipe.build(buildParams, callback);
+      }
+    );
+  });
+};
+
 Router.get('/:recipe/embed', function(req, res) {
-  res.send('not impl');
+  req.body = req.body || {};
+  req.body.language = 'javascript';
+  req.body.answers = {};
+  for (key in req.query) {
+    req.body.answers[key] = JSON.parse(req.query[key]);
+  }
+  buildRecipe(req, res, function(err, files) {
+    if (err) return res.status(500).send('Error building recipe');
+    else res.send(files[0].contents);
+  })
 });

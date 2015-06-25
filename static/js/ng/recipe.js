@@ -16,8 +16,11 @@ app.controller('Recipe', function($scope) {
     var answers = angular.element('#Answers');
     answers = answers && answers.scope() ? answers.scope().answers : {};
     var demoURL = '/recipes/' + $scope.recipe.name + '/embed?'
+    var addedOne = false;
     for (key in answers) {
-      demoURL += '&' + key + '=' + encodeURIComponent(JSON.stringify(answers[key]));
+      if (addedOne) demoURL += '&';
+      addedOne = true;
+      demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));
     }
     return demoURL;
   }
@@ -25,6 +28,7 @@ app.controller('Recipe', function($scope) {
   $scope.start = function() {
     if (!$scope.ready) {
       $scope.ready = true;
+      $('#Answers').scope().setControlSet(0);
     }
     angular.element('#Code').scope().refresh();
   }
@@ -82,8 +86,14 @@ app.controller('Code', function($scope) {
       language: $('#Language').scope().language.id,
       answers: $('#Answers').scope().answers
     }
-    $.post('/recipes/' + $scope.recipe.name + '/code', data)
-    .success(function(files) {
+    var url = '/recipes/' + $scope.recipe.name + '/code';
+    console.log('url', url);
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      contentType: 'application/json'
+    }).success(function(files) {
       $scope.files = files;
       $scope.files.forEach(function(f) {
         var slash = f.filename.lastIndexOf('/');
@@ -91,8 +101,7 @@ app.controller('Code', function($scope) {
       })
       $scope.setActiveComponent($scope.activeComponent);
       $scope.$apply();
-    })
-    .fail(function(err) {
+    }).fail(function(err) {
       console.log('fail', err);
     });
   }
