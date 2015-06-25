@@ -1,11 +1,12 @@
-<% objects.forEach(function(obj, index) { -%>
-$<%- obj.name %> = new <%- obj.class %>();
-<%   obj.parameters.forEach(function(param) { -%>
-$<%- obj.name %>-><%- param.name %> = <%- param.value %>;
+<% parameters.forEach(function(param, index) { -%>
+$<%- param.name %> = new <%- param.class %>();
+<%   param.fields.forEach(function(field) { -%>
+$<%- param.name %>-><%- field.name %> = <%- field.value %>;
 <%   }); -%>
 <% }); -%>
 
-$result = client-><%- service %>-><%- action %>(
-<% objects.forEach(function(obj, index) { -%>
-  $<%- obj.name %>
-<% }); -%>);
+$result = $client-><%- service %>-><%- action %>(<%- parameters.length === 0 ? ');' : '' %>
+<% parameters.forEach(function(param, index) { -%>
+  $<%- param.name %><%- index < parameters.length -1 ? ', ' : ');' %>
+<% }); -%>
+<%- '<\%- Lucy.returnCode("$result->objects") %\>' %>
