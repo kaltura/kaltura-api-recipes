@@ -87,7 +87,6 @@ app.controller('Code', function($scope) {
       answers: $('#Answers').scope().answers
     }
     var url = '/recipes/' + $scope.recipe.name + '/code';
-    console.log('url', url);
     $.ajax({
       type: 'POST',
       url: url,
