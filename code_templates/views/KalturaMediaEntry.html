@@ -1,2 +1,13 @@
-<h2>{{result.thumbnailUrl}}</h2>
-<p>{{result.description}}</p>
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xs-12 col-md-5">
+    <h2>{{result.name}}</h2>
+    <p>{{result.description}}</p>
+  </div>
+  <div class="col-xs-12 col-md-6 col-md-offset-1">
+    <iframe
+      class="pull-right"
+      src="https://cdnapisec.kaltura.com/p/{{ result.partnerId }}/sp/{{ result.partnerId }}00/embedIframeJs/uiconf_id/27723522/partner_id/{{ result.partnerId }}?iframeembed=true&playerId=kaltura_player_{{ result.id }}&entry_id={{ result.id }}"
+      width="400"
+      height="333">
+  </div>
+</div>
