@@ -9,13 +9,14 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <div id="" class="KalturaMediaListResponse"></div>
+      <div class="KalturaMediaListResponse"></div>
       <script>
         var element = $('.KalturaMediaListResponse').last();
         element[0].loadData = function() {
-          $('.KalturaMediaListResponse').last().load('listAction.php', {});
+          $('.KalturaMediaListResponse').last().load('listAction.php');
         }
         element[0].loadData();
       </script>
+    </div>
   </body>
 </html>

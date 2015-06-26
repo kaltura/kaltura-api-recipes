@@ -69,9 +69,22 @@ Router.get('/:recipe', function(req, res) {
 
 Router.post('/:recipe/code', function(req, res) {
   buildRecipe(req, res, function(err, files) {
-    if (err) return res.status(500).send('Error building recipe');
+    if (err) return res.status(500).json(err);
     else res.json(files);
   });
+});
+
+Router.get('/:recipe/embed', function(req, res) {
+  req.body = req.body || {};
+  req.body.language = 'javascript';
+  req.body.answers = {};
+  for (key in req.query) {
+    req.body.answers[key] = JSON.parse(req.query[key]);
+  }
+  buildRecipe(req, res, function(err, files) {
+    if (err) return res.status(500).json(err);
+    else res.send(files[0].contents);
+  })
 });
 
 var buildRecipe = function(req, res, callback) {
@@ -79,12 +92,11 @@ var buildRecipe = function(req, res, callback) {
   var actions = recipe.actions;
   var views = recipe.views;
   var language = req.body.language;
-  CodeBuilders.Recipe.fixAnswers(req.body.answers, function(err, answers) {
+  CodeBuilders.RecipeV2.fixAnswers(req.body.answers, function(err, answers) {
     if (err) return res.status(500).send('Error parsing answers');
     var buildParams = {answers: answers, actions: {}, views: {}};
     buildParams.main = recipe.pages[0];
-    buildParams.action_language = language;
-    buildParams.view_language = language === 'php' ? 'html-php' : 'html-angular';
+    buildParams.language = language;
     actions.forEach(function(action) {
       var codeParams = {parameters: [], service: action.service, action: action.action}
       var actionKey = action.action.indexOf('Action') === -1 ? action.action
@@ -107,42 +119,17 @@ var buildRecipe = function(req, res, callback) {
           }
         }
       }
-      for (key in req.body.answers) {
-        
-        if (actionSchema.parameters[key]) {
-          
-        } 
-      }
       var rendered = EJS.render(CodeTemplates.actions[language], codeParams);
-      buildParams.actions[action.action] = {};
+      buildParams.actions[action.action] = {view: action.view};
       buildParams.actions[action.action][language] = rendered;
     });
     buildParams.actions.setup = {};
     buildParams.actions.setup[language] = CodeTemplates.setups[language];
-    var ltmlViews = views.map(function(view) {return CodeTemplates.views[view]});
-    Async.map(
-      ltmlViews,
-      CodeBuilders.View.translateToEJS,
-      function(err, ejsTemplates) {
-        if (err) return res.status(500).send('Error translating LTML to EJS');
-        views.forEach(function(view, index) {
-          buildParams.views[view] = {html: ejsTemplates[index]};
-        });
-        CodeBuilders.Recipe.build(buildParams, callback);
-      }
-    );
+    views.forEach(function(viewName) {
+      buildParams.views[viewName] = {};
+      buildParams.views[viewName][language] = CodeTemplates.views[viewName];
+    });
+    CodeBuilders.RecipeV2.build(buildParams, callback);
   });
 };
 
-Router.get('/:recipe/embed', function(req, res) {
-  req.body = req.body || {};
-  req.body.language = 'javascript';
-  req.body.answers = {};
-  for (key in req.query) {
-    req.body.answers[key] = JSON.parse(req.query[key]);
-  }
-  buildRecipe(req, res, function(err, files) {
-    if (err) return res.status(500).send('Error building recipe');
-    else res.send(files[0].contents);
-  })
-});

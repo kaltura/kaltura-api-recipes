@@ -103,7 +103,7 @@
     "KalturaMediaEntry"
   ],
   "actions": [
-    {"service": "media", "action": "listAction"}
+    {"service": "media", "action": "listAction", "view": "KalturaMediaListResponse"}
   ]
 }
 
