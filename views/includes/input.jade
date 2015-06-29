@@ -7,7 +7,7 @@
           ng-model="model[input.name]")
     span.help-block(ng-if="input.tip") {{ input.tip }}
 
-  .form-group(ng-if="input.type === 'radio'")
+  .form-group(ng-if="input.type === 'radio'", ng-controller="Radio")
     label
       span {{input.label}}
       a.btn.btn-xs.text-warning(

@@ -6,6 +6,22 @@ app.controller('Input', function($scope) {
   }
 })
 
+app.controller('Radio', function($scope) {
+  var dc = $scope.input.dynamicChoices;
+  if (dc) {
+    var action = dc.action, service = dc.service;
+    console.log('dc', action, service);
+    if (action === 'list') action += 'Action';
+    KC[service][action](function(success, results) {
+      if (!success || (results.code && results.message)) return console.log('Kaltura Error', success, results);
+      $scope.input.choices = results.objects.map(function(obj) {
+        return {value: obj[dc.map.value], label: obj[dc.map.label]};
+      });
+      $scope.$apply();
+    });
+  }
+});
+
 app.controller('Checkboxes', function($scope) {
   $scope.chosen = {};
   var defaults = $scope.model[$scope.input.name];

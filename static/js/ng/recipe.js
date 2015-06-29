@@ -63,9 +63,25 @@ app.controller('Answers', function($scope) {
         }
       })
     })
+    console.log('set defs', $scope.answers);
   }
+  $scope.setDefaults();
+
+  var credentialsChanged = function() {
+    console.log('creds changed');
+    if ($scope.answers.partnerId && $scope.answers.adminSecret) {
+      startKalturaSession($scope.answers.partnerId, $scope.answers.adminSecret);
+    }
+  }
+  $scope.$watch('answers.partnerId', credentialsChanged);
+  $scope.$watch('answers.adminSecret', credentialsChanged);
 
   $scope.setControlSet = function(controlSetIdx) {
+    if ($scope.controlSetIdx >= 0) {
+      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+      if (curSet.is_credentials) {
+      }
+    }
     $scope.controlSetIdx = controlSetIdx;
     if (controlSetIdx >= 0) {
       var affected = $scope.recipe.control_sets[controlSetIdx].affects;

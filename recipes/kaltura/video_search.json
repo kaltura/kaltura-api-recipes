@@ -41,48 +41,57 @@
     {
       "inputs": [
         {
+          "dynamicChoices": {
+            "service": "uiConf",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          },
           "choices": [
             {
-              "value": "27723522",
+              "value": 27723522,
               "label": "KDP3 Dark Skin"
             },
             {
-              "value": "27723532",
+              "value": 27723532,
               "label": "KDP3 Blue Skin"
             },
             {
-              "value": "27723542",
+              "value": 27723542,
               "label": "KDP3 Light Skin"
             },
             {
-              "value": "8704822",
+              "value": 8704822,
               "label": "508 Player"
             },
             {
-              "value": "24666891",
+              "value": 24666891,
               "label": "Hovering Controls Player"
             },
             {
-              "value": "24666901",
+              "value": 24666901,
               "label": "Player with Captions"
             },
             {
-              "value": "24666921",
+              "value": 24666921,
               "label": "Widescreen Player - Light Skin"
             },
             {
-              "value": "24666881",
+              "value": 24666881,
               "label": "Widescreen Player"
             },
             {
-              "value": "24666871",
+              "value": 24666871,
               "label": "Player with no share button"
             }
           ],
-          "default": "27723522",
+          "default": 27723522,
           "type": "radio",
-          "label": "Skin",
-          "name": "skin"
+          "label": "UI Configuration ID",
+          "name": "uiConf",
+          "required": true
         }
       ],
       "affects": "KalturaMediaEntry",
