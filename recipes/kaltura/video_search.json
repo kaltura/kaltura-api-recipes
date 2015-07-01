@@ -44,6 +44,13 @@
           "dynamicChoices": {
             "service": "uiConf",
             "action": "list",
+            "arguments": [{
+              "class": "KalturaUiConfFilter",
+              "parameters": {
+                "orderBy": "-updatedAt",
+                "objTypeEqual": {"enum": "KalturaUiConfObjType", "value": "PLAYER"}
+              }
+            }],
             "map": {
               "value": "id",
               "label": "name"

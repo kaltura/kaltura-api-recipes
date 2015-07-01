@@ -10,15 +10,31 @@ app.controller('Radio', function($scope) {
   var dc = $scope.input.dynamicChoices;
   if (dc) {
     var action = dc.action, service = dc.service;
-    console.log('dc', action, service);
     if (action === 'list') action += 'Action';
-    KC[service][action](function(success, results) {
+    var args = dc.arguments || [];
+    args = args.map(function(arg) {
+      var cls = new window[arg.class];
+      var params = arg.parameters || {};
+      for (name in params) {
+        var param = params[name];
+        if (param.enum) {
+          cls[name] = window[param.enum][param.value];
+        } else {
+          cls[name] = param;
+        }
+      };
+      return cls;
+    });
+    var callback = function(success, results) {
       if (!success || (results.code && results.message)) return console.log('Kaltura Error', success, results);
       $scope.input.choices = results.objects.map(function(obj) {
         return {value: obj[dc.map.value], label: obj[dc.map.label]};
       });
       $scope.$apply();
-    });
+    };
+    args.unshift(callback);
+    var serviceObj = KC[service];
+    serviceObj[action].apply(serviceObj, args);
   }
 });
 

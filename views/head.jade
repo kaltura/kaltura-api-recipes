@@ -27,16 +27,12 @@ script(type="text/javascript").
     config.serviceUrl = "http://www.kaltura.com/";
     window.KC = new KalturaClient(config);
     KC.session.start(function(success, ks) {
+      if (!success) return console.log('Kaltura Error', success, results);
       KC.setKs(ks);
     }, secret,
     null,
     KalturaSessionType.ADMIN,
     partnerID) 
-  }
-
-  var loadScript = function(script) {
-    console.log('load script', script);
-    $.getScript(script);
   }
 
 script(src="/js/ng/app.js")
