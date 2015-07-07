@@ -98,7 +98,12 @@ var buildRecipe = function(req, res, callback) {
     buildParams.main = recipe.pages[0];
     buildParams.language = language;
     actions.forEach(function(action) {
-      var codeParams = {parameters: [], service: action.service, action: action.action}
+      var codeParams = {
+        parameters: [],
+        service: action.service,
+        action: action.action,
+        returns: action.action === 'listAction' ? 'list' : 'object',
+      }
       var actionKey = action.action.indexOf('Action') === -1 ? action.action
             : action.action.substring(0, action.action.length - 6);
       var actionSchema = Schema.services[action.service].actions[actionKey];
@@ -106,15 +111,16 @@ var buildRecipe = function(req, res, callback) {
         var type = actionSchema.parameters[parameter].type;
         var paramObject = {name: parameter, class: type}
         codeParams.parameters.push(paramObject);
-        if (type.indexOf('Kaltura') === 0) paramObject.fields = [];
+        if (type.indexOf('Kaltura') !== 0) continue;
+        paramObject.fields = [];
         var cls = Schema.classes[type];
+        if (!cls) throw new Error('Type ' + type + ' not found in schema');
         for (field in cls.properties) {
           if (req.body.answers[field] !== undefined) {
             var fieldType = cls.properties[field].type;
             paramObject.fields.push({
                 name: field,
                 type: fieldType,
-                value: '<%- Lucy.code.variable("answers.' + field + '") %>'
             })
           }
         }

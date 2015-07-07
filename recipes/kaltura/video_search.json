@@ -1,12 +1,7 @@
-
-
 {
-  "provider": "kaltura",
   "name": "video_search",
-  "title": "Kaltura Video Search",
+  "title": "Video Search",
   "description": "Learn how to search through your video library using Kaltura's API",
-  "free": false,
-  "mashup": false,
   "control_sets": [
     {
       "inputs": [

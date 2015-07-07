@@ -1,8 +1,11 @@
 <% parameters.filter(function(param) {return param.fields}).forEach(function(param) { -%>
 <%- param.name %> = new <%- param.class %>();
 <%   param.fields.forEach(function(field) { -%>
-<%- param.name %>.<%- field.name %> = <%- field.value %>;
+<%- param.name %>.<%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field + '") %\>' %>;
 <%   }); -%>
+<% }); -%>
+<% parameters.filter(function(param) {return !param.fields}).forEach(function(param) { -%>
+var <%- param.name %> = <%- '<\%- Lucy.code.variable("answers.' + param.name + '") %\>' %>;
 <% }); -%>
 
 var getResults = function() {
@@ -11,7 +14,11 @@ var getResults = function() {
     if (!success || (results.code && results.message)) {
       console.log('Kaltura Error', results);
     } else {
+<% if (returns === 'list') { -%>
 <%- '<\%- Lucy.returnCode("results.objects", 6) %\>' %>
+<% } else { -%>
+<%- '<\%- Lucy.returnCode("results", 6) %\>' %>
+<% } -%>
     }
   }<%- parameters.length === 0 ? ');' : ',' %>
 <% parameters.forEach(function(param, index) { -%>

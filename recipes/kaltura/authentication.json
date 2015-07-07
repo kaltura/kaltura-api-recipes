@@ -1,0 +1,40 @@
+{
+  "name": "authentication",
+  "title": "Authentication",
+  "description": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
+  "control_sets": [
+    {
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ],
+      "affects": "setup",
+      "tip": "You can find your info at http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration",
+      "title": "Authentication"
+    }
+  ],
+  "pages": [
+    {
+      "view": "KalturaUser",
+      "data": {
+        "action": "get"
+      }
+    }
+  ],
+  "views": [
+    "KalturaUser"
+  ],
+  "actions": [
+    {"service": "user", "action": "get", "view": "KalturaUser"}
+  ]
+}
+
+
