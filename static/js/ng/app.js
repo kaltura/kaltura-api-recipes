@@ -4,3 +4,10 @@ app.config(['uiZeroclipConfigProvider', function(uiZeroclipConfigProvider) {
     swfPath: '/bower/zeroclipboard/dist/ZeroClipboard.swf'
   });
 }])
+app.config(['markedProvider', function(markedProvider) {
+  markedProvider.setRenderer({
+    link: function(href, title, text) {
+      return "<a href='" + href + "' title='" + title + "' target='_blank'>" + text + "</a>";
+    }
+  });
+}]);
