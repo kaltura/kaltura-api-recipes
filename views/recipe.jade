@@ -71,7 +71,7 @@ block body
               span.hidden-xs &nbsp; (Coming Soon)
          .row(ng-if="ready")
           .col-xs-12
-            .hljs-div.pin-top(hljs source='getActiveCode()' language='{{ getHljsLanguage() }}')
+            .hljs-div.pin-top(hljs source='getActiveCode()')
     .row.demo-row
       #Demo.col-xs-12(ng-controller="Demo",ng-if="ready")
         iframe.demo-frame

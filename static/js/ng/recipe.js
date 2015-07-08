@@ -158,11 +158,7 @@ app.controller('Code', function($scope) {
       return file.contents;
     }
   }
-
-  $scope.getHljsLanguage = function() {
-    return $('#Language').scope().language.id;
-  }
-})
+});
 
 app.controller('Demo', function($scope) {
   $scope.refresh = function() {
@@ -170,4 +166,4 @@ app.controller('Demo', function($scope) {
     $('.demo-frame').attr('src', demoUrl);
   }
   $scope.refresh();
-})
+});
