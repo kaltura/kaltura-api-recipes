@@ -1,3 +1,8 @@
+<h1>Videos</h1>
+<hr>
+<lucy if="result.length == 0">
+  <p><i>No results</i></p>
+</lucy>
 <lucy for="video" in="result">
   <lucy if="index < 5">
     <lucy include="KalturaMediaEntry" resultvar="video" indent="4"></lucy>

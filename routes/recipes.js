@@ -121,13 +121,19 @@ var buildRecipe = function(req, res, callback) {
             paramObject.fields.push({
                 name: field,
                 type: fieldType,
-            })
+            });
           }
         }
       }
       var rendered = EJS.render(CodeTemplates.actions[language], codeParams);
-      buildParams.actions[action.action] = {view: action.view};
-      buildParams.actions[action.action][language] = rendered;
+      var actionName = action.action;
+      if (actionName.indexOf('Action') === actionName.length - 6) {
+        actionName = actionName.substring(0, actionName.length - 6);
+      }
+      actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+
+      buildParams.actions[actionName] = {view: action.view};
+      buildParams.actions[actionName][language] = rendered;
     });
     buildParams.actions.setup = {};
     buildParams.actions.setup[language] = CodeTemplates.setups[language];

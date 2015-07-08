@@ -63,12 +63,10 @@ app.controller('Answers', function($scope) {
         }
       })
     })
-    console.log('set defs', $scope.answers);
   }
   $scope.setDefaults();
 
   var credentialsChanged = function() {
-    console.log('creds changed');
     if ($scope.answers.partnerId && $scope.answers.adminSecret) {
       startKalturaSession($scope.answers.partnerId, $scope.answers.adminSecret);
     }
@@ -159,6 +157,10 @@ app.controller('Code', function($scope) {
     } else {
       return file.contents;
     }
+  }
+
+  $scope.getHljsLanguage = function() {
+    return $('#Language').scope().language.id;
   }
 })
 

@@ -22,7 +22,7 @@ block body
                 a(role='menuitem',ng-click='setLanguage(language)') {{ language.label }}
         .control-set(ng-if="controlSetIdx >= 0")
           h3.header-no-top.text-regular {{ recipe.control_sets[controlSetIdx].title }}
-          p {{ recipe.control_sets[controlSetIdx].tip }}
+          p(marked="recipe.control_sets[controlSetIdx].tip")
           .control-input.form-group(ng-repeat="input in recipe.control_sets[controlSetIdx].inputs")
             div(ng-if="input.type === 'group'")
               .panel.panel-default
@@ -69,9 +69,9 @@ block body
             a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='exportToGitHub()')
               i.fa.fa-github
               span.hidden-xs &nbsp; (Coming Soon)
-         .row
+         .row(ng-if="ready")
           .col-xs-12
-            .hljs-div.pin-top(hljs,source='getActiveCode()')
+            .hljs-div.pin-top(hljs source='getActiveCode()' language='{{ getHljsLanguage() }}')
     .row.demo-row
       #Demo.col-xs-12(ng-controller="Demo",ng-if="ready")
         iframe.demo-frame

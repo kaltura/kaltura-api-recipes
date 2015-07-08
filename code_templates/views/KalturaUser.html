@@ -1,1 +1,5 @@
-<h1>User {{ result.partnerId }}</h1>
+<lucy if="result.partnerId">
+  <h1>Logged In!</h1>
+  <p>Email: {{ result.email }}</p>
+  <p>Partner ID: {{ result.partnerId }}</p>
+</lucy>

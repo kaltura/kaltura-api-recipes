@@ -1,7 +1,7 @@
 <% parameters.filter(function(param) {return param.fields}).forEach(function(param) { -%>
 <%- param.name %> = new <%- param.class %>();
 <%   param.fields.forEach(function(field) { -%>
-<%- param.name %>.<%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field + '") %\>' %>;
+<%- param.name %>.<%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
 <%   }); -%>
 <% }); -%>
 <% parameters.filter(function(param) {return !param.fields}).forEach(function(param) { -%>
