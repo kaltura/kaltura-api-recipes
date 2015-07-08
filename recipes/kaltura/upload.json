@@ -1,0 +1,37 @@
+{
+  "name": "upload",
+  "title": "Upload a Video",
+  "description": "Learn how to upload a video to your video library",
+  "control_sets": [
+    {
+      "title": "Starting a KalturaSession",
+      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+      "affects": "setup",
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "view": "UploadForm"
+    }
+  ],
+  "views": [
+    "UploadForm"
+  ],
+  "actions": [
+    {"service": "uploadToken", "action": "upload"},
+    {"service": "uploadToken", "action": "add"}
+  ]
+}
+
