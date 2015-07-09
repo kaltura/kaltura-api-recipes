@@ -12,6 +12,9 @@ var Recipes = require('../recipes/recipes.js');
 var CodeTemplates = require('../code_templates/code-templates.js');
 var SchemaXML = FS.readFileSync(Path.join(__dirname, '../api_schema.xml'), 'utf8');
 var Schema = null;
+
+var BLACKLISTED_FIELDS = ['id', 'partnerId'];
+
 XMLParser(SchemaXML, function(err, result) {
   if (err) throw err;
   result = result.xml;
@@ -116,7 +119,7 @@ var buildRecipe = function(req, res, callback) {
         var cls = Schema.classes[type];
         if (!cls) throw new Error('Type ' + type + ' not found in schema');
         for (field in cls.properties) {
-          if (req.body.answers[field] !== undefined) {
+          if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
             var fieldType = cls.properties[field].type;
             paramObject.fields.push({
                 name: field,

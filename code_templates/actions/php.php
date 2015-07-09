@@ -1,7 +1,9 @@
 <% parameters.filter(function(param) {return param.fields}).forEach(function(param, index) { -%>
 $<%- param.name %> = new <%- param.class %>();
 <%   param.fields.forEach(function(field) { -%>
+<%- '<\% if (Lucy.answer("' + field.name + '") !== null) { %\>' %>
 $<%- param.name %>-><%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
+<%- '<\% } -%\>' %>
 <%   }); -%>
 <% }); -%>
 <% parameters.filter(function(param) {return !param.fields}).forEach(function(param, index) { -%>
