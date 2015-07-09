@@ -142,7 +142,8 @@ var buildRecipe = function(req, res, callback) {
     buildParams.actions.setup[language] = CodeTemplates.setups[language];
     views.forEach(function(viewName) {
       buildParams.views[viewName] = {};
-      buildParams.views[viewName][language] = CodeTemplates.views[viewName];
+      buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+
     });
     CodeBuilders.RecipeV2.build(buildParams, callback);
   });
