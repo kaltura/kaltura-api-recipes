@@ -47,7 +47,7 @@
     "CreatedEntry"
   ],
   "actions": [
-    {"service": "baseEntry", "action": "addFromUploadedFile"}
+    {"service": "baseEntry", "action": "addFromUploadedFile", "view": "CreatedEntry"}
   ]
 }
 

@@ -21,6 +21,7 @@ var populateTemplates = function(type) {
         Templates[type][name][lang] = FS.readFileSync(filenameInner, 'utf8');
       })
     } else {
+      if (FS.statSync.isDirectory(filename)) return;  //TODO: add lang files
       Templates[type][name] = FS.readFileSync(filename, 'utf8');
     }
   });
