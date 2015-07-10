@@ -5,14 +5,9 @@ app.controller('Recipe', function($scope) {
   $scope.controlSetIdx = -1;
   $scope.ready = false;
 
-  var changeTimeout = null;
-  var refreshAll = function() {
+  $scope.onAnswerChanged = function() {
     angular.element('#Code').scope().refresh();
     angular.element('#Demo').scope().refresh();
-  }
-  $scope.onAnswerChanged = function() {
-    if (changeTimeout) clearTimeout(changeTimeout);
-    changeTimeout = setTimeout(refreshAll, 250);
   }
 
   $scope.activeComponent = $scope.recipe.control_sets[0].affects;

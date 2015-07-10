@@ -9,22 +9,10 @@ var populateTemplates = function(type) {
   tmpls.forEach(function(tmpl) {
     var ext = Path.extname(tmpl);
     var name = Path.basename(tmpl, ext);
-    var filename = Path.join(__dirname, type, tmpl);
-    if (type === 'views' || type === 'actions') {
-      var lang = name;
-      var tmplsInner = FS.readdirSync(filename);
-      tmplsInner.forEach(function(tmplInner) {
-        ext = Path.extname(tmplInner);
-        name = Path.basename(tmplInner, ext);
-        var filenameInner = Path.join(__dirname, type, lang, tmplInner);
-        Templates[type][name] = Templates[type][name] || {};
-        Templates[type][name][lang] = FS.readFileSync(filenameInner, 'utf8');
-      })
-    } else {
-      Templates[type][name] = FS.readFileSync(filename, 'utf8');
-    }
-  });
+    var contents = FS.readFileSync(Path.join(__dirname, type, tmpl), 'utf8');
+    Templates[type][name] = contents;
+  })
 }
 
-var types = ['actions', 'views', 'generic_actions', 'setups'];
+var types = ['actions', 'views', 'setups'];
 types.forEach(populateTemplates);
