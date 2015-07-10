@@ -1,13 +1,13 @@
 <?php
 require_once('lib/KalturaClient.php');
-$config = new KalturaConfiguration(null);
+$config = new KalturaConfiguration(1760921);
 $config->serviceUrl = 'http://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
-  null,
+  "8d6cb692ab0f41bfa6bde373204c4b40",
   null,
   KalturaSessionType::ADMIN,
-  null,
+  1760921,
   null, null);
 $client->setKS($ks);
 
