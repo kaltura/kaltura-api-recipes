@@ -7,6 +7,7 @@ App.engine('jade', require('jade').__express);
 
 App.use('/', Express.static(__dirname + '/static'));
 
+App.use('/', require('./routes/pages.js'));
 App.use('/recipes', require('./routes/recipes.js'));
 
 App.listen(3000);

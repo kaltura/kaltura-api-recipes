@@ -101,49 +101,55 @@ var buildRecipe = function(req, res, callback) {
     buildParams.main = recipe.pages[0];
     buildParams.language = language;
     actions.forEach(function(action) {
-      var codeParams = {
-        parameters: [],
-        service: action.service,
-        action: action.action,
-        returns: action.action === 'listAction' ? 'list' : 'object',
-      }
-      var actionKey = action.action.indexOf('Action') === -1 ? action.action
-            : action.action.substring(0, action.action.length - 6);
-      var actionSchema = Schema.services[action.service].actions[actionKey];
-      for (parameter in actionSchema.parameters) {
-        var type = actionSchema.parameters[parameter].type;
-        var paramObject = {name: parameter, class: type}
-        codeParams.parameters.push(paramObject);
-        if (type.indexOf('Kaltura') !== 0) continue;
-        paramObject.fields = [];
-        var cls = Schema.classes[type];
-        if (!cls) throw new Error('Type ' + type + ' not found in schema');
-        for (field in cls.properties) {
-          if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
-            var fieldType = cls.properties[field].type;
-            paramObject.fields.push({
-                name: field,
-                type: fieldType,
-            });
+      var actionTmpl = CodeTemplates.actions[language] ? CodeTemplates.actions[language][action.action] : null;
+      if (!actionTmpl && action.service) {
+        var codeParams = {
+          parameters: [],
+          service: action.service,
+          action: action.action,
+          returns: action.action === 'listAction' ? 'list' : 'object',
+        }
+        var actionKey = action.action.indexOf('Action') === -1 ? action.action
+              : action.action.substring(0, action.action.length - 6);
+        var actionSchema = Schema.services[action.service].actions[actionKey];
+        for (parameter in actionSchema.parameters) {
+          var type = actionSchema.parameters[parameter].type;
+          var paramObject = {name: parameter, class: type}
+          codeParams.parameters.push(paramObject);
+          if (type.indexOf('Kaltura') !== 0) continue;
+          paramObject.fields = [];
+          var cls = Schema.classes[type];
+          if (!cls) throw new Error('Type ' + type + ' not found in schema');
+          for (field in cls.properties) {
+            if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
+              var fieldType = cls.properties[field].type;
+              paramObject.fields.push({
+                  name: field,
+                  type: fieldType,
+              });
+            }
           }
         }
+        actionTmpl = EJS.render(CodeTemplates.generic_actions[language], codeParams);
       }
-      var rendered = EJS.render(CodeTemplates.actions[language], codeParams);
+      if (!actionTmpl) return;
+
       var actionName = action.action;
       if (actionName.indexOf('Action') === actionName.length - 6) {
         actionName = actionName.substring(0, actionName.length - 6);
       }
-      actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+      if (action.service) {
+        actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+      }
 
       buildParams.actions[actionName] = {view: action.view};
-      buildParams.actions[actionName][language] = rendered;
+      buildParams.actions[actionName][language] = actionTmpl;
     });
     buildParams.actions.setup = {};
     buildParams.actions.setup[language] = CodeTemplates.setups[language];
     views.forEach(function(viewName) {
       buildParams.views[viewName] = {};
       buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
-
     });
     CodeBuilders.RecipeV2.build(buildParams, callback);
   });

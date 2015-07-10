@@ -21,7 +21,7 @@
       ]
     }, {
       "title": "Uploading a Video",
-      "tip": "Use an ```&lt;input type=\"form\"&gt;``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\n",
+      "tip": "Use an ```<input type=\"form\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\n",
       "affects": "UploadForm",
       "inputs": []
     }, {
@@ -47,7 +47,8 @@
     "CreatedEntry"
   ],
   "actions": [
-    {"service": "baseEntry", "action": "addFromUploadedFile", "view": "CreatedEntry"}
+    {"service": "baseEntry", "action": "addFromUploadedFile", "view": "CreatedEntry"},
+    {"action": "UploadFile"}
   ]
 }
 

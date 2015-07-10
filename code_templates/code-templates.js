@@ -10,7 +10,7 @@ var populateTemplates = function(type) {
     var ext = Path.extname(tmpl);
     var name = Path.basename(tmpl, ext);
     var filename = Path.join(__dirname, type, tmpl);
-    if (type === 'views') {
+    if (type === 'views' || type === 'actions') {
       var lang = name;
       var tmplsInner = FS.readdirSync(filename);
       tmplsInner.forEach(function(tmplInner) {
@@ -21,11 +21,10 @@ var populateTemplates = function(type) {
         Templates[type][name][lang] = FS.readFileSync(filenameInner, 'utf8');
       })
     } else {
-      if (FS.statSync.isDirectory(filename)) return;  //TODO: add lang files
       Templates[type][name] = FS.readFileSync(filename, 'utf8');
     }
   });
 }
 
-var types = ['actions', 'views', 'setups'];
+var types = ['actions', 'views', 'generic_actions', 'setups'];
 types.forEach(populateTemplates);
