@@ -1,11 +1,15 @@
-<script type="text/javascript" src="/js/ox.ajast.js"></script>
-<script type="text/javascript" src="/js/webtoolkit.md5.js"></script>
-<script type="text/javascript" src="/js/KalturaClientBase.js"></script>
-<script type="text/javascript" src="/js/KalturaTypes.js"></script>
-<script type="text/javascript" src="/js/KalturaVO.js"></script>
-<script type="text/javascript" src="/js/KalturaServices.js"></script>
-<script type="text/javascript" src="/js/KalturaClient.js"></script>
-<script type="text/javascript">
+<script src="/js/ox.ajast.js"></script>
+<script src="/js/webtoolkit.md5.js"></script>
+<script src="/js/KalturaClientBase.js"></script>
+<script src="/js/KalturaTypes.js"></script>
+<script src="/js/KalturaVO.js"></script>
+<script src="/js/KalturaServices.js"></script>
+<script src="/js/KalturaClient.js"></script>
+<script src="/js/vendor/jquery.ui.widget.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
+<script src="/js/jquery.fileupload-kaltura.js"></script>
+
+<script>
   var config = new KalturaConfiguration(<%- Lucy.answer('partnerId') %>);
   config.serviceUrl = "http://www.kaltura.com/";
   var client = new KalturaClient(config);

@@ -1,0 +1,54 @@
+{
+  "name": "upload",
+  "title": "Upload a Video",
+  "description": "Learn how to upload a video to your video library",
+  "control_sets": [
+    {
+      "title": "Authenticating",
+      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+      "affects": "setup",
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ]
+    }, {
+      "title": "Uploading a Video",
+      "tip": "Use an ```<input type=\"form\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\n",
+      "affects": "UploadForm",
+      "inputs": []
+    }, {
+      "title": "Creating a Media Entry",
+      "tip": "Once the file has been uploaded, use the baseEntry service to create a Media Entry",
+      "affects": "addFromUploadedFileBaseEntry",
+      "inputs": [{
+        "type": "text",
+        "label": "Name",
+        "tip": "Give the file a unique name",
+        "name": "name"
+      }]
+    }
+  ],
+  "pages": [
+    {
+      "view": "UploadForm"
+    }
+  ],
+  "views": [
+    "UploadForm",
+    "UploadDone",
+    "CreatedEntry"
+  ],
+  "actions": [
+    {"service": "baseEntry", "action": "addFromUploadedFile", "view": "CreatedEntry"},
+    {"action": "UploadFile"}
+  ]
+}
+

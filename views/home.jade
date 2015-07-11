@@ -1,0 +1,13 @@
+extends layout
+
+block body
+
+  .container
+    h1 Kaltura Recipes
+    hr
+    .row
+      each recipe, recipeName in recipes
+        .col-xs-12
+          h3
+            a(href="/recipes/#{recipeName}") #{recipe.title}
+          p #{recipe.description}
