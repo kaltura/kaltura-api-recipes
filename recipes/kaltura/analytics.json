@@ -1,0 +1,81 @@
+{
+  "name": "analytics",
+  "title": "Analytics Reports",
+  "description": "Learn how to retrieve usage statistics from the Kaltura API",
+  "control_sets": [
+    {
+      "title": "Starting a KalturaSession",
+      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+      "affects": "setup",
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ]
+    },
+    {
+      "title": "Getting a Top Content report",
+      "tip": "Find out how your viewers are engaging with your content - which content your viewers are watching the most, and which videos are getting little attention",
+      "affects": "getTotalReport",
+      "inputs": [{
+        "type": "number",
+        "name": "reportType",
+        "default": 1,
+        "hidden": true
+      }, {
+        "type": "text",
+        "name": "fromDay",
+        "label": "From Day",
+        "default": "2015-07-01"
+      }, {
+        "type": "text",
+        "name": "toDay",
+        "label": "To Day",
+        "default": "2015-07-10"
+      }]
+    },
+    {
+      "title": "Getting a Top Contributors report",
+      "tip": "Find out who your top contributors are",
+      "affects": "getTotalReport",
+      "inputs": [{
+        "type": "number",
+        "name": "reportType",
+        "default": 5,
+        "hidden": true
+      }, {
+        "type": "text",
+        "name": "fromDay",
+        "label": "From Day",
+        "default": "2015-07-01"
+      }, {
+        "type": "text",
+        "name": "toDay",
+        "label": "To Day",
+        "default": "2015-07-10"
+      }]
+    }
+  ],
+  "pages": [
+    {
+      "view": "KalturaReportTotal",
+      "data": {
+        "action": "getTotalReport"
+      }
+    }
+  ],
+  "views": [
+    "KalturaReportTotal"
+  ],
+  "actions": [
+    {"service": "report", "action": "getTotal", "view": "KalturaReportTotal"}
+  ]
+}
+

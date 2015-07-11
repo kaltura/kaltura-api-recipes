@@ -1,4 +1,4 @@
-.recipe-input(ng-controller="Input")
+.recipe-input(ng-controller="Input" ng-show="!input.hidden")
   .form-group(ng-if="input.type === 'text' || input.type === 'number'")
     label {{input.label}}
     input.input-sm.form-control(type="{{ input.type }}",
