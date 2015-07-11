@@ -1,0 +1,16 @@
+<lucy if="answers.reportType == 1">
+  <h1>Report - Top Content</h1>
+</lucy>
+<lucy if="answers.reportType == 5">
+  <h1>Report - Top Contributors</h1>
+</lucy>
+<table class="table">
+  <tr id="Header"><td>{{ result.header }}</td></tr>
+  <tr id="Data"><td>{{ result.data }}</td></tr>
+</table>
+<script>
+  var cur = $('#Header').html()
+  $('#Header').html(cur.replace(/,/g, '</td><td>'));
+  cur = $('#Data').html()
+  $('#Data').html(cur.replace(/,/g, '</td><td>'));
+</script>

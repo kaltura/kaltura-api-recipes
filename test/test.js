@@ -35,13 +35,24 @@ var buildCode = function(recipe, data, done) {
   });
 }
 
+var RECIPES = Object.keys(require('../recipes/recipes.js'));
+var ANSWERS = {
+  analytics: {
+    reportType: 5,
+    fromDay: '2015-07-01',
+    toDay: '2015-07-10',
+  }
+}
+
 describe('sample code', function() {
   before(function(done) {
     Server.listen(PORT);
     done();
   });
 
-  it('should build authentication recipe', function(done) {
-    buildCode('authentication', {language: 'php'}, done);
-  })
+  RECIPES.forEach(function(recipe) {
+    it('should build ' + recipe + ' recipe', function(done) {
+      buildCode(recipe, {language: 'php', answers: ANSWERS[recipe]}, done);
+    });
+  });
 })

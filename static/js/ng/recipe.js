@@ -71,16 +71,6 @@ app.controller('Answers', function($scope) {
 
   $scope.setDefaults = function() {
     $scope.recipe.control_sets.forEach(function(set) {
-      if (!set.inputs) return;
-      set.inputs.forEach(function(input) {
-        if (input.type === 'group') {
-          input.inputs.forEach(function(input) {
-            if (input.default) $scope.answers[input.name] = input.default;
-          })
-        } else {
-          if (input.default) $scope.answers[input.name] = input.default;
-        }
-      });
     });
     var stored = localStorage.getItem(STORAGE_KEY) || '{}';
     stored = JSON.parse(stored);
@@ -91,15 +81,23 @@ app.controller('Answers', function($scope) {
   $scope.setDefaults();
 
   $scope.setControlSet = function(controlSetIdx) {
-    if ($scope.controlSetIdx >= 0) {
-      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
-      if (curSet.is_credentials) {
-      }
-    }
     $scope.controlSetIdx = controlSetIdx;
     if (controlSetIdx >= 0) {
+      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+      if (!curSet.inputs) return;
+      curSet.inputs.forEach(function(input) {
+        console.log('input', input);
+        if (input.type === 'group') {
+          input.inputs.forEach(function(input) {
+            if (input.default) $scope.answers[input.name] = input.default;
+          })
+        } else {
+          if (input.default) $scope.answers[input.name] = input.default;
+        }
+      });
       var affected = $scope.recipe.control_sets[controlSetIdx].affects;
       angular.element('#Code').scope().setActiveComponent(affected);
+      $scope.onAnswerChanged();
     }
   }
   $scope.openDemo = function() {
