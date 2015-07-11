@@ -1,3 +1,5 @@
+var STORAGE_KEY = 'KALTURA_CREDS';
+
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
@@ -54,6 +56,18 @@ app.controller('Language', function($scope) {
 
 app.controller('Answers', function($scope) {
   $scope.answers = {};
+  var credentialsChanged = function() {
+    if ($scope.answers.partnerId && $scope.answers.adminSecret) {
+      startKalturaSession($scope.answers.partnerId, $scope.answers.adminSecret);
+      var stored = localStorage.getItem(STORAGE_KEY) || '{}';
+      stored = JSON.parse(stored);
+      stored.partnerId = $scope.answers.partnerId;
+      stored.adminSecret = $scope.answers.adminSecret;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    }
+  }
+  $scope.$watch('answers.partnerId', credentialsChanged);
+  $scope.$watch('answers.adminSecret', credentialsChanged);
 
   $scope.setDefaults = function() {
     $scope.recipe.control_sets.forEach(function(set) {
@@ -66,18 +80,15 @@ app.controller('Answers', function($scope) {
         } else {
           if (input.default) $scope.answers[input.name] = input.default;
         }
-      })
-    })
-  }
-  $scope.setDefaults();
-
-  var credentialsChanged = function() {
-    if ($scope.answers.partnerId && $scope.answers.adminSecret) {
-      startKalturaSession($scope.answers.partnerId, $scope.answers.adminSecret);
+      });
+    });
+    var stored = localStorage.getItem(STORAGE_KEY) || '{}';
+    stored = JSON.parse(stored);
+    for (key in stored) {
+      $scope.answers[key] = stored[key];
     }
   }
-  $scope.$watch('answers.partnerId', credentialsChanged);
-  $scope.$watch('answers.adminSecret', credentialsChanged);
+  $scope.setDefaults();
 
   $scope.setControlSet = function(controlSetIdx) {
     if ($scope.controlSetIdx >= 0) {
