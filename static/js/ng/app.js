@@ -7,8 +7,7 @@ app.config(['uiZeroclipConfigProvider', function(uiZeroclipConfigProvider) {
 app.config(['markedProvider', function(markedProvider) {
   markedProvider.setRenderer({
     link: function(href, title, text) {
-      console.log('link', href);
-      return "<a href='" + href + "' title='" + title + "' target='_blank'>" + text + "</a>";
+      return '<a href="' + href + '"' + ' target="_blank">' + text + '</a>';
     }
   });
 }]);

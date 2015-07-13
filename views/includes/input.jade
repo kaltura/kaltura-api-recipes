@@ -12,9 +12,8 @@
       span {{input.label}}
     select.form-control(
         ng-model="model[input.name]"
-        ng-change="onAnswerChanged()")
-      option(ng-repeat="choice in input.choices" ng-value="choice.value") {{choice.label}}
-
+        ng-change="onAnswerChanged()"
+        ng-options="choice.value as choice.label for choice in input.choices")
 
   .form-group(ng-if="input.type === 'radio'", ng-controller="Radio")
     label
