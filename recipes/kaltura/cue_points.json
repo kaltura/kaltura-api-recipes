@@ -2,6 +2,9 @@
   "name": "cue_points",
   "title": "Cue Points",
   "description": "Learn how to set up Cue Points and respond to Cue Point events",
+  "notes": [
+    "Cue points are getting attached, but don't seem to do anything...do they need to be activated somehow?"
+  ],
   "control_sets": [
     {
       "title": "Starting a KalturaSession",

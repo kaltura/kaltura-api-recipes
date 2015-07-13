@@ -3,8 +3,12 @@
   "title": "Upload a Video",
   "description": "Learn how to upload a video to your video library",
   "notes": [
+    "Need to poll status to wait for video to be ready (currently get 'No source video was found')",
     "Need to add more complex snippeting to support different PHP and JS flows"
   ],
+  "defaults": {
+    "uiConf": 28959921
+  },
   "control_sets": [
     {
       "title": "Authenticating",
@@ -42,7 +46,8 @@
   "views": [
     "UploadForm",
     "UploadDone",
-    "CreatedEntry"
+    "CreatedEntry",
+    "KalturaMediaEntry"
   ],
   "actions": [
     {"service": "baseEntry", "action": "addFromUploadedFile", "view": "CreatedEntry"},
