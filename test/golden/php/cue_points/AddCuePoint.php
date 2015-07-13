@@ -1,4 +1,4 @@
-<form id="AddCuePointForm" onsubmit="return false">
+<form id="AddCuePointForm">
   <div class="form-group">
     <label>Start Time (ms)</label>
     <input class="form-control" type="number" name="startTime"></input>
@@ -14,7 +14,6 @@
 <script>
   $('#AddCuePointForm').submit(function() {
     var data = new FormData(document.getElementById('AddCuePointForm'));
-    console.log('add cp', data);
      $.ajax({
        url: '/addCuePoint.php',
        type: 'POST',

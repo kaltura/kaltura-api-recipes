@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">
+    </script>
+    <script src="/js/ox.ajast.js"></script>
+    <script src="/js/webtoolkit.md5.js"></script>
+    <script src="/js/KalturaClientBase.js"></script>
+    <script src="/js/KalturaTypes.js"></script>
+    <script src="/js/KalturaVO.js"></script>
+    <script src="/js/KalturaServices.js"></script>
+    <script src="/js/KalturaClient.js"></script>
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+    <script src="/js/jquery.fileupload-kaltura.js"></script>
+
+    <script>
+      var config = new KalturaConfiguration(1760921);
+      config.serviceUrl = "http://www.kaltura.com/";
+      var client = new KalturaClient(config);
+      client.session.start(function(success, ks) {
+        client.setKs(ks);
+      }, "8d6cb692ab0f41bfa6bde373204c4b40",
+      null,
+      KalturaSessionType.ADMIN,
+      1760921)
+    </script>
+    <script type="text/javascript">
+      var listMedia = function(request, callback) {
+        filter = new KalturaMediaEntryFilter();
+        pager = new KalturaFilterPager();
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.media.listAction(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results.objects)
+            }
+          },
+          filter,
+          pager);
+        }
+        getResults();
+      };
+    </script>
+  </head>
+  <body>
+    <script id="DynamicThumbnails-template" type="text/x-underscore-template" style="display: none">
+      <script src="http://player.kaltura.com/mwEmbedLoader.php"><% print("</"+"script>"); %>
+      <script src="http://player.kaltura.com/kWidget/kWidget.auth.js"><% print("</"+"script>"); %>
+      <script src="/js/kaltura_thumb_rotator.js"><% print("</"+"script>"); %>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div id="kaltura_player" style="width: 420px; height: 300px;">
+            <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300">
+            <% print("</"+"script>"); %>
+          </div>
+        </div>
+      </div>
+      <hr></hr>
+      <div class="row">
+        <% result.forEach(function(video, index) { %>
+          <% if(index < 10) { %>
+              <div class="col-xs-3 text-center" style="margin-bottom: 10px;">
+                <img src="https://cdnapisec.kaltura.com/p/<%= video.partnerId %>/thumbnail/entry_id/<%= video.id %>/width/240/height/180" width="240" height="180" onmouseover="KalturaThumbRotator.start(this)" onmouseout="KalturaThumbRotator.end(this)" onclick="$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%= video.id %>'})"></img>
+              </div>
+          <% } %>
+        <% }); %>
+      </div>
+    </script>
+    <script type="text/javascript">
+      var DynamicThumbnails = _.template($('#DynamicThumbnails-template').text());
+    </script>
+
+    <div class="container" style="margin-top:40px">
+    </div>
+    <script type="text/javascript">
+      listMedia({}, function(result) {
+        $('.container').html(DynamicThumbnails({result: result}));
+      })
+    </script>
+  </body>
+</html>

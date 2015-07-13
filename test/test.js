@@ -49,6 +49,9 @@ var ANSWERS = {
   cue_points: {
     entryIdEqual: '1_318vzqcr',
     uiConf: 28959921,
+  },
+  dynamic_thumbnails: {
+    uiConf: 28959921,
   }
 }
 var LANGUAGES = ['php', 'javascript']
