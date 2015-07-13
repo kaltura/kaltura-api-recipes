@@ -4,7 +4,8 @@
   var element = $('.AttachCaptions').last();
   element[0].loadData = function() {
     $('.AttachCaptions').last().load('attachCaptions.php', {
-       token: <?php echo json_encode($result->id) ?>,
+       token: $result->id,
     });
   }
+  element[0].loadData();
 </script>

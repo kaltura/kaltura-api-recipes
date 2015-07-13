@@ -4,8 +4,9 @@
   var element = $('.CreatedEntry').last();
   element[0].loadData = function() {
     $('.CreatedEntry').last().load('addFromUploadedFileBaseEntry.php', {
-       name: <?php echo json_encode($result->fileName) ?>,
-       uploadTokenId: <?php echo json_encode($result->id) ?>,
+       name: $result->fileName,
+       uploadTokenId: $result->id,
     });
   }
+  element[0].loadData();
 </script>

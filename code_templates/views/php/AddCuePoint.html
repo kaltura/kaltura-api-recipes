@@ -1,0 +1,30 @@
+<form id="AddCuePointForm">
+  <div class="form-group">
+    <label>Start Time (ms)</label>
+    <input class="form-control" type="number" name="startTime">
+  </div>
+  <div class="form-group">
+    <label>Duration (ms)</label>
+    <input class="form-control" type="number" name="duration">
+  </div>
+  <div class="form-group">
+    <input class="btn btn-success" type="submit" value="Add Cue Point">
+  </div>
+</form>
+<script>
+  $('#AddCuePointForm').submit(function() {
+    var data = new FormData(document.getElementById('AddCuePointForm'));
+     $.ajax({
+       url: '/addCuePoint.php',
+       type: 'POST',
+       data: data,
+       contentType: false,
+       cache: false,
+       processData: false,
+       success: function (data, textStatus, jqXHR) {
+         $('.container').load('listCuePoint.php', JSON.parse(data));
+       }
+     });
+    return false;
+  })
+</script>

@@ -45,6 +45,10 @@ var ANSWERS = {
   captions: {
     entryId: '1_318vzqcr',
     uiConf: 28959921,
+  },
+  cue_points: {
+    entryIdEqual: '1_318vzqcr',
+    uiConf: 28959921,
   }
 }
 var LANGUAGES = ['php', 'javascript']
@@ -59,7 +63,7 @@ describe('sample code', function() {
     if (!Recipes[recipe].broken) {
       var answers = ANSWERS[recipe];
       LANGUAGES.forEach(function(language) {
-        it('should build ' + recipe + ' recipe', function(done) {
+        it('should build ' + recipe + ' recipe for ' + language, function(done) {
           buildCode(recipe, {language: language, answers: answers}, done);
         });
       });

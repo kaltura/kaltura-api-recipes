@@ -1,4 +1,5 @@
 app.controller('Input', function($scope) {
+  $scope.input.label = $scope.input.label || $scope.input.name;
   if ($scope.keys && $scope.input.name in $scope.keys) {
     $scope.model = $scope.keys;
   } else {

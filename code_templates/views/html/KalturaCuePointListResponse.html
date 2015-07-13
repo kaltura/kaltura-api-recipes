@@ -1,0 +1,13 @@
+<h1>Cue Points</h1>
+<hr>
+<lucy if="result.length === 0">
+  <i>No cue points found</i>
+</lucy>
+<lucy for="cuePoint" in="result">
+  <p>
+  {{ cuePoint.cuePointType }} starting at {{ cuePoint.startTime }} milliseconds
+  </p>
+</lucy>
+<lucy include="AddCuePoint"></lucy>
+<hr>
+<lucy include="KalturaMediaEntry" action="getMedia" inputvars="{entryId: answers.entryIdEqual}"></lucy>
