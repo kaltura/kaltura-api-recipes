@@ -1,10 +1,9 @@
 {
   "name": "backend_notifications",
   "title": "Backend and E-mail Notifications",
-  "broken": true,
   "description": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
   "notes": [
-    "NOT IMPLEMENTED"
+    "Can't add templates? Getting \"The access to service [eventnotification_eventnotificationtemplate->add] is forbidden\""
   ],
   "control_sets": [
     {
@@ -23,13 +22,25 @@
           "name": "adminSecret"
         }
       ]
+    }, {
+      "title": "Viewing your Notification Templates",
+      "tip": "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded. Use ```eventNotificationTemplate.list``` to get a list of your current templates.",
+      "affects": "listEventNotificationTemplate",
+      "inputs": []
     }
   ],
+  "pages": [{
+    "view": "KalturaEventNotificationTemplateListResponse",
+    "data": {
+      "action": "listEventNotificationTemplate"
+    }
+  }],
   "views": [
-    "KalturaUser"
+    "KalturaEventNotificationTemplateListResponse",
+    "AddNotificationEvent"
   ],
   "actions": [
-    {"service": "user", "action": "get", "view": "KalturaUser"}
+    {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"}
   ]
 }
 

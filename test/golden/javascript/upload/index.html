@@ -73,6 +73,7 @@
               $('#Uploading').show();
             },
             done: function(e, data) {
+              $('#Uploading').hide();
               $('#UploadDone').html(UploadDone({result: data.result}));
             },
           });
@@ -83,6 +84,12 @@
       <h1>Upload Video</h1>
       <label>Video to Upload</label>
       <input type="file" name="fileData"></input>
+      <div id="Uploading" style="display: none">
+        <div class="alert alert-info">
+          Uploading  
+          <i class="fa fa-spin fa-refresh"></i>
+        </div>
+      </div>
       <div id="UploadDone"></div>
     </script>
     <script type="text/javascript">

@@ -1,0 +1,28 @@
+<form id="AddEventNotificationTemplateForm">
+  <div class="form-group">
+    <label>E-mail Address</label>
+    <input class="form-c" type="text" name="email">
+  </div>
+  <div class="form-group">
+    <input class="btn btn-success" type="submit" value="Add Notification">
+  </div>
+</form>
+<script>
+  $('#AddEventNotificationTemplateForm').submit(function() {
+    var template = new KalturaEventNotificationTemplate();
+    template.type = KalturaEventNotificationTemplateType.EMAIL;
+    template.eventType = KalturaEventNotificationEventType.OBJECT_CREATED;
+    template.eventObjectType = KalturaEventNotificationEventObjectType.ENTRY;
+    template.subject = 'Your video is ready!';
+    var recipient = new KalturaEmailNotificationRecipient();
+    recipient.email = $('input[name="email"]').val();
+    template.to = [recipient];
+    client.eventNotificationTemplate.add(function(success, template) {
+      console.log('added', success, template);
+      listEventNotificationTemplate({}, function(result) {
+        $('.container').html(KalturaEventNotificationTemplateListResponse({result: result}));
+      })
+    }, template);
+    return false;
+  })
+</script>

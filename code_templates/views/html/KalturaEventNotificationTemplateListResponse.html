@@ -1,0 +1,15 @@
+<h1>Notification Templates</h1>
+<hr>
+<lucy for="template" in="result">
+  <h3>{{ template.name }}</h3>
+  <p>Type: {{ template.type }}</p>
+  <p>URL: {{ template.url }}</p>
+  <p>Conditions: </p>
+  <ul>
+    <lucy for="condition" in="template.eventConditions">
+      <li>{{ condition.modifiedColumns }} - {{ condition.description }}</li>
+    </lucy>
+  </ul>
+  <hr>
+</lucy>
+<lucy include="AddNotificationEvent"></lucy>

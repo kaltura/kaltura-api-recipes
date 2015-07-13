@@ -24,19 +24,14 @@
       ]
     }, {
       "title": "Uploading a Video",
-      "tip": "Use an ```<input type=\"file\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\n",
+      "tip": "Use an ```<input type=\"file\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\nYou can use the page below to upload a video or image file. If you don't have a video file handy, you can [download a sample](/charlie-bit-me.mp4)",
       "affects": "UploadForm",
       "inputs": []
     }, {
       "title": "Creating a Media Entry",
-      "tip": "Once the file has been uploaded, use the baseEntry service to create a Media Entry",
+      "tip": "Once the file has been uploaded, use the baseEntry service to create a Media Entry from it.",
       "affects": "addFromUploadedFileBaseEntry",
-      "inputs": [{
-        "type": "text",
-        "label": "Name",
-        "tip": "Give the file a unique name",
-        "name": "name"
-      }]
+      "inputs": []
     }
   ],
   "pages": [
