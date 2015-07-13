@@ -2,6 +2,9 @@
   "name": "authentication",
   "title": "Authentication",
   "description": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
+  "notes": [
+    "Should report an error if the wrong credentials are entered"
+  ],
   "control_sets": [
     {
       "title": "Starting a KalturaSession",
