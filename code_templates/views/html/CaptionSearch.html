@@ -1,0 +1,13 @@
+<h1>Search Results for {{ answers.contentLike }}</h1>
+<hr>
+<lucy for="caption" in="result">
+  <div class="row">
+    <div class="col-xs-4 text-right">
+      <img src="{{ caption.entry.thumbnailUrl }}">
+    </div>
+    <div class="col-xs-7 col-xs-offset-1">
+      <p><i>{{ caption.content }}</i></p>
+    </div>
+  </div>
+  <hr>
+</lucy>

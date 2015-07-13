@@ -1,0 +1,92 @@
+{
+  "name": "captions",
+  "title": "Captions",
+  "description": "Learn how to upload a caption file and perform in-video searches",
+  "notes": [
+    "Captions get attached, but don't show up when the video is played",
+    "PHP upload action not yet implemented"
+  ],
+  "control_sets": [
+    {
+      "title": "Starting a KalturaSession",
+      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+      "affects": "setup",
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ]
+    }, {
+      "title": "Select a Media Entry",
+      "tip": "Choose a video from your library to add captions to, then use the page below to upload an SRT file for that video. If you don't have an SRT file handy, you can [download a sample SRT file here](/sample_captions.srt)",
+      "affects": "getMedia",
+      "inputs": [
+        {
+          "type": "text",
+          "hidden": true,
+          "default": 28959921,
+          "name": "uiConf"
+        },
+        {
+          "type": "select",
+          "label": "Media Entry",
+          "name": "entryId",
+          "dynamicChoices": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          } 
+        }
+      ]
+    }, {
+      "title": "Searching through Captions",
+      "tip": "You can use ```captionAssetItem.search``` to search within your videos",
+      "page": 1,
+      "affects": "searchCaptionAssetItem",
+      "inputs": [{
+        "type": "text",
+        "label": "Query",
+        "default": "support",
+        "name": "contentLike"
+      }]
+    }
+  ],
+  "pages": [
+    {
+      "view": "Captions",
+      "data": {
+        "action": "getMedia"
+      }
+    },
+    {
+      "view": "CaptionSearch",
+      "data": {
+        "action": "searchCaptionAssetItem"
+      }
+    }
+  ],
+  "views": [
+    "Captions",
+    "KalturaMediaEntry",
+    "UploadCaptions",
+    "CaptionUploadDone",
+    "AttachCaptions",
+    "CaptionSearch"
+  ],
+  "actions": [
+    {"service": "media", "action": "get", "view": "Captions"},
+    {"service": "captionAssetItem", "action": "search", "view": "CaptionSearch"},
+    {"action": "attachCaptions"}
+  ]
+}
+

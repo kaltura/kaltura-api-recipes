@@ -4,7 +4,6 @@ app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
 
-  $scope.controlSetIdx = -1;
   $scope.ready = false;
 
   var changeTimeout = null;
@@ -24,6 +23,11 @@ app.controller('Recipe', function($scope) {
     answers = answers && answers.scope() ? answers.scope().answers : {};
     var demoURL = '/recipes/' + $scope.recipe.name + '/embed?'
     var addedOne = false;
+    var curSet = $scope.recipe.control_sets[$('#Answers').scope().controlSetIdx];
+    if (curSet && curSet.page) {
+      addedOne = true;
+      demoURL += 'lucy_page=' + curSet.page;
+    }
     for (key in answers) {
       if (addedOne) demoURL += '&';
       addedOne = true;
@@ -70,8 +74,9 @@ app.controller('Answers', function($scope) {
   $scope.$watch('answers.adminSecret', credentialsChanged);
 
   $scope.setDefaults = function() {
-    $scope.recipe.control_sets.forEach(function(set) {
-    });
+    for (key in $scope.recipe.defaults) {
+      $scope.answers[key] = $scope.recipe.defaults[key];
+    }
     var stored = localStorage.getItem(STORAGE_KEY) || '{}';
     stored = JSON.parse(stored);
     for (key in stored) {
@@ -80,13 +85,13 @@ app.controller('Answers', function($scope) {
   }
   $scope.setDefaults();
 
+  $scope.controlSetIdx = -1;
   $scope.setControlSet = function(controlSetIdx) {
     $scope.controlSetIdx = controlSetIdx;
     if (controlSetIdx >= 0) {
       var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
       if (!curSet.inputs) return;
       curSet.inputs.forEach(function(input) {
-        console.log('input', input);
         if (input.type === 'group') {
           input.inputs.forEach(function(input) {
             if (input.default) $scope.answers[input.name] = input.default;

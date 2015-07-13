@@ -7,6 +7,15 @@
           ng-model="model[input.name]")
     span.help-block(ng-if="input.tip") {{ input.tip }}
 
+  .form-group(ng-if="input.type === 'select'", ng-controller="Radio")
+    label
+      span {{input.label}}
+    select.form-control(
+        ng-model="model[input.name]"
+        ng-change="onAnswerChanged()")
+      option(ng-repeat="choice in input.choices" ng-value="choice.value") {{choice.label}}
+
+
   .form-group(ng-if="input.type === 'radio'", ng-controller="Radio")
     label
       span {{input.label}}

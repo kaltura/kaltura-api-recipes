@@ -11,48 +11,9 @@ var Recipes = require('../recipes/recipes.js');
 
 var CodeTemplates = require('../code_templates/code-templates.js');
 var SchemaXML = FS.readFileSync(Path.join(__dirname, '../api_schema.xml'), 'utf8');
-var Schema = null;
+var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
-
-XMLParser(SchemaXML, function(err, result) {
-  if (err) throw err;
-  result = result.xml;
-  Schema = {classes: {}, services: {}};
-
-  result.services[0].service.forEach(function(service) {
-    var serviceJS = Schema.services[service.$.name] = {actions: {}};
-    var actions = service.action;
-    actions.forEach(function(action) {
-      var actionJS = serviceJS.actions[action.$.name] = {parameters: {}};
-      if (!action.param) return;
-      action.param.forEach(function(param) {
-        var paramJS = actionJS.parameters[param.$.name] = {type: param.$.type};
-      });
-    });
-  });
-
-  result.classes[0].class.forEach(function(cls) {
-    var classJS = Schema.classes[cls.$.name] = {properties: {}};
-    var props = cls.property || [];
-    if (cls.$.base) {
-      var copyBaseProps = function(baseName) {
-        var baseClass = result.classes[0].class.filter(function(baseClass) {return baseName === baseClass.$.name })[0];
-        if (baseClass.property) props = props.concat(baseClass.property);
-        if (baseClass.$.base) copyBaseProps(baseClass.$.base);
-      }
-      copyBaseProps(cls.$.base);
-    }
-    props.forEach(function(prop) {
-      var propJS = classJS.properties[prop.$.name] = {};
-      if (prop.$.type.indexOf('Kaltura') === 0) {
-        propJS.$ref = '#/classes/' + prop.$.type;
-      } else {
-        propJS.type = prop.$.type;
-      }
-    });
-  });
-});
 
 Router.use(require('body-parser').json());
 
@@ -80,6 +41,7 @@ Router.post('/:recipe/code', function(req, res) {
 Router.get('/:recipe/embed', function(req, res) {
   req.body = req.body || {};
   req.body.language = 'javascript';
+  req.body.page = req.query.lucy_page;
   req.body.answers = {};
   for (key in req.query) {
     req.body.answers[key] = JSON.parse(req.query[key]);
@@ -98,20 +60,20 @@ var buildRecipe = function(req, res, callback) {
   CodeBuilders.RecipeV2.fixAnswers(req.body.answers, function(err, answers) {
     if (err) return res.status(500).send('Error parsing answers');
     var buildParams = {answers: answers, actions: {}, views: {}};
-    buildParams.main = recipe.pages[0];
+    buildParams.main = recipe.pages[req.body.page || 0];
     buildParams.language = language;
     actions.forEach(function(action) {
-      var actionTmpl = CodeTemplates.actions[language] ? CodeTemplates.actions[language][action.action] : null;
+      var actionTmpl = CodeTemplates.actions[action.action] ? CodeTemplates.actions[action.action][language] : null;
       if (!actionTmpl && action.service) {
+        var actionKey = action.action.indexOf('Action') === -1 ? action.action
+              : action.action.substring(0, action.action.length - 6);
+        var actionSchema = Schema.services[action.service].actions[actionKey];
         var codeParams = {
           parameters: [],
           service: action.service,
           action: action.action,
-          returns: action.action === 'listAction' ? 'list' : 'object',
+          returns: actionSchema.returns && actionSchema.returns.indexOf('ListResponse') !== -1 ? 'list' : 'object',
         }
-        var actionKey = action.action.indexOf('Action') === -1 ? action.action
-              : action.action.substring(0, action.action.length - 6);
-        var actionSchema = Schema.services[action.service].actions[actionKey];
         for (parameter in actionSchema.parameters) {
           var type = actionSchema.parameters[parameter].type;
           var paramObject = {name: parameter, class: type}

@@ -11,3 +11,9 @@ block body
           h3
             a(href="/recipes/#{recipeName}") #{recipe.title}
           p #{recipe.description}
+          if recipe.notes
+            p
+              b Issues:
+            each note in recipe.notes
+              p
+                i #{note}

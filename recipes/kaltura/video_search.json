@@ -2,6 +2,9 @@
   "name": "video_search",
   "title": "Video Search",
   "description": "Learn how to search through your video library using Kaltura's API",
+  "defaults": {
+    "uiConf": 28959921
+  },
   "control_sets": [
     {
       "inputs": [
@@ -89,7 +92,7 @@
               "label": "Player with no share button"
             }
           ],
-          "default": 27723522,
+          "default": 28959921,
           "type": "radio",
           "label": "UI Configuration ID",
           "name": "uiConf",

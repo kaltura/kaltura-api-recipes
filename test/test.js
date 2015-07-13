@@ -16,6 +16,7 @@ var AUTH_ANSWERS = {
 }
 
 var buildCode = function(recipe, data, done) {
+  console.log('answers', data);
   data.answers = data.answers || {};
   Util._extend(data.answers, AUTH_ANSWERS);
   Request.post({
@@ -35,12 +36,16 @@ var buildCode = function(recipe, data, done) {
   });
 }
 
-var RECIPES = Object.keys(require('../recipes/recipes.js'));
+var Recipes = require('../recipes/recipes.js');
 var ANSWERS = {
   analytics: {
     reportType: 5,
     fromDay: '2015-07-01',
     toDay: '2015-07-10',
+  },
+  captions: {
+    entryId: '1_318vzqcr',
+    uiConf: 28959921,
   }
 }
 
@@ -50,9 +55,13 @@ describe('sample code', function() {
     done();
   });
 
-  RECIPES.forEach(function(recipe) {
-    it('should build ' + recipe + ' recipe', function(done) {
-      buildCode(recipe, {language: 'php', answers: ANSWERS[recipe]}, done);
-    });
+  Object.keys(Recipes).forEach(function(recipe) {
+    if (!Recipes[recipe].broken) {
+      var answers = ANSWERS[recipe];
+      it('should build ' + recipe + ' recipe', function(done) {
+        console.log('ans', recipe, answers);
+        buildCode(recipe, {language: 'php', answers: answers}, done);
+      });
+    }
   });
 })
