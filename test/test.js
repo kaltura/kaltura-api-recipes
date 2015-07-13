@@ -16,7 +16,6 @@ var AUTH_ANSWERS = {
 }
 
 var buildCode = function(recipe, data, done) {
-  console.log('answers', data);
   data.answers = data.answers || {};
   Util._extend(data.answers, AUTH_ANSWERS);
   Request.post({
@@ -59,7 +58,6 @@ describe('sample code', function() {
     if (!Recipes[recipe].broken) {
       var answers = ANSWERS[recipe];
       it('should build ' + recipe + ' recipe', function(done) {
-        console.log('ans', recipe, answers);
         buildCode(recipe, {language: 'php', answers: answers}, done);
       });
     }
