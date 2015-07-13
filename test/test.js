@@ -47,6 +47,7 @@ var ANSWERS = {
     uiConf: 28959921,
   }
 }
+var LANGUAGES = ['php', 'javascript']
 
 describe('sample code', function() {
   before(function(done) {
@@ -57,8 +58,10 @@ describe('sample code', function() {
   Object.keys(Recipes).forEach(function(recipe) {
     if (!Recipes[recipe].broken) {
       var answers = ANSWERS[recipe];
-      it('should build ' + recipe + ' recipe', function(done) {
-        buildCode(recipe, {language: 'php', answers: answers}, done);
+      LANGUAGES.forEach(function(language) {
+        it('should build ' + recipe + ' recipe', function(done) {
+          buildCode(recipe, {language: language, answers: answers}, done);
+        });
       });
     }
   });
