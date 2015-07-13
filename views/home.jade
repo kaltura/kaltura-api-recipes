@@ -5,13 +5,14 @@ block body
   .container
     h1 Kaltura Recipes
     hr
-    .row
-      each recipe, recipeName in recipes
+    each recipe, recipeName in recipes
+      .row
         .col-xs-12
           h3
-            a(href="/recipes/#{recipeName}") #{recipe.title}
             if recipe.broken
-              b &nbsp;(In Progress)
+              span #{recipe.title} (In Progress)
+            else
+              a(href="/recipes/#{recipeName}") #{recipe.title}
           p #{recipe.description}
           if recipe.notes
             p
@@ -19,3 +20,5 @@ block body
             each note in recipe.notes
               p
                 i #{note}
+      hr
+
