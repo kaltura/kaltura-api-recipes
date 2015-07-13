@@ -1,0 +1,44 @@
+{
+  "name": "leaderboard_reports",
+  "title": "Leaderboard Reports",
+  "broken": true,
+  "description": "Learn how to use the API to find your most liked and most watched videos",
+  "notes": [
+    "NOT IMPLEMENTED",
+    "What API calls need to be made to get this info?"
+  ],
+  "control_sets": [
+    {
+      "title": "Starting a KalturaSession",
+      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+      "affects": "setup",
+      "inputs": [
+        {
+          "type": "number",
+          "label": "Partner ID",
+          "name": "partnerId"
+        },
+        {
+          "type": "text",
+          "label": "Admin Secret",
+          "name": "adminSecret"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "view": "KalturaUser",
+      "data": {
+        "action": "getUser"
+      }
+    }
+  ],
+  "views": [
+    "KalturaUser"
+  ],
+  "actions": [
+    {"service": "user", "action": "get", "view": "KalturaUser"}
+  ]
+}
+

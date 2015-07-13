@@ -10,6 +10,8 @@ block body
         .col-xs-12
           h3
             a(href="/recipes/#{recipeName}") #{recipe.title}
+            if recipe.broken
+              b &nbsp;(In Progress)
           p #{recipe.description}
           if recipe.notes
             p
