@@ -26,6 +26,12 @@
 // @ignore
 // ===================================================================================================
 
+function KalturaAppTokenStatus(){
+}
+KalturaAppTokenStatus.DISABLED = 1;
+KalturaAppTokenStatus.ACTIVE = 2;
+KalturaAppTokenStatus.DELETED = 3;
+
 function KalturaAppearInListType(){
 }
 KalturaAppearInListType.PARTNER_ONLY = 1;
@@ -59,31 +65,6 @@ KalturaAttachmentAssetStatus.READY = 2;
 KalturaAttachmentAssetStatus.DELETED = 3;
 KalturaAttachmentAssetStatus.IMPORTING = 7;
 KalturaAttachmentAssetStatus.EXPORTING = 9;
-
-function KalturaAuditTrailChangeXmlNodeType(){
-}
-KalturaAuditTrailChangeXmlNodeType.CHANGED = 1;
-KalturaAuditTrailChangeXmlNodeType.ADDED = 2;
-KalturaAuditTrailChangeXmlNodeType.REMOVED = 3;
-
-function KalturaAuditTrailContext(){
-}
-KalturaAuditTrailContext.CLIENT = -1;
-KalturaAuditTrailContext.SCRIPT = 0;
-KalturaAuditTrailContext.PS2 = 1;
-KalturaAuditTrailContext.API_V3 = 2;
-
-function KalturaAuditTrailFileSyncType(){
-}
-KalturaAuditTrailFileSyncType.FILE = 1;
-KalturaAuditTrailFileSyncType.LINK = 2;
-KalturaAuditTrailFileSyncType.URL = 3;
-
-function KalturaAuditTrailStatus(){
-}
-KalturaAuditTrailStatus.PENDING = 1;
-KalturaAuditTrailStatus.READY = 2;
-KalturaAuditTrailStatus.FAILED = 3;
 
 function KalturaBatchJobErrorTypes(){
 }
@@ -281,22 +262,6 @@ KalturaDocumentType.DOCUMENT = 11;
 KalturaDocumentType.SWF = 12;
 KalturaDocumentType.PDF = 13;
 
-function KalturaDrmLicenseExpirationPolicy(){
-}
-KalturaDrmLicenseExpirationPolicy.FIXED_DURATION = 1;
-KalturaDrmLicenseExpirationPolicy.ENTRY_SCHEDULING_END = 2;
-KalturaDrmLicenseExpirationPolicy.UNLIMITED = 3;
-
-function KalturaDrmPolicyStatus(){
-}
-KalturaDrmPolicyStatus.ACTIVE = 1;
-KalturaDrmPolicyStatus.DELETED = 2;
-
-function KalturaDrmProfileStatus(){
-}
-KalturaDrmProfileStatus.ACTIVE = 1;
-KalturaDrmProfileStatus.DELETED = 2;
-
 function KalturaDropFolderContentFileHandlerMatchPolicy(){
 }
 KalturaDropFolderContentFileHandlerMatchPolicy.ADD_AS_NEW = 1;
@@ -333,6 +298,12 @@ KalturaDropFolderStatus.DISABLED = 0;
 KalturaDropFolderStatus.ENABLED = 1;
 KalturaDropFolderStatus.DELETED = 2;
 KalturaDropFolderStatus.ERROR = 3;
+
+function KalturaEdgeServerStatus(){
+}
+KalturaEdgeServerStatus.ACTIVE = 1;
+KalturaEdgeServerStatus.DISABLED = 2;
+KalturaEdgeServerStatus.DELETED = 3;
 
 function KalturaEditorType(){
 }
@@ -668,43 +639,6 @@ KalturaPermissionType.SPECIAL_FEATURE = 2;
 KalturaPermissionType.PLUGIN = 3;
 KalturaPermissionType.PARTNER_GROUP = 4;
 
-function KalturaPlayReadyAnalogVideoOPL(){
-}
-KalturaPlayReadyAnalogVideoOPL.MIN_100 = 100;
-KalturaPlayReadyAnalogVideoOPL.MIN_150 = 150;
-KalturaPlayReadyAnalogVideoOPL.MIN_200 = 200;
-
-function KalturaPlayReadyCompressedDigitalVideoOPL(){
-}
-KalturaPlayReadyCompressedDigitalVideoOPL.MIN_400 = 400;
-KalturaPlayReadyCompressedDigitalVideoOPL.MIN_500 = 500;
-
-function KalturaPlayReadyDigitalAudioOPL(){
-}
-KalturaPlayReadyDigitalAudioOPL.MIN_100 = 100;
-KalturaPlayReadyDigitalAudioOPL.MIN_150 = 150;
-KalturaPlayReadyDigitalAudioOPL.MIN_200 = 200;
-KalturaPlayReadyDigitalAudioOPL.MIN_250 = 250;
-KalturaPlayReadyDigitalAudioOPL.MIN_300 = 300;
-
-function KalturaPlayReadyLicenseRemovalPolicy(){
-}
-KalturaPlayReadyLicenseRemovalPolicy.FIXED_FROM_EXPIRATION = 1;
-KalturaPlayReadyLicenseRemovalPolicy.ENTRY_SCHEDULING_END = 2;
-KalturaPlayReadyLicenseRemovalPolicy.NONE = 3;
-
-function KalturaPlayReadyMinimumLicenseSecurityLevel(){
-}
-KalturaPlayReadyMinimumLicenseSecurityLevel.NON_COMMERCIAL_QUALITY = 150;
-KalturaPlayReadyMinimumLicenseSecurityLevel.COMMERCIAL_QUALITY = 2000;
-
-function KalturaPlayReadyUncompressedDigitalVideoOPL(){
-}
-KalturaPlayReadyUncompressedDigitalVideoOPL.MIN_100 = 100;
-KalturaPlayReadyUncompressedDigitalVideoOPL.MIN_250 = 250;
-KalturaPlayReadyUncompressedDigitalVideoOPL.MIN_270 = 270;
-KalturaPlayReadyUncompressedDigitalVideoOPL.MIN_300 = 300;
-
 function KalturaPlaylistType(){
 }
 KalturaPlaylistType.STATIC_LIST = 3;
@@ -722,32 +656,6 @@ function KalturaRecordStatus(){
 KalturaRecordStatus.DISABLED = 0;
 KalturaRecordStatus.APPENDED = 1;
 KalturaRecordStatus.PER_SESSION = 2;
-
-function KalturaReportType(){
-}
-KalturaReportType.TOP_CONTENT = 1;
-KalturaReportType.CONTENT_DROPOFF = 2;
-KalturaReportType.CONTENT_INTERACTIONS = 3;
-KalturaReportType.MAP_OVERLAY = 4;
-KalturaReportType.TOP_CONTRIBUTORS = 5;
-KalturaReportType.TOP_SYNDICATION = 6;
-KalturaReportType.CONTENT_CONTRIBUTIONS = 7;
-KalturaReportType.USER_ENGAGEMENT = 11;
-KalturaReportType.SPEFICIC_USER_ENGAGEMENT = 12;
-KalturaReportType.USER_TOP_CONTENT = 13;
-KalturaReportType.USER_CONTENT_DROPOFF = 14;
-KalturaReportType.USER_CONTENT_INTERACTIONS = 15;
-KalturaReportType.APPLICATIONS = 16;
-KalturaReportType.USER_USAGE = 17;
-KalturaReportType.SPECIFIC_USER_USAGE = 18;
-KalturaReportType.VAR_USAGE = 19;
-KalturaReportType.TOP_CREATORS = 20;
-KalturaReportType.PLATFORMS = 21;
-KalturaReportType.OPERATION_SYSTEM = 22;
-KalturaReportType.BROWSERS = 23;
-KalturaReportType.LIVE = 24;
-KalturaReportType.TOP_PLAYBACK_CONTEXT = 25;
-KalturaReportType.PARTNER_USAGE = 201;
 
 function KalturaResponseProfileStatus(){
 }
@@ -964,6 +872,13 @@ KalturaStorageProfileStatus.DISABLED = 1;
 KalturaStorageProfileStatus.AUTOMATIC = 2;
 KalturaStorageProfileStatus.MANUAL = 3;
 
+function KalturaStorageServePriority(){
+}
+KalturaStorageServePriority.KALTURA_ONLY = 1;
+KalturaStorageServePriority.KALTURA_FIRST = 2;
+KalturaStorageServePriority.EXTERNAL_FIRST = 3;
+KalturaStorageServePriority.EXTERNAL_ONLY = 4;
+
 function KalturaSyndicationFeedStatus(){
 }
 KalturaSyndicationFeedStatus.DELETED = -1;
@@ -1000,6 +915,15 @@ function KalturaThumbCuePointSubType(){
 }
 KalturaThumbCuePointSubType.SLIDE = 1;
 KalturaThumbCuePointSubType.CHAPTER = 2;
+
+function KalturaTrackEntryEventType(){
+}
+KalturaTrackEntryEventType.UPLOADED_FILE = 1;
+KalturaTrackEntryEventType.WEBCAM_COMPLETED = 2;
+KalturaTrackEntryEventType.IMPORT_STARTED = 3;
+KalturaTrackEntryEventType.ADD_ENTRY = 4;
+KalturaTrackEntryEventType.UPDATE_ENTRY = 5;
+KalturaTrackEntryEventType.DELETED_ENTRY = 6;
 
 function KalturaUiConfCreationMode(){
 }
@@ -1098,14 +1022,19 @@ KalturaVirusScanProfileStatus.DISABLED = 1;
 KalturaVirusScanProfileStatus.ENABLED = 2;
 KalturaVirusScanProfileStatus.DELETED = 3;
 
-function KalturaWidevineRepositorySyncMode(){
-}
-KalturaWidevineRepositorySyncMode.MODIFY = 0;
-
 function KalturaWidgetSecurityType(){
 }
 KalturaWidgetSecurityType.NONE = 1;
 KalturaWidgetSecurityType.TIMEHASH = 2;
+
+function KalturaAccessControlActionType(){
+}
+KalturaAccessControlActionType.BLOCK = "1";
+KalturaAccessControlActionType.PREVIEW = "2";
+KalturaAccessControlActionType.LIMIT_FLAVORS = "3";
+KalturaAccessControlActionType.ADD_TO_STORAGE = "4";
+KalturaAccessControlActionType.LIMIT_DELIVERY_PROFILES = "5";
+KalturaAccessControlActionType.SERVE_FROM_REMOTE_SERVER = "6";
 
 function KalturaAccessControlOrderBy(){
 }
@@ -1118,18 +1047,6 @@ KalturaAccessControlProfileOrderBy.CREATED_AT_ASC = "+createdAt";
 KalturaAccessControlProfileOrderBy.UPDATED_AT_ASC = "+updatedAt";
 KalturaAccessControlProfileOrderBy.CREATED_AT_DESC = "-createdAt";
 KalturaAccessControlProfileOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaActivitiBusinessProcessServerOrderBy(){
-}
-KalturaActivitiBusinessProcessServerOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaActivitiBusinessProcessServerOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaActivitiBusinessProcessServerOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaActivitiBusinessProcessServerOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaActivitiBusinessProcessServerProtocol(){
-}
-KalturaActivitiBusinessProcessServerProtocol.HTTP = "http";
-KalturaActivitiBusinessProcessServerProtocol.HTTPS = "https";
 
 function KalturaAdCuePointOrderBy(){
 }
@@ -1203,6 +1120,19 @@ KalturaAnnotationOrderBy.START_TIME_DESC = "-startTime";
 KalturaAnnotationOrderBy.TRIGGERED_AT_DESC = "-triggeredAt";
 KalturaAnnotationOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
+function KalturaAnswerCuePointOrderBy(){
+}
+KalturaAnswerCuePointOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaAnswerCuePointOrderBy.PARTNER_SORT_VALUE_ASC = "+partnerSortValue";
+KalturaAnswerCuePointOrderBy.START_TIME_ASC = "+startTime";
+KalturaAnswerCuePointOrderBy.TRIGGERED_AT_ASC = "+triggeredAt";
+KalturaAnswerCuePointOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaAnswerCuePointOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaAnswerCuePointOrderBy.PARTNER_SORT_VALUE_DESC = "-partnerSortValue";
+KalturaAnswerCuePointOrderBy.START_TIME_DESC = "-startTime";
+KalturaAnswerCuePointOrderBy.TRIGGERED_AT_DESC = "-triggeredAt";
+KalturaAnswerCuePointOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
 function KalturaApiActionPermissionItemOrderBy(){
 }
 KalturaApiActionPermissionItemOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -1227,6 +1157,13 @@ KalturaApiParameterPermissionItemOrderBy.UPDATED_AT_ASC = "+updatedAt";
 KalturaApiParameterPermissionItemOrderBy.CREATED_AT_DESC = "-createdAt";
 KalturaApiParameterPermissionItemOrderBy.ID_DESC = "-id";
 KalturaApiParameterPermissionItemOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
+function KalturaAppTokenOrderBy(){
+}
+KalturaAppTokenOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaAppTokenOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaAppTokenOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaAppTokenOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaAssetOrderBy(){
 }
@@ -1254,7 +1191,6 @@ KalturaAssetType.IMAGE = "document.Image";
 KalturaAssetType.PDF = "document.PDF";
 KalturaAssetType.SWF = "document.SWF";
 KalturaAssetType.TIMED_THUMB_ASSET = "thumbCuePoint.timedThumb";
-KalturaAssetType.WIDEVINE_FLAVOR = "widevine.WidevineFlavor";
 KalturaAssetType.FLAVOR = "1";
 KalturaAssetType.THUMBNAIL = "2";
 KalturaAssetType.LIVE = "3";
@@ -1290,58 +1226,6 @@ KalturaAudioCodec.PCM = "pcm";
 KalturaAudioCodec.VORBIS = "vorbis";
 KalturaAudioCodec.WMA = "wma";
 KalturaAudioCodec.WMAPRO = "wmapro";
-
-function KalturaAuditTrailAction(){
-}
-KalturaAuditTrailAction.CHANGED = "CHANGED";
-KalturaAuditTrailAction.CONTENT_VIEWED = "CONTENT_VIEWED";
-KalturaAuditTrailAction.COPIED = "COPIED";
-KalturaAuditTrailAction.CREATED = "CREATED";
-KalturaAuditTrailAction.DELETED = "DELETED";
-KalturaAuditTrailAction.FILE_SYNC_CREATED = "FILE_SYNC_CREATED";
-KalturaAuditTrailAction.RELATION_ADDED = "RELATION_ADDED";
-KalturaAuditTrailAction.RELATION_REMOVED = "RELATION_REMOVED";
-KalturaAuditTrailAction.VIEWED = "VIEWED";
-
-function KalturaAuditTrailObjectType(){
-}
-KalturaAuditTrailObjectType.BATCH_JOB = "BatchJob";
-KalturaAuditTrailObjectType.EMAIL_INGESTION_PROFILE = "EmailIngestionProfile";
-KalturaAuditTrailObjectType.FILE_SYNC = "FileSync";
-KalturaAuditTrailObjectType.KSHOW_KUSER = "KshowKuser";
-KalturaAuditTrailObjectType.METADATA = "Metadata";
-KalturaAuditTrailObjectType.METADATA_PROFILE = "MetadataProfile";
-KalturaAuditTrailObjectType.PARTNER = "Partner";
-KalturaAuditTrailObjectType.PERMISSION = "Permission";
-KalturaAuditTrailObjectType.UPLOAD_TOKEN = "UploadToken";
-KalturaAuditTrailObjectType.USER_LOGIN_DATA = "UserLoginData";
-KalturaAuditTrailObjectType.USER_ROLE = "UserRole";
-KalturaAuditTrailObjectType.ACCESS_CONTROL = "accessControl";
-KalturaAuditTrailObjectType.CATEGORY = "category";
-KalturaAuditTrailObjectType.CONVERSION_PROFILE_2 = "conversionProfile2";
-KalturaAuditTrailObjectType.ENTRY = "entry";
-KalturaAuditTrailObjectType.FLAVOR_ASSET = "flavorAsset";
-KalturaAuditTrailObjectType.FLAVOR_PARAMS = "flavorParams";
-KalturaAuditTrailObjectType.FLAVOR_PARAMS_CONVERSION_PROFILE = "flavorParamsConversionProfile";
-KalturaAuditTrailObjectType.FLAVOR_PARAMS_OUTPUT = "flavorParamsOutput";
-KalturaAuditTrailObjectType.KSHOW = "kshow";
-KalturaAuditTrailObjectType.KUSER = "kuser";
-KalturaAuditTrailObjectType.MEDIA_INFO = "mediaInfo";
-KalturaAuditTrailObjectType.MODERATION = "moderation";
-KalturaAuditTrailObjectType.ROUGHCUT = "roughcutEntry";
-KalturaAuditTrailObjectType.SYNDICATION = "syndicationFeed";
-KalturaAuditTrailObjectType.THUMBNAIL_ASSET = "thumbAsset";
-KalturaAuditTrailObjectType.THUMBNAIL_PARAMS = "thumbParams";
-KalturaAuditTrailObjectType.THUMBNAIL_PARAMS_OUTPUT = "thumbParamsOutput";
-KalturaAuditTrailObjectType.UI_CONF = "uiConf";
-KalturaAuditTrailObjectType.WIDGET = "widget";
-
-function KalturaAuditTrailOrderBy(){
-}
-KalturaAuditTrailOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaAuditTrailOrderBy.PARSED_AT_ASC = "+parsedAt";
-KalturaAuditTrailOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaAuditTrailOrderBy.PARSED_AT_DESC = "-parsedAt";
 
 function KalturaBaseEntryOrderBy(){
 }
@@ -1381,18 +1265,6 @@ KalturaBaseSyndicationFeedOrderBy.PLAYLIST_ID_DESC = "-playlistId";
 KalturaBaseSyndicationFeedOrderBy.TYPE_DESC = "-type";
 KalturaBaseSyndicationFeedOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
-function KalturaBatchJobObjectType(){
-}
-KalturaBatchJobObjectType.ENTRY_DISTRIBUTION = "contentDistribution.EntryDistribution";
-KalturaBatchJobObjectType.DROP_FOLDER_FILE = "dropFolderXmlBulkUpload.DropFolderFile";
-KalturaBatchJobObjectType.METADATA = "metadata.Metadata";
-KalturaBatchJobObjectType.METADATA_PROFILE = "metadata.MetadataProfile";
-KalturaBatchJobObjectType.SCHEDULED_TASK_PROFILE = "scheduledTask.ScheduledTaskProfile";
-KalturaBatchJobObjectType.ENTRY = "1";
-KalturaBatchJobObjectType.CATEGORY = "2";
-KalturaBatchJobObjectType.FILE_SYNC = "3";
-KalturaBatchJobObjectType.ASSET = "4";
-
 function KalturaBatchJobOrderBy(){
 }
 KalturaBatchJobOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -1416,24 +1288,23 @@ KalturaBatchJobOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaBatchJobType(){
 }
+KalturaBatchJobType.CONVERT = "0";
+KalturaBatchJobType.PARSE_MULTI_LANGUAGE_CAPTION_ASSET = "caption.parsemultilanguagecaptionasset";
 KalturaBatchJobType.PARSE_CAPTION_ASSET = "captionSearch.parseCaptionAsset";
 KalturaBatchJobType.DISTRIBUTION_DELETE = "contentDistribution.DistributionDelete";
 KalturaBatchJobType.DISTRIBUTION_DISABLE = "contentDistribution.DistributionDisable";
 KalturaBatchJobType.DISTRIBUTION_ENABLE = "contentDistribution.DistributionEnable";
 KalturaBatchJobType.DISTRIBUTION_FETCH_REPORT = "contentDistribution.DistributionFetchReport";
-KalturaBatchJobType.CONVERT = "0";
 KalturaBatchJobType.DISTRIBUTION_SUBMIT = "contentDistribution.DistributionSubmit";
 KalturaBatchJobType.DISTRIBUTION_SYNC = "contentDistribution.DistributionSync";
 KalturaBatchJobType.DISTRIBUTION_UPDATE = "contentDistribution.DistributionUpdate";
 KalturaBatchJobType.DROP_FOLDER_CONTENT_PROCESSOR = "dropFolder.DropFolderContentProcessor";
 KalturaBatchJobType.DROP_FOLDER_WATCHER = "dropFolder.DropFolderWatcher";
 KalturaBatchJobType.EVENT_NOTIFICATION_HANDLER = "eventNotification.EventNotificationHandler";
-KalturaBatchJobType.INTEGRATION = "integration.Integration";
 KalturaBatchJobType.SCHEDULED_TASK = "scheduledTask.ScheduledTask";
 KalturaBatchJobType.INDEX_TAGS = "tagSearch.IndexTagsByPrivacyContext";
 KalturaBatchJobType.TAG_RESOLVE = "tagSearch.TagResolve";
 KalturaBatchJobType.VIRUS_SCAN = "virusScan.VirusScan";
-KalturaBatchJobType.WIDEVINE_REPOSITORY_SYNC = "widevine.WidevineRepositorySync";
 KalturaBatchJobType.IMPORT = "1";
 KalturaBatchJobType.DELETE = "2";
 KalturaBatchJobType.FLATTEN = "3";
@@ -1470,6 +1341,7 @@ KalturaBatchJobType.COPY_PARTNER = "37";
 KalturaBatchJobType.VALIDATE_LIVE_MEDIA_SERVERS = "38";
 KalturaBatchJobType.SYNC_CATEGORY_PRIVACY_CONTEXT = "39";
 KalturaBatchJobType.LIVE_REPORT_EXPORT = "40";
+KalturaBatchJobType.RECALCULATE_CACHE = "41";
 
 function KalturaBulkUploadAction(){
 }
@@ -1511,59 +1383,6 @@ KalturaBulkUploadType.CSV = "bulkUploadCsv.CSV";
 KalturaBulkUploadType.FILTER = "bulkUploadFilter.FILTER";
 KalturaBulkUploadType.XML = "bulkUploadXml.XML";
 KalturaBulkUploadType.DROP_FOLDER_XML = "dropFolderXmlBulkUpload.DROP_FOLDER_XML";
-
-function KalturaBusinessProcessAbortNotificationTemplateOrderBy(){
-}
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.ID_ASC = "+id";
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.ID_DESC = "-id";
-KalturaBusinessProcessAbortNotificationTemplateOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaBusinessProcessNotificationTemplateOrderBy(){
-}
-KalturaBusinessProcessNotificationTemplateOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaBusinessProcessNotificationTemplateOrderBy.ID_ASC = "+id";
-KalturaBusinessProcessNotificationTemplateOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaBusinessProcessNotificationTemplateOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaBusinessProcessNotificationTemplateOrderBy.ID_DESC = "-id";
-KalturaBusinessProcessNotificationTemplateOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaBusinessProcessProvider(){
-}
-KalturaBusinessProcessProvider.ACTIVITI = "activitiBusinessProcessNotification.Activiti";
-
-function KalturaBusinessProcessServerOrderBy(){
-}
-KalturaBusinessProcessServerOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaBusinessProcessServerOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaBusinessProcessServerOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaBusinessProcessServerOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaBusinessProcessServerStatus(){
-}
-KalturaBusinessProcessServerStatus.DISABLED = "1";
-KalturaBusinessProcessServerStatus.ENABLED = "2";
-KalturaBusinessProcessServerStatus.DELETED = "3";
-
-function KalturaBusinessProcessSignalNotificationTemplateOrderBy(){
-}
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.ID_ASC = "+id";
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.ID_DESC = "-id";
-KalturaBusinessProcessSignalNotificationTemplateOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaBusinessProcessStartNotificationTemplateOrderBy(){
-}
-KalturaBusinessProcessStartNotificationTemplateOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaBusinessProcessStartNotificationTemplateOrderBy.ID_ASC = "+id";
-KalturaBusinessProcessStartNotificationTemplateOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaBusinessProcessStartNotificationTemplateOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaBusinessProcessStartNotificationTemplateOrderBy.ID_DESC = "-id";
-KalturaBusinessProcessStartNotificationTemplateOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaCaptionAssetOrderBy(){
 }
@@ -1650,7 +1469,6 @@ KalturaCodeCuePointOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaConditionType(){
 }
-KalturaConditionType.ABC_WATERMARK = "abcScreenersWatermarkAccessControl.abcWatermark";
 KalturaConditionType.EVENT_NOTIFICATION_FIELD = "eventNotification.BooleanField";
 KalturaConditionType.EVENT_NOTIFICATION_OBJECT_CHANGED = "eventNotification.ObjectChanged";
 KalturaConditionType.METADATA_FIELD_CHANGED = "metadata.FieldChanged";
@@ -1667,6 +1485,8 @@ KalturaConditionType.ASSET_PROPERTIES_COMPARE = "8";
 KalturaConditionType.USER_ROLE = "9";
 KalturaConditionType.GEO_DISTANCE = "10";
 KalturaConditionType.OR_OPERATOR = "11";
+KalturaConditionType.HASH = "12";
+KalturaConditionType.DELIVERY_PROFILE = "13";
 
 function KalturaConfigurableDistributionProfileOrderBy(){
 }
@@ -1684,6 +1504,7 @@ KalturaContainerFormat.BMP = "bmp";
 KalturaContainerFormat.COPY = "copy";
 KalturaContainerFormat.FLV = "flv";
 KalturaContainerFormat.HLS = "hls";
+KalturaContainerFormat.ISMA = "isma";
 KalturaContainerFormat.ISMV = "ismv";
 KalturaContainerFormat.JPG = "jpg";
 KalturaContainerFormat.M2TS = "m2ts";
@@ -1713,6 +1534,7 @@ KalturaContextType.DOWNLOAD = "2";
 KalturaContextType.THUMBNAIL = "3";
 KalturaContextType.METADATA = "4";
 KalturaContextType.EXPORT = "5";
+KalturaContextType.SERVE = "6";
 
 function KalturaControlPanelCommandOrderBy(){
 }
@@ -1759,6 +1581,8 @@ KalturaCuePointType.AD = "adCuePoint.Ad";
 KalturaCuePointType.ANNOTATION = "annotation.Annotation";
 KalturaCuePointType.CODE = "codeCuePoint.Code";
 KalturaCuePointType.EVENT = "eventCuePoint.Event";
+KalturaCuePointType.QUIZ_ANSWER = "quiz.QUIZ_ANSWER";
+KalturaCuePointType.QUIZ_QUESTION = "quiz.QUIZ_QUESTION";
 KalturaCuePointType.THUMB = "thumbCuePoint.Thumb";
 
 function KalturaDataEntryOrderBy(){
@@ -1868,8 +1692,6 @@ function KalturaDeliveryProfileType(){
 KalturaDeliveryProfileType.EDGE_CAST_HTTP = "edgeCast.EDGE_CAST_HTTP";
 KalturaDeliveryProfileType.EDGE_CAST_RTMP = "edgeCast.EDGE_CAST_RTMP";
 KalturaDeliveryProfileType.KONTIKI_HTTP = "kontiki.KONTIKI_HTTP";
-KalturaDeliveryProfileType.UPLYNK_HTTP = "uplynk.UPLYNK_HTTP";
-KalturaDeliveryProfileType.UPLYNK_RTMP = "uplynk.UPLYNK_RTMP";
 KalturaDeliveryProfileType.VELOCIX_HDS = "velocix.VELOCIX_HDS";
 KalturaDeliveryProfileType.VELOCIX_HLS = "velocix.VELOCIX_HLS";
 KalturaDeliveryProfileType.APPLE_HTTP = "1";
@@ -1910,6 +1732,7 @@ KalturaDeliveryProfileType.LIVE_HLS = "1001";
 KalturaDeliveryProfileType.LIVE_HDS = "1002";
 KalturaDeliveryProfileType.LIVE_DASH = "1003";
 KalturaDeliveryProfileType.LIVE_RTMP = "1005";
+KalturaDeliveryProfileType.LIVE_HLS_TO_MULTICAST = "1006";
 KalturaDeliveryProfileType.LIVE_AKAMAI_HDS = "1013";
 
 function KalturaDistributionProfileOrderBy(){
@@ -1924,33 +1747,7 @@ function KalturaDistributionProviderOrderBy(){
 
 function KalturaDistributionProviderType(){
 }
-KalturaDistributionProviderType.ATT_UVERSE = "attUverseDistribution.ATT_UVERSE";
-KalturaDistributionProviderType.AVN = "avnDistribution.AVN";
-KalturaDistributionProviderType.COMCAST_MRSS = "comcastMrssDistribution.COMCAST_MRSS";
-KalturaDistributionProviderType.CROSS_KALTURA = "crossKalturaDistribution.CROSS_KALTURA";
-KalturaDistributionProviderType.DAILYMOTION = "dailymotionDistribution.DAILYMOTION";
-KalturaDistributionProviderType.DOUBLECLICK = "doubleClickDistribution.DOUBLECLICK";
-KalturaDistributionProviderType.FREEWHEEL = "freewheelDistribution.FREEWHEEL";
-KalturaDistributionProviderType.FREEWHEEL_GENERIC = "freewheelGenericDistribution.FREEWHEEL_GENERIC";
-KalturaDistributionProviderType.FTP = "ftpDistribution.FTP";
-KalturaDistributionProviderType.FTP_SCHEDULED = "ftpDistribution.FTP_SCHEDULED";
-KalturaDistributionProviderType.HULU = "huluDistribution.HULU";
 KalturaDistributionProviderType.IDETIC = "ideticDistribution.IDETIC";
-KalturaDistributionProviderType.METRO_PCS = "metroPcsDistribution.METRO_PCS";
-KalturaDistributionProviderType.MSN = "msnDistribution.MSN";
-KalturaDistributionProviderType.NDN = "ndnDistribution.NDN";
-KalturaDistributionProviderType.PODCAST = "podcastDistribution.PODCAST";
-KalturaDistributionProviderType.QUICKPLAY = "quickPlayDistribution.QUICKPLAY";
-KalturaDistributionProviderType.SYNACOR_HBO = "synacorHboDistribution.SYNACOR_HBO";
-KalturaDistributionProviderType.TIME_WARNER = "timeWarnerDistribution.TIME_WARNER";
-KalturaDistributionProviderType.TVCOM = "tvComDistribution.TVCOM";
-KalturaDistributionProviderType.TVINCI = "tvinciDistribution.TVINCI";
-KalturaDistributionProviderType.UNICORN = "unicornDistribution.UNICORN";
-KalturaDistributionProviderType.UVERSE_CLICK_TO_ORDER = "uverseClickToOrderDistribution.UVERSE_CLICK_TO_ORDER";
-KalturaDistributionProviderType.UVERSE = "uverseDistribution.UVERSE";
-KalturaDistributionProviderType.VERIZON_VCAST = "verizonVcastDistribution.VERIZON_VCAST";
-KalturaDistributionProviderType.YAHOO = "yahooDistribution.YAHOO";
-KalturaDistributionProviderType.YOUTUBE = "youTubeDistribution.YOUTUBE";
 KalturaDistributionProviderType.YOUTUBE_API = "youtubeApiDistribution.YOUTUBE_API";
 KalturaDistributionProviderType.GENERIC = "1";
 KalturaDistributionProviderType.SYNDICATION = "2";
@@ -1985,38 +1782,6 @@ function KalturaDocumentFlavorParamsOrderBy(){
 
 function KalturaDocumentFlavorParamsOutputOrderBy(){
 }
-
-function KalturaDrmDeviceOrderBy(){
-}
-KalturaDrmDeviceOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaDrmDeviceOrderBy.CREATED_AT_DESC = "-createdAt";
-
-function KalturaDrmLicenseScenario(){
-}
-KalturaDrmLicenseScenario.PROTECTION = "playReady.PROTECTION";
-KalturaDrmLicenseScenario.PURCHASE = "playReady.PURCHASE";
-KalturaDrmLicenseScenario.RENTAL = "playReady.RENTAL";
-KalturaDrmLicenseScenario.SUBSCRIPTION = "playReady.SUBSCRIPTION";
-
-function KalturaDrmLicenseType(){
-}
-KalturaDrmLicenseType.NON_PERSISTENT = "playReady.NON_PERSISTENT";
-KalturaDrmLicenseType.PERSISTENT = "playReady.PERSISTENT";
-
-function KalturaDrmPolicyOrderBy(){
-}
-
-function KalturaDrmProfileOrderBy(){
-}
-KalturaDrmProfileOrderBy.ID_ASC = "+id";
-KalturaDrmProfileOrderBy.NAME_ASC = "+name";
-KalturaDrmProfileOrderBy.ID_DESC = "-id";
-KalturaDrmProfileOrderBy.NAME_DESC = "-name";
-
-function KalturaDrmProviderType(){
-}
-KalturaDrmProviderType.PLAY_READY = "playReady.PLAY_READY";
-KalturaDrmProviderType.WIDEVINE = "widevine.WIDEVINE";
 
 function KalturaDropFolderErrorCode(){
 }
@@ -2088,7 +1853,6 @@ KalturaDropFolderOrderBy.UPDATED_AT_DESC = "-updatedAt";
 function KalturaDropFolderType(){
 }
 KalturaDropFolderType.FEED = "FeedDropFolder.FEED";
-KalturaDropFolderType.WEBEX = "WebexDropFolder.WEBEX";
 KalturaDropFolderType.LOCAL = "1";
 KalturaDropFolderType.FTP = "2";
 KalturaDropFolderType.SCP = "3";
@@ -2104,6 +1868,13 @@ KalturaDurationType.SHORT = "short";
 
 function KalturaDynamicEnum(){
 }
+
+function KalturaEdgeServerOrderBy(){
+}
+KalturaEdgeServerOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaEdgeServerOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaEdgeServerOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaEdgeServerOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaEmailNotificationFormat(){
 }
@@ -2239,7 +2010,6 @@ KalturaEventNotificationEventObjectType.CATEGORYENTRY = "37";
 
 function KalturaEventNotificationEventType(){
 }
-KalturaEventNotificationEventType.INTEGRATION_JOB_CLOSED = "integrationEventNotifications.INTEGRATION_JOB_CLOSED";
 KalturaEventNotificationEventType.BATCH_JOB_STATUS = "1";
 KalturaEventNotificationEventType.OBJECT_ADDED = "2";
 KalturaEventNotificationEventType.OBJECT_CHANGED = "3";
@@ -2265,9 +2035,6 @@ KalturaEventNotificationTemplateOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaEventNotificationTemplateType(){
 }
-KalturaEventNotificationTemplateType.BPM_ABORT = "businessProcessNotification.BusinessProcessAbort";
-KalturaEventNotificationTemplateType.BPM_SIGNAL = "businessProcessNotification.BusinessProcessSignal";
-KalturaEventNotificationTemplateType.BPM_START = "businessProcessNotification.BusinessProcessStart";
 KalturaEventNotificationTemplateType.EMAIL = "emailNotification.Email";
 KalturaEventNotificationTemplateType.HTTP = "httpNotification.Http";
 
@@ -2588,13 +2355,6 @@ function KalturaImageFlavorParamsOrderBy(){
 function KalturaImageFlavorParamsOutputOrderBy(){
 }
 
-function KalturaIntegrationProviderType(){
-}
-
-function KalturaIntegrationTriggerType(){
-}
-KalturaIntegrationTriggerType.BPM_EVENT_NOTIFICATION = "bpmEventNotificationIntegration.BpmEventNotification";
-
 function KalturaKontikiStorageProfileOrderBy(){
 }
 KalturaKontikiStorageProfileOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -2689,6 +2449,7 @@ KalturaLanguage.MI = "Maori";
 KalturaLanguage.MR = "Marathi";
 KalturaLanguage.MO = "Moldavian";
 KalturaLanguage.MN = "Mongolian";
+KalturaLanguage.MU = "Multilingual";
 KalturaLanguage.NA = "Nauru";
 KalturaLanguage.NE = "Nepali";
 KalturaLanguage.NO = "Norwegian";
@@ -2743,8 +2504,8 @@ KalturaLanguage.VO = "Volapuk";
 KalturaLanguage.CY = "Welsh";
 KalturaLanguage.WO = "Wolof";
 KalturaLanguage.XH = "Xhosa";
-KalturaLanguage.YI = "Yiddish";
 KalturaLanguage.JI = "Yiddish";
+KalturaLanguage.YI = "Yiddish";
 KalturaLanguage.YO = "Yoruba";
 KalturaLanguage.ZU = "Zulu";
 
@@ -2833,6 +2594,7 @@ KalturaLanguageCode.MO = "mo";
 KalturaLanguageCode.MR = "mr";
 KalturaLanguageCode.MS = "ms";
 KalturaLanguageCode.MT = "mt";
+KalturaLanguageCode.MU = "multilingual";
 KalturaLanguageCode.MY = "my";
 KalturaLanguageCode.NA = "na";
 KalturaLanguageCode.NE = "ne";
@@ -3196,7 +2958,6 @@ function KalturaMediaInfoOrderBy(){
 function KalturaMediaParserType(){
 }
 KalturaMediaParserType.MEDIAINFO = "0";
-KalturaMediaParserType.REMOTE_MEDIAINFO = "remoteMediaInfo.RemoteMediaInfo";
 KalturaMediaParserType.FFMPEG = "1";
 
 function KalturaMetadataObjectType(){
@@ -3336,53 +3097,6 @@ KalturaPermissionOrderBy.ID_DESC = "-id";
 KalturaPermissionOrderBy.NAME_DESC = "-name";
 KalturaPermissionOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
-function KalturaPlayReadyAnalogVideoOPId(){
-}
-KalturaPlayReadyAnalogVideoOPId.EXPLICIT_ANALOG_TV = "2098DE8D-7DDD-4BAB-96C6-32EBB6FABEA3";
-KalturaPlayReadyAnalogVideoOPId.BEST_EFFORT_EXPLICIT_ANALOG_TV = "225CD36F-F132-49EF-BA8C-C91EA28E4369";
-KalturaPlayReadyAnalogVideoOPId.IMAGE_CONSTRAINT_VIDEO = "811C5110-46C8-4C6E-8163-C0482A15D47E";
-KalturaPlayReadyAnalogVideoOPId.AGC_AND_COLOR_STRIPE = "C3FD11C6-F8B7-4D20-B008-1DB17D61F2DA";
-KalturaPlayReadyAnalogVideoOPId.IMAGE_CONSTRAINT_MONITOR = "D783A191-E083-4BAF-B2DA-E69F910B3772";
-
-function KalturaPlayReadyCopyEnablerType(){
-}
-KalturaPlayReadyCopyEnablerType.CSS = "3CAF2814-A7AB-467C-B4DF-54ACC56C66DC";
-KalturaPlayReadyCopyEnablerType.PRINTER = "3CF2E054-F4D5-46cd-85A6-FCD152AD5FBE";
-KalturaPlayReadyCopyEnablerType.DEVICE = "6848955D-516B-4EB0-90E8-8F6D5A77B85F";
-KalturaPlayReadyCopyEnablerType.CLIPBOARD = "6E76C588-C3A9-47ea-A875-546D5209FF38";
-KalturaPlayReadyCopyEnablerType.SDC = "79F78A0D-0B69-401e-8A90-8BEF30BCE192";
-KalturaPlayReadyCopyEnablerType.SDC_PREVIEW = "81BD9AD4-A720-4ea1-B510-5D4E6FFB6A4D";
-KalturaPlayReadyCopyEnablerType.AACS = "C3CF56E0-7FF2-4491-809F-53E21D3ABF07";
-KalturaPlayReadyCopyEnablerType.HELIX = "CCB0B4E3-8B46-409e-A998-82556E3F5AF4";
-KalturaPlayReadyCopyEnablerType.CPRM = "CDD801AD-A577-48DB-950E-46D5F1592FAE";
-KalturaPlayReadyCopyEnablerType.PC = "CE480EDE-516B-40B3-90E1-D6CFC47630C5";
-KalturaPlayReadyCopyEnablerType.SDC_LIMITED = "E6785609-64CC-4bfa-B82D-6B619733B746";
-KalturaPlayReadyCopyEnablerType.ORANGE_BOOK_CD = "EC930B7D-1F2D-4682-A38B-8AB977721D0D";
-
-function KalturaPlayReadyDigitalAudioOPId(){
-}
-KalturaPlayReadyDigitalAudioOPId.SCMS = "6D5CFA59-C250-4426-930E-FAC72C8FCFA6";
-
-function KalturaPlayReadyPlayEnablerType(){
-}
-KalturaPlayReadyPlayEnablerType.HELIX = "002F9772-38A0-43E5-9F79-0F6361DCC62A";
-KalturaPlayReadyPlayEnablerType.HDCP_WIVU = "1B4542E3-B5CF-4C99-B3BA-829AF46C92F8";
-KalturaPlayReadyPlayEnablerType.AIRPLAY = "5ABF0F0D-DC29-4B82-9982-FD8E57525BFC";
-KalturaPlayReadyPlayEnablerType.UNKNOWN = "786627D8-C2A6-44BE-8F88-08AE255B01A";
-KalturaPlayReadyPlayEnablerType.HDCP_MIRACAST = "A340C256-0941-4D4C-AD1D-0B6735C0CB24";
-KalturaPlayReadyPlayEnablerType.UNKNOWN_520 = "B621D91F-EDCC-4035-8D4B-DC71760D43E9";
-KalturaPlayReadyPlayEnablerType.DTCP = "D685030B-0F4F-43A6-BBAD-356F1EA0049A";
-
-function KalturaPlayReadyPolicyOrderBy(){
-}
-
-function KalturaPlayReadyProfileOrderBy(){
-}
-KalturaPlayReadyProfileOrderBy.ID_ASC = "+id";
-KalturaPlayReadyProfileOrderBy.NAME_ASC = "+name";
-KalturaPlayReadyProfileOrderBy.ID_DESC = "-id";
-KalturaPlayReadyProfileOrderBy.NAME_DESC = "-name";
-
 function KalturaPlayableEntryOrderBy(){
 }
 KalturaPlayableEntryOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -3419,6 +3133,7 @@ KalturaPlayableEntryOrderBy.WEIGHT_DESC = "-weight";
 function KalturaPlaybackProtocol(){
 }
 KalturaPlaybackProtocol.APPLE_HTTP = "applehttp";
+KalturaPlaybackProtocol.APPLE_HTTP_TO_MC = "applehttp_to_mc";
 KalturaPlaybackProtocol.AUTO = "auto";
 KalturaPlaybackProtocol.AKAMAI_HD = "hdnetwork";
 KalturaPlaybackProtocol.AKAMAI_HDS = "hdnetworkmanifest";
@@ -3456,6 +3171,26 @@ KalturaPlaylistOrderBy.TOTAL_RANK_DESC = "-totalRank";
 KalturaPlaylistOrderBy.UPDATED_AT_DESC = "-updatedAt";
 KalturaPlaylistOrderBy.WEIGHT_DESC = "-weight";
 
+function KalturaQuestionCuePointOrderBy(){
+}
+KalturaQuestionCuePointOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaQuestionCuePointOrderBy.PARTNER_SORT_VALUE_ASC = "+partnerSortValue";
+KalturaQuestionCuePointOrderBy.START_TIME_ASC = "+startTime";
+KalturaQuestionCuePointOrderBy.TRIGGERED_AT_ASC = "+triggeredAt";
+KalturaQuestionCuePointOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaQuestionCuePointOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaQuestionCuePointOrderBy.PARTNER_SORT_VALUE_DESC = "-partnerSortValue";
+KalturaQuestionCuePointOrderBy.START_TIME_DESC = "-startTime";
+KalturaQuestionCuePointOrderBy.TRIGGERED_AT_DESC = "-triggeredAt";
+KalturaQuestionCuePointOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
+function KalturaQuizUserEntryOrderBy(){
+}
+KalturaQuizUserEntryOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaQuizUserEntryOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaQuizUserEntryOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaQuizUserEntryOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
 function KalturaRemoteDropFolderOrderBy(){
 }
 KalturaRemoteDropFolderOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -3477,6 +3212,34 @@ function KalturaReportOrderBy(){
 KalturaReportOrderBy.CREATED_AT_ASC = "+createdAt";
 KalturaReportOrderBy.CREATED_AT_DESC = "-createdAt";
 
+function KalturaReportType(){
+}
+KalturaReportType.QUIZ = "quiz.QUIZ";
+KalturaReportType.QUIZ_USER_PERCENTAGE = "quiz.self::QUIZ_USER_PERCENTAGE";
+KalturaReportType.TOP_CONTENT = "1";
+KalturaReportType.CONTENT_DROPOFF = "2";
+KalturaReportType.CONTENT_INTERACTIONS = "3";
+KalturaReportType.MAP_OVERLAY = "4";
+KalturaReportType.TOP_CONTRIBUTORS = "5";
+KalturaReportType.TOP_SYNDICATION = "6";
+KalturaReportType.CONTENT_CONTRIBUTIONS = "7";
+KalturaReportType.USER_ENGAGEMENT = "11";
+KalturaReportType.SPEFICIC_USER_ENGAGEMENT = "12";
+KalturaReportType.USER_TOP_CONTENT = "13";
+KalturaReportType.USER_CONTENT_DROPOFF = "14";
+KalturaReportType.USER_CONTENT_INTERACTIONS = "15";
+KalturaReportType.APPLICATIONS = "16";
+KalturaReportType.USER_USAGE = "17";
+KalturaReportType.SPECIFIC_USER_USAGE = "18";
+KalturaReportType.VAR_USAGE = "19";
+KalturaReportType.TOP_CREATORS = "20";
+KalturaReportType.PLATFORMS = "21";
+KalturaReportType.OPERATION_SYSTEM = "22";
+KalturaReportType.BROWSERS = "23";
+KalturaReportType.LIVE = "24";
+KalturaReportType.TOP_PLAYBACK_CONTEXT = "25";
+KalturaReportType.PARTNER_USAGE = "201";
+
 function KalturaResponseProfileOrderBy(){
 }
 KalturaResponseProfileOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -3486,11 +3249,12 @@ KalturaResponseProfileOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaRuleActionType(){
 }
-KalturaRuleActionType.DRM_POLICY = "playReady.DRM_POLICY";
 KalturaRuleActionType.BLOCK = "1";
 KalturaRuleActionType.PREVIEW = "2";
 KalturaRuleActionType.LIMIT_FLAVORS = "3";
 KalturaRuleActionType.ADD_TO_STORAGE = "4";
+KalturaRuleActionType.LIMIT_DELIVERY_PROFILES = "5";
+KalturaRuleActionType.SERVE_FROM_REMOTE_SERVER = "6";
 
 function KalturaScheduledTaskProfileOrderBy(){
 }
@@ -3553,7 +3317,6 @@ KalturaShortLinkOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
 function KalturaSourceType(){
 }
-KalturaSourceType.LIMELIGHT_LIVE = "limeLight.LIVE_STREAM";
 KalturaSourceType.VELOCIX_LIVE = "velocix.VELOCIX_LIVE";
 KalturaSourceType.FILE = "1";
 KalturaSourceType.WEBCAM = "2";
@@ -3613,6 +3376,23 @@ function KalturaSyndicationFeedEntriesOrderBy(){
 }
 KalturaSyndicationFeedEntriesOrderBy.CREATED_AT_DESC = "-createdAt";
 KalturaSyndicationFeedEntriesOrderBy.RECENT = "recent";
+
+function KalturaSystemPartnerLimitType(){
+}
+KalturaSystemPartnerLimitType.ACCESS_CONTROLS = "ACCESS_CONTROLS";
+KalturaSystemPartnerLimitType.ADMIN_LOGIN_USERS = "ADMIN_LOGIN_USERS";
+KalturaSystemPartnerLimitType.BULK_SIZE = "BULK_SIZE";
+KalturaSystemPartnerLimitType.END_USERS = "END_USERS";
+KalturaSystemPartnerLimitType.ENTRIES = "ENTRIES";
+KalturaSystemPartnerLimitType.LIVE_STREAM_INPUTS = "LIVE_STREAM_INPUTS";
+KalturaSystemPartnerLimitType.LIVE_STREAM_OUTPUTS = "LIVE_STREAM_OUTPUTS";
+KalturaSystemPartnerLimitType.LOGIN_USERS = "LOGIN_USERS";
+KalturaSystemPartnerLimitType.MONTHLY_BANDWIDTH = "MONTHLY_BANDWIDTH";
+KalturaSystemPartnerLimitType.MONTHLY_STORAGE = "MONTHLY_STORAGE";
+KalturaSystemPartnerLimitType.MONTHLY_STORAGE_AND_BANDWIDTH = "MONTHLY_STORAGE_AND_BANDWIDTH";
+KalturaSystemPartnerLimitType.MONTHLY_STREAM_ENTRIES = "MONTHLY_STREAM_ENTRIES";
+KalturaSystemPartnerLimitType.PUBLISHERS = "PUBLISHERS";
+KalturaSystemPartnerLimitType.USER_LOGIN_ATTEMPTS = "USER_LOGIN_ATTEMPTS";
 
 function KalturaTaggedObjectType(){
 }
@@ -3691,6 +3471,13 @@ KalturaTubeMogulSyndicationFeedOrderBy.PLAYLIST_ID_DESC = "-playlistId";
 KalturaTubeMogulSyndicationFeedOrderBy.TYPE_DESC = "-type";
 KalturaTubeMogulSyndicationFeedOrderBy.UPDATED_AT_DESC = "-updatedAt";
 
+function KalturaUiConfAdminOrderBy(){
+}
+KalturaUiConfAdminOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaUiConfAdminOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaUiConfAdminOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaUiConfAdminOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
 function KalturaUiConfOrderBy(){
 }
 KalturaUiConfOrderBy.CREATED_AT_ASC = "+createdAt";
@@ -3702,6 +3489,23 @@ function KalturaUploadTokenOrderBy(){
 }
 KalturaUploadTokenOrderBy.CREATED_AT_ASC = "+createdAt";
 KalturaUploadTokenOrderBy.CREATED_AT_DESC = "-createdAt";
+
+function KalturaUserEntryOrderBy(){
+}
+KalturaUserEntryOrderBy.CREATED_AT_ASC = "+createdAt";
+KalturaUserEntryOrderBy.UPDATED_AT_ASC = "+updatedAt";
+KalturaUserEntryOrderBy.CREATED_AT_DESC = "-createdAt";
+KalturaUserEntryOrderBy.UPDATED_AT_DESC = "-updatedAt";
+
+function KalturaUserEntryStatus(){
+}
+KalturaUserEntryStatus.QUIZ_SUBMITTED = "quiz.3";
+KalturaUserEntryStatus.ACTIVE = "1";
+KalturaUserEntryStatus.DELETED = "2";
+
+function KalturaUserEntryType(){
+}
+KalturaUserEntryType.QUIZ = "quiz.QUIZ";
 
 function KalturaUserLoginDataOrderBy(){
 }
@@ -3754,9 +3558,6 @@ KalturaVideoCodec.WVC1A = "wvc1a";
 function KalturaVirusScanEngineType(){
 }
 KalturaVirusScanEngineType.CLAMAV_SCAN_ENGINE = "clamAVScanEngine.ClamAV";
-KalturaVirusScanEngineType.SYMANTEC_SCAN_DIRECT_ENGINE = "symantecScanEngine.SymantecScanDirectEngine";
-KalturaVirusScanEngineType.SYMANTEC_SCAN_ENGINE = "symantecScanEngine.SymantecScanEngine";
-KalturaVirusScanEngineType.SYMANTEC_SCAN_JAVA_ENGINE = "symantecScanEngine.SymantecScanJavaEngine";
 
 function KalturaVirusScanProfileOrderBy(){
 }
@@ -3764,60 +3565,6 @@ KalturaVirusScanProfileOrderBy.CREATED_AT_ASC = "+createdAt";
 KalturaVirusScanProfileOrderBy.UPDATED_AT_ASC = "+updatedAt";
 KalturaVirusScanProfileOrderBy.CREATED_AT_DESC = "-createdAt";
 KalturaVirusScanProfileOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaWebexDropFolderFileOrderBy(){
-}
-KalturaWebexDropFolderFileOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaWebexDropFolderFileOrderBy.FILE_NAME_ASC = "+fileName";
-KalturaWebexDropFolderFileOrderBy.FILE_SIZE_ASC = "+fileSize";
-KalturaWebexDropFolderFileOrderBy.FILE_SIZE_LAST_SET_AT_ASC = "+fileSizeLastSetAt";
-KalturaWebexDropFolderFileOrderBy.ID_ASC = "+id";
-KalturaWebexDropFolderFileOrderBy.PARSED_FLAVOR_ASC = "+parsedFlavor";
-KalturaWebexDropFolderFileOrderBy.PARSED_SLUG_ASC = "+parsedSlug";
-KalturaWebexDropFolderFileOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaWebexDropFolderFileOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaWebexDropFolderFileOrderBy.FILE_NAME_DESC = "-fileName";
-KalturaWebexDropFolderFileOrderBy.FILE_SIZE_DESC = "-fileSize";
-KalturaWebexDropFolderFileOrderBy.FILE_SIZE_LAST_SET_AT_DESC = "-fileSizeLastSetAt";
-KalturaWebexDropFolderFileOrderBy.ID_DESC = "-id";
-KalturaWebexDropFolderFileOrderBy.PARSED_FLAVOR_DESC = "-parsedFlavor";
-KalturaWebexDropFolderFileOrderBy.PARSED_SLUG_DESC = "-parsedSlug";
-KalturaWebexDropFolderFileOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaWebexDropFolderOrderBy(){
-}
-KalturaWebexDropFolderOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaWebexDropFolderOrderBy.ID_ASC = "+id";
-KalturaWebexDropFolderOrderBy.NAME_ASC = "+name";
-KalturaWebexDropFolderOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaWebexDropFolderOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaWebexDropFolderOrderBy.ID_DESC = "-id";
-KalturaWebexDropFolderOrderBy.NAME_DESC = "-name";
-KalturaWebexDropFolderOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaWidevineFlavorAssetOrderBy(){
-}
-KalturaWidevineFlavorAssetOrderBy.CREATED_AT_ASC = "+createdAt";
-KalturaWidevineFlavorAssetOrderBy.DELETED_AT_ASC = "+deletedAt";
-KalturaWidevineFlavorAssetOrderBy.SIZE_ASC = "+size";
-KalturaWidevineFlavorAssetOrderBy.UPDATED_AT_ASC = "+updatedAt";
-KalturaWidevineFlavorAssetOrderBy.CREATED_AT_DESC = "-createdAt";
-KalturaWidevineFlavorAssetOrderBy.DELETED_AT_DESC = "-deletedAt";
-KalturaWidevineFlavorAssetOrderBy.SIZE_DESC = "-size";
-KalturaWidevineFlavorAssetOrderBy.UPDATED_AT_DESC = "-updatedAt";
-
-function KalturaWidevineFlavorParamsOrderBy(){
-}
-
-function KalturaWidevineFlavorParamsOutputOrderBy(){
-}
-
-function KalturaWidevineProfileOrderBy(){
-}
-KalturaWidevineProfileOrderBy.ID_ASC = "+id";
-KalturaWidevineProfileOrderBy.NAME_ASC = "+name";
-KalturaWidevineProfileOrderBy.ID_DESC = "-id";
-KalturaWidevineProfileOrderBy.NAME_DESC = "-name";
 
 function KalturaWidgetOrderBy(){
 }

@@ -26,7 +26,12 @@
       config.serviceUrl = "http://www.kaltura.com/";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
-        client.setKs(ks);
+        if (!success || (ks.code && ks.message)) {
+          console.log('Error starting session', success, ks);
+          $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
+        } else {
+          client.setKs(ks);
+        }
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
       null,
       KalturaSessionType.ADMIN,
@@ -114,11 +119,34 @@
 
     <script id="CreatedEntry-template" type="text/x-underscore-template" style="display: none">
       <p>Created entry <%= result.name %></p>
+      <hr></hr>
+      <%
+          print(KalturaMediaEntry({result: result}));
+      %>
     </script>
     <script type="text/javascript">
       var CreatedEntry = _.template($('#CreatedEntry-template').text());
     </script>
 
+    <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col-xs-12 col-md-5">
+          <h2><%= result.name %></h2>
+          <p><%= result.description %></p>
+        </div>
+        <div class="col-xs-12 col-md-6 col-md-offset-1">
+          <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
+            <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/null/partner_id/<%= result.partnerId %>?autoembed=true&entry_id=<%= result.id %>&playerId=kaltura_player_<%= result.id %>&width=560&height=395">
+            <% print("</"+"script>"); %>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script type="text/javascript">
+      var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
+    </script>
+
+    <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">

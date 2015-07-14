@@ -1,3 +1,30 @@
+<h1>My App Tokens</h1>
+<hr>
 <lucy for="appToken" in="result">
-  <h2>ID: {{appToken.id}}</h2>
+  <h3>Token ID {{appToken.id}}</h3>
+  <p>Token: {{ appToken.token }}</p>
+  <p>Type:&nbsp;
+    <lucy if="appToken.sessionType == 0">
+      <span>Admin</span>
+    </lucy>
+    <lucy if="appToken.sessionType == 2">
+      <span>User</span>
+    </lucy>
+  </p>
+  <p>Duration: {{ appToken.sessionDuration }}</p>
+  <p>
+    Status:&nbsp;
+    <lucy if="appToken.status == 1">
+      <span>Disabled</span>
+    </lucy>
+    <lucy if="appToken.status == 2">
+      <span>Active</span>
+    </lucy>
+    <lucy if="appToken.status == 3">
+      <span>Deleted</span>
+    </lucy>
+  </p>
+  <hr>
+</lucy>
+<lucy include="AddAppToken">
 </lucy>

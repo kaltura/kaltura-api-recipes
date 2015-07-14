@@ -301,6 +301,129 @@ KalturaAdminUserService.prototype.setInitialPassword = function(callback, hashKe
 }
 
 /**
+ *Class definition for the Kaltura service: appToken.
+ * The available service actions:
+ * @action	add	Add new application authentication token
+ *		 .
+ * @action	get	Get application authentication token by id
+ *		 .
+ * @action	update	Update application authentication token by id
+ *		 .
+ * @action	delete	Delete application authentication token by id
+ *		 .
+ * @action	list	List application authentication tokens by filter and pager
+ *		 .
+ * @action	startSession	Starts a new KS (kaltura Session) based on application authentication token id
+ *		 .
+*/
+function KalturaAppTokenService(client){
+	this.init(client);
+}
+KalturaAppTokenService.inheritsFrom (KalturaServiceBase);
+/**
+ * Add new application authentication token
+ *		 .
+ * @param	appToken	KalturaAppToken		 (optional).
+ * @return	KalturaAppToken.
+ */
+KalturaAppTokenService.prototype.add = function(callback, appToken){
+	var kparams = new Object();
+	this.client.addParam(kparams, "appToken", toParams(appToken));
+	this.client.queueServiceActionCall("apptoken", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get application authentication token by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaAppToken.
+ */
+KalturaAppTokenService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("apptoken", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update application authentication token by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @param	appToken	KalturaAppToken		 (optional).
+ * @return	KalturaAppToken.
+ */
+KalturaAppTokenService.prototype.update = function(callback, id, appToken){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "appToken", toParams(appToken));
+	this.client.queueServiceActionCall("apptoken", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Delete application authentication token by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	.
+ */
+KalturaAppTokenService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("apptoken", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List application authentication tokens by filter and pager
+ *		 .
+ * @param	filter	KalturaAppTokenFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaAppTokenListResponse.
+ */
+KalturaAppTokenService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("apptoken", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Starts a new KS (kaltura Session) based on application authentication token id
+ *		 .
+ * @param	id	string		application token id (optional).
+ * @param	tokenHash	string		hashed token, built of sha1 on current KS concatenated with the application token (optional).
+ * @param	userId	string		session user id, will be ignored if a different user id already defined on the application token (optional, default: null).
+ * @param	type	int		session type, will be ignored if a different session type already defined on the application token (optional, enum: KalturaSessionType, default: null).
+ * @param	expiry	int		session expiry (in seconds), could be overwritten by shorter expiry of the application token and the session-expiry that defined on the application token  (optional, default: null).
+ * @return	KalturaSessionInfo.
+ */
+KalturaAppTokenService.prototype.startSession = function(callback, id, tokenHash, userId, type, expiry){
+	if(!userId)
+		userId = null;
+	if(!type)
+		type = null;
+	if(!expiry)
+		expiry = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "tokenHash", tokenHash);
+	this.client.addParam(kparams, "userId", userId);
+	this.client.addParam(kparams, "type", type);
+	this.client.addParam(kparams, "expiry", expiry);
+	this.client.queueServiceActionCall("apptoken", "startSession", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
  *Class definition for the Kaltura service: baseEntry.
  * The available service actions:
  * @action	add	Generic add entry, should be used when the uploaded entry type is not known.
@@ -1989,6 +2112,98 @@ KalturaDocumentService.prototype.cancelReplace = function(callback, entryId){
 	var kparams = new Object();
 	this.client.addParam(kparams, "entryId", entryId);
 	this.client.queueServiceActionCall("document", "cancelReplace", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: edgeServer.
+ * The available service actions:
+ * @action	add	Adds a edge server to the Kaltura DB.
+ *		 .
+ * @action	get	Get edge server by id
+ *		 .
+ * @action	update	Update edge server by id 
+ *		 .
+ * @action	delete	delete edge server by id
+ *		 .
+ * @action	list	.
+*/
+function KalturaEdgeServerService(client){
+	this.init(client);
+}
+KalturaEdgeServerService.inheritsFrom (KalturaServiceBase);
+/**
+ * Adds a edge server to the Kaltura DB.
+ *		 .
+ * @param	edgeServer	KalturaEdgeServer		sto (optional).
+ * @return	KalturaEdgeServer.
+ */
+KalturaEdgeServerService.prototype.add = function(callback, edgeServer){
+	var kparams = new Object();
+	this.client.addParam(kparams, "edgeServer", toParams(edgeServer));
+	this.client.queueServiceActionCall("edgeserver", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get edge server by id
+ *		 .
+ * @param	edgeServerId	int		 (optional).
+ * @return	KalturaEdgeServer.
+ */
+KalturaEdgeServerService.prototype.get = function(callback, edgeServerId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "edgeServerId", edgeServerId);
+	this.client.queueServiceActionCall("edgeserver", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update edge server by id 
+ *		 .
+ * @param	edgeServerId	int		 (optional).
+ * @param	edgeServer	KalturaEdgeServer		Id (optional).
+ * @return	KalturaEdgeServer.
+ */
+KalturaEdgeServerService.prototype.update = function(callback, edgeServerId, edgeServer){
+	var kparams = new Object();
+	this.client.addParam(kparams, "edgeServerId", edgeServerId);
+	this.client.addParam(kparams, "edgeServer", toParams(edgeServer));
+	this.client.queueServiceActionCall("edgeserver", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * delete edge server by id
+ *		 .
+ * @param	edgeServerId	string		 (optional).
+ * @return	.
+ */
+KalturaEdgeServerService.prototype.deleteAction = function(callback, edgeServerId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "edgeServerId", edgeServerId);
+	this.client.queueServiceActionCall("edgeserver", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	filter	KalturaEdgeServerFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaEdgeServerListResponse.
+ */
+KalturaEdgeServerService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("edgeserver", "list", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
@@ -5055,7 +5270,7 @@ KalturaReportService.inheritsFrom (KalturaServiceBase);
 /**
  * report getGraphs action allows to get a graph data for a specific report. 
  *		 .
- * @param	reportType	int		  (optional, enum: KalturaReportType).
+ * @param	reportType	string		  (optional, enum: KalturaReportType).
  * @param	reportInputFilter	KalturaReportInputFilter		 (optional).
  * @param	dimension	string		 (optional, default: null).
  * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null).
@@ -5078,7 +5293,7 @@ KalturaReportService.prototype.getGraphs = function(callback, reportType, report
 /**
  * report getTotal action allows to get a graph data for a specific report. 
  *		 .
- * @param	reportType	int		  (optional, enum: KalturaReportType).
+ * @param	reportType	string		  (optional, enum: KalturaReportType).
  * @param	reportInputFilter	KalturaReportInputFilter		 (optional).
  * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null).
  * @return	KalturaReportTotal.
@@ -5097,7 +5312,7 @@ KalturaReportService.prototype.getTotal = function(callback, reportType, reportI
 /**
  * report getBaseTotal action allows to get a the total base for storage reports  
  *		 .
- * @param	reportType	int		  (optional, enum: KalturaReportType).
+ * @param	reportType	string		  (optional, enum: KalturaReportType).
  * @param	reportInputFilter	KalturaReportInputFilter		 (optional).
  * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null).
  * @return	array.
@@ -5116,7 +5331,7 @@ KalturaReportService.prototype.getBaseTotal = function(callback, reportType, rep
 /**
  * report getTable action allows to get a graph data for a specific report. 
  *		 .
- * @param	reportType	int		  (optional, enum: KalturaReportType).
+ * @param	reportType	string		  (optional, enum: KalturaReportType).
  * @param	reportInputFilter	KalturaReportInputFilter		 (optional).
  * @param	pager	KalturaFilterPager		 (optional).
  * @param	order	string		 (optional, default: null).
@@ -5144,7 +5359,7 @@ KalturaReportService.prototype.getTable = function(callback, reportType, reportI
  * @param	reportTitle	string		The title of the report to display at top of CSV  (optional).
  * @param	reportText	string		The text of the filter of the report (optional).
  * @param	headers	string		The headers of the columns - a map between the enumerations on the server side and the their display text   (optional).
- * @param	reportType	int		  (optional, enum: KalturaReportType).
+ * @param	reportType	string		  (optional, enum: KalturaReportType).
  * @param	reportInputFilter	KalturaReportInputFilter		 (optional).
  * @param	dimension	string			   (optional, default: null).
  * @param	pager	KalturaFilterPager		 (optional, default: null).
@@ -5225,6 +5440,8 @@ KalturaReportService.prototype.execute = function(callback, id, params){
  * @action	delete	Delete response profile by id
  *		 .
  * @action	list	List response profiles by filter and pager
+ *		 .
+ * @action	recalculate	Recalculate response profile cached objects
  *		 .
 */
 function KalturaResponseProfileService(client){
@@ -5318,6 +5535,19 @@ KalturaResponseProfileService.prototype.listAction = function(callback, filter, 
 	if (pager != null)
 		this.client.addParam(kparams, "pager", toParams(pager));
 	this.client.queueServiceActionCall("responseprofile", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Recalculate response profile cached objects
+ *		 .
+ * @param	options	KalturaResponseProfileCacheRecalculateOptions		 (optional).
+ * @return	KalturaResponseProfileCacheRecalculateResults.
+ */
+KalturaResponseProfileService.prototype.recalculate = function(callback, options){
+	var kparams = new Object();
+	this.client.addParam(kparams, "options", toParams(options));
+	this.client.queueServiceActionCall("responseprofile", "recalculate", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
@@ -6670,6 +6900,104 @@ KalturaUploadTokenService.prototype.listAction = function(callback, filter, page
 }
 
 /**
+ *Class definition for the Kaltura service: userEntry.
+ * The available service actions:
+ * @action	add	Adds a user_entry to the Kaltura DB.
+ *		 .
+ * @action	update	.
+ * @action	delete	.
+ * @action	list	.
+ * @action	get	.
+ * @action	submitQuiz	Submits the quiz so that it's status will be submitted and calculates the score for the quiz
+ *		 .
+*/
+function KalturaUserEntryService(client){
+	this.init(client);
+}
+KalturaUserEntryService.inheritsFrom (KalturaServiceBase);
+/**
+ * Adds a user_entry to the Kaltura DB.
+ *		 .
+ * @param	userEntry	KalturaUserEntry		 (optional).
+ * @return	KalturaUserEntry.
+ */
+KalturaUserEntryService.prototype.add = function(callback, userEntry){
+	var kparams = new Object();
+	this.client.addParam(kparams, "userEntry", toParams(userEntry));
+	this.client.queueServiceActionCall("userentry", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @param	userEntry	KalturaUserEntry		 (optional).
+ * @return	.
+ */
+KalturaUserEntryService.prototype.update = function(callback, id, userEntry){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "userEntry", toParams(userEntry));
+	this.client.queueServiceActionCall("userentry", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @return	KalturaUserEntry.
+ */
+KalturaUserEntryService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("userentry", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	filter	KalturaUserEntryFilter		 (optional).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaUserEntryListResponse.
+ */
+KalturaUserEntryService.prototype.listAction = function(callback, filter, pager){
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("userentry", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	string		 (optional).
+ * @return	KalturaUserEntry.
+ */
+KalturaUserEntryService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("userentry", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Submits the quiz so that it's status will be submitted and calculates the score for the quiz
+ *		 .
+ * @param	id	int		 (optional).
+ * @return	KalturaQuizUserEntry.
+ */
+KalturaUserEntryService.prototype.submitQuiz = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("userentry", "submitQuiz", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
  *Class definition for the Kaltura service: userRole.
  * The available service actions:
  * @action	add	Adds a new user role object to the account.
@@ -8004,63 +8332,75 @@ KalturaDocumentsService.prototype.cancelReplace = function(callback, entryId){
 }
 
 /**
- *Class definition for the Kaltura service: annotation.
+ *Class definition for the Kaltura service: systemPartner.
  * The available service actions:
- * @action	add	Allows you to add an annotation object associated with an entry
+ * @action	get	Retrieve all info about partner
+ *		 This service gets partner id as parameter and accessable to the admin console partner only
  *		 .
- * @action	update	Update annotation by id
- *		 .
- * @action	list	List annotation objects by filter and pager
- *		.
- * @action	addFromBulk	Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
- *		 .
- * @action	get	Retrieve an CuePoint object by id
- *		 .
- * @action	count	count cue point objects by filter
- *		 .
- * @action	delete	delete cue point by id, and delete all children cue points
- *		 .
+ * @action	getUsage	.
+ * @action	list	.
+ * @action	updateStatus	.
+ * @action	getAdminSession	.
+ * @action	updateConfiguration	.
+ * @action	getConfiguration	.
+ * @action	getPackages	.
+ * @action	getPackagesClassOfService	.
+ * @action	getPackagesVertical	.
+ * @action	getPlayerEmbedCodeTypes	.
+ * @action	getPlayerDeliveryTypes	.
+ * @action	resetUserPassword	.
+ * @action	listUserLoginData	.
 */
-function KalturaAnnotationService(client){
+function KalturaSystemPartnerService(client){
 	this.init(client);
 }
-KalturaAnnotationService.inheritsFrom (KalturaServiceBase);
+KalturaSystemPartnerService.inheritsFrom (KalturaServiceBase);
 /**
- * Allows you to add an annotation object associated with an entry
+ * Retrieve all info about partner
+ *		 This service gets partner id as parameter and accessable to the admin console partner only
  *		 .
- * @param	annotation	KalturaCuePoint		 (optional).
- * @return	KalturaAnnotation.
+ * @param	partnerId	int		X (optional).
+ * @return	KalturaPartner.
  */
-KalturaAnnotationService.prototype.add = function(callback, annotation){
+KalturaSystemPartnerService.prototype.get = function(callback, partnerId){
 	var kparams = new Object();
-	this.client.addParam(kparams, "annotation", toParams(annotation));
-	this.client.queueServiceActionCall("annotation_annotation", "add", kparams);
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.queueServiceActionCall("systempartner_systempartner", "get", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
 /**
- * Update annotation by id
- *		 .
- * @param	id	string		 (optional).
- * @param	annotation	KalturaCuePoint		 (optional).
- * @return	KalturaAnnotation.
- */
-KalturaAnnotationService.prototype.update = function(callback, id, annotation){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "annotation", toParams(annotation));
-	this.client.queueServiceActionCall("annotation_annotation", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List annotation objects by filter and pager
- *		.
- * @param	filter	KalturaCuePointFilter		 (optional, default: null).
+ * .
+ * @param	partnerFilter	KalturaPartnerFilter		 (optional, default: null).
+ * @param	usageFilter	KalturaSystemPartnerUsageFilter		 (optional, default: null).
  * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaAnnotationListResponse.
+ * @return	KalturaSystemPartnerUsageListResponse.
  */
-KalturaAnnotationService.prototype.listAction = function(callback, filter, pager){
+KalturaSystemPartnerService.prototype.getUsage = function(callback, partnerFilter, usageFilter, pager){
+	if(!partnerFilter)
+		partnerFilter = null;
+	if(!usageFilter)
+		usageFilter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (partnerFilter != null)
+		this.client.addParam(kparams, "partnerFilter", toParams(partnerFilter));
+	if (usageFilter != null)
+		this.client.addParam(kparams, "usageFilter", toParams(usageFilter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("systempartner_systempartner", "getUsage", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	filter	KalturaPartnerFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaPartnerListResponse.
+ */
+KalturaSystemPartnerService.prototype.listAction = function(callback, filter, pager){
 	if(!filter)
 		filter = null;
 	if(!pager)
@@ -8070,669 +8410,604 @@ KalturaAnnotationService.prototype.listAction = function(callback, filter, pager
 		this.client.addParam(kparams, "filter", toParams(filter));
 	if (pager != null)
 		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("annotation_annotation", "list", kparams);
+	this.client.queueServiceActionCall("systempartner_systempartner", "list", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
 /**
- * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
- *		 .
- * @param	fileData	file		 (optional).
- * @return	KalturaCuePointListResponse.
+ * .
+ * @param	partnerId	int		 (optional).
+ * @param	status	int		 (optional, enum: KalturaPartnerStatus).
+ * @param	reason	string		 (optional).
+ * @return	.
  */
-KalturaAnnotationService.prototype.addFromBulk = function(callback, fileData){
+KalturaSystemPartnerService.prototype.updateStatus = function(callback, partnerId, status, reason){
 	var kparams = new Object();
-	kfiles = new Object();
-	this.client.addParam(kfiles, "fileData", fileData);
-	this.client.queueServiceActionCall("annotation_annotation", "addFromBulk", kparams, kfiles);
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.addParam(kparams, "status", status);
+	this.client.addParam(kparams, "reason", reason);
+	this.client.queueServiceActionCall("systempartner_systempartner", "updateStatus", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
 /**
- * Retrieve an CuePoint object by id
- *		 .
- * @param	id	string		 (optional).
- * @return	KalturaCuePoint.
+ * .
+ * @param	partnerId	int		 (optional).
+ * @param	userId	string		 (optional, default: null).
+ * @return	string.
  */
-KalturaAnnotationService.prototype.get = function(callback, id){
+KalturaSystemPartnerService.prototype.getAdminSession = function(callback, partnerId, userId){
+	if(!userId)
+		userId = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.addParam(kparams, "userId", userId);
+	this.client.queueServiceActionCall("systempartner_systempartner", "getAdminSession", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	partnerId	int		 (optional).
+ * @param	configuration	KalturaSystemPartnerConfiguration		 (optional).
+ * @return	.
+ */
+KalturaSystemPartnerService.prototype.updateConfiguration = function(callback, partnerId, configuration){
+	var kparams = new Object();
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.addParam(kparams, "configuration", toParams(configuration));
+	this.client.queueServiceActionCall("systempartner_systempartner", "updateConfiguration", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	partnerId	int		 (optional).
+ * @return	KalturaSystemPartnerConfiguration.
+ */
+KalturaSystemPartnerService.prototype.getConfiguration = function(callback, partnerId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.queueServiceActionCall("systempartner_systempartner", "getConfiguration", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	array.
+ */
+KalturaSystemPartnerService.prototype.getPackages = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("systempartner_systempartner", "getPackages", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	array.
+ */
+KalturaSystemPartnerService.prototype.getPackagesClassOfService = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("systempartner_systempartner", "getPackagesClassOfService", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	array.
+ */
+KalturaSystemPartnerService.prototype.getPackagesVertical = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("systempartner_systempartner", "getPackagesVertical", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	array.
+ */
+KalturaSystemPartnerService.prototype.getPlayerEmbedCodeTypes = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("systempartner_systempartner", "getPlayerEmbedCodeTypes", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	array.
+ */
+KalturaSystemPartnerService.prototype.getPlayerDeliveryTypes = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("systempartner_systempartner", "getPlayerDeliveryTypes", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	userId	string		 (optional).
+ * @param	partnerId	int		 (optional).
+ * @param	newPassword	string		 (optional).
+ * @return	.
+ */
+KalturaSystemPartnerService.prototype.resetUserPassword = function(callback, userId, partnerId, newPassword){
+	var kparams = new Object();
+	this.client.addParam(kparams, "userId", userId);
+	this.client.addParam(kparams, "partnerId", partnerId);
+	this.client.addParam(kparams, "newPassword", newPassword);
+	this.client.queueServiceActionCall("systempartner_systempartner", "resetUserPassword", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	filter	KalturaUserLoginDataFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaUserLoginDataListResponse.
+ */
+KalturaSystemPartnerService.prototype.listUserLoginData = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("systempartner_systempartner", "listUserLoginData", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: entryAdmin.
+ * The available service actions:
+ * @action	get	Get base entry by ID with no filters.
+ *		 .
+ * @action	getByFlavorId	Get base entry by flavor ID with no filters.
+ *		 .
+ * @action	getTracks	Get base entry by ID with no filters.
+ *		 .
+*/
+function KalturaEntryAdminService(client){
+	this.init(client);
+}
+KalturaEntryAdminService.inheritsFrom (KalturaServiceBase);
+/**
+ * Get base entry by ID with no filters.
+ *		 .
+ * @param	entryId	string		Entry id (optional).
+ * @param	version	int		Desired version of the data (optional, default: -1).
+ * @return	KalturaBaseEntry.
+ */
+KalturaEntryAdminService.prototype.get = function(callback, entryId, version){
+	if(!version)
+		version = -1;
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "version", version);
+	this.client.queueServiceActionCall("adminconsole_entryadmin", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get base entry by flavor ID with no filters.
+ *		 .
+ * @param	flavorId	string		 (optional).
+ * @param	version	int		Desired version of the data (optional, default: -1).
+ * @return	KalturaBaseEntry.
+ */
+KalturaEntryAdminService.prototype.getByFlavorId = function(callback, flavorId, version){
+	if(!version)
+		version = -1;
+	var kparams = new Object();
+	this.client.addParam(kparams, "flavorId", flavorId);
+	this.client.addParam(kparams, "version", version);
+	this.client.queueServiceActionCall("adminconsole_entryadmin", "getByFlavorId", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get base entry by ID with no filters.
+ *		 .
+ * @param	entryId	string		Entry id (optional).
+ * @return	KalturaTrackEntryListResponse.
+ */
+KalturaEntryAdminService.prototype.getTracks = function(callback, entryId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.queueServiceActionCall("adminconsole_entryadmin", "getTracks", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: uiConfAdmin.
+ * The available service actions:
+ * @action	add	Adds new UIConf with no partner limitation
+ *		 .
+ * @action	update	Update an existing UIConf with no partner limitation
+ *		 .
+ * @action	get	Retrieve a UIConf by id with no partner limitation
+ *		 .
+ * @action	delete	Delete an existing UIConf with no partner limitation
+ *		 .
+ * @action	list	Retrieve a list of available UIConfs  with no partner limitation
+ *		 .
+*/
+function KalturaUiConfAdminService(client){
+	this.init(client);
+}
+KalturaUiConfAdminService.inheritsFrom (KalturaServiceBase);
+/**
+ * Adds new UIConf with no partner limitation
+ *		 .
+ * @param	uiConf	KalturaUiConfAdmin		 (optional).
+ * @return	KalturaUiConfAdmin.
+ */
+KalturaUiConfAdminService.prototype.add = function(callback, uiConf){
+	var kparams = new Object();
+	this.client.addParam(kparams, "uiConf", toParams(uiConf));
+	this.client.queueServiceActionCall("adminconsole_uiconfadmin", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update an existing UIConf with no partner limitation
+ *		 .
+ * @param	id	int		 (optional).
+ * @param	uiConf	KalturaUiConfAdmin		 (optional).
+ * @return	KalturaUiConfAdmin.
+ */
+KalturaUiConfAdminService.prototype.update = function(callback, id, uiConf){
 	var kparams = new Object();
 	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("annotation_annotation", "get", kparams);
+	this.client.addParam(kparams, "uiConf", toParams(uiConf));
+	this.client.queueServiceActionCall("adminconsole_uiconfadmin", "update", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
 /**
- * count cue point objects by filter
+ * Retrieve a UIConf by id with no partner limitation
  *		 .
- * @param	filter	KalturaCuePointFilter		 (optional, default: null).
+ * @param	id	int		 (optional).
+ * @return	KalturaUiConfAdmin.
+ */
+KalturaUiConfAdminService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("adminconsole_uiconfadmin", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Delete an existing UIConf with no partner limitation
+ *		 .
+ * @param	id	int		 (optional).
+ * @return	.
+ */
+KalturaUiConfAdminService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("adminconsole_uiconfadmin", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Retrieve a list of available UIConfs  with no partner limitation
+ *		 .
+ * @param	filter	KalturaUiConfFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaUiConfAdminListResponse.
+ */
+KalturaUiConfAdminService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("adminconsole_uiconfadmin", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: reportAdmin.
+ * The available service actions:
+ * @action	add	.
+ * @action	get	.
+ * @action	list	.
+ * @action	update	.
+ * @action	delete	.
+ * @action	executeDebug	.
+ * @action	getParameters	.
+ * @action	getCsvUrl	.
+*/
+function KalturaReportAdminService(client){
+	this.init(client);
+}
+KalturaReportAdminService.inheritsFrom (KalturaServiceBase);
+/**
+ * .
+ * @param	report	KalturaReport		 (optional).
+ * @return	KalturaReport.
+ */
+KalturaReportAdminService.prototype.add = function(callback, report){
+	var kparams = new Object();
+	this.client.addParam(kparams, "report", toParams(report));
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @return	KalturaReport.
+ */
+KalturaReportAdminService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	filter	KalturaReportFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaReportListResponse.
+ */
+KalturaReportAdminService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @param	report	KalturaReport		 (optional).
+ * @return	KalturaReport.
+ */
+KalturaReportAdminService.prototype.update = function(callback, id, report){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "report", toParams(report));
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @return	.
+ */
+KalturaReportAdminService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @param	params	array		 (optional, default: null).
+ * @return	KalturaReportResponse.
+ */
+KalturaReportAdminService.prototype.executeDebug = function(callback, id, params){
+	if(!params)
+		params = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	if(params != null)
+	for(var index in params)
+	{
+		var obj = params[index];
+		this.client.addParam(kparams, "params:" + index, toParams(obj));
+	}
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "executeDebug", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @return	array.
+ */
+KalturaReportAdminService.prototype.getParameters = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "getParameters", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	id	int		 (optional).
+ * @param	reportPartnerId	int		 (optional).
+ * @return	string.
+ */
+KalturaReportAdminService.prototype.getCsvUrl = function(callback, id, reportPartnerId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "reportPartnerId", reportPartnerId);
+	this.client.queueServiceActionCall("adminconsole_reportadmin", "getCsvUrl", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: kalturaInternalToolsSystemHelper.
+ * The available service actions:
+ * @action	fromSecureString	KS from Secure String
+ *		 .
+ * @action	iptocountry	from ip to country
+ *		 .
+ * @action	getRemoteAddress	.
+*/
+function KalturaKalturaInternalToolsSystemHelperService(client){
+	this.init(client);
+}
+KalturaKalturaInternalToolsSystemHelperService.inheritsFrom (KalturaServiceBase);
+/**
+ * KS from Secure String
+ *		 .
+ * @param	str	string		 (optional).
+ * @return	KalturaInternalToolsSession.
+ */
+KalturaKalturaInternalToolsSystemHelperService.prototype.fromSecureString = function(callback, str){
+	var kparams = new Object();
+	this.client.addParam(kparams, "str", str);
+	this.client.queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "fromSecureString", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * from ip to country
+ *		 .
+ * @param	remote_addr	string		 (optional).
+ * @return	string.
+ */
+KalturaKalturaInternalToolsSystemHelperService.prototype.iptocountry = function(callback, remote_addr){
+	var kparams = new Object();
+	this.client.addParam(kparams, "remote_addr", remote_addr);
+	this.client.queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "iptocountry", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @return	string.
+ */
+KalturaKalturaInternalToolsSystemHelperService.prototype.getRemoteAddress = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "getRemoteAddress", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: virusScanProfile.
+ * The available service actions:
+ * @action	list	List virus scan profile objects by filter and pager
+ *		 .
+ * @action	add	Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
+ *		 .
+ * @action	get	Retrieve an virus scan profile object by id
+ *		 .
+ * @action	update	Update exisitng virus scan profile, it is possible to update the virus scan profile id too
+ *		 .
+ * @action	delete	Mark the virus scan profile as deleted
+ *		 .
+ * @action	scan	Scan flavor asset according to virus scan profile
+ *		 .
+*/
+function KalturaVirusScanProfileService(client){
+	this.init(client);
+}
+KalturaVirusScanProfileService.inheritsFrom (KalturaServiceBase);
+/**
+ * List virus scan profile objects by filter and pager
+ *		 .
+ * @param	filter	KalturaVirusScanProfileFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaVirusScanProfileListResponse.
+ */
+KalturaVirusScanProfileService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
+ *		 .
+ * @param	virusScanProfile	KalturaVirusScanProfile		 (optional).
+ * @return	KalturaVirusScanProfile.
+ */
+KalturaVirusScanProfileService.prototype.add = function(callback, virusScanProfile){
+	var kparams = new Object();
+	this.client.addParam(kparams, "virusScanProfile", toParams(virusScanProfile));
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Retrieve an virus scan profile object by id
+ *		 .
+ * @param	virusScanProfileId	int		 (optional).
+ * @return	KalturaVirusScanProfile.
+ */
+KalturaVirusScanProfileService.prototype.get = function(callback, virusScanProfileId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update exisitng virus scan profile, it is possible to update the virus scan profile id too
+ *		 .
+ * @param	virusScanProfileId	int		 (optional).
+ * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional).
+ * @return	KalturaVirusScanProfile.
+ */
+KalturaVirusScanProfileService.prototype.update = function(callback, virusScanProfileId, virusScanProfile){
+	var kparams = new Object();
+	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
+	this.client.addParam(kparams, "virusScanProfile", toParams(virusScanProfile));
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Mark the virus scan profile as deleted
+ *		 .
+ * @param	virusScanProfileId	int		 (optional).
+ * @return	KalturaVirusScanProfile.
+ */
+KalturaVirusScanProfileService.prototype.deleteAction = function(callback, virusScanProfileId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Scan flavor asset according to virus scan profile
+ *		 .
+ * @param	flavorAssetId	string		 (optional).
+ * @param	virusScanProfileId	int		 (optional, default: null).
  * @return	int.
  */
-KalturaAnnotationService.prototype.count = function(callback, filter){
-	if(!filter)
-		filter = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	this.client.queueServiceActionCall("annotation_annotation", "count", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * delete cue point by id, and delete all children cue points
- *		 .
- * @param	id	string		 (optional).
- * @return	.
- */
-KalturaAnnotationService.prototype.deleteAction = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("annotation_annotation", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: aspera.
- * The available service actions:
- * @action	getFaspUrl	.
-*/
-function KalturaAsperaService(client){
-	this.init(client);
-}
-KalturaAsperaService.inheritsFrom (KalturaServiceBase);
-/**
- * .
- * @param	flavorAssetId	string		 (optional).
- * @return	string.
- */
-KalturaAsperaService.prototype.getFaspUrl = function(callback, flavorAssetId){
+KalturaVirusScanProfileService.prototype.scan = function(callback, flavorAssetId, virusScanProfileId){
+	if(!virusScanProfileId)
+		virusScanProfileId = null;
 	var kparams = new Object();
 	this.client.addParam(kparams, "flavorAssetId", flavorAssetId);
-	this.client.queueServiceActionCall("aspera_aspera", "getFaspUrl", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: attachmentAsset.
- * The available service actions:
- * @action	add	Add attachment asset
- *	     .
- * @action	setContent	Update content of attachment asset
- *	     .
- * @action	update	Update attachment asset
- *	     .
- * @action	getUrl	Get download URL for the asset
- *		 .
- * @action	getRemotePaths	Get remote storage existing paths for the asset
- *		 .
- * @action	get	.
- * @action	list	List attachment Assets by filter and pager
- *		 .
- * @action	delete	.
-*/
-function KalturaAttachmentAssetService(client){
-	this.init(client);
-}
-KalturaAttachmentAssetService.inheritsFrom (KalturaServiceBase);
-/**
- * Add attachment asset
- *	     .
- * @param	entryId	string		 (optional).
- * @param	attachmentAsset	KalturaAttachmentAsset		 (optional).
- * @return	KalturaAttachmentAsset.
- */
-KalturaAttachmentAssetService.prototype.add = function(callback, entryId, attachmentAsset){
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.addParam(kparams, "attachmentAsset", toParams(attachmentAsset));
-	this.client.queueServiceActionCall("attachment_attachmentasset", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update content of attachment asset
- *	     .
- * @param	id	string		 (optional).
- * @param	contentResource	KalturaContentResource		 (optional).
- * @return	KalturaAttachmentAsset.
- */
-KalturaAttachmentAssetService.prototype.setContent = function(callback, id, contentResource){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "contentResource", toParams(contentResource));
-	this.client.queueServiceActionCall("attachment_attachmentasset", "setContent", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update attachment asset
- *	     .
- * @param	id	string		 (optional).
- * @param	attachmentAsset	KalturaAttachmentAsset		 (optional).
- * @return	KalturaAttachmentAsset.
- */
-KalturaAttachmentAssetService.prototype.update = function(callback, id, attachmentAsset){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "attachmentAsset", toParams(attachmentAsset));
-	this.client.queueServiceActionCall("attachment_attachmentasset", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get download URL for the asset
- *		 .
- * @param	id	string		 (optional).
- * @param	storageId	int		 (optional, default: null).
- * @return	string.
- */
-KalturaAttachmentAssetService.prototype.getUrl = function(callback, id, storageId){
-	if(!storageId)
-		storageId = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "storageId", storageId);
-	this.client.queueServiceActionCall("attachment_attachmentasset", "getUrl", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get remote storage existing paths for the asset
- *		 .
- * @param	id	string		 (optional).
- * @return	KalturaRemotePathListResponse.
- */
-KalturaAttachmentAssetService.prototype.getRemotePaths = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("attachment_attachmentasset", "getRemotePaths", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	attachmentAssetId	string		 (optional).
- * @return	KalturaAttachmentAsset.
- */
-KalturaAttachmentAssetService.prototype.get = function(callback, attachmentAssetId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "attachmentAssetId", attachmentAssetId);
-	this.client.queueServiceActionCall("attachment_attachmentasset", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List attachment Assets by filter and pager
- *		 .
- * @param	filter	KalturaAssetFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaAttachmentAssetListResponse.
- */
-KalturaAttachmentAssetService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("attachment_attachmentasset", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	attachmentAssetId	string		 (optional).
- * @return	.
- */
-KalturaAttachmentAssetService.prototype.deleteAction = function(callback, attachmentAssetId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "attachmentAssetId", attachmentAssetId);
-	this.client.queueServiceActionCall("attachment_attachmentasset", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: auditTrail.
- * The available service actions:
- * @action	add	Allows you to add an audit trail object and audit trail content associated with Kaltura object
- *		 .
- * @action	get	Retrieve an audit trail object by id
- *		 .
- * @action	list	List audit trail objects by filter and pager
- *		 .
-*/
-function KalturaAuditTrailService(client){
-	this.init(client);
-}
-KalturaAuditTrailService.inheritsFrom (KalturaServiceBase);
-/**
- * Allows you to add an audit trail object and audit trail content associated with Kaltura object
- *		 .
- * @param	auditTrail	KalturaAuditTrail		 (optional).
- * @return	KalturaAuditTrail.
- */
-KalturaAuditTrailService.prototype.add = function(callback, auditTrail){
-	var kparams = new Object();
-	this.client.addParam(kparams, "auditTrail", toParams(auditTrail));
-	this.client.queueServiceActionCall("audit_audittrail", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve an audit trail object by id
- *		 .
- * @param	id	int		 (optional).
- * @return	KalturaAuditTrail.
- */
-KalturaAuditTrailService.prototype.get = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("audit_audittrail", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List audit trail objects by filter and pager
- *		 .
- * @param	filter	KalturaAuditTrailFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaAuditTrailListResponse.
- */
-KalturaAuditTrailService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("audit_audittrail", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: bulk.
- * The available service actions:
- * @action	get	Get bulk upload batch job by id
- *		 .
- * @action	list	List bulk upload batch jobs
- *		 .
- * @action	abort	Aborts the bulk upload and all its child jobs
- *		 .
-*/
-function KalturaBulkService(client){
-	this.init(client);
-}
-KalturaBulkService.inheritsFrom (KalturaServiceBase);
-/**
- * Get bulk upload batch job by id
- *		 .
- * @param	id	int		 (optional).
- * @return	KalturaBulkUpload.
- */
-KalturaBulkService.prototype.get = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("bulkupload_bulk", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List bulk upload batch jobs
- *		 .
- * @param	bulkUploadFilter	KalturaBulkUploadFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaBulkUploadListResponse.
- */
-KalturaBulkService.prototype.listAction = function(callback, bulkUploadFilter, pager){
-	if(!bulkUploadFilter)
-		bulkUploadFilter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (bulkUploadFilter != null)
-		this.client.addParam(kparams, "bulkUploadFilter", toParams(bulkUploadFilter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("bulkupload_bulk", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Aborts the bulk upload and all its child jobs
- *		 .
- * @param	id	int		job id (optional).
- * @return	KalturaBulkUpload.
- */
-KalturaBulkService.prototype.abort = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("bulkupload_bulk", "abort", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: captionAsset.
- * The available service actions:
- * @action	add	Add caption asset
- *	     .
- * @action	setContent	Update content of caption asset
- *	     .
- * @action	update	Update caption asset
- *	     .
- * @action	getUrl	Get download URL for the asset
- *		 .
- * @action	getRemotePaths	Get remote storage existing paths for the asset
- *		 .
- * @action	setAsDefault	Markss the caption as default and removes that mark from all other caption assets of the entry.
- *		 .
- * @action	get	.
- * @action	list	List caption Assets by filter and pager
- *		 .
- * @action	delete	.
-*/
-function KalturaCaptionAssetService(client){
-	this.init(client);
-}
-KalturaCaptionAssetService.inheritsFrom (KalturaServiceBase);
-/**
- * Add caption asset
- *	     .
- * @param	entryId	string		 (optional).
- * @param	captionAsset	KalturaCaptionAsset		 (optional).
- * @return	KalturaCaptionAsset.
- */
-KalturaCaptionAssetService.prototype.add = function(callback, entryId, captionAsset){
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.addParam(kparams, "captionAsset", toParams(captionAsset));
-	this.client.queueServiceActionCall("caption_captionasset", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update content of caption asset
- *	     .
- * @param	id	string		 (optional).
- * @param	contentResource	KalturaContentResource		 (optional).
- * @return	KalturaCaptionAsset.
- */
-KalturaCaptionAssetService.prototype.setContent = function(callback, id, contentResource){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "contentResource", toParams(contentResource));
-	this.client.queueServiceActionCall("caption_captionasset", "setContent", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update caption asset
- *	     .
- * @param	id	string		 (optional).
- * @param	captionAsset	KalturaCaptionAsset		 (optional).
- * @return	KalturaCaptionAsset.
- */
-KalturaCaptionAssetService.prototype.update = function(callback, id, captionAsset){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "captionAsset", toParams(captionAsset));
-	this.client.queueServiceActionCall("caption_captionasset", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get download URL for the asset
- *		 .
- * @param	id	string		 (optional).
- * @param	storageId	int		 (optional, default: null).
- * @return	string.
- */
-KalturaCaptionAssetService.prototype.getUrl = function(callback, id, storageId){
-	if(!storageId)
-		storageId = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "storageId", storageId);
-	this.client.queueServiceActionCall("caption_captionasset", "getUrl", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get remote storage existing paths for the asset
- *		 .
- * @param	id	string		 (optional).
- * @return	KalturaRemotePathListResponse.
- */
-KalturaCaptionAssetService.prototype.getRemotePaths = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("caption_captionasset", "getRemotePaths", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Markss the caption as default and removes that mark from all other caption assets of the entry.
- *		 .
- * @param	captionAssetId	string		 (optional).
- * @return	.
- */
-KalturaCaptionAssetService.prototype.setAsDefault = function(callback, captionAssetId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "captionAssetId", captionAssetId);
-	this.client.queueServiceActionCall("caption_captionasset", "setAsDefault", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	captionAssetId	string		 (optional).
- * @return	KalturaCaptionAsset.
- */
-KalturaCaptionAssetService.prototype.get = function(callback, captionAssetId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "captionAssetId", captionAssetId);
-	this.client.queueServiceActionCall("caption_captionasset", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List caption Assets by filter and pager
- *		 .
- * @param	filter	KalturaAssetFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaCaptionAssetListResponse.
- */
-KalturaCaptionAssetService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("caption_captionasset", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	captionAssetId	string		 (optional).
- * @return	.
- */
-KalturaCaptionAssetService.prototype.deleteAction = function(callback, captionAssetId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "captionAssetId", captionAssetId);
-	this.client.queueServiceActionCall("caption_captionasset", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: captionParams.
- * The available service actions:
- * @action	add	Add new Caption Params
- *		 .
- * @action	get	Get Caption Params by ID
- *		 .
- * @action	update	Update Caption Params by ID
- *		 .
- * @action	delete	Delete Caption Params by ID
- *		 .
- * @action	list	List Caption Params by filter with paging support (By default - all system default params will be listed too)
- *		 .
-*/
-function KalturaCaptionParamsService(client){
-	this.init(client);
-}
-KalturaCaptionParamsService.inheritsFrom (KalturaServiceBase);
-/**
- * Add new Caption Params
- *		 .
- * @param	captionParams	KalturaCaptionParams		 (optional).
- * @return	KalturaCaptionParams.
- */
-KalturaCaptionParamsService.prototype.add = function(callback, captionParams){
-	var kparams = new Object();
-	this.client.addParam(kparams, "captionParams", toParams(captionParams));
-	this.client.queueServiceActionCall("caption_captionparams", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get Caption Params by ID
- *		 .
- * @param	id	int		 (optional).
- * @return	KalturaCaptionParams.
- */
-KalturaCaptionParamsService.prototype.get = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("caption_captionparams", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update Caption Params by ID
- *		 .
- * @param	id	int		 (optional).
- * @param	captionParams	KalturaCaptionParams		 (optional).
- * @return	KalturaCaptionParams.
- */
-KalturaCaptionParamsService.prototype.update = function(callback, id, captionParams){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "captionParams", toParams(captionParams));
-	this.client.queueServiceActionCall("caption_captionparams", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Delete Caption Params by ID
- *		 .
- * @param	id	int		 (optional).
- * @return	.
- */
-KalturaCaptionParamsService.prototype.deleteAction = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("caption_captionparams", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List Caption Params by filter with paging support (By default - all system default params will be listed too)
- *		 .
- * @param	filter	KalturaCaptionParamsFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaCaptionParamsListResponse.
- */
-KalturaCaptionParamsService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("caption_captionparams", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: captionAssetItem.
- * The available service actions:
- * @action	search	Search caption asset items by filter, pager and free text
- *		 .
- * @action	searchEntries	Search caption asset items by filter, pager and free text
- *		 .
-*/
-function KalturaCaptionAssetItemService(client){
-	this.init(client);
-}
-KalturaCaptionAssetItemService.inheritsFrom (KalturaServiceBase);
-/**
- * Search caption asset items by filter, pager and free text
- *		 .
- * @param	entryFilter	KalturaBaseEntryFilter		 (optional, default: null).
- * @param	captionAssetItemFilter	KalturaCaptionAssetItemFilter		 (optional, default: null).
- * @param	captionAssetItemPager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaCaptionAssetItemListResponse.
- */
-KalturaCaptionAssetItemService.prototype.search = function(callback, entryFilter, captionAssetItemFilter, captionAssetItemPager){
-	if(!entryFilter)
-		entryFilter = null;
-	if(!captionAssetItemFilter)
-		captionAssetItemFilter = null;
-	if(!captionAssetItemPager)
-		captionAssetItemPager = null;
-	var kparams = new Object();
-	if (entryFilter != null)
-		this.client.addParam(kparams, "entryFilter", toParams(entryFilter));
-	if (captionAssetItemFilter != null)
-		this.client.addParam(kparams, "captionAssetItemFilter", toParams(captionAssetItemFilter));
-	if (captionAssetItemPager != null)
-		this.client.addParam(kparams, "captionAssetItemPager", toParams(captionAssetItemPager));
-	this.client.queueServiceActionCall("captionsearch_captionassetitem", "search", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Search caption asset items by filter, pager and free text
- *		 .
- * @param	entryFilter	KalturaBaseEntryFilter		 (optional, default: null).
- * @param	captionAssetItemFilter	KalturaCaptionAssetItemFilter		 (optional, default: null).
- * @param	captionAssetItemPager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaBaseEntryListResponse.
- */
-KalturaCaptionAssetItemService.prototype.searchEntries = function(callback, entryFilter, captionAssetItemFilter, captionAssetItemPager){
-	if(!entryFilter)
-		entryFilter = null;
-	if(!captionAssetItemFilter)
-		captionAssetItemFilter = null;
-	if(!captionAssetItemPager)
-		captionAssetItemPager = null;
-	var kparams = new Object();
-	if (entryFilter != null)
-		this.client.addParam(kparams, "entryFilter", toParams(entryFilter));
-	if (captionAssetItemFilter != null)
-		this.client.addParam(kparams, "captionAssetItemFilter", toParams(captionAssetItemFilter));
-	if (captionAssetItemPager != null)
-		this.client.addParam(kparams, "captionAssetItemPager", toParams(captionAssetItemPager));
-	this.client.queueServiceActionCall("captionsearch_captionassetitem", "searchEntries", kparams);
+	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
+	this.client.queueServiceActionCall("virusscan_virusscanprofile", "scan", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
@@ -9564,6 +9839,371 @@ KalturaCuePointService.prototype.deleteAction = function(callback, id){
 }
 
 /**
+ *Class definition for the Kaltura service: annotation.
+ * The available service actions:
+ * @action	add	Allows you to add an annotation object associated with an entry
+ *		 .
+ * @action	update	Update annotation by id
+ *		 .
+ * @action	list	List annotation objects by filter and pager
+ *		.
+ * @action	addFromBulk	Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
+ *		 .
+ * @action	get	Retrieve an CuePoint object by id
+ *		 .
+ * @action	count	count cue point objects by filter
+ *		 .
+ * @action	delete	delete cue point by id, and delete all children cue points
+ *		 .
+*/
+function KalturaAnnotationService(client){
+	this.init(client);
+}
+KalturaAnnotationService.inheritsFrom (KalturaServiceBase);
+/**
+ * Allows you to add an annotation object associated with an entry
+ *		 .
+ * @param	annotation	KalturaCuePoint		 (optional).
+ * @return	KalturaAnnotation.
+ */
+KalturaAnnotationService.prototype.add = function(callback, annotation){
+	var kparams = new Object();
+	this.client.addParam(kparams, "annotation", toParams(annotation));
+	this.client.queueServiceActionCall("annotation_annotation", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update annotation by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @param	annotation	KalturaCuePoint		 (optional).
+ * @return	KalturaAnnotation.
+ */
+KalturaAnnotationService.prototype.update = function(callback, id, annotation){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "annotation", toParams(annotation));
+	this.client.queueServiceActionCall("annotation_annotation", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List annotation objects by filter and pager
+ *		.
+ * @param	filter	KalturaCuePointFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaAnnotationListResponse.
+ */
+KalturaAnnotationService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("annotation_annotation", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
+ *		 .
+ * @param	fileData	file		 (optional).
+ * @return	KalturaCuePointListResponse.
+ */
+KalturaAnnotationService.prototype.addFromBulk = function(callback, fileData){
+	var kparams = new Object();
+	kfiles = new Object();
+	this.client.addParam(kfiles, "fileData", fileData);
+	this.client.queueServiceActionCall("annotation_annotation", "addFromBulk", kparams, kfiles);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Retrieve an CuePoint object by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaCuePoint.
+ */
+KalturaAnnotationService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("annotation_annotation", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * count cue point objects by filter
+ *		 .
+ * @param	filter	KalturaCuePointFilter		 (optional, default: null).
+ * @return	int.
+ */
+KalturaAnnotationService.prototype.count = function(callback, filter){
+	if(!filter)
+		filter = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	this.client.queueServiceActionCall("annotation_annotation", "count", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * delete cue point by id, and delete all children cue points
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	.
+ */
+KalturaAnnotationService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("annotation_annotation", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: quiz.
+ * The available service actions:
+ * @action	add	Allows to add a quiz to an entry
+ *		 .
+ * @action	update	Allows to update a quiz
+ *		 .
+ * @action	get	Allows to get a quiz
+ *		 .
+ * @action	list	List quiz objects by filter and pager
+ *		 .
+*/
+function KalturaQuizService(client){
+	this.init(client);
+}
+KalturaQuizService.inheritsFrom (KalturaServiceBase);
+/**
+ * Allows to add a quiz to an entry
+ *		 .
+ * @param	entryId	string		 (optional).
+ * @param	quiz	KalturaQuiz		 (optional).
+ * @return	KalturaQuiz.
+ */
+KalturaQuizService.prototype.add = function(callback, entryId, quiz){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "quiz", toParams(quiz));
+	this.client.queueServiceActionCall("quiz_quiz", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Allows to update a quiz
+ *		 .
+ * @param	entryId	string		 (optional).
+ * @param	quiz	KalturaQuiz		 (optional).
+ * @return	KalturaQuiz.
+ */
+KalturaQuizService.prototype.update = function(callback, entryId, quiz){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "quiz", toParams(quiz));
+	this.client.queueServiceActionCall("quiz_quiz", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Allows to get a quiz
+ *		 .
+ * @param	entryId	string		 (optional).
+ * @return	KalturaQuiz.
+ */
+KalturaQuizService.prototype.get = function(callback, entryId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.queueServiceActionCall("quiz_quiz", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List quiz objects by filter and pager
+ *		 .
+ * @param	filter	KalturaQuizFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaQuizListResponse.
+ */
+KalturaQuizService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("quiz_quiz", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: shortLink.
+ * The available service actions:
+ * @action	list	List short link objects by filter and pager
+ *		 .
+ * @action	add	Allows you to add a short link object
+ *		 .
+ * @action	get	Retrieve an short link object by id
+ *		 .
+ * @action	update	Update exisitng short link
+ *		 .
+ * @action	delete	Mark the short link as deleted
+ *		 .
+*/
+function KalturaShortLinkService(client){
+	this.init(client);
+}
+KalturaShortLinkService.inheritsFrom (KalturaServiceBase);
+/**
+ * List short link objects by filter and pager
+ *		 .
+ * @param	filter	KalturaShortLinkFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaShortLinkListResponse.
+ */
+KalturaShortLinkService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("shortlink_shortlink", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Allows you to add a short link object
+ *		 .
+ * @param	shortLink	KalturaShortLink		 (optional).
+ * @return	KalturaShortLink.
+ */
+KalturaShortLinkService.prototype.add = function(callback, shortLink){
+	var kparams = new Object();
+	this.client.addParam(kparams, "shortLink", toParams(shortLink));
+	this.client.queueServiceActionCall("shortlink_shortlink", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Retrieve an short link object by id
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaShortLink.
+ */
+KalturaShortLinkService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("shortlink_shortlink", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update exisitng short link
+ *		 .
+ * @param	id	string		 (optional).
+ * @param	shortLink	KalturaShortLink		 (optional).
+ * @return	KalturaShortLink.
+ */
+KalturaShortLinkService.prototype.update = function(callback, id, shortLink){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "shortLink", toParams(shortLink));
+	this.client.queueServiceActionCall("shortlink_shortlink", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Mark the short link as deleted
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaShortLink.
+ */
+KalturaShortLinkService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("shortlink_shortlink", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: bulk.
+ * The available service actions:
+ * @action	get	Get bulk upload batch job by id
+ *		 .
+ * @action	list	List bulk upload batch jobs
+ *		 .
+ * @action	abort	Aborts the bulk upload and all its child jobs
+ *		 .
+*/
+function KalturaBulkService(client){
+	this.init(client);
+}
+KalturaBulkService.inheritsFrom (KalturaServiceBase);
+/**
+ * Get bulk upload batch job by id
+ *		 .
+ * @param	id	int		 (optional).
+ * @return	KalturaBulkUpload.
+ */
+KalturaBulkService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("bulkupload_bulk", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List bulk upload batch jobs
+ *		 .
+ * @param	bulkUploadFilter	KalturaBulkUploadFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaBulkUploadListResponse.
+ */
+KalturaBulkService.prototype.listAction = function(callback, bulkUploadFilter, pager){
+	if(!bulkUploadFilter)
+		bulkUploadFilter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (bulkUploadFilter != null)
+		this.client.addParam(kparams, "bulkUploadFilter", toParams(bulkUploadFilter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("bulkupload_bulk", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Aborts the bulk upload and all its child jobs
+ *		 .
+ * @param	id	int		job id (optional).
+ * @return	KalturaBulkUpload.
+ */
+KalturaBulkService.prototype.abort = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("bulkupload_bulk", "abort", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
  *Class definition for the Kaltura service: dropFolder.
  * The available service actions:
  * @action	add	Allows you to add a new KalturaDropFolder object
@@ -9784,6 +10424,629 @@ KalturaDropFolderFileService.prototype.ignore = function(callback, dropFolderFil
 }
 
 /**
+ *Class definition for the Kaltura service: captionAsset.
+ * The available service actions:
+ * @action	add	Add caption asset
+ *	     .
+ * @action	setContent	Update content of caption asset
+ *	     .
+ * @action	update	Update caption asset
+ *	     .
+ * @action	getUrl	Get download URL for the asset
+ *		 .
+ * @action	getRemotePaths	Get remote storage existing paths for the asset
+ *		 .
+ * @action	setAsDefault	Markss the caption as default and removes that mark from all other caption assets of the entry.
+ *		 .
+ * @action	get	.
+ * @action	list	List caption Assets by filter and pager
+ *		 .
+ * @action	delete	.
+*/
+function KalturaCaptionAssetService(client){
+	this.init(client);
+}
+KalturaCaptionAssetService.inheritsFrom (KalturaServiceBase);
+/**
+ * Add caption asset
+ *	     .
+ * @param	entryId	string		 (optional).
+ * @param	captionAsset	KalturaCaptionAsset		 (optional).
+ * @return	KalturaCaptionAsset.
+ */
+KalturaCaptionAssetService.prototype.add = function(callback, entryId, captionAsset){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "captionAsset", toParams(captionAsset));
+	this.client.queueServiceActionCall("caption_captionasset", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update content of caption asset
+ *	     .
+ * @param	id	string		 (optional).
+ * @param	contentResource	KalturaContentResource		 (optional).
+ * @return	KalturaCaptionAsset.
+ */
+KalturaCaptionAssetService.prototype.setContent = function(callback, id, contentResource){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "contentResource", toParams(contentResource));
+	this.client.queueServiceActionCall("caption_captionasset", "setContent", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update caption asset
+ *	     .
+ * @param	id	string		 (optional).
+ * @param	captionAsset	KalturaCaptionAsset		 (optional).
+ * @return	KalturaCaptionAsset.
+ */
+KalturaCaptionAssetService.prototype.update = function(callback, id, captionAsset){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "captionAsset", toParams(captionAsset));
+	this.client.queueServiceActionCall("caption_captionasset", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get download URL for the asset
+ *		 .
+ * @param	id	string		 (optional).
+ * @param	storageId	int		 (optional, default: null).
+ * @return	string.
+ */
+KalturaCaptionAssetService.prototype.getUrl = function(callback, id, storageId){
+	if(!storageId)
+		storageId = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "storageId", storageId);
+	this.client.queueServiceActionCall("caption_captionasset", "getUrl", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get remote storage existing paths for the asset
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaRemotePathListResponse.
+ */
+KalturaCaptionAssetService.prototype.getRemotePaths = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("caption_captionasset", "getRemotePaths", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Markss the caption as default and removes that mark from all other caption assets of the entry.
+ *		 .
+ * @param	captionAssetId	string		 (optional).
+ * @return	.
+ */
+KalturaCaptionAssetService.prototype.setAsDefault = function(callback, captionAssetId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "captionAssetId", captionAssetId);
+	this.client.queueServiceActionCall("caption_captionasset", "setAsDefault", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	captionAssetId	string		 (optional).
+ * @return	KalturaCaptionAsset.
+ */
+KalturaCaptionAssetService.prototype.get = function(callback, captionAssetId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "captionAssetId", captionAssetId);
+	this.client.queueServiceActionCall("caption_captionasset", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List caption Assets by filter and pager
+ *		 .
+ * @param	filter	KalturaAssetFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaCaptionAssetListResponse.
+ */
+KalturaCaptionAssetService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("caption_captionasset", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	captionAssetId	string		 (optional).
+ * @return	.
+ */
+KalturaCaptionAssetService.prototype.deleteAction = function(callback, captionAssetId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "captionAssetId", captionAssetId);
+	this.client.queueServiceActionCall("caption_captionasset", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: captionParams.
+ * The available service actions:
+ * @action	add	Add new Caption Params
+ *		 .
+ * @action	get	Get Caption Params by ID
+ *		 .
+ * @action	update	Update Caption Params by ID
+ *		 .
+ * @action	delete	Delete Caption Params by ID
+ *		 .
+ * @action	list	List Caption Params by filter with paging support (By default - all system default params will be listed too)
+ *		 .
+*/
+function KalturaCaptionParamsService(client){
+	this.init(client);
+}
+KalturaCaptionParamsService.inheritsFrom (KalturaServiceBase);
+/**
+ * Add new Caption Params
+ *		 .
+ * @param	captionParams	KalturaCaptionParams		 (optional).
+ * @return	KalturaCaptionParams.
+ */
+KalturaCaptionParamsService.prototype.add = function(callback, captionParams){
+	var kparams = new Object();
+	this.client.addParam(kparams, "captionParams", toParams(captionParams));
+	this.client.queueServiceActionCall("caption_captionparams", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get Caption Params by ID
+ *		 .
+ * @param	id	int		 (optional).
+ * @return	KalturaCaptionParams.
+ */
+KalturaCaptionParamsService.prototype.get = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("caption_captionparams", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update Caption Params by ID
+ *		 .
+ * @param	id	int		 (optional).
+ * @param	captionParams	KalturaCaptionParams		 (optional).
+ * @return	KalturaCaptionParams.
+ */
+KalturaCaptionParamsService.prototype.update = function(callback, id, captionParams){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "captionParams", toParams(captionParams));
+	this.client.queueServiceActionCall("caption_captionparams", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Delete Caption Params by ID
+ *		 .
+ * @param	id	int		 (optional).
+ * @return	.
+ */
+KalturaCaptionParamsService.prototype.deleteAction = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("caption_captionparams", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List Caption Params by filter with paging support (By default - all system default params will be listed too)
+ *		 .
+ * @param	filter	KalturaCaptionParamsFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaCaptionParamsListResponse.
+ */
+KalturaCaptionParamsService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("caption_captionparams", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: captionAssetItem.
+ * The available service actions:
+ * @action	search	Search caption asset items by filter, pager and free text
+ *		 .
+ * @action	searchEntries	Search caption asset items by filter, pager and free text
+ *		 .
+*/
+function KalturaCaptionAssetItemService(client){
+	this.init(client);
+}
+KalturaCaptionAssetItemService.inheritsFrom (KalturaServiceBase);
+/**
+ * Search caption asset items by filter, pager and free text
+ *		 .
+ * @param	entryFilter	KalturaBaseEntryFilter		 (optional, default: null).
+ * @param	captionAssetItemFilter	KalturaCaptionAssetItemFilter		 (optional, default: null).
+ * @param	captionAssetItemPager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaCaptionAssetItemListResponse.
+ */
+KalturaCaptionAssetItemService.prototype.search = function(callback, entryFilter, captionAssetItemFilter, captionAssetItemPager){
+	if(!entryFilter)
+		entryFilter = null;
+	if(!captionAssetItemFilter)
+		captionAssetItemFilter = null;
+	if(!captionAssetItemPager)
+		captionAssetItemPager = null;
+	var kparams = new Object();
+	if (entryFilter != null)
+		this.client.addParam(kparams, "entryFilter", toParams(entryFilter));
+	if (captionAssetItemFilter != null)
+		this.client.addParam(kparams, "captionAssetItemFilter", toParams(captionAssetItemFilter));
+	if (captionAssetItemPager != null)
+		this.client.addParam(kparams, "captionAssetItemPager", toParams(captionAssetItemPager));
+	this.client.queueServiceActionCall("captionsearch_captionassetitem", "search", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Search caption asset items by filter, pager and free text
+ *		 .
+ * @param	entryFilter	KalturaBaseEntryFilter		 (optional, default: null).
+ * @param	captionAssetItemFilter	KalturaCaptionAssetItemFilter		 (optional, default: null).
+ * @param	captionAssetItemPager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaBaseEntryListResponse.
+ */
+KalturaCaptionAssetItemService.prototype.searchEntries = function(callback, entryFilter, captionAssetItemFilter, captionAssetItemPager){
+	if(!entryFilter)
+		entryFilter = null;
+	if(!captionAssetItemFilter)
+		captionAssetItemFilter = null;
+	if(!captionAssetItemPager)
+		captionAssetItemPager = null;
+	var kparams = new Object();
+	if (entryFilter != null)
+		this.client.addParam(kparams, "entryFilter", toParams(entryFilter));
+	if (captionAssetItemFilter != null)
+		this.client.addParam(kparams, "captionAssetItemFilter", toParams(captionAssetItemFilter));
+	if (captionAssetItemPager != null)
+		this.client.addParam(kparams, "captionAssetItemPager", toParams(captionAssetItemPager));
+	this.client.queueServiceActionCall("captionsearch_captionassetitem", "searchEntries", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: attachmentAsset.
+ * The available service actions:
+ * @action	add	Add attachment asset
+ *	     .
+ * @action	setContent	Update content of attachment asset
+ *	     .
+ * @action	update	Update attachment asset
+ *	     .
+ * @action	getUrl	Get download URL for the asset
+ *		 .
+ * @action	getRemotePaths	Get remote storage existing paths for the asset
+ *		 .
+ * @action	get	.
+ * @action	list	List attachment Assets by filter and pager
+ *		 .
+ * @action	delete	.
+*/
+function KalturaAttachmentAssetService(client){
+	this.init(client);
+}
+KalturaAttachmentAssetService.inheritsFrom (KalturaServiceBase);
+/**
+ * Add attachment asset
+ *	     .
+ * @param	entryId	string		 (optional).
+ * @param	attachmentAsset	KalturaAttachmentAsset		 (optional).
+ * @return	KalturaAttachmentAsset.
+ */
+KalturaAttachmentAssetService.prototype.add = function(callback, entryId, attachmentAsset){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "attachmentAsset", toParams(attachmentAsset));
+	this.client.queueServiceActionCall("attachment_attachmentasset", "add", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update content of attachment asset
+ *	     .
+ * @param	id	string		 (optional).
+ * @param	contentResource	KalturaContentResource		 (optional).
+ * @return	KalturaAttachmentAsset.
+ */
+KalturaAttachmentAssetService.prototype.setContent = function(callback, id, contentResource){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "contentResource", toParams(contentResource));
+	this.client.queueServiceActionCall("attachment_attachmentasset", "setContent", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Update attachment asset
+ *	     .
+ * @param	id	string		 (optional).
+ * @param	attachmentAsset	KalturaAttachmentAsset		 (optional).
+ * @return	KalturaAttachmentAsset.
+ */
+KalturaAttachmentAssetService.prototype.update = function(callback, id, attachmentAsset){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "attachmentAsset", toParams(attachmentAsset));
+	this.client.queueServiceActionCall("attachment_attachmentasset", "update", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get download URL for the asset
+ *		 .
+ * @param	id	string		 (optional).
+ * @param	storageId	int		 (optional, default: null).
+ * @return	string.
+ */
+KalturaAttachmentAssetService.prototype.getUrl = function(callback, id, storageId){
+	if(!storageId)
+		storageId = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "storageId", storageId);
+	this.client.queueServiceActionCall("attachment_attachmentasset", "getUrl", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Get remote storage existing paths for the asset
+ *		 .
+ * @param	id	string		 (optional).
+ * @return	KalturaRemotePathListResponse.
+ */
+KalturaAttachmentAssetService.prototype.getRemotePaths = function(callback, id){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.queueServiceActionCall("attachment_attachmentasset", "getRemotePaths", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	attachmentAssetId	string		 (optional).
+ * @return	KalturaAttachmentAsset.
+ */
+KalturaAttachmentAssetService.prototype.get = function(callback, attachmentAssetId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "attachmentAssetId", attachmentAssetId);
+	this.client.queueServiceActionCall("attachment_attachmentasset", "get", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * List attachment Assets by filter and pager
+ *		 .
+ * @param	filter	KalturaAssetFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaAttachmentAssetListResponse.
+ */
+KalturaAttachmentAssetService.prototype.listAction = function(callback, filter, pager){
+	if(!filter)
+		filter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (filter != null)
+		this.client.addParam(kparams, "filter", toParams(filter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("attachment_attachmentasset", "list", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	attachmentAssetId	string		 (optional).
+ * @return	.
+ */
+KalturaAttachmentAssetService.prototype.deleteAction = function(callback, attachmentAssetId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "attachmentAssetId", attachmentAssetId);
+	this.client.queueServiceActionCall("attachment_attachmentasset", "delete", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: tag.
+ * The available service actions:
+ * @action	search	.
+ * @action	deletePending	Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
+ *	     .
+ * @action	indexCategoryEntryTags	.
+*/
+function KalturaTagService(client){
+	this.init(client);
+}
+KalturaTagService.inheritsFrom (KalturaServiceBase);
+/**
+ * .
+ * @param	tagFilter	KalturaTagFilter		 (optional).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaTagListResponse.
+ */
+KalturaTagService.prototype.search = function(callback, tagFilter, pager){
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "tagFilter", toParams(tagFilter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("tagsearch_tag", "search", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
+ *	     .
+ * @return	int.
+ */
+KalturaTagService.prototype.deletePending = function(callback){
+	var kparams = new Object();
+	this.client.queueServiceActionCall("tagsearch_tag", "deletePending", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	categoryId	int		 (optional).
+ * @param	pcToDecrement	string		 (optional).
+ * @param	pcToIncrement	string		 (optional).
+ * @return	.
+ */
+KalturaTagService.prototype.indexCategoryEntryTags = function(callback, categoryId, pcToDecrement, pcToIncrement){
+	var kparams = new Object();
+	this.client.addParam(kparams, "categoryId", categoryId);
+	this.client.addParam(kparams, "pcToDecrement", pcToDecrement);
+	this.client.addParam(kparams, "pcToIncrement", pcToIncrement);
+	this.client.queueServiceActionCall("tagsearch_tag", "indexCategoryEntryTags", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: like.
+ * The available service actions:
+ * @action	like	.
+ * @action	unlike	.
+ * @action	checkLikeExists	.
+*/
+function KalturaLikeService(client){
+	this.init(client);
+}
+KalturaLikeService.inheritsFrom (KalturaServiceBase);
+/**
+ * .
+ * @param	entryId	string		 (optional).
+ * @return	bool.
+ */
+KalturaLikeService.prototype.like = function(callback, entryId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.queueServiceActionCall("like_like", "like", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	entryId	string		 (optional).
+ * @return	bool.
+ */
+KalturaLikeService.prototype.unlike = function(callback, entryId){
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.queueServiceActionCall("like_like", "unlike", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * .
+ * @param	entryId	string		 (optional).
+ * @param	userId	string		 (optional, default: null).
+ * @return	bool.
+ */
+KalturaLikeService.prototype.checkLikeExists = function(callback, entryId, userId){
+	if(!userId)
+		userId = null;
+	var kparams = new Object();
+	this.client.addParam(kparams, "entryId", entryId);
+	this.client.addParam(kparams, "userId", userId);
+	this.client.queueServiceActionCall("like_like", "checkLikeExists", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
+ *Class definition for the Kaltura service: varConsole.
+ * The available service actions:
+ * @action	getPartnerUsage	Function which calulates partner usage of a group of a VAR's sub-publishers
+ *	     .
+ * @action	updateStatus	Function to change a sub-publisher's status
+ *		 .
+*/
+function KalturaVarConsoleService(client){
+	this.init(client);
+}
+KalturaVarConsoleService.inheritsFrom (KalturaServiceBase);
+/**
+ * Function which calulates partner usage of a group of a VAR's sub-publishers
+ *	     .
+ * @param	partnerFilter	KalturaPartnerFilter		 (optional, default: null).
+ * @param	usageFilter	KalturaReportInputFilter		 (optional, default: null).
+ * @param	pager	KalturaFilterPager		 (optional, default: null).
+ * @return	KalturaPartnerUsageListResponse.
+ */
+KalturaVarConsoleService.prototype.getPartnerUsage = function(callback, partnerFilter, usageFilter, pager){
+	if(!partnerFilter)
+		partnerFilter = null;
+	if(!usageFilter)
+		usageFilter = null;
+	if(!pager)
+		pager = null;
+	var kparams = new Object();
+	if (partnerFilter != null)
+		this.client.addParam(kparams, "partnerFilter", toParams(partnerFilter));
+	if (usageFilter != null)
+		this.client.addParam(kparams, "usageFilter", toParams(usageFilter));
+	if (pager != null)
+		this.client.addParam(kparams, "pager", toParams(pager));
+	this.client.queueServiceActionCall("varconsole_varconsole", "getPartnerUsage", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+/**
+ * Function to change a sub-publisher's status
+ *		 .
+ * @param	id	int		 (optional).
+ * @param	status	int		 (optional, enum: KalturaPartnerStatus).
+ * @return	.
+ */
+KalturaVarConsoleService.prototype.updateStatus = function(callback, id, status){
+	var kparams = new Object();
+	this.client.addParam(kparams, "id", id);
+	this.client.addParam(kparams, "status", status);
+	this.client.queueServiceActionCall("varconsole_varconsole", "updateStatus", kparams);
+	if (!this.client.isMultiRequest())
+		this.client.doQueue(callback);
+}
+
+/**
  *Class definition for the Kaltura service: eventNotificationTemplate.
  * The available service actions:
  * @action	add	Allows you to add a new event notification template object
@@ -9976,376 +11239,6 @@ KalturaEventNotificationTemplateService.prototype.listTemplates = function(callb
 }
 
 /**
- *Class definition for the Kaltura service: like.
- * The available service actions:
- * @action	like	.
- * @action	unlike	.
- * @action	checkLikeExists	.
-*/
-function KalturaLikeService(client){
-	this.init(client);
-}
-KalturaLikeService.inheritsFrom (KalturaServiceBase);
-/**
- * .
- * @param	entryId	string		 (optional).
- * @return	bool.
- */
-KalturaLikeService.prototype.like = function(callback, entryId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.queueServiceActionCall("like_like", "like", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	entryId	string		 (optional).
- * @return	bool.
- */
-KalturaLikeService.prototype.unlike = function(callback, entryId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.queueServiceActionCall("like_like", "unlike", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	entryId	string		 (optional).
- * @param	userId	string		 (optional, default: null).
- * @return	bool.
- */
-KalturaLikeService.prototype.checkLikeExists = function(callback, entryId, userId){
-	if(!userId)
-		userId = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.addParam(kparams, "userId", userId);
-	this.client.queueServiceActionCall("like_like", "checkLikeExists", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: shortLink.
- * The available service actions:
- * @action	list	List short link objects by filter and pager
- *		 .
- * @action	add	Allows you to add a short link object
- *		 .
- * @action	get	Retrieve an short link object by id
- *		 .
- * @action	update	Update exisitng short link
- *		 .
- * @action	delete	Mark the short link as deleted
- *		 .
-*/
-function KalturaShortLinkService(client){
-	this.init(client);
-}
-KalturaShortLinkService.inheritsFrom (KalturaServiceBase);
-/**
- * List short link objects by filter and pager
- *		 .
- * @param	filter	KalturaShortLinkFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaShortLinkListResponse.
- */
-KalturaShortLinkService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("shortlink_shortlink", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Allows you to add a short link object
- *		 .
- * @param	shortLink	KalturaShortLink		 (optional).
- * @return	KalturaShortLink.
- */
-KalturaShortLinkService.prototype.add = function(callback, shortLink){
-	var kparams = new Object();
-	this.client.addParam(kparams, "shortLink", toParams(shortLink));
-	this.client.queueServiceActionCall("shortlink_shortlink", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve an short link object by id
- *		 .
- * @param	id	string		 (optional).
- * @return	KalturaShortLink.
- */
-KalturaShortLinkService.prototype.get = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("shortlink_shortlink", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update exisitng short link
- *		 .
- * @param	id	string		 (optional).
- * @param	shortLink	KalturaShortLink		 (optional).
- * @return	KalturaShortLink.
- */
-KalturaShortLinkService.prototype.update = function(callback, id, shortLink){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "shortLink", toParams(shortLink));
-	this.client.queueServiceActionCall("shortlink_shortlink", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Mark the short link as deleted
- *		 .
- * @param	id	string		 (optional).
- * @return	KalturaShortLink.
- */
-KalturaShortLinkService.prototype.deleteAction = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("shortlink_shortlink", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: tag.
- * The available service actions:
- * @action	search	.
- * @action	deletePending	Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
- *	     .
- * @action	indexCategoryEntryTags	.
-*/
-function KalturaTagService(client){
-	this.init(client);
-}
-KalturaTagService.inheritsFrom (KalturaServiceBase);
-/**
- * .
- * @param	tagFilter	KalturaTagFilter		 (optional).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaTagListResponse.
- */
-KalturaTagService.prototype.search = function(callback, tagFilter, pager){
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "tagFilter", toParams(tagFilter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("tagsearch_tag", "search", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags.
- *	     .
- * @return	int.
- */
-KalturaTagService.prototype.deletePending = function(callback){
-	var kparams = new Object();
-	this.client.queueServiceActionCall("tagsearch_tag", "deletePending", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	categoryId	int		 (optional).
- * @param	pcToDecrement	string		 (optional).
- * @param	pcToIncrement	string		 (optional).
- * @return	.
- */
-KalturaTagService.prototype.indexCategoryEntryTags = function(callback, categoryId, pcToDecrement, pcToIncrement){
-	var kparams = new Object();
-	this.client.addParam(kparams, "categoryId", categoryId);
-	this.client.addParam(kparams, "pcToDecrement", pcToDecrement);
-	this.client.addParam(kparams, "pcToIncrement", pcToIncrement);
-	this.client.queueServiceActionCall("tagsearch_tag", "indexCategoryEntryTags", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: varConsole.
- * The available service actions:
- * @action	getPartnerUsage	Function which calulates partner usage of a group of a VAR's sub-publishers
- *	     .
- * @action	updateStatus	Function to change a sub-publisher's status
- *		 .
-*/
-function KalturaVarConsoleService(client){
-	this.init(client);
-}
-KalturaVarConsoleService.inheritsFrom (KalturaServiceBase);
-/**
- * Function which calulates partner usage of a group of a VAR's sub-publishers
- *	     .
- * @param	partnerFilter	KalturaPartnerFilter		 (optional, default: null).
- * @param	usageFilter	KalturaReportInputFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaPartnerUsageListResponse.
- */
-KalturaVarConsoleService.prototype.getPartnerUsage = function(callback, partnerFilter, usageFilter, pager){
-	if(!partnerFilter)
-		partnerFilter = null;
-	if(!usageFilter)
-		usageFilter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (partnerFilter != null)
-		this.client.addParam(kparams, "partnerFilter", toParams(partnerFilter));
-	if (usageFilter != null)
-		this.client.addParam(kparams, "usageFilter", toParams(usageFilter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("varconsole_varconsole", "getPartnerUsage", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Function to change a sub-publisher's status
- *		 .
- * @param	id	int		 (optional).
- * @param	status	int		 (optional, enum: KalturaPartnerStatus).
- * @return	.
- */
-KalturaVarConsoleService.prototype.updateStatus = function(callback, id, status){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "status", status);
-	this.client.queueServiceActionCall("varconsole_varconsole", "updateStatus", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: virusScanProfile.
- * The available service actions:
- * @action	list	List virus scan profile objects by filter and pager
- *		 .
- * @action	add	Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
- *		 .
- * @action	get	Retrieve an virus scan profile object by id
- *		 .
- * @action	update	Update exisitng virus scan profile, it is possible to update the virus scan profile id too
- *		 .
- * @action	delete	Mark the virus scan profile as deleted
- *		 .
- * @action	scan	Scan flavor asset according to virus scan profile
- *		 .
-*/
-function KalturaVirusScanProfileService(client){
-	this.init(client);
-}
-KalturaVirusScanProfileService.inheritsFrom (KalturaServiceBase);
-/**
- * List virus scan profile objects by filter and pager
- *		 .
- * @param	filter	KalturaVirusScanProfileFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaVirusScanProfileListResponse.
- */
-KalturaVirusScanProfileService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
- *		 .
- * @param	virusScanProfile	KalturaVirusScanProfile		 (optional).
- * @return	KalturaVirusScanProfile.
- */
-KalturaVirusScanProfileService.prototype.add = function(callback, virusScanProfile){
-	var kparams = new Object();
-	this.client.addParam(kparams, "virusScanProfile", toParams(virusScanProfile));
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve an virus scan profile object by id
- *		 .
- * @param	virusScanProfileId	int		 (optional).
- * @return	KalturaVirusScanProfile.
- */
-KalturaVirusScanProfileService.prototype.get = function(callback, virusScanProfileId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update exisitng virus scan profile, it is possible to update the virus scan profile id too
- *		 .
- * @param	virusScanProfileId	int		 (optional).
- * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional).
- * @return	KalturaVirusScanProfile.
- */
-KalturaVirusScanProfileService.prototype.update = function(callback, virusScanProfileId, virusScanProfile){
-	var kparams = new Object();
-	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
-	this.client.addParam(kparams, "virusScanProfile", toParams(virusScanProfile));
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Mark the virus scan profile as deleted
- *		 .
- * @param	virusScanProfileId	int		 (optional).
- * @return	KalturaVirusScanProfile.
- */
-KalturaVirusScanProfileService.prototype.deleteAction = function(callback, virusScanProfileId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Scan flavor asset according to virus scan profile
- *		 .
- * @param	flavorAssetId	string		 (optional).
- * @param	virusScanProfileId	int		 (optional, default: null).
- * @return	int.
- */
-KalturaVirusScanProfileService.prototype.scan = function(callback, flavorAssetId, virusScanProfileId){
-	if(!virusScanProfileId)
-		virusScanProfileId = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "flavorAssetId", flavorAssetId);
-	this.client.addParam(kparams, "virusScanProfileId", virusScanProfileId);
-	this.client.queueServiceActionCall("virusscan_virusscanprofile", "scan", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
  *Class definition for the Kaltura service: externalMedia.
  * The available service actions:
  * @action	add	Add external media entry
@@ -10453,237 +11346,6 @@ KalturaExternalMediaService.prototype.count = function(callback, filter){
 	if (filter != null)
 		this.client.addParam(kparams, "filter", toParams(filter));
 	this.client.queueServiceActionCall("externalmedia_externalmedia", "count", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: drmPolicy.
- * The available service actions:
- * @action	add	Allows you to add a new DrmPolicy object
- *		 .
- * @action	get	Retrieve a KalturaDrmPolicy object by ID
- *		 .
- * @action	update	Update an existing KalturaDrmPolicy object
- *		 .
- * @action	delete	Mark the KalturaDrmPolicy object as deleted
- *		 .
- * @action	list	List KalturaDrmPolicy objects
- *		 .
-*/
-function KalturaDrmPolicyService(client){
-	this.init(client);
-}
-KalturaDrmPolicyService.inheritsFrom (KalturaServiceBase);
-/**
- * Allows you to add a new DrmPolicy object
- *		 .
- * @param	drmPolicy	KalturaDrmPolicy		 (optional).
- * @return	KalturaDrmPolicy.
- */
-KalturaDrmPolicyService.prototype.add = function(callback, drmPolicy){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmPolicy", toParams(drmPolicy));
-	this.client.queueServiceActionCall("drm_drmpolicy", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve a KalturaDrmPolicy object by ID
- *		 .
- * @param	drmPolicyId	int		 (optional).
- * @return	KalturaDrmPolicy.
- */
-KalturaDrmPolicyService.prototype.get = function(callback, drmPolicyId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmPolicyId", drmPolicyId);
-	this.client.queueServiceActionCall("drm_drmpolicy", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update an existing KalturaDrmPolicy object
- *		 .
- * @param	drmPolicyId	int		 (optional).
- * @param	drmPolicy	KalturaDrmPolicy		Id (optional).
- * @return	KalturaDrmPolicy.
- */
-KalturaDrmPolicyService.prototype.update = function(callback, drmPolicyId, drmPolicy){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmPolicyId", drmPolicyId);
-	this.client.addParam(kparams, "drmPolicy", toParams(drmPolicy));
-	this.client.queueServiceActionCall("drm_drmpolicy", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Mark the KalturaDrmPolicy object as deleted
- *		 .
- * @param	drmPolicyId	int		 (optional).
- * @return	KalturaDrmPolicy.
- */
-KalturaDrmPolicyService.prototype.deleteAction = function(callback, drmPolicyId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmPolicyId", drmPolicyId);
-	this.client.queueServiceActionCall("drm_drmpolicy", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List KalturaDrmPolicy objects
- *		 .
- * @param	filter	KalturaDrmPolicyFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaDrmPolicyListResponse.
- */
-KalturaDrmPolicyService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("drm_drmpolicy", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: drmProfile.
- * The available service actions:
- * @action	add	Allows you to add a new DrmProfile object
- *		 .
- * @action	get	Retrieve a KalturaDrmProfile object by ID
- *		 .
- * @action	update	Update an existing KalturaDrmProfile object
- *		 .
- * @action	delete	Mark the KalturaDrmProfile object as deleted
- *		 .
- * @action	list	List KalturaDrmProfile objects
- *		 .
- * @action	getByProvider	Retrieve a KalturaDrmProfile object by provider, if no specific profile defined return default profile
- *		 .
-*/
-function KalturaDrmProfileService(client){
-	this.init(client);
-}
-KalturaDrmProfileService.inheritsFrom (KalturaServiceBase);
-/**
- * Allows you to add a new DrmProfile object
- *		 .
- * @param	drmProfile	KalturaDrmProfile		 (optional).
- * @return	KalturaDrmProfile.
- */
-KalturaDrmProfileService.prototype.add = function(callback, drmProfile){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmProfile", toParams(drmProfile));
-	this.client.queueServiceActionCall("drm_drmprofile", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve a KalturaDrmProfile object by ID
- *		 .
- * @param	drmProfileId	int		 (optional).
- * @return	KalturaDrmProfile.
- */
-KalturaDrmProfileService.prototype.get = function(callback, drmProfileId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmProfileId", drmProfileId);
-	this.client.queueServiceActionCall("drm_drmprofile", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update an existing KalturaDrmProfile object
- *		 .
- * @param	drmProfileId	int		 (optional).
- * @param	drmProfile	KalturaDrmProfile		Id (optional).
- * @return	KalturaDrmProfile.
- */
-KalturaDrmProfileService.prototype.update = function(callback, drmProfileId, drmProfile){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmProfileId", drmProfileId);
-	this.client.addParam(kparams, "drmProfile", toParams(drmProfile));
-	this.client.queueServiceActionCall("drm_drmprofile", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Mark the KalturaDrmProfile object as deleted
- *		 .
- * @param	drmProfileId	int		 (optional).
- * @return	KalturaDrmProfile.
- */
-KalturaDrmProfileService.prototype.deleteAction = function(callback, drmProfileId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "drmProfileId", drmProfileId);
-	this.client.queueServiceActionCall("drm_drmprofile", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * List KalturaDrmProfile objects
- *		 .
- * @param	filter	KalturaDrmProfileFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaDrmProfileListResponse.
- */
-KalturaDrmProfileService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("drm_drmprofile", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve a KalturaDrmProfile object by provider, if no specific profile defined return default profile
- *		 .
- * @param	provider	string		 (optional, enum: KalturaDrmProviderType).
- * @return	KalturaDrmProfile.
- */
-KalturaDrmProfileService.prototype.getByProvider = function(callback, provider){
-	var kparams = new Object();
-	this.client.addParam(kparams, "provider", provider);
-	this.client.queueServiceActionCall("drm_drmprofile", "getByProvider", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: widevineDrm.
- * The available service actions:
- * @action	getLicense	Get license for encrypted content playback
- *		 .
-*/
-function KalturaWidevineDrmService(client){
-	this.init(client);
-}
-KalturaWidevineDrmService.inheritsFrom (KalturaServiceBase);
-/**
- * Get license for encrypted content playback
- *		 .
- * @param	flavorAssetId	string		 (optional).
- * @param	referrer	string		64base encoded   (optional, default: null).
- * @return	string.
- */
-KalturaWidevineDrmService.prototype.getLicense = function(callback, flavorAssetId, referrer){
-	if(!referrer)
-		referrer = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "flavorAssetId", flavorAssetId);
-	this.client.addParam(kparams, "referrer", referrer);
-	this.client.queueServiceActionCall("widevine_widevinedrm", "getLicense", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }
@@ -10808,286 +11470,6 @@ KalturaScheduledTaskProfileService.prototype.getDryRunResults = function(callbac
 	var kparams = new Object();
 	this.client.addParam(kparams, "requestId", requestId);
 	this.client.queueServiceActionCall("scheduledtask_scheduledtaskprofile", "getDryRunResults", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: playReadyDrm.
- * The available service actions:
- * @action	generateKey	Generate key id and content key for PlayReady encryption
- *		 .
- * @action	getContentKeys	Get content keys for input key ids
- *		 .
- * @action	getEntryContentKey	Get content key and key id for the given entry
- *		 .
- * @action	getLicenseDetails	Get Play Ready policy and dates for license creation
- *		 .
-*/
-function KalturaPlayReadyDrmService(client){
-	this.init(client);
-}
-KalturaPlayReadyDrmService.inheritsFrom (KalturaServiceBase);
-/**
- * Generate key id and content key for PlayReady encryption
- *		 .
- * @return	KalturaPlayReadyContentKey.
- */
-KalturaPlayReadyDrmService.prototype.generateKey = function(callback){
-	var kparams = new Object();
-	this.client.queueServiceActionCall("playready_playreadydrm", "generateKey", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get content keys for input key ids
- *		 .
- * @param	keyIds	string		- comma separated key id's  (optional).
- * @return	array.
- */
-KalturaPlayReadyDrmService.prototype.getContentKeys = function(callback, keyIds){
-	var kparams = new Object();
-	this.client.addParam(kparams, "keyIds", keyIds);
-	this.client.queueServiceActionCall("playready_playreadydrm", "getContentKeys", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get content key and key id for the given entry
- *		 .
- * @param	entryId	string		 (optional).
- * @param	createIfMissing	bool		 (optional, default: false).
- * @return	KalturaPlayReadyContentKey.
- */
-KalturaPlayReadyDrmService.prototype.getEntryContentKey = function(callback, entryId, createIfMissing){
-	if(!createIfMissing)
-		createIfMissing = false;
-	var kparams = new Object();
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.addParam(kparams, "createIfMissing", createIfMissing);
-	this.client.queueServiceActionCall("playready_playreadydrm", "getEntryContentKey", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Get Play Ready policy and dates for license creation
- *		 .
- * @param	keyId	string		 (optional).
- * @param	deviceId	string		 (optional).
- * @param	deviceType	int		 (optional).
- * @param	entryId	string		 (optional, default: null).
- * @param	referrer	string		64base encoded   (optional, default: null).
- * @return	KalturaPlayReadyLicenseDetails.
- */
-KalturaPlayReadyDrmService.prototype.getLicenseDetails = function(callback, keyId, deviceId, deviceType, entryId, referrer){
-	if(!entryId)
-		entryId = null;
-	if(!referrer)
-		referrer = null;
-	var kparams = new Object();
-	this.client.addParam(kparams, "keyId", keyId);
-	this.client.addParam(kparams, "deviceId", deviceId);
-	this.client.addParam(kparams, "deviceType", deviceType);
-	this.client.addParam(kparams, "entryId", entryId);
-	this.client.addParam(kparams, "referrer", referrer);
-	this.client.queueServiceActionCall("playready_playreadydrm", "getLicenseDetails", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: integration.
- * The available service actions:
- * @action	dispatch	Dispatch integration task
- *		 .
- * @action	notify	.
-*/
-function KalturaIntegrationService(client){
-	this.init(client);
-}
-KalturaIntegrationService.inheritsFrom (KalturaServiceBase);
-/**
- * Dispatch integration task
- *		 .
- * @param	data	KalturaIntegrationJobData		 (optional).
- * @param	objectType	string		 (optional, enum: KalturaBatchJobObjectType).
- * @param	objectId	string		 (optional).
- * @return	int.
- */
-KalturaIntegrationService.prototype.dispatch = function(callback, data, objectType, objectId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "data", toParams(data));
-	this.client.addParam(kparams, "objectType", objectType);
-	this.client.addParam(kparams, "objectId", objectId);
-	this.client.queueServiceActionCall("integration_integration", "dispatch", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * .
- * @param	id	int		integration job id (optional).
- * @return	.
- */
-KalturaIntegrationService.prototype.notify = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("integration_integration", "notify", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: businessProcessServer.
- * The available service actions:
- * @action	add	Allows you to add a new Business-Process server object
- *		 .
- * @action	get	Retrieve an Business-Process server object by id
- *		 .
- * @action	update	Update an existing Business-Process server object
- *		 .
- * @action	updateStatus	Update Business-Process server status by id
- *		 .
- * @action	delete	Delete an Business-Process server object
- *		 .
- * @action	list	list Business-Process server objects
- *		 .
-*/
-function KalturaBusinessProcessServerService(client){
-	this.init(client);
-}
-KalturaBusinessProcessServerService.inheritsFrom (KalturaServiceBase);
-/**
- * Allows you to add a new Business-Process server object
- *		 .
- * @param	businessProcessServer	KalturaBusinessProcessServer		 (optional).
- * @return	KalturaBusinessProcessServer.
- */
-KalturaBusinessProcessServerService.prototype.add = function(callback, businessProcessServer){
-	var kparams = new Object();
-	this.client.addParam(kparams, "businessProcessServer", toParams(businessProcessServer));
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "add", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Retrieve an Business-Process server object by id
- *		 .
- * @param	id	int		 (optional).
- * @return	KalturaBusinessProcessServer.
- */
-KalturaBusinessProcessServerService.prototype.get = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "get", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update an existing Business-Process server object
- *		 .
- * @param	id	int		 (optional).
- * @param	businessProcessServer	KalturaBusinessProcessServer		 (optional).
- * @return	KalturaBusinessProcessServer.
- */
-KalturaBusinessProcessServerService.prototype.update = function(callback, id, businessProcessServer){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "businessProcessServer", toParams(businessProcessServer));
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "update", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Update Business-Process server status by id
- *		 .
- * @param	id	int		 (optional).
- * @param	status	string		 (optional, enum: KalturaBusinessProcessServerStatus).
- * @return	KalturaBusinessProcessServer.
- */
-KalturaBusinessProcessServerService.prototype.updateStatus = function(callback, id, status){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.addParam(kparams, "status", status);
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "updateStatus", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * Delete an Business-Process server object
- *		 .
- * @param	id	int		 (optional).
- * @return	.
- */
-KalturaBusinessProcessServerService.prototype.deleteAction = function(callback, id){
-	var kparams = new Object();
-	this.client.addParam(kparams, "id", id);
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "delete", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * list Business-Process server objects
- *		 .
- * @param	filter	KalturaBusinessProcessServerFilter		 (optional, default: null).
- * @param	pager	KalturaFilterPager		 (optional, default: null).
- * @return	KalturaBusinessProcessServerListResponse.
- */
-KalturaBusinessProcessServerService.prototype.listAction = function(callback, filter, pager){
-	if(!filter)
-		filter = null;
-	if(!pager)
-		pager = null;
-	var kparams = new Object();
-	if (filter != null)
-		this.client.addParam(kparams, "filter", toParams(filter));
-	if (pager != null)
-		this.client.addParam(kparams, "pager", toParams(pager));
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocessserver", "list", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-
-/**
- *Class definition for the Kaltura service: businessProcessCase.
- * The available service actions:
- * @action	abort	Abort business-process case
- *		 .
- * @action	list	list business-process cases
- *		 .
-*/
-function KalturaBusinessProcessCaseService(client){
-	this.init(client);
-}
-KalturaBusinessProcessCaseService.inheritsFrom (KalturaServiceBase);
-/**
- * Abort business-process case
- *		 .
- * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType).
- * @param	objectId	string		 (optional).
- * @param	businessProcessStartNotificationTemplateId	int		 (optional).
- * @return	.
- */
-KalturaBusinessProcessCaseService.prototype.abort = function(callback, objectType, objectId, businessProcessStartNotificationTemplateId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "objectType", objectType);
-	this.client.addParam(kparams, "objectId", objectId);
-	this.client.addParam(kparams, "businessProcessStartNotificationTemplateId", businessProcessStartNotificationTemplateId);
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocesscase", "abort", kparams);
-	if (!this.client.isMultiRequest())
-		this.client.doQueue(callback);
-}
-/**
- * list business-process cases
- *		 .
- * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType).
- * @param	objectId	string		 (optional).
- * @return	array.
- */
-KalturaBusinessProcessCaseService.prototype.listAction = function(callback, objectType, objectId){
-	var kparams = new Object();
-	this.client.addParam(kparams, "objectType", objectType);
-	this.client.addParam(kparams, "objectId", objectId);
-	this.client.queueServiceActionCall("businessprocessnotification_businessprocesscase", "list", kparams);
 	if (!this.client.isMultiRequest())
 		this.client.doQueue(callback);
 }

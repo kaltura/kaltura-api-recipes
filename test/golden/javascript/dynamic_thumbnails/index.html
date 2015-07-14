@@ -26,7 +26,12 @@
       config.serviceUrl = "http://www.kaltura.com/";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
-        client.setKs(ks);
+        if (!success || (ks.code && ks.message)) {
+          console.log('Error starting session', success, ks);
+          $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
+        } else {
+          client.setKs(ks);
+        }
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
       null,
       KalturaSessionType.ADMIN,
@@ -82,6 +87,7 @@
       var DynamicThumbnails = _.template($('#DynamicThumbnails-template').text());
     </script>
 
+    <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
