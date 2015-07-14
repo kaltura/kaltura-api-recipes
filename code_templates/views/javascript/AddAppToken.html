@@ -1,0 +1,29 @@
+<form id="AddAppTokenForm">
+  <div class="form-group">
+    <label>Session Type</label>
+    <select class="form-control" name="sessionType">
+      <option value="0">Admin</option>
+      <option value="2">User</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Session Duration (ms)</label>
+    <input class="form-control" type="number" name="sessionDuration">
+  </div>
+  <div class="form-group">
+    <input class="btn btn-success" type="submit" value="Add App Token">
+  </div>
+</form>
+<script>
+  $('#AddAppTokenForm').submit(function() {
+    var appToken = new KalturaAppToken();
+    appToken.sessionDuration = $('input[name="sessionDuration"]').val();
+    appToken.sessionType = parseInt($('input[name="sessionType"]').val());
+    client.appToken.add(function(success, appToken) {
+      client.appToken.listAction(function(success, response) {
+        $('.container').html(KalturaAppTokenListResponse({result: response.objects}));
+      })
+    }, appToken);
+    return false;
+  })
+</script>
