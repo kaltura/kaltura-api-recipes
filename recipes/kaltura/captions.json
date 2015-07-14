@@ -31,7 +31,7 @@
         {
           "type": "text",
           "hidden": true,
-          "default": 28959921,
+          "default": 24666901,
           "name": "uiConf"
         },
         {

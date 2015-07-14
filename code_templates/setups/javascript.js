@@ -14,7 +14,12 @@
   config.serviceUrl = "http://www.kaltura.com/";
   var client = new KalturaClient(config);
   client.session.start(function(success, ks) {
-    client.setKs(ks);
+    if (!success || (ks.code && ks.message)) {
+      console.log('Error starting session', success, ks);
+      $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
+    } else {
+      client.setKs(ks);
+    }
   }, <%- Lucy.variable("answers.adminSecret") %>,
   <%- Lucy.variable("answers.userId") %>,
   KalturaSessionType.ADMIN,
