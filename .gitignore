@@ -1,4 +1,5 @@
 node_modules/
 static/bower/
+static/test.html
 golden/php/*/lib/
 test/golden/php/*/lib/
