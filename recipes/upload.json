@@ -3,8 +3,7 @@
   "title": "Upload a Video",
   "description": "Learn how to upload a video to your video library",
   "notes": [
-    "Need to poll status to wait for video to be ready (currently get 'No source video was found')",
-    "Need to add more complex snippeting to support different PHP and JS flows"
+    "Need to poll status to wait for video to be ready (currently get 'No source video was found')"
   ],
   "defaults": {
     "uiConf": 28959921
