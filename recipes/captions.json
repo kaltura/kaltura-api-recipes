@@ -63,7 +63,7 @@
   ],
   "pages": [
     {
-      "view": "Captions",
+      "view": "UploadCaptions",
       "data": {
         "action": "getMedia"
       }
@@ -84,7 +84,7 @@
     "CaptionSearch"
   ],
   "actions": [
-    {"service": "media", "action": "get", "view": "Captions"},
+    {"service": "media", "action": "get", "view": "UploadCaptions"},
     {"service": "captionAssetItem", "action": "search", "view": "CaptionSearch"},
     {"action": "attachCaptions"}
   ]
