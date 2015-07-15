@@ -1,11 +1,7 @@
 {
   "name": "live_broadcast",
-  "broken": true,
   "title": "Live Broadcast",
   "description": "Learn how to create a new Live+ entry and broadcast a live stream.",
-  "notes": [
-    "NOT IMPLEMENTED"
-  ],
   "control_sets": [
     {
       "title": "Starting a KalturaSession",
@@ -27,17 +23,18 @@
   ],
   "pages": [
     {
-      "view": "KalturaUser",
+      "view": "KalturaLiveStreamListResponse",
       "data": {
-        "action": "getUser"
+        "action": "listLiveStream"
       }
     }
   ],
   "views": [
-    "KalturaUser"
+    "AddLiveStream",
+    "KalturaLiveStreamListResponse"
   ],
   "actions": [
-    {"service": "user", "action": "get", "view": "KalturaUser"}
+    {"service": "liveStream", "action": "listAction", "view": "KalturaLiveStreamListResponse"}
   ]
 }
 

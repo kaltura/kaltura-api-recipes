@@ -1,0 +1,8 @@
+<h1>My Streams</h1>
+<hr>
+<lucy for="stream" in="result">
+  <h3>{{ stream.streamName }}</h3>
+  <p>Stream URL: <a href="{{ stream.streamUrl }}" target="_blank">{{ stream.streamUrl }}</a></p>
+</lucy>
+<lucy include="AddLiveStream">
+</lucy>
