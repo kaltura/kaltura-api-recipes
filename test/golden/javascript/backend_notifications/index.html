@@ -95,14 +95,17 @@
       </form>
       <script>
         $('#AddEventNotificationTemplateForm').submit(function() {
-          var template = new KalturaEventNotificationTemplate();
+          var template = new KalturaEmailNotificationTemplate();
           template.type = KalturaEventNotificationTemplateType.EMAIL;
           template.eventType = KalturaEventNotificationEventType.OBJECT_CREATED;
           template.eventObjectType = KalturaEventNotificationEventObjectType.ENTRY;
+          template.contentParameters = [new KalturaEventNotificationParameter()]
           template.subject = 'Your video is ready!';
+          template.body = 'Go check it out at http://kmc.kaltura.com/index.php/kmc/kmc4#content|moderation';
           var recipient = new KalturaEmailNotificationRecipient();
           recipient.email = $('input[name="email"]').val();
-          template.to = [recipient];
+          template.to = new KalturaEmailNotificationStaticRecipientProvider();
+          template.to.emailRecipients = [recipient];
           client.eventNotificationTemplate.add(function(success, template) {
             console.log('added', success, template);
             listEventNotificationTemplate({}, function(result) {

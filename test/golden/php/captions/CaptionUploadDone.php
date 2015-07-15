@@ -1,9 +1,9 @@
 <p>Caption file uploaded. Adding to video "1_318vzqcr"</p>
-<div class="AttachCaptions"></div>
+<div class="CaptionsAttached"></div>
 <script>
-  var element = $('.AttachCaptions').last();
+  var element = $('.CaptionsAttached').last();
   element[0].loadData = function() {
-    $('.AttachCaptions').last().load('attachCaptions.php', {
+    $('.CaptionsAttached').last().load('attachCaptions.php', {
        token: $result->id,
     });
   }

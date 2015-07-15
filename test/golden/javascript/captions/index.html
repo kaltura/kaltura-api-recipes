@@ -96,19 +96,6 @@
     </script>
   </head>
   <body>
-    <script id="Captions-template" type="text/x-underscore-template" style="display: none">
-      <%
-          print(UploadCaptions({result: result}));
-      %>
-      <hr></hr>
-      <%
-          print(KalturaMediaEntry({result: result}));
-      %>
-    </script>
-    <script type="text/javascript">
-      var Captions = _.template($('#Captions-template').text());
-    </script>
-
     <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
       <div class="row" style="margin-bottom: 10px">
         <div class="col-xs-12 col-md-5">
@@ -117,7 +104,7 @@
         </div>
         <div class="col-xs-12 col-md-6 col-md-offset-1">
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
-            <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/28959921/partner_id/<%= result.partnerId %>?autoembed=true&entry_id=<%= result.id %>&playerId=kaltura_player_<%= result.id %>&width=560&height=395">
+            <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/24666901/partner_id/<%= result.partnerId %>?autoembed=true&entry_id=<%= result.id %>&playerId=kaltura_player_<%= result.id %>&width=560&height=395">
             <% print("</"+"script>"); %>
           </div>
         </div>
@@ -170,7 +157,7 @@
           attachCaptions({
              token: result.id,
           }, function(result) {
-            $('#attachCaptions-result').replaceWith(AttachCaptions({result: result}))
+            $('#attachCaptions-result').replaceWith(CaptionsAttached({result: result}))
           })
       %>
     </script>
@@ -178,11 +165,18 @@
       var CaptionUploadDone = _.template($('#CaptionUploadDone-template').text());
     </script>
 
-    <script id="AttachCaptions-template" type="text/x-underscore-template" style="display: none">
+    <script id="CaptionsAttached-template" type="text/x-underscore-template" style="display: none">
       <p>Captions attached!</p>
+      <div id="getMedia-result"></div>
+      <%
+          getMedia({
+          }, function(result) {
+            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
+          })
+      %>
     </script>
     <script type="text/javascript">
-      var AttachCaptions = _.template($('#AttachCaptions-template').text());
+      var CaptionsAttached = _.template($('#CaptionsAttached-template').text());
     </script>
 
     <script id="CaptionSearch-template" type="text/x-underscore-template" style="display: none">
@@ -208,9 +202,7 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      getMedia({}, function(result) {
-        $('.container').html(Captions({result: result}));
-      })
+      $('.container').html(UploadCaptions())
     </script>
   </body>
 </html>

@@ -11,12 +11,12 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$entryId = "1_318vzqcr";
-$version = null;
+$filter = new KalturaLiveStreamEntryFilter();
+$pager = new KalturaFilterPager();
 
-$result = $client->media->get(
-  $entryId, 
-  $version);
-$result = (object)$result;
-include 'KalturaMediaEntry.php';
+$result = $client->liveStream->listAction(
+  $filter, 
+  $pager);
+$result = (object)$result->objects;
+include 'KalturaLiveStreamListResponse.php';
 ?>

@@ -5,7 +5,7 @@
   </div>
   <div class="col-xs-12 col-md-6 col-md-offset-1">
     <div id="kaltura_player_<?php echo $result->id ?>" style="width: 560px; height: 395px;">
-      <script src="https://cdnapisec.kaltura.com/p/<?php echo $result->partnerId ?>/sp/<?php echo $result->partnerId ?>00/embedIframeJs/uiconf_id/28959921/partner_id/<?php echo $result->partnerId ?>?autoembed=true&entry_id=<?php echo $result->id ?>&playerId=kaltura_player_<?php echo $result->id ?>&width=560&height=395">
+      <script src="https://cdnapisec.kaltura.com/p/<?php echo $result->partnerId ?>/sp/<?php echo $result->partnerId ?>00/embedIframeJs/uiconf_id/24666901/partner_id/<?php echo $result->partnerId ?>?autoembed=true&entry_id=<?php echo $result->id ?>&playerId=kaltura_player_<?php echo $result->id ?>&width=560&height=395">
       </script>
     </div>
   </div>

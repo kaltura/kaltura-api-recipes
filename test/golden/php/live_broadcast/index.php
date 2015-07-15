@@ -11,9 +11,14 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <?php
-        include "UploadCaptions.php";
-      ?>
+      <div class="KalturaLiveStreamListResponse"></div>
+      <script>
+        var element = $('.KalturaLiveStreamListResponse').last();
+        element[0].loadData = function() {
+          $('.KalturaLiveStreamListResponse').last().load('listLiveStream.php');
+        }
+        element[0].loadData();
+      </script>
     </div>
   </body>
 </html>
