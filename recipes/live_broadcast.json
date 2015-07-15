@@ -1,6 +1,7 @@
 {
   "name": "live_broadcast",
   "title": "Live Broadcast",
+  "broken": true,
   "description": "Learn how to create a new Live+ entry and broadcast a live stream.",
   "control_sets": [
     {
