@@ -38,27 +38,24 @@
       1760921)
     </script>
     <script type="text/javascript">
-      var addFromUploadedFileBaseEntry = function(request, callback) {
+      var CreateBaseEntry = function(request, callback) {
         entry = new KalturaBaseEntry();
         entry.name = request.name;
         var uploadTokenId = request.uploadTokenId;
-        var type = null;
 
-        var getResults = function() {
-          if (!client.ks) return setTimeout(getResults, 100);
-          client.baseEntry.addFromUploadedFile(function(success, results) {
-            if (!success || (results.code && results.message)) {
-              console.log('Kaltura Error', success, results);
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
-            }
-          },
-          entry,
-          uploadTokenId,
-          type);
+        var checkStatus = function(success, results) {
+          if (!success || (results.code && results.message)) {
+            console.log('Kaltura Error', success, results);
+          } else if (results.status !== 2) {
+            console.log('Entry not ready yet (status ' + results.status + ')');
+            setTimeout(function() {
+              client.media.get(checkStatus, results.id);
+            }, 100);
+          } else {
+            callback(results)
+          }
         }
-        getResults();
+        client.baseEntry.addFromUploadedFile(checkStatus, entry, uploadTokenId);
       };
     </script>
   </head>
@@ -103,13 +100,13 @@
 
     <script id="UploadDone-template" type="text/x-underscore-template" style="display: none">
       <p>Uploaded file <%= result.fileName %>. Creating entry...</p>
-      <div id="addFromUploadedFileBaseEntry-result"></div>
+      <div id="CreateBaseEntry-result"></div>
       <%
-          addFromUploadedFileBaseEntry({
+          CreateBaseEntry({
              name: result.fileName,
              uploadTokenId: result.id,
           }, function(result) {
-            $('#addFromUploadedFileBaseEntry-result').replaceWith(CreatedEntry({result: result}))
+            $('#CreateBaseEntry-result').replaceWith(CreatedEntry({result: result}))
           })
       %>
     </script>
@@ -136,7 +133,7 @@
         </div>
         <div class="col-xs-12 col-md-6 col-md-offset-1">
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
-            <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/null/partner_id/<%= result.partnerId %>?autoembed=true&entry_id=<%= result.id %>&playerId=kaltura_player_<%= result.id %>&width=560&height=395">
+            <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/28959921/partner_id/<%= result.partnerId %>?autoembed=true&entry_id=<%= result.id %>&playerId=kaltura_player_<%= result.id %>&width=560&height=395">
             <% print("</"+"script>"); %>
           </div>
         </div>

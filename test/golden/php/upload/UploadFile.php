@@ -20,5 +20,5 @@ $finalChunk = null;
 $resumeAt = null;
 $result = $client->uploadToken->upload($tok, $_FILES["fileData"]["name"], $resume, $finalChunk, $resumeAt);
 $result = (object)$result;
-include 'undefined.php';
+include 'UploadDone.php';
 ?>

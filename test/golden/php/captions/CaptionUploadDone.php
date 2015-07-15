@@ -4,7 +4,7 @@
   var element = $('.CaptionsAttached').last();
   element[0].loadData = function() {
     $('.CaptionsAttached').last().load('attachCaptions.php', {
-       token: $result->id,
+       token: <?php echo json_encode($result->id) ?>,
     });
   }
   element[0].loadData();

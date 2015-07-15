@@ -52,6 +52,9 @@ var ANSWERS = {
   },
   dynamic_thumbnails: {
     uiConf: 28959921,
+  },
+  upload: {
+    uiConf: 28959921,
   }
 }
 var LANGUAGES = ['php', 'javascript']

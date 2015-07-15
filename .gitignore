@@ -3,3 +3,5 @@ static/bower/
 static/test.html
 golden/php/*/lib/
 test/golden/php/*/lib/
+test/golden/php/**/*.mp4
+test/golden/php/**/*.srt

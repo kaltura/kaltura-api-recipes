@@ -50,7 +50,7 @@
   ],
   "actions": [
     {"action": "CreateBaseEntry", "view": "CreatedEntry"},
-    {"action": "UploadFile"}
+    {"action": "UploadFile", "view": "UploadDone"}
   ]
 }
 
