@@ -2,9 +2,6 @@
   "name": "backend_notifications",
   "title": "Backend and E-mail Notifications",
   "description": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
-  "notes": [
-    "Can't add templates? Getting \"The access to service [eventnotification_eventnotificationtemplate->add] is forbidden\""
-  ],
   "control_sets": [
     {
       "title": "Starting a KalturaSession",
