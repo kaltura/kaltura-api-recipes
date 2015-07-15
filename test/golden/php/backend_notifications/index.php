@@ -15,7 +15,7 @@
       <script>
         var element = $('.KalturaEventNotificationTemplateListResponse').last();
         element[0].loadData = function() {
-          $('.KalturaEventNotificationTemplateListResponse').last().load('listEventNotificationTemplate.php');
+          $('.KalturaEventNotificationTemplateListResponse').last().load('listTemplatesEventNotificationTemplate.php');
         }
         element[0].loadData();
       </script>

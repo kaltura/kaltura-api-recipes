@@ -38,6 +38,48 @@
       1760921)
     </script>
     <script type="text/javascript">
+      var listTemplatesEventNotificationTemplate = function(request, callback) {
+        filter = new KalturaEventNotificationTemplateFilter();
+        pager = new KalturaFilterPager();
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.eventNotificationTemplate.listTemplates(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results.objects)
+            }
+          },
+          filter,
+          pager);
+        }
+        getResults();
+      };
+      var cloneEventNotificationTemplate = function(request, callback) {
+        var template;
+        if ($('input[name="email"]').length) {
+          template = new KalturaEmailNotificationTemplate();
+          var recipient = new KalturaEmailNotificationRecipient();
+          recipient.email = $('input[name="email"]').val();
+          template.to = new KalturaEmailNotificationStaticRecipientProvider();
+          template.to.emailRecipients = [recipient];
+        } else {
+          template = new KalturaHttpNotificationTemplate();
+          template.url = $('input[name="url"]').val();
+        }
+        template.name = $('input[name="name"]').val();
+        client.eventNotificationTemplate.cloneAction(function(success, template) {
+          if (!success || (template.code && template.message))
+              return $('#CloneStatus').text(template.message || 'Unknown Error')
+          client.eventNotificationTemplate.updateStatus(function(success, template) {
+            if (!success || (template.code && template.message))
+                return $('#CloneStatus').text(template.message || 'Unknown Error');
+            $('#CloneStatus').text('Success!');
+          }, template.id, KalturaEventNotificationTemplateStatus.ACTIVE);
+        }, null, template);
+      };
       var listEventNotificationTemplate = function(request, callback) {
         filter = new KalturaEventNotificationTemplateFilter();
         pager = new KalturaFilterPager();
@@ -64,67 +106,81 @@
       <h1>Notification Templates</h1>
       <hr></hr>
       <% result.forEach(function(template, index) { %>
-        <h3><%= template.name %></h3>
-        <p>Type: <%= template.type %></p>
-        <p>URL: <%= template.url %></p>
-        <p>Conditions: </p>
-        <ul>
-          <% template.eventConditions.forEach(function(condition, index) { %>
-            <li><%= condition.modifiedColumns %> - <%= condition.description %></li>
-          <% }); %>
-        </ul>
-        <hr></hr>
-      <% }); %>
-      <%
-          print(AddNotificationEvent({result: result}));
+        <%
+          print(KalturaEventNotificationTemplate({result: template}));
       %>
+      <% }); %>
     </script>
     <script type="text/javascript">
       var KalturaEventNotificationTemplateListResponse = _.template($('#KalturaEventNotificationTemplateListResponse-template').text());
     </script>
 
-    <script id="AddNotificationEvent-template" type="text/x-underscore-template" style="display: none">
-      <form id="AddEventNotificationTemplateForm">
-        <div class="form-group">
-          <label>E-mail Address</label>
-          <input class="form-c" type="text" name="email"></input>
+    <script id="KalturaEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
+      <h3><%= result.id %> - <%= result.name %></h3>
+      <p>System Name: <%= result.systemName %></p>
+      <p>Type: <%= result.type %></p>
+      <% if(result.type == 'httpNotification.Http') { %>
+        <p>URL: <%= result.url %></p>
+      <% } %>
+      <% if(result.type == 'emailNotification.Email') { %>
+        <p>Subject: <%= result.subject %></p>
+        <div style="font-size: 12px">
+          <%= result.body %>
         </div>
-        <div class="form-group">
-          <input class="btn btn-success" type="submit" value="Add Notification"></input>
-        </div>
-      </form>
+      <% } %>
+      <hr></hr>
+    </script>
+    <script type="text/javascript">
+      var KalturaEventNotificationTemplate = _.template($('#KalturaEventNotificationTemplate-template').text());
+    </script>
+
+    <script id="CloneEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
+      <h1>Clone Template</h1>
+      <hr></hr>
+      <% result.forEach(function(template, index) { %>
+        <% if(template.id == null) { %>
+          <%
+          print(KalturaEventNotificationTemplate({result: template}));
+      %>
+          <form id="AddEventNotificationTemplateForm">
+            <div class="form-group">
+              <label>Template Name</label>
+              <input class="form-control" type="text" name="name"></input>
+            </div>
+            <div class="form-group">
+              <% if(template.type == 'emailNotification.Email') { %>
+                <label>E-mail Address</label>
+                <input class="form-control" type="text" name="email"></input>
+              <% } %>
+              <% if(template.type == 'httpNotification.Http') { %>
+                <label>URL</label>
+                <input class="form-control" type="text" name="url"></input>
+              <% } %>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-success" type="submit" value="Create Notification"></input>
+            </div>
+          </form>
+          <div class="alert alert-info" id="CloneStatus" style="display: none"></div>
+        <% } %>
+      <% }); %>
       <script>
         $('#AddEventNotificationTemplateForm').submit(function() {
-          var template = new KalturaEmailNotificationTemplate();
-          template.type = KalturaEventNotificationTemplateType.EMAIL;
-          template.eventType = KalturaEventNotificationEventType.OBJECT_CREATED;
-          template.eventObjectType = KalturaEventNotificationEventObjectType.ENTRY;
-          template.contentParameters = [new KalturaEventNotificationParameter()]
-          template.subject = 'Your video is ready!';
-          template.body = 'Go check it out at http://kmc.kaltura.com/index.php/kmc/kmc4#content|moderation';
-          var recipient = new KalturaEmailNotificationRecipient();
-          recipient.email = $('input[name="email"]').val();
-          template.to = new KalturaEmailNotificationStaticRecipientProvider();
-          template.to.emailRecipients = [recipient];
-          client.eventNotificationTemplate.add(function(success, template) {
-            console.log('added', success, template);
-            listEventNotificationTemplate({}, function(result) {
-              $('.container').html(KalturaEventNotificationTemplateListResponse({result: result}));
-            })
-          }, template);
+          $('#CloneStatus').text('Cloning...').show();
+          cloneEventNotificationTemplate();
           return false;
         })
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var AddNotificationEvent = _.template($('#AddNotificationEvent-template').text());
+      var CloneEventNotificationTemplate = _.template($('#CloneEventNotificationTemplate-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listEventNotificationTemplate({}, function(result) {
+      listTemplatesEventNotificationTemplate({}, function(result) {
         $('.container').html(KalturaEventNotificationTemplateListResponse({result: result}));
       })
     </script>

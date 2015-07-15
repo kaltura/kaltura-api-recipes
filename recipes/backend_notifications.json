@@ -23,8 +23,32 @@
         }
       ]
     }, {
+      "title": "Choosing a Template",
+      "tip": "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.\n\nIn order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```\n\nChoose a template to clone.",
+      "affects": "listTemplatesEventNotificationTemplate",
+      "inputs": [{
+        "name": "id",
+        "label": "Template to Clone",
+        "type": "select",
+        "dynamicChoices": {
+          "service": "eventNotificationTemplate",
+          "action": "listTemplates",
+          "map": {
+            "value": "id",
+            "label": "name"
+          }
+        }
+      }]
+    }, {
+      "page": 1,
+      "title": "Cloning the Template",
+      "tip": "Fill in some additional details for your template and use the form below to create it",
+      "affects": "cloneEventNotificationTemplate",
+      "inputs": []
+    }, {
+      "page": 2,
       "title": "Viewing your Notification Templates",
-      "tip": "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded. Use ```eventNotificationTemplate.list``` to get a list of your current templates.",
+      "tip": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
       "affects": "listEventNotificationTemplate",
       "inputs": []
     }
@@ -32,14 +56,27 @@
   "pages": [{
     "view": "KalturaEventNotificationTemplateListResponse",
     "data": {
+      "action": "listTemplatesEventNotificationTemplate"
+    }
+  }, {
+    "view": "CloneEventNotificationTemplate",
+    "data" : {
+      "action": "listTemplatesEventNotificationTemplate"
+    }
+  }, {
+    "view": "KalturaEventNotificationTemplateListResponse",
+    "data": {
       "action": "listEventNotificationTemplate"
     }
   }],
   "views": [
     "KalturaEventNotificationTemplateListResponse",
-    "AddNotificationEvent"
+    "KalturaEventNotificationTemplate",
+    "CloneEventNotificationTemplate"
   ],
   "actions": [
+    {"service": "eventNotificationTemplate", "action": "listTemplates", "view": "KalturaEventNotificationTemplateListResponse"},
+    {"action": "cloneEventNotificationTemplate", "view": "KalturaEventNotificationTemplate"},
     {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"}
   ]
 }

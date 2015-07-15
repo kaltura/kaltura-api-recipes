@@ -1,0 +1,14 @@
+<h3>{{ result.id }} - {{ result.name }}</h3>
+<p>System Name: {{ result.systemName }}</p>
+<p>Type: {{ result.type }}</p>
+<lucy if="result.type == 'httpNotification.Http'">
+  <p>URL: {{ result.url }}</p>
+</lucy>
+<lucy if="result.type == 'emailNotification.Email'">
+  <p>Subject: {{ result.subject }}</p>
+  <div style="font-size: 12px">
+    {{ result.body }}
+  </div>
+</lucy>
+<hr>
+
