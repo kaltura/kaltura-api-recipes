@@ -1,0 +1,35 @@
+body {
+  background-color: #f7f7f7;
+}
+
+.recipe-col {
+  position: relative;
+}
+
+.recipe-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.recipe-item {
+  border: 1px solid #333;
+  border-radius: 4px;
+  height: 280px;
+  margin: 15px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.recipe-title {
+  height: 54px;
+}
+
+.recipe-icon {
+  font-size: 48px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}

@@ -1,6 +1,7 @@
 {
   "name": "dynamic_thumbnails",
   "title": "Dynamic Thumbnails",
+  "icon": "image",
   "description": "Create a gallery page with rotating dynamic thumbnails.",
   "defaults": {
     "uiConf": 28959921

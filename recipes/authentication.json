@@ -1,6 +1,7 @@
 {
   "name": "authentication",
   "title": "Authentication",
+  "icon": "lock",
   "description": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
   "control_sets": [
     {

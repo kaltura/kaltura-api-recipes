@@ -1,6 +1,7 @@
 {
   "name": "captions",
   "title": "Captions",
+  "icon": "cc",
   "description": "Learn how to upload a caption file and perform in-video searches",
   "control_sets": [
     {

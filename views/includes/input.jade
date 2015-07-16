@@ -11,9 +11,11 @@
     label
       span {{input.label}}
     select.form-control(
+        chosen
         ng-model="model[input.name]"
         ng-change="onAnswerChanged()"
         ng-options="choice.value as choice.label for choice in input.choices")
+      option
 
   .form-group(ng-if="input.type === 'radio'", ng-controller="Radio")
     label

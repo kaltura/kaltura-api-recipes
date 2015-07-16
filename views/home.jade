@@ -1,24 +1,17 @@
 extends layout
 
+block head
+  link(rel="stylesheet" href="/css/home.css")
+
 block body
 
   .container
-    h1 Kaltura Recipes
-    hr
-    each recipe, recipeName in recipes
-      .row
-        .col-xs-12
-          h3
-            if recipe.broken
-              span #{recipe.title} (In Progress)
-            else
-              a(href="/recipes/#{recipeName}") #{recipe.title}
-          p #{recipe.description}
-          if recipe.notes
-            p
-              b Issues:
-            each note in recipe.notes
-              p
-                i #{note}
-      hr
-
+    .row
+      each recipe, recipeName in recipes
+        if !recipe.broken
+          .col-xs-12.col-md-4.text-center.recipe-col
+            a.recipe-link(href="/recipes/#{recipeName}")
+            .recipe-item
+              h3.recipe-title #{recipe.title}
+              p.recipe-icon.fa(class="fa-#{ recipe.icon || 'plug' }")
+              p.recipe-description.text-left #{recipe.description}

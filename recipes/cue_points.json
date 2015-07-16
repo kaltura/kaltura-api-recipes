@@ -1,6 +1,7 @@
 {
   "name": "cue_points",
   "title": "Cue Points",
+  "icon": "money",
   "description": "Learn how to set up Cue Points and respond to Cue Point events",
   "control_sets": [
     {

@@ -10,6 +10,7 @@
     "angular-highlightjs": "~0.4.1",
     "angular-zeroclipboard": "~0.4.3",
     "angular-marked": "~0.0.17",
-    "jQuery-File-Upload": "https://github.com/kaltura/jQuery-File-Upload.git#~8.2.1"
+    "jQuery-File-Upload": "https://github.com/kaltura/jQuery-File-Upload.git#~8.2.1",
+    "angular-chosen-localytics": "~1.0.7"
   }
 }

@@ -1,6 +1,7 @@
 {
   "name": "upload",
   "title": "Upload a Video",
+  "icon": "upload",
   "description": "Learn how to upload a video to your video library",
   "defaults": {
     "uiConf": 28959921

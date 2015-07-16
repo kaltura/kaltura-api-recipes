@@ -23,7 +23,7 @@ app.controller('Recipe', function($scope) {
     answers = answers && answers.scope() ? answers.scope().answers : {};
     var demoURL = '/recipes/' + $scope.recipe.name + '/embed?'
     var addedOne = false;
-    var curSet = $scope.recipe.control_sets[$('#Answers').scope().controlSetIdx];
+    var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
     if (curSet && curSet.page) {
       addedOne = true;
       demoURL += 'lucy_page=' + curSet.page;
@@ -33,13 +33,36 @@ app.controller('Recipe', function($scope) {
       addedOne = true;
       demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));
     }
+    console.log('get demo url', demoURL);
     return demoURL;
+  }
+  
+  $scope.controlSetIdx = -1;
+  $scope.setControlSet = function(controlSetIdx) {
+    $scope.controlSetIdx = controlSetIdx;
+    if (controlSetIdx >= 0) {
+      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+      if (!curSet.inputs) return;
+      var answers = $('#Answers').scope().answers;
+      curSet.inputs.forEach(function(input) {
+        if (input.type === 'group') {
+          input.inputs.forEach(function(input) {
+            if (input.default) answers[input.name] = input.default;
+          })
+        } else {
+          if (input.default) answers[input.name] = input.default;
+        }
+      });
+      var affected = $scope.recipe.control_sets[controlSetIdx].affects;
+      angular.element('#Code').scope().setActiveComponent(affected);
+      $scope.onAnswerChanged();
+    }
   }
 
   $scope.start = function() {
     if (!$scope.ready) {
       $scope.ready = true;
-      $('#Answers').scope().setControlSet(0);
+      $scope.setControlSet(0);
     }
     angular.element('#Code').scope().refresh();
   }
@@ -85,26 +108,6 @@ app.controller('Answers', function($scope) {
   }
   $scope.setDefaults();
 
-  $scope.controlSetIdx = -1;
-  $scope.setControlSet = function(controlSetIdx) {
-    $scope.controlSetIdx = controlSetIdx;
-    if (controlSetIdx >= 0) {
-      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
-      if (!curSet.inputs) return;
-      curSet.inputs.forEach(function(input) {
-        if (input.type === 'group') {
-          input.inputs.forEach(function(input) {
-            if (input.default) $scope.answers[input.name] = input.default;
-          })
-        } else {
-          if (input.default) $scope.answers[input.name] = input.default;
-        }
-      });
-      var affected = $scope.recipe.control_sets[controlSetIdx].affects;
-      angular.element('#Code').scope().setActiveComponent(affected);
-      $scope.onAnswerChanged();
-    }
-  }
   $scope.openDemo = function() {
     var demoUrl = $scope.getDemoUrl();
     window.open(demoUrl, '_blank');
@@ -181,8 +184,12 @@ app.controller('Code', function($scope) {
 
 app.controller('Demo', function($scope) {
   $scope.refresh = function() {
-    var demoUrl = $scope.getDemoUrl();
-    $('.demo-frame').attr('src', demoUrl);
+    if ($scope.recipe.control_sets[$scope.controlSetIdx].page === -1) {
+      $('.demo-frame').attr('src', '')
+    } else {
+      var demoUrl = $scope.getDemoUrl();
+      $('.demo-frame').attr('src', demoUrl);
+    }
   }
   $scope.refresh();
 });

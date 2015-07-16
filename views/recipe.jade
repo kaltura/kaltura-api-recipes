@@ -7,6 +7,9 @@ block body
   script(src="/js/ng/recipe.js")
   link(href="/css/recipe.css" rel="stylesheet")
   #Recipe.container-fluid(ng-controller="Recipe")
+    a.btn.btn-link(href="/")
+      i.fa.fa-chevron-circle-left
+      span &nbsp; Back to Recipes
     .row.console-row
       #Answers.col-xs-12.col-md-6.col-no-bottom(ng-controller="Answers")
         #Language.control-set(ng-controller="Language",ng-hide="controlSetIdx >= 0")
@@ -50,7 +53,7 @@ block body
 
       #Code.col-xs-12.col-md-6.col-no-bottom(ng-controller="Code",ng-hide="!ready")
         .row
-          .btn-group.col-xs-4.col-no-right.col-no-bottom(role='group')
+          .btn-group.col-xs-6.col-no-right.col-no-bottom(role='group')
             button.pin-bottom.pin-right.btn-group.btn.btn-default.width-full.btn-code-toolbar.dropdown-toggle(
                     role='group',type='button',data-toggle='dropdown')
               span.fa.fa-file-code-o
@@ -61,17 +64,19 @@ block body
                 a(ng-click='setFile($index)')
                   span(ng-if="file.type",ng-class="{fa: true, 'fa-desktop': file.type === 'client', 'fa-plug': file.type === 'server'}")
                   span &nbsp;&nbsp;{{ file.filename }}
-          .btn-group.col-xs-4.col-no-left.col-no-right.col-no-bottom
-            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-right(ng-click='toggleExpand()')
+          .btn-group.col-xs-6.col-no-left.col-no-bottom
+            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='toggleExpand()')
               i(ng-class="{fa: true, 'fa-expand': !expanded, 'fa-compress': expanded}")
-              span.hidden-xs &nbsp; {{ expanded ? 'Shrink' : 'Expand' }}
-          .btn-group.col-xs-4.col-no-left.col-no-bottom
-            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='exportToGitHub()')
-              i.fa.fa-github
-              span.hidden-xs &nbsp; (Coming Soon)
+              span.hidden-xs &nbsp; {{ expanded ? 'View Snippet' : 'View File' }}
          .row(ng-if="ready")
           .col-xs-12
             .hljs-div.pin-top(hljs source='getActiveCode()')
-    .row.demo-row
-      #Demo.col-xs-12(ng-controller="Demo",ng-if="ready")
-        iframe.demo-frame
+    #Demo.row.demo-row(ng-controller="Demo", ng-if="ready", ng-show="recipe.control_sets[controlSetIdx].page !== -1")
+      .col-xs-12
+        hr
+        h3
+          span Live Demo&nbsp;
+          span.small
+            i.fa.fa-question-circle(ng-click="showHelp = !showHelp")
+          span.small(ng-if="showHelp") &nbsp;This is a live demonstration of the code generated above.
+      iframe.demo-frame

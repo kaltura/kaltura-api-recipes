@@ -1,4 +1,4 @@
-var app = angular.module('app', ['hljs', 'zeroclipboard', 'hc.marked']);
+var app = angular.module('app', ['hljs', 'zeroclipboard', 'hc.marked', 'localytics.directives']);
 app.config(['uiZeroclipConfigProvider', function(uiZeroclipConfigProvider) {
   uiZeroclipConfigProvider.setZcConf({
     swfPath: '/bower/zeroclipboard/dist/ZeroClipboard.swf'
