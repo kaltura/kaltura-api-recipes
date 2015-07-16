@@ -9,7 +9,7 @@ block body
     .row
       each recipe, recipeName in recipes
         if !recipe.broken
-          .col-xs-12.col-md-4.text-center.recipe-col
+          .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col
             a.recipe-link(href="/recipes/#{recipeName}")
             .recipe-item
               h3.recipe-title #{recipe.title}
