@@ -8,7 +8,7 @@ var AuthStep = require('./includes/auth.js');
 var files = FS.readdirSync(__dirname);
 var thisFile = Path.basename(__filename);
 
-var BLACKLIST = ['app_tokens', 'live_broadcast', 'leaderboard_reports'];
+var BLACKLIST = ['app_tokens', 'live_broadcast'];
 
 files.forEach(function(filename) {
   if (filename === thisFile) return;

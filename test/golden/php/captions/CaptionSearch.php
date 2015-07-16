@@ -1,4 +1,4 @@
-<h1>Search Results for null</h1>
+<h1>Search Results for "support"</h1>
 <hr></hr>
 <?php foreach($result as $index=>$caption) { ?>
   <div class="row">

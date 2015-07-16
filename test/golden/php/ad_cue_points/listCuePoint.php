@@ -5,16 +5,18 @@ $config->serviceUrl = 'http://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
   "8d6cb692ab0f41bfa6bde373204c4b40",
-  null,
+  "lucybot@example.com",
   KalturaSessionType::ADMIN,
   1760921,
   null, null);
 $client->setKS($ks);
 
-$cuePoint = new KalturaAdCuePoint;
-$cuePoint->duraton = $_POST["duration"];
-$cuePoint->startTime = $_POST["startTime"];
-$cuePoint->entryId = "1_318vzqcr";
-$result = $client->cuePoint->add($cuePoint);
-echo json_encode($result);
+$filter = new KalturaCuePointFilter();
+$pager = new KalturaFilterPager();
+
+$result = $client->cuePoint->listAction(
+  $filter, 
+  $pager);
+$result = (object)$result->objects;
+include 'KalturaCuePointListResponse.php';
 ?>

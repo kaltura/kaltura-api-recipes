@@ -43,13 +43,13 @@
       1760921)
     </script>
     <script type="text/javascript">
-      var listMedia = function(request, callback) {
-        filter = new KalturaMediaEntryFilter();
+      var listCuePoint = function(request, callback) {
+        filter = new KalturaCuePointFilter();
         pager = new KalturaFilterPager();
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
-          client.media.listAction(function(success, results) {
+          client.cuePoint.listAction(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
             } else {
@@ -62,25 +62,46 @@
         }
         getResults();
       };
+      var getMedia = function(request, callback) {
+        var entryId = request.entryId;
+        var version = null;
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.media.get(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results)
+            }
+          },
+          entryId,
+          version);
+        }
+        getResults();
+      };
     </script>
   </head>
   <body>
-    <script id="KalturaMediaListResponse-template" type="text/x-underscore-template" style="display: none">
-      <h1>Videos</h1>
+    <script id="KalturaCuePointListResponse-template" type="text/x-underscore-template" style="display: none">
+      <h1>Cue Points</h1>
       <hr></hr>
-      <% if(result.length == 0) { %>
-        <p><i>No results</i></p>
+      <% if(result.length === 0) { %>
+        <i>No cue points found</i>
       <% } %>
-      <% result.forEach(function(video, index) { %>
-        <% if(index < 5) { %>
-          <%
-              print(KalturaMediaEntry({result: video}));
-          %>
-        <% } %>
+      <% result.forEach(function(cuePoint, index) { %>
+        <p>
+        <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
+        </p>
       <% }); %>
+      <%
+          print(AddCuePoint({result: result}));
+      %>
+      <hr></hr>
     </script>
     <script type="text/javascript">
-      var KalturaMediaListResponse = _.template($('#KalturaMediaListResponse-template').text());
+      var KalturaCuePointListResponse = _.template($('#KalturaCuePointListResponse-template').text());
     </script>
 
     <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
@@ -101,12 +122,63 @@
       var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
+    <script id="AddCuePoint-template" type="text/x-underscore-template" style="display: none">
+      <form id="AddCuePointForm">
+        <div class="form-group">
+          <label>Start Time (ms)</label>
+          <input class="form-control" type="number" name="startTime"></input>
+        </div>
+        <div class="form-group">
+          <label>VAST Source URL</label>
+          <input class="form-control" type="text" name="sourceUrl" value="http://projects.kaltura.com/mdale/hotelVastAd.xml"></input>
+        </div>
+        <div class="form-group">
+          <input class="btn btn-success" type="submit" value="Add Cue Point"></input>
+        </div>
+      </form>
+      <hr></hr>
+      <div id="CuePointAdded"></div>
+      <script>
+        $('#AddCuePointForm').submit(function() {
+          var cuePoint = new KalturaAdCuePoint();
+          cuePoint.cuePointType = KalturaCuePointType.AD;
+          cuePoint.adType = KalturaAdType.VIDEO;
+          cuePoint.protocolType = KalturaAdProtocolType.VAST;
+          cuePoint.sourceUrl = $('input[name="sourceUrl"]').val();
+          cuePoint.startTime = $('input[name="startTime"]').val();
+          cuePoint.entryId = "";
+          client.cuePoint.add(function(success, cuePoint) {
+            $('.container').html(CuePointAdded({result: cuePoint}));
+          }, cuePoint);
+          return false;
+        })
+      <% print("</"+"script>"); %>
+    </script>
+    <script type="text/javascript">
+      var AddCuePoint = _.template($('#AddCuePoint-template').text());
+    </script>
+
+    <script id="CuePointAdded-template" type="text/x-underscore-template" style="display: none">
+      <p>Cue point added. Loading video...</p>
+      <div id="getMedia-result"></div>
+      <%
+          getMedia({
+             entryId: null,
+          }, function(result) {
+            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
+          })
+      %>
+    </script>
+    <script type="text/javascript">
+      var CuePointAdded = _.template($('#CuePointAdded-template').text());
+    </script>
+
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listMedia({}, function(result) {
-        $('.container').html(KalturaMediaListResponse({result: result}));
+      listCuePoint({}, function(result) {
+        $('.container').html(KalturaCuePointListResponse({result: result}));
       })
     </script>
   </body>

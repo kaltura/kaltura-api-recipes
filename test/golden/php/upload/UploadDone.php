@@ -1,4 +1,7 @@
-<p>Uploaded file <?php echo $result->fileName ?>. Creating entry...</p>
+<script>
+  $('#UploadStatus').text('Uploaded file <?php echo $result->fileName ?>. Creating entry...');
+</script>
+
 <div class="CreatedEntry"></div>
 <script>
   var element = $('.CreatedEntry').last();

@@ -32,14 +32,19 @@
         } else {
           client.setKs(ks);
         }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
-      null,
+      "lucybot@example.com",
       KalturaSessionType.ADMIN,
       1760921)
     </script>
     <script type="text/javascript">
       var getUser = function(request, callback) {
-        var userId = null;
+        var userId = "lucybot@example.com";
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);

@@ -5,20 +5,20 @@ $config->serviceUrl = 'http://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
   "8d6cb692ab0f41bfa6bde373204c4b40",
-  null,
+  "lucybot@example.com",
   KalturaSessionType::ADMIN,
   1760921,
   null, null);
 $client->setKS($ks);
 
-$filter = new KalturaCuePointFilter();
+$filter = new KalturaPermissionFilter();
 
-$filter->entryIdEqual = "1_318vzqcr";
+$filter->nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
 $pager = new KalturaFilterPager();
 
-$result = $client->cuePoint->listAction(
+$result = $client->permission->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'KalturaCuePointListResponse.php';
+include 'KalturaPermissionListResponse.php';
 ?>

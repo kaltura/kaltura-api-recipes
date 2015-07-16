@@ -1,0 +1,23 @@
+<lucy if="answers.reportType == 1">
+  <h1>Report - Top Content</h1>
+</lucy>
+<lucy if="answers.reportType == 5">
+  <h1>Report - Top Contributors</h1>
+</lucy>
+<table class="table">
+  <tr id="Header"><td>{{ result.header }}</td></tr>
+  <tr id="Data"><td>{{ result.data }}</td></tr>
+</table>
+<script>
+  var getRow = function(csv) {
+    return '<tr><td>' + csv.replace(/,/g, '</td><td>') + '</td></tr>';
+  }
+  var headers = $('#Header td').text();
+  var data = $('#Data td').text();
+  var rows = data.split(';');
+  $('table').html('');
+  $('table').append(getRow(headers));
+  rows.forEach(function(row) {
+    $('table').append(getRow(row));
+  })
+</script>

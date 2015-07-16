@@ -11,18 +11,10 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$reportInputFilter = new KalturaReportInputFilter();
-
-$reportInputFilter->fromDay = "2015-07-01";
-
-$reportInputFilter->toDay = "2015-07-10";
-$reportType = 5;
-$objectIds = null;
-
-$result = $client->report->getTotal(
-  $reportType, 
-  $reportInputFilter, 
-  $objectIds);
-$result = (object)$result;
-include 'KalturaReportTotal.php';
+$cuePoint = new KalturaAdCuePoint;
+$cuePoint->sourceUrl = $_POST["sourceUrl"];
+$cuePoint->startTime = $_POST["startTime"];
+$cuePoint->entryId = null;
+$result = $client->cuePoint->add($cuePoint);
+echo json_encode($result);
 ?>

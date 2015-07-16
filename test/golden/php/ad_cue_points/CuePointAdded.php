@@ -4,7 +4,7 @@
   var element = $('.KalturaMediaEntry').last();
   element[0].loadData = function() {
     $('.KalturaMediaEntry').last().load('getMedia.php', {
-       entryId: "1_318vzqcr",
+       entryId: null,
     });
   }
   element[0].loadData();

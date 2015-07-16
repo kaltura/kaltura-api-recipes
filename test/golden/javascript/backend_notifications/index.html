@@ -32,8 +32,13 @@
         } else {
           client.setKs(ks);
         }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
-      null,
+      "lucybot@example.com",
       KalturaSessionType.ADMIN,
       1760921)
     </script>
@@ -87,6 +92,26 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.eventNotificationTemplate.listAction(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results.objects)
+            }
+          },
+          filter,
+          pager);
+        }
+        getResults();
+      };
+      var listPermission = function(request, callback) {
+        filter = new KalturaPermissionFilter();
+        filter.nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
+        pager = new KalturaFilterPager();
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.permission.listAction(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
             } else {
@@ -174,6 +199,35 @@
     </script>
     <script type="text/javascript">
       var CloneEventNotificationTemplate = _.template($('#CloneEventNotificationTemplate-template').text());
+    </script>
+
+    <script id="KalturaPermissionListResponse-template" type="text/x-underscore-template" style="display: none">
+      <% result.forEach(function(permission, index) { %>
+        <%
+          print(KalturaPermission({result: permission}));
+      %>
+      <% }); %>
+    </script>
+    <script type="text/javascript">
+      var KalturaPermissionListResponse = _.template($('#KalturaPermissionListResponse-template').text());
+    </script>
+
+    <script id="KalturaPermission-template" type="text/x-underscore-template" style="display: none">
+      <h3>Permission <%= result.name %></h3>
+      <p>Status: 
+        <% if(result.status == 1) { %>
+          <span>Active</span>
+        <% } %>
+        <% if(result.status == 2) { %>
+          <span>Blocked</span>
+        <% } %>
+        <% if(result.status == 3) { %>
+          <span>Deleted</span>
+        <% } %>
+      </p>
+    </script>
+    <script type="text/javascript">
+      var KalturaPermission = _.template($('#KalturaPermission-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>

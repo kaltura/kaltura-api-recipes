@@ -32,8 +32,13 @@
         } else {
           client.setKs(ks);
         }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
-      null,
+      "lucybot@example.com",
       KalturaSessionType.ADMIN,
       1760921)
     </script>
@@ -60,6 +65,7 @@
       var searchCaptionAssetItem = function(request, callback) {
         entryFilter = new KalturaBaseEntryFilter();
         captionAssetItemFilter = new KalturaCaptionAssetItemFilter();
+        captionAssetItemFilter.contentLike = "support";
         captionAssetItemPager = new KalturaFilterPager();
 
         var getResults = function() {
@@ -138,6 +144,7 @@
       <% print("</"+"script>"); %>
 
       <h1>Upload Captions</h1>
+      <hr></hr>
       <div id="Uploading" class="alert alert-info hidden">
         <p>Uploading  </p>
         <i class="fa fa-spin fa-refresh"></i>
@@ -180,7 +187,7 @@
     </script>
 
     <script id="CaptionSearch-template" type="text/x-underscore-template" style="display: none">
-      <h1>Search Results for null</h1>
+      <h1>Search Results for "support"</h1>
       <hr></hr>
       <% result.forEach(function(caption, index) { %>
         <div class="row">

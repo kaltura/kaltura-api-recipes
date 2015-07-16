@@ -59,6 +59,19 @@ var ANSWERS = {
 }
 var LANGUAGES = ['php', 'javascript']
 
+for (recipeName in Recipes) {
+  var recipe = Recipes[recipeName];
+  ANSWERS[recipeName] = ANSWERS[recipeName] || {};
+  recipe.control_sets.forEach(function(set) {
+    var inputs = set.inputs || [];
+    inputs.forEach(function(input) {
+      if (input.default && !ANSWERS[recipeName][input.name]) {
+        ANSWERS[recipeName][input.name] = input.default;
+      }
+    })
+  })
+}
+
 describe('sample code', function() {
   before(function(done) {
     Server.listen(PORT);

@@ -13,16 +13,20 @@ $client->setKS($ks);
 
 $reportInputFilter = new KalturaReportInputFilter();
 
-$reportInputFilter->fromDay = "2015-07-01";
+$reportInputFilter->fromDay = "20150615";
 
-$reportInputFilter->toDay = "2015-07-10";
-$reportType = 5;
+$reportInputFilter->toDay = "20150715";
+$pager = new KalturaFilterPager();
+$reportType = 1;
+$order = "count_plays";
 $objectIds = null;
 
-$result = $client->report->getTotal(
+$result = $client->report->getTable(
   $reportType, 
   $reportInputFilter, 
+  $pager, 
+  $order, 
   $objectIds);
 $result = (object)$result;
-include 'KalturaReportTotal.php';
+include 'KalturaReportTable.php';
 ?>

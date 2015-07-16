@@ -32,8 +32,13 @@
         } else {
           client.setKs(ks);
         }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
       }, "8d6cb692ab0f41bfa6bde373204c4b40",
-      null,
+      "lucybot@example.com",
       KalturaSessionType.ADMIN,
       1760921)
     </script>
@@ -47,11 +52,14 @@
           if (!success || (results.code && results.message)) {
             console.log('Kaltura Error', success, results);
           } else if (results.status !== 2) {
-            console.log('Entry not ready yet (status ' + results.status + ')');
+            $('#UploadStatus').text(
+                'Entry not ready yet (status ' + results.status + ')');
             setTimeout(function() {
               client.media.get(checkStatus, results.id);
             }, 100);
           } else {
+            $('#UploadStatusBar').hide();
+            $('#UploadSuccess').show();
             callback(results)
           }
         }
@@ -72,10 +80,9 @@
             dataType: 'json',
             autoUpload: true,
             submit: function(e, data) {
-              $('#Uploading').show();
+              $('#UploadStatusBar').show();
             },
             done: function(e, data) {
-              $('#Uploading').hide();
               $('#UploadDone').html(UploadDone({result: data.result}));
             },
           });
@@ -84,13 +91,17 @@
       <% print("</"+"script>"); %>
 
       <h1>Upload Video</h1>
+      <hr></hr>
       <label>Video to Upload</label>
       <input type="file" name="fileData"></input>
-      <div id="Uploading" style="display: none">
-        <div class="alert alert-info">
-          Uploading  
-          <i class="fa fa-spin fa-refresh"></i>
-        </div>
+      <div id="UploadStatusBar" class="alert alert-info" style="display: none">
+        <i class="fa fa-spin fa-refresh"></i>  
+        <span id="UploadStatus">
+          Uploading
+        </span>
+      </div>
+      <div id="UploadSuccess" class="alert alert-success" style="display: none">
+        Video uploaded successfully.
       </div>
       <div id="UploadDone"></div>
     </script>
@@ -99,7 +110,10 @@
     </script>
 
     <script id="UploadDone-template" type="text/x-underscore-template" style="display: none">
-      <p>Uploaded file <%= result.fileName %>. Creating entry...</p>
+      <script>
+        $('#UploadStatus').text('Uploaded file <%= result.fileName %>. Creating entry...');
+      <% print("</"+"script>"); %>
+
       <div id="CreateBaseEntry-result"></div>
       <%
           CreateBaseEntry({
@@ -115,8 +129,6 @@
     </script>
 
     <script id="CreatedEntry-template" type="text/x-underscore-template" style="display: none">
-      <p>Created entry <%= result.name %></p>
-      <hr></hr>
       <%
           print(KalturaMediaEntry({result: result}));
       %>
