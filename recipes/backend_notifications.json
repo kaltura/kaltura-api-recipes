@@ -5,6 +5,17 @@
   "description": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
   "control_sets": [
     {
+      "page": 1,
+      "title": "Checking Permissions",
+      "affects": "listPermission",
+      "tip": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
+      "inputs": [{
+        "name": "nameEqual",
+        "type": "text",
+        "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
+        "hidden": true
+      }]
+    }, {
       "title": "Choosing a Template",
       "tip": "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.\n\nIn order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```\n\nChoose a template to clone.",
       "affects": "listTemplatesEventNotificationTemplate",
@@ -22,13 +33,13 @@
         }
       }]
     }, {
-      "page": 1,
+      "page": 2,
       "title": "Cloning the Template",
       "tip": "Fill in some additional details for your template and use the form below to create it",
       "affects": "cloneEventNotificationTemplate",
       "inputs": []
     }, {
-      "page": 2,
+      "page": 3,
       "title": "Viewing your Notification Templates",
       "tip": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
       "affects": "listEventNotificationTemplate",
@@ -39,6 +50,11 @@
     "view": "KalturaEventNotificationTemplateListResponse",
     "data": {
       "action": "listTemplatesEventNotificationTemplate"
+    }
+  }, {
+    "view": "KalturaPermissionListResponse",
+    "data": {
+      "action": "listPermission"
     }
   }, {
     "view": "CloneEventNotificationTemplate",
@@ -54,12 +70,15 @@
   "views": [
     "KalturaEventNotificationTemplateListResponse",
     "KalturaEventNotificationTemplate",
-    "CloneEventNotificationTemplate"
+    "CloneEventNotificationTemplate",
+    "KalturaPermissionListResponse",
+    "KalturaPermission"
   ],
   "actions": [
     {"service": "eventNotificationTemplate", "action": "listTemplates", "view": "KalturaEventNotificationTemplateListResponse"},
     {"action": "cloneEventNotificationTemplate", "view": "KalturaEventNotificationTemplate"},
-    {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"}
+    {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"},
+    {"service": "permission", "action": "listAction", "view": "KalturaPermissionListResponse"}
   ]
 }
 

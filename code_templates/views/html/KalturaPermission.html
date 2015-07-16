@@ -1,0 +1,12 @@
+<h3>Permission {{ result.name }}</h3>
+<p>Status:&nbsp;
+  <lucy if="result.status == 1">
+    <span>Active</span>
+  </lucy>
+  <lucy if="result.status == 2">
+    <span>Blocked</span>
+  </lucy>
+  <lucy if="result.status == 3">
+    <span>Deleted</span>
+  </lucy>
+</p>
