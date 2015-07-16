@@ -6,10 +6,10 @@
   "description": "Learn how to use the API to find your most watched videos and most valuable users",
   "control_sets": [{
     "title": "Getting reports",
-    "tip": "",
+    "tip": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```\n\nTo find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
     "affects": "getTableReport",
     "inputs": [{
-      "type": "select",
+      "type": "select-chosen",
       "name": "reportType",
       "label": "Report Type",
       "default": 1,
@@ -39,16 +39,16 @@
         {"label": "TOP_PLAYBACK_CONTEXT", "value": 25}
       ]
     }, {
-      "type": "select",
+      "type": "select-chosen",
       "name": "order",
       "label": "Order By",
       "default": "count_plays",
       "choices": [
         {"label": "count_plays", "value": "count_plays"},
-        {"label": "unique_videos", "value": "unique_videos"},
         {"label": "sum_time_viewed", "value": "sum_time_viewed"},
         {"label": "avg_time_viewed", "value": "avg_time_viewed"},
-        {"label": "count_loads", "value": "count_loads"}
+        {"label": "unique_videos", "value": "unique_videos"},
+        {"label": "count_total", "value": "count_total"}
       ]
     }, {
       "type": "text",
