@@ -79,7 +79,8 @@
   "views": [
     "KalturaCuePointListResponse",
     "KalturaMediaEntry",
-    "AddCuePoint"
+    "AddCuePoint",
+    "CuePointAdded"
   ],
   "actions": [
     {"service": "cuePoint", "action": "listAction", "view": "KalturaCuePointListResponse"},

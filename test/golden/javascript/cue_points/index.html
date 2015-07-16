@@ -95,14 +95,6 @@
           print(AddCuePoint({result: result}));
       %>
       <hr></hr>
-      <div id="getMedia-result"></div>
-      <%
-          getMedia({
-             entryId: "1_318vzqcr",
-          }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
-          })
-      %>
     </script>
     <script type="text/javascript">
       var KalturaCuePointListResponse = _.template($('#KalturaCuePointListResponse-template').text());
@@ -140,16 +132,20 @@
           <input class="btn btn-success" type="submit" value="Add Cue Point"></input>
         </div>
       </form>
+      <hr></hr>
+      <div id="CuePointAdded"></div>
       <script>
         $('#AddCuePointForm').submit(function() {
           var cuePoint = new KalturaAdCuePoint();
+          cuePoint.cuePointType = KalturaCuePointType.AD;
+          cuePoint.adType = KalturaAdType.VIDEO;
+          cuePoint.protocolType = KalturaAdProtocolType.VAST;
+          cuePoint.sourceUrl = 'http://projects.kaltura.com/mdale/hotelVastAd.xml';
           cuePoint.duration = $('input[name="duration"]').val();
           cuePoint.startTime = $('input[name="startTime"]').val();
           cuePoint.entryId = "1_318vzqcr";
           client.cuePoint.add(function(success, cuePoint) {
-            listCuePoint({}, function(result) {
-              $('.container').html(KalturaCuePointListResponse({result: result}));
-            })
+            $('.container').html(CuePointAdded({result: cuePoint}));
           }, cuePoint);
           return false;
         })
@@ -157,6 +153,21 @@
     </script>
     <script type="text/javascript">
       var AddCuePoint = _.template($('#AddCuePoint-template').text());
+    </script>
+
+    <script id="CuePointAdded-template" type="text/x-underscore-template" style="display: none">
+      <p>Cue point added. Loading video...</p>
+      <div id="getMedia-result"></div>
+      <%
+          getMedia({
+             entryId: "1_318vzqcr",
+          }, function(result) {
+            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
+          })
+      %>
+    </script>
+    <script type="text/javascript">
+      var CuePointAdded = _.template($('#CuePointAdded-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
