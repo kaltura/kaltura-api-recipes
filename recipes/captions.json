@@ -5,22 +5,6 @@
   "description": "Learn how to upload a caption file and perform in-video searches",
   "control_sets": [
     {
-      "title": "Starting a KalturaSession",
-      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
-      "affects": "setup",
-      "inputs": [
-        {
-          "type": "number",
-          "label": "Partner ID",
-          "name": "partnerId"
-        },
-        {
-          "type": "text",
-          "label": "Admin Secret",
-          "name": "adminSecret"
-        }
-      ]
-    }, {
       "title": "Select a Media Entry",
       "tip": "Choose a video from your library to add captions to. You can then use the page below to upload an SRT file to Kaltura. If you don't have an SRT file handy, you can [download a sample SRT file here](/sample_captions.srt)\n\nJavaScript clients can make use of the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload). Others should utilize the ```uploadToken``` service.",
       "affects": "UploadCaptions",
@@ -32,7 +16,7 @@
           "name": "uiConf"
         },
         {
-          "type": "select",
+          "type": "select-chosen",
           "label": "Media Entry",
           "name": "entryId",
           "dynamicChoices": {

@@ -2,24 +2,9 @@
   "name": "app_tokens",
   "title": "App Tokens",
   "description": "Learn how to create, view, and delete App Tokens",
+  "needsAdmin": true,
   "control_sets": [
     {
-      "title": "Starting a KalturaSession",
-      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
-      "affects": "setup",
-      "inputs": [
-        {
-          "type": "number",
-          "label": "Partner ID",
-          "name": "partnerId"
-        },
-        {
-          "type": "text",
-          "label": "Admin Secret",
-          "name": "adminSecret"
-        }
-      ]
-    }, {
       "title": "Getting your App Tokens",
       "tip": "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens.",
       "affects": "listAppToken",

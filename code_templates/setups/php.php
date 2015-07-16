@@ -5,7 +5,7 @@ $client = new KalturaClient($config);
 $ks = $client->session->start(
   <%- Lucy.variable("answers.adminSecret") %>,
   <%- Lucy.variable("answers.userId") %>,
-  KalturaSessionType::ADMIN,
+  <%- Lucy.answer('sessionType') === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
   <%- Lucy.variable('answers.partnerId') %>,
   null, null);
 $client->setKS($ks);

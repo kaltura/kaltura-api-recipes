@@ -20,8 +20,13 @@
     } else {
       client.setKs(ks);
     }
+    // Note: this is meant only as a sample.
+    // You should NEVER generate sessions on the client,
+    // as this exposes your Admin Secret to users.
+    // Instead, generate a session on the server and pass the
+    // KS to the client.
   }, <%- Lucy.variable("answers.adminSecret") %>,
   <%- Lucy.variable("answers.userId") %>,
-  KalturaSessionType.ADMIN,
+  <%- Lucy.answer('sessionType') === 0 ? 'KalturaSessionType.USER' : 'KalturaSessionType.ADMIN' %>,
   <%- Lucy.variable('answers.partnerId') %>)
 </script>

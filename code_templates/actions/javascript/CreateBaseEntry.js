@@ -6,11 +6,14 @@ var checkStatus = function(success, results) {
   if (!success || (results.code && results.message)) {
     console.log('Kaltura Error', success, results);
   } else if (results.status !== 2) {
-    console.log('Entry not ready yet (status ' + results.status + ')');
+    $('#UploadStatus').text(
+        'Entry not ready yet (status ' + results.status + ')');
     setTimeout(function() {
       client.media.get(checkStatus, results.id);
     }, 100);
   } else {
+    $('#UploadStatusBar').hide();
+    $('#UploadSuccess').show();
     <%- Lucy.returnCode('results') %>
   }
 }

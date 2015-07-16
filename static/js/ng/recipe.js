@@ -33,7 +33,6 @@ app.controller('Recipe', function($scope) {
       addedOne = true;
       demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));
     }
-    console.log('get demo url', demoURL);
     return demoURL;
   }
   
@@ -44,13 +43,14 @@ app.controller('Recipe', function($scope) {
       var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
       if (!curSet.inputs) return;
       var answers = $('#Answers').scope().answers;
+      var setDefault = function(input) {
+        if (!answers[input.name] && input.default) answers[input.name] = input.default;
+      }
       curSet.inputs.forEach(function(input) {
         if (input.type === 'group') {
-          input.inputs.forEach(function(input) {
-            if (input.default) answers[input.name] = input.default;
-          })
+          input.inputs.forEach(setDefault)
         } else {
-          if (input.default) answers[input.name] = input.default;
+          setDefault(input)
         }
       });
       var affected = $scope.recipe.control_sets[controlSetIdx].affects;
@@ -85,25 +85,27 @@ app.controller('Answers', function($scope) {
   $scope.answers = {};
   var credentialsChanged = function() {
     if ($scope.answers.partnerId && $scope.answers.adminSecret) {
-      startKalturaSession($scope.answers.partnerId, $scope.answers.adminSecret);
+      startKalturaSession($scope.answers.partnerId, $scope.answers.userId, $scope.answers.adminSecret);
       var stored = localStorage.getItem(STORAGE_KEY) || '{}';
       stored = JSON.parse(stored);
       stored.partnerId = $scope.answers.partnerId;
       stored.adminSecret = $scope.answers.adminSecret;
+      stored.userId = $scope.answers.userId;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
     }
   }
   $scope.$watch('answers.partnerId', credentialsChanged);
   $scope.$watch('answers.adminSecret', credentialsChanged);
+  $scope.$watch('answers.userId', credentialsChanged);
 
   $scope.setDefaults = function() {
-    for (key in $scope.recipe.defaults) {
-      $scope.answers[key] = $scope.recipe.defaults[key];
-    }
     var stored = localStorage.getItem(STORAGE_KEY) || '{}';
     stored = JSON.parse(stored);
     for (key in stored) {
       $scope.answers[key] = stored[key];
+    }
+    for (key in $scope.recipe.defaults) {
+      if (!$scope.answers[key]) $scope.answers[key] = $scope.recipe.defaults[key];
     }
   }
   $scope.setDefaults();

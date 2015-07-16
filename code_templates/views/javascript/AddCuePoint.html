@@ -4,8 +4,8 @@
     <input class="form-control" type="number" name="startTime">
   </div>
   <div class="form-group">
-    <label>Duration (ms)</label>
-    <input class="form-control" type="number" name="duration">
+    <label>VAST Source URL</label>
+    <input class="form-control" type="text" name="sourceUrl" value="http://projects.kaltura.com/mdale/hotelVastAd.xml">
   </div>
   <div class="form-group">
     <input class="btn btn-success" type="submit" value="Add Cue Point">
@@ -19,8 +19,7 @@
     cuePoint.cuePointType = KalturaCuePointType.AD;
     cuePoint.adType = KalturaAdType.VIDEO;
     cuePoint.protocolType = KalturaAdProtocolType.VAST;
-    cuePoint.sourceUrl = 'http://projects.kaltura.com/mdale/hotelVastAd.xml';
-    cuePoint.duration = $('input[name="duration"]').val();
+    cuePoint.sourceUrl = $('input[name="sourceUrl"]').val();
     cuePoint.startTime = $('input[name="startTime"]').val();
     cuePoint.entryId = "<%- Lucy.answer('entryIdEqual') %>";
     client.cuePoint.add(function(success, cuePoint) {

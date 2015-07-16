@@ -27,8 +27,7 @@ script(type="text/javascript" src="/js/KalturaVO.js")
 script(type="text/javascript" src="/js/KalturaServices.js")
 script(type="text/javascript" src="/js/KalturaClient.js")
 script(type="text/javascript").
-  var startKalturaSession = function(partnerID, secret) {
-    console.log('start session', arguments);
+  var startKalturaSession = function(partnerID, userId, secret) {
     var config = new KalturaConfiguration(partnerID);
     config.serviceUrl = "http://www.kaltura.com/";
     window.KC = new KalturaClient(config);
@@ -36,7 +35,7 @@ script(type="text/javascript").
       if (!success || (ks.code && ks.message)) return console.log('Kaltura Error', success, ks);
       KC.setKs(ks);
     }, secret,
-    null,
+    userId,
     KalturaSessionType.ADMIN,
     partnerID) 
   }

@@ -1,5 +1,5 @@
 $cuePoint = new KalturaAdCuePoint;
-$cuePoint->duraton = $_POST["duration"];
+$cuePoint->sourceUrl = $_POST["sourceUrl"];
 $cuePoint->startTime = $_POST["startTime"];
 $cuePoint->entryId = <%- Lucy.code.variable('answers.entryIdEqual') %>;
 $result = $client->cuePoint->add($cuePoint);

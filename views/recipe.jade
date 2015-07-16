@@ -67,7 +67,7 @@ block body
           .btn-group.col-xs-6.col-no-left.col-no-bottom
             a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='toggleExpand()')
               i(ng-class="{fa: true, 'fa-expand': !expanded, 'fa-compress': expanded}")
-              span.hidden-xs &nbsp; {{ expanded ? 'View Snippet' : 'View File' }}
+              span.hidden-xs &nbsp; {{ expanded ? 'View Snippet' : 'View Full File' }}
          .row(ng-if="ready")
           .col-xs-12
             .hljs-div.pin-top(hljs source='getActiveCode()')

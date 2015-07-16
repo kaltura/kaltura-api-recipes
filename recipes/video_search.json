@@ -10,23 +10,6 @@
     {
       "inputs": [
         {
-          "type": "number",
-          "label": "Partner ID",
-          "name": "partnerId"
-        },
-        {
-          "type": "text",
-          "label": "Admin Secret",
-          "name": "adminSecret"
-        }
-      ],
-      "affects": "setup",
-      "tip": "You can find your info at http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration",
-      "title": "Authentication"
-    },
-    {
-      "inputs": [
-        {
           "default": "",
           "type": "text",
           "label": "Query",
@@ -94,7 +77,7 @@
             }
           ],
           "default": 28959921,
-          "type": "radio",
+          "type": "select-chosen",
           "label": "UI Configuration ID",
           "name": "uiConf",
           "required": true

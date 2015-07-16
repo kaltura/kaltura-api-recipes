@@ -7,7 +7,7 @@
           ng-model="model[input.name]")
     span.help-block(ng-if="input.tip") {{ input.tip }}
 
-  .form-group(ng-if="input.type === 'select'", ng-controller="Radio")
+  .form-group(ng-if="input.type === 'select-chosen'", ng-controller="Radio")
     label
       span {{input.label}}
     select.form-control(
@@ -16,6 +16,14 @@
         ng-change="onAnswerChanged()"
         ng-options="choice.value as choice.label for choice in input.choices")
       option
+
+  .form-group(ng-if="input.type === 'select'", ng-controller="Radio")
+    label
+      span {{input.label}}
+    select.form-control(
+        ng-model="model[input.name]"
+        ng-change="onAnswerChanged()"
+        ng-options="choice.value as choice.label for choice in input.choices")
 
   .form-group(ng-if="input.type === 'radio'", ng-controller="Radio")
     label

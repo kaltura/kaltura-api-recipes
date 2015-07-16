@@ -3,25 +3,8 @@
   "title": "Analytics Reports",
   "description": "Learn how to retrieve usage statistics from the Kaltura API",
   "icon": "line-chart",
+  "needsAdmin": true,
   "control_sets": [
-    {
-      "page": -1,
-      "title": "Starting a KalturaSession",
-      "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
-      "affects": "setup",
-      "inputs": [
-        {
-          "type": "number",
-          "label": "Partner ID",
-          "name": "partnerId"
-        },
-        {
-          "type": "text",
-          "label": "Admin Secret",
-          "name": "adminSecret"
-        }
-      ]
-    },
     {
       "title": "Getting a Top Content report",
       "tip": "Find out how your viewers are engaging with your content - which content your viewers are watching the most, and which videos are getting little attention",

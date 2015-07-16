@@ -9,10 +9,9 @@
       dataType: 'json',
       autoUpload: true,
       submit: function(e, data) {
-        $('#Uploading').show();
+        $('#UploadStatusBar').show();
       },
       done: function(e, data) {
-        $('#Uploading').hide();
         $('#UploadDone').html(UploadDone({result: data.result}));
       },
     });
@@ -21,12 +20,16 @@
 </script>
 
 <h1>Upload Video</h1>
+<hr>
 <label>Video to Upload</label>
 <input type="file" name="fileData">
-<div id="Uploading" style="display: none">
-  <div class="alert alert-info">
-    Uploading &nbsp;
-    <i class="fa fa-spin fa-refresh"></i>
-  </div>
+<div id="UploadStatusBar" class="alert alert-info" style="display: none">
+  <i class="fa fa-spin fa-refresh"></i>&nbsp;&nbsp;
+  <span id="UploadStatus">
+    Uploading
+  </span>
+</div>
+<div id="UploadSuccess" class="alert alert-success" style="display: none">
+  Video uploaded successfully.
 </div>
 <div id="UploadDone"></div>
