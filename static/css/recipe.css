@@ -47,4 +47,6 @@ h2.message-primary {
 
 .hljs-div pre {
   margin-bottom: 0px;
+  max-height: 512px;
+  overflow: scroll;
 }

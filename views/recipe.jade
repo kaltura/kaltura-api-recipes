@@ -70,7 +70,7 @@ block body
               span.hidden-xs &nbsp; {{ expanded ? 'View Snippet' : 'View Full File' }}
          .row(ng-if="ready")
           .col-xs-12
-            .hljs-div.pin-top(hljs source='getActiveCode()')
+            .hljs-div.pin-top(hljs source='getActiveCode()' language="html")
     #Demo.row.demo-row(ng-controller="Demo", ng-if="ready", ng-show="recipe.control_sets[controlSetIdx].page !== -1")
       .col-xs-12
         hr
