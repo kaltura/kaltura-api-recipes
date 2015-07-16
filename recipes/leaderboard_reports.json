@@ -61,6 +61,22 @@
       "label": "To Day",
       "default": "20150715"
     }]
+  }, {
+    "page": 1,
+    "title": "Seeing Your Most Liked Videos",
+    "affects": "listMedia",
+    "tip": "You can use ```media.list``` to see which videos are getting the most likes by setting ```totalRankGreaterThanOrEqual=1``` and ```orderBy=KalturaMediaEntryOrderBy.TOTAL_RANK_DESC``` in the filter.",
+    "inputs": [{
+      "name": "orderBy",
+      "type": "text",
+      "default": "-rank",
+      "hidden": "true"
+    }, {
+      "name": "totalRankGreaterThanOrEqual",
+      "type": "number",
+      "default": 1,
+      "hidden": true
+    }]
   }],
   "pages": [
     {
@@ -68,12 +84,19 @@
       "data": {
         "action": "getTableReport"
       }
+    }, {
+      "view": "MediaListLikes",
+      "data": {
+        "action": "listMedia"
+      }
     }
   ],
   "views": [
-    "KalturaReportTable"
+    "KalturaReportTable",
+    "MediaListLikes"
   ],
   "actions": [
+    {"service": "media", "action": "listAction", "view": "MediaListLikes"},
     {"service": "report", "action": "getTable", "view": "KalturaReportTable"}
   ]
 }
