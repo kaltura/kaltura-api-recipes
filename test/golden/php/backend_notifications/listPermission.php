@@ -12,9 +12,10 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaPermissionFilter();
-
 $filter->nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
+
 $pager = new KalturaFilterPager();
+
 
 $result = $client->permission->listAction(
   $filter, 

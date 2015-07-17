@@ -12,7 +12,9 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaEventNotificationTemplateFilter();
+
 $pager = new KalturaFilterPager();
+
 
 $result = $client->eventNotificationTemplate->listTemplates(
   $filter, 

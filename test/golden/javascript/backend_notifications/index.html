@@ -45,7 +45,9 @@
     <script type="text/javascript">
       var listTemplatesEventNotificationTemplate = function(request, callback) {
         filter = new KalturaEventNotificationTemplateFilter();
+
         pager = new KalturaFilterPager();
+
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
@@ -87,7 +89,9 @@
       };
       var listEventNotificationTemplate = function(request, callback) {
         filter = new KalturaEventNotificationTemplateFilter();
+
         pager = new KalturaFilterPager();
+
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
@@ -107,7 +111,9 @@
       var listPermission = function(request, callback) {
         filter = new KalturaPermissionFilter();
         filter.nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
+
         pager = new KalturaFilterPager();
+
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);

@@ -64,9 +64,12 @@
       };
       var searchCaptionAssetItem = function(request, callback) {
         entryFilter = new KalturaBaseEntryFilter();
+
         captionAssetItemFilter = new KalturaCaptionAssetItemFilter();
         captionAssetItemFilter.contentLike = "support";
+
         captionAssetItemPager = new KalturaFilterPager();
+
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);

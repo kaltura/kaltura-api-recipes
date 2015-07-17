@@ -11,17 +11,12 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$reportInputFilter = new KalturaReportInputFilter();
-$reportInputFilter->fromDay = "2015-07-01";
-$reportInputFilter->toDay = "2015-07-10";
-
-$reportType = 5;
-$objectIds = null;
-
-$result = $client->report->getTotal(
-  $reportType, 
-  $reportInputFilter, 
-  $objectIds);
+$cuePoint = new KalturaCodeCuePoint;
+$cuePoint->code = $_POST["code"];
+$cuePoint->description = $_POST["description"];
+$cuePoint->startTime = $_POST["startTime"];
+$cuePoint->entryId = "1_318vzqcr";
+$result = $client->cuePoint->add($cuePoint);
 $result = (object)$result;
-include 'KalturaReportTotal.php';
+include 'CodeCuePointAdded.php';
 ?>

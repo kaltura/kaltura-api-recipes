@@ -1,0 +1,21 @@
+<div id="CuePoints">
+  <table class="table">
+    <tr><td>Code</td><td>Start Time</td><td>End Time</td></tr>
+  </table>
+</div>
+<hr>
+<lucy include="KalturaMediaEntry" action="getMedia" inputvars="{entryId: answers.entryIdEqual}"></lucy>
+<script>
+  jsCallbackReady = function(playerId) {
+    console.log('cb ready', arguments);
+    $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );
+    window['writeLog'] = function(result) {
+      var cuePoint = result.cuePoint
+      $('table').append(
+        '<tr><td>' + cuePoint.code +
+        '</td><td>' + cuePoint.startTime +
+        '</td><td>' + cuePoint.endTime + '</td></tr>'
+      );
+    }
+  }
+</script>

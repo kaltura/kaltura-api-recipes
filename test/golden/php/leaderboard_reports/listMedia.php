@@ -11,17 +11,16 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$reportInputFilter = new KalturaReportInputFilter();
-$reportInputFilter->fromDay = "2015-07-01";
-$reportInputFilter->toDay = "2015-07-10";
+$filter = new KalturaMediaEntryFilter();
+$filter->totalRankGreaterThanOrEqual = 1;
+$filter->orderBy = "-rank";
 
-$reportType = 5;
-$objectIds = null;
+$pager = new KalturaFilterPager();
 
-$result = $client->report->getTotal(
-  $reportType, 
-  $reportInputFilter, 
-  $objectIds);
-$result = (object)$result;
-include 'KalturaReportTotal.php';
+
+$result = $client->media->listAction(
+  $filter, 
+  $pager);
+$result = (object)$result->objects;
+include 'MediaListLikes.php';
 ?>

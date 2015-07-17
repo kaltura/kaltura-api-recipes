@@ -11,17 +11,12 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$reportInputFilter = new KalturaReportInputFilter();
-$reportInputFilter->fromDay = "2015-07-01";
-$reportInputFilter->toDay = "2015-07-10";
+$entryId = $_POST["entryId"];
+$version = null;
 
-$reportType = 5;
-$objectIds = null;
-
-$result = $client->report->getTotal(
-  $reportType, 
-  $reportInputFilter, 
-  $objectIds);
+$result = $client->media->get(
+  $entryId, 
+  $version);
 $result = (object)$result;
-include 'KalturaReportTotal.php';
+include 'KalturaMediaEntry.php';
 ?>

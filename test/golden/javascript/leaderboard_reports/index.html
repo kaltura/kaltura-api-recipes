@@ -43,11 +43,36 @@
       1760921)
     </script>
     <script type="text/javascript">
+      var listMedia = function(request, callback) {
+        filter = new KalturaMediaEntryFilter();
+        filter.totalRankGreaterThanOrEqual = 1;
+        filter.orderBy = "-rank";
+
+        pager = new KalturaFilterPager();
+
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.media.listAction(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results.objects)
+            }
+          },
+          filter,
+          pager);
+        }
+        getResults();
+      };
       var getTableReport = function(request, callback) {
         reportInputFilter = new KalturaReportInputFilter();
         reportInputFilter.fromDay = "20150615";
         reportInputFilter.toDay = "20150715";
+
         pager = new KalturaFilterPager();
+
         var reportType = 1;
         var order = "count_plays";
         var objectIds = null;
@@ -100,6 +125,16 @@
     </script>
     <script type="text/javascript">
       var KalturaReportTable = _.template($('#KalturaReportTable-template').text());
+    </script>
+
+    <script id="MediaListLikes-template" type="text/x-underscore-template" style="display: none">
+      <% result.forEach(function(video, index) { %>
+        <h3><%= index + 1 %>. <%= video.name %></h3>
+        <p>Rank: <%= video.rank %></p>
+      <% }); %>
+    </script>
+    <script type="text/javascript">
+      var MediaListLikes = _.template($('#MediaListLikes-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>

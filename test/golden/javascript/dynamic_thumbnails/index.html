@@ -45,7 +45,9 @@
     <script type="text/javascript">
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
+
         pager = new KalturaFilterPager();
+
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);

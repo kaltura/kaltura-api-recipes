@@ -1,0 +1,79 @@
+{
+  "name": "code_cue_points",
+  "title": "Cue Points",
+  "icon": "columns",
+  "description": "Learn how to create cue points and listen for them during playback",
+  "control_sets": [
+    {
+      "title": "Select a Media Entry",
+      "tip": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "affects": "listCuePoint",
+      "inputs": [
+        {
+          "name": "cuePointTypeEqual",
+          "type": "text",
+          "default": "codeCuePoint.Code",
+          "hidden": true
+        },
+        {
+          "type": "select-chosen",
+          "default": 28959921,
+          "name": "uiConf",
+          "dynamicChoices": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [{
+              "class": "KalturaUiConfFilter",
+              "parameters": {
+                "orderBy": "-updatedAt",
+                "objTypeEqual": {"enum": "KalturaUiConfObjType", "value": "PLAYER"}
+              }
+            }],
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        },
+        {
+          "type": "select-chosen",
+          "label": "Media Entry",
+          "name": "entryIdEqual",
+          "dynamicChoices": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        }
+      ]
+    }, {
+      "title": "Adding a Cue Point",
+      "tip": "You can use the form below to add cue points to your video.",
+      "affects": "AddCodeCuePoint",
+      "inputs": []
+    }
+  ],
+  "pages": [
+    {
+      "view": "CodeCuePointListResponse",
+      "data": {
+        "action": "listCuePoint"
+      }
+    }
+  ],
+  "views": [
+    "CodeCuePointListResponse",
+    "KalturaMediaEntry",
+    "AddCodeCuePoint",
+    "CodeCuePointAdded"
+  ],
+  "actions": [
+    {"service": "cuePoint", "action": "listAction", "view": "CodeCuePointListResponse"},
+    {"action": "addCodeCuePoint", "view": "CodeCuePointAdded"},
+    {"service": "media", "action": "get", "view": "KalturaMediaEntry"}
+  ]
+}
+

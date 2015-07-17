@@ -12,7 +12,9 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaCuePointFilter();
+
 $pager = new KalturaFilterPager();
+
 
 $result = $client->cuePoint->listAction(
   $filter, 

@@ -1,0 +1,33 @@
+<form id="AddCuePointForm">
+  <div class="form-group">
+    <label>Code</label>
+    <input class="form-control" type="text" name="code">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <input class="form-control" type="text" name="description">
+  </div>
+  <div class="form-group">
+    <label>Start Time (ms)</label>
+    <input class="form-control" type="number" name="startTime">
+  </div>
+  <div class="form-group">
+    <input class="btn btn-success" type="submit" value="Add Cue Point">
+  </div>
+</form>
+<hr>
+<div id="CodeCuePointAdded"></div>
+<script>
+  $('#AddCuePointForm').submit(function() {
+    var cuePoint = new KalturaCodeCuePoint();
+    cuePoint.cuePointType = KalturaCuePointType.CODE;
+    cuePoint.entryId = "<%- Lucy.answer('entryIdEqual') %>";
+    cuePoint.code = $('input[name="code"]').val();
+    cuePoint.description = $('input[name="description"]').val();
+    cuePoint.startTime = $('input[name="startTime"]').val();
+    client.cuePoint.add(function(success, cuePoint) {
+      $('.container').html(CodeCuePointAdded({result: cuePoint}));
+    }, cuePoint);
+    return false;
+  })
+</script>

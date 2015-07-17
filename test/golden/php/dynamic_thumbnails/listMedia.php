@@ -12,7 +12,9 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaMediaEntryFilter();
+
 $pager = new KalturaFilterPager();
+
 
 $result = $client->media->listAction(
   $filter, 

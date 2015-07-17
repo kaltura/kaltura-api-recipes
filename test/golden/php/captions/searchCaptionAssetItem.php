@@ -12,10 +12,12 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $entryFilter = new KalturaBaseEntryFilter();
-$captionAssetItemFilter = new KalturaCaptionAssetItemFilter();
 
+$captionAssetItemFilter = new KalturaCaptionAssetItemFilter();
 $captionAssetItemFilter->contentLike = "support";
+
 $captionAssetItemPager = new KalturaFilterPager();
+
 
 $result = $client->captionAssetItem->search(
   $entryFilter, 

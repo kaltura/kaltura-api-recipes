@@ -45,6 +45,8 @@
     <script type="text/javascript">
       var listCuePoint = function(request, callback) {
         filter = new KalturaCuePointFilter();
+        filter.cuePointTypeEqual = "codeCuePoint.Code";
+        filter.entryIdEqual = "1_318vzqcr";
 
         pager = new KalturaFilterPager();
 
@@ -86,24 +88,24 @@
     </script>
   </head>
   <body>
-    <script id="KalturaCuePointListResponse-template" type="text/x-underscore-template" style="display: none">
+    <script id="CodeCuePointListResponse-template" type="text/x-underscore-template" style="display: none">
       <h1>Cue Points</h1>
       <hr></hr>
       <% if(result.length === 0) { %>
         <i>No cue points found</i>
       <% } %>
       <% result.forEach(function(cuePoint, index) { %>
-        <p>
-        <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
-        </p>
+        <h3><%= cuePoint.code %></h3>
+        <p><%= cuePoint.startTime %>ms - <%= cuePoint.endTime %>ms</p>
+        <p><%= cuePoint.description %></p>
       <% }); %>
       <%
-          print(AddCuePoint({result: result}));
+          print(AddCodeCuePoint({result: result}));
       %>
       <hr></hr>
     </script>
     <script type="text/javascript">
-      var KalturaCuePointListResponse = _.template($('#KalturaCuePointListResponse-template').text());
+      var CodeCuePointListResponse = _.template($('#CodeCuePointListResponse-template').text());
     </script>
 
     <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
@@ -124,57 +126,77 @@
       var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
-    <script id="AddCuePoint-template" type="text/x-underscore-template" style="display: none">
+    <script id="AddCodeCuePoint-template" type="text/x-underscore-template" style="display: none">
       <form id="AddCuePointForm">
+        <div class="form-group">
+          <label>Code</label>
+          <input class="form-control" type="text" name="code"></input>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input class="form-control" type="text" name="description"></input>
+        </div>
         <div class="form-group">
           <label>Start Time (ms)</label>
           <input class="form-control" type="number" name="startTime"></input>
-        </div>
-        <div class="form-group">
-          <label>VAST Source URL</label>
-          <input class="form-control" type="text" name="sourceUrl" value="http://projects.kaltura.com/mdale/hotelVastAd.xml"></input>
         </div>
         <div class="form-group">
           <input class="btn btn-success" type="submit" value="Add Cue Point"></input>
         </div>
       </form>
       <hr></hr>
-      <div id="CuePointAdded"></div>
+      <div id="CodeCuePointAdded"></div>
       <script>
         $('#AddCuePointForm').submit(function() {
-          var cuePoint = new KalturaAdCuePoint();
-          cuePoint.cuePointType = KalturaCuePointType.AD;
-          cuePoint.adType = KalturaAdType.VIDEO;
-          cuePoint.protocolType = KalturaAdProtocolType.VAST;
-          cuePoint.sourceUrl = $('input[name="sourceUrl"]').val();
+          var cuePoint = new KalturaCodeCuePoint();
+          cuePoint.cuePointType = KalturaCuePointType.CODE;
+          cuePoint.entryId = "1_318vzqcr";
+          cuePoint.code = $('input[name="code"]').val();
+          cuePoint.description = $('input[name="description"]').val();
           cuePoint.startTime = $('input[name="startTime"]').val();
-          cuePoint.entryId = "";
           client.cuePoint.add(function(success, cuePoint) {
-            $('.container').html(CuePointAdded({result: cuePoint}));
+            $('.container').html(CodeCuePointAdded({result: cuePoint}));
           }, cuePoint);
           return false;
         })
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var AddCuePoint = _.template($('#AddCuePoint-template').text());
+      var AddCodeCuePoint = _.template($('#AddCodeCuePoint-template').text());
     </script>
 
-    <script id="CuePointAdded-template" type="text/x-underscore-template" style="display: none">
-      <p>Cue point added. Loading video...</p>
+    <script id="CodeCuePointAdded-template" type="text/x-underscore-template" style="display: none">
+      <div id="CuePoints">
+        <table class="table">
+          <tr><td>Code</td><td>Start Time</td><td>End Time</td></tr>
+        </table>
+      </div>
+      <hr></hr>
       <div id="getMedia-result"></div>
       <%
           getMedia({
-             entryId: null,
+             entryId: "1_318vzqcr",
           }, function(result) {
             $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
           })
       %>
       <script>
+        jsCallbackReady = function(playerId) {
+          console.log('cb ready', arguments);
+          $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );
+          window['writeLog'] = function(result) {
+            var cuePoint = result.cuePoint
+            $('table').append(
+              '<tr><td>' + cuePoint.code +
+              '</td><td>' + cuePoint.startTime +
+              '</td><td>' + cuePoint.endTime + '</td></tr>'
+            );
+          }
+        }
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var CuePointAdded = _.template($('#CuePointAdded-template').text());
+      var CodeCuePointAdded = _.template($('#CodeCuePointAdded-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -182,7 +204,7 @@
     </div>
     <script type="text/javascript">
       listCuePoint({}, function(result) {
-        $('.container').html(KalturaCuePointListResponse({result: result}));
+        $('.container').html(CodeCuePointListResponse({result: result}));
       })
     </script>
   </body>

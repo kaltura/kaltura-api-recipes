@@ -1,0 +1,12 @@
+<h1>Cue Points</h1>
+<hr>
+<lucy if="result.length === 0">
+  <i>No cue points found</i>
+</lucy>
+<lucy for="cuePoint" in="result">
+  <h3>{{ cuePoint.code }}</h3>
+  <p>{{ cuePoint.startTime }}ms - {{ cuePoint.endTime }}ms</p>
+  <p>{{ cuePoint.description }}</p>
+</lucy>
+<lucy include="AddCodeCuePoint"></lucy>
+<hr>

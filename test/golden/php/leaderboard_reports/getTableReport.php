@@ -12,11 +12,11 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $reportInputFilter = new KalturaReportInputFilter();
-
 $reportInputFilter->fromDay = "20150615";
-
 $reportInputFilter->toDay = "20150715";
+
 $pager = new KalturaFilterPager();
+
 $reportType = 1;
 $order = "count_plays";
 $objectIds = null;

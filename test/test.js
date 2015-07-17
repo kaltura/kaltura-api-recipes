@@ -46,6 +46,10 @@ var ANSWERS = {
     entryId: '1_318vzqcr',
     uiConf: 24666901,
   },
+  code_cue_points: {
+    entryIdEqual: '1_318vzqcr',
+    uiConf: 28959921,
+  },
   cue_points: {
     entryIdEqual: '1_318vzqcr',
     uiConf: 28959921,
