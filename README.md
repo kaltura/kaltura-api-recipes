@@ -71,3 +71,36 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   }]
 }
 ```
+
+## Adding a new View
+
+Views are snippets of HTML for displaying responses from the API. Any valid HTML can be used here, including ```<script>``` and ```<style>``` tags.
+
+LucyBot also provides some helper tags:
+* Use ```{{ variable.name }}``` to print the value of a given variable
+* Use ```<lucy for="thing" in="array">``` to iterate over an array
+* Use ```<lucy if="condition">``` to guard blocks of HTML
+* Use ```<lucy include="ViewName">``` to include other views
+
+```<lucy include>``` can operate in two different ways:
+1. It can simply copy the HTML of the included view
+2. It can make a new call to the API, and use the included view as a template for displaying the result.
+
+Case (1) is the default behavior. In addition, you can use ```<lucy include="ViewName" resultvar="foo">``` to use variable "foo" in place of API output. For example, since KalturaMediaListResponse is just an array of KalturaMediaEntry, we can have:
+```html
+<lucy for="video" in="result">
+  <lucy include="KalturaMediaEntry" resultvar="video"></lucy>
+</lucy>
+```
+
+This allows us to use the same KalturaMediaEntry template whether we're using ```media.list``` or ```media.get```.
+
+Case (2) is useful if you need more data from the API. You can specify ```action```, which is the name of the action to use, and ```inputvars``` which is a mapping from variable names to API inputs.
+
+If, for example, KalturaMediaListResponse was just an array of entryIds, we could do:
+
+```html
+<lucy for="entryId" in="result">
+  <lucy include="KalturaMediaEntry" action="getMedia" inputvars="{id: entryId}"></lucy>
+</lucy>
+```
