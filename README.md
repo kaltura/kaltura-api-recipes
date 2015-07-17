@@ -82,6 +82,10 @@ LucyBot also provides some helper tags:
 * Use ```<lucy if="condition">``` to guard blocks of HTML
 * Use ```<lucy include="ViewName">``` to include other views
 
+You have access to two global variables inside of your views:
+* ```result``` which is the API's response (but can be overriden via ```<lucy include>```)
+* ```answers``` which contains the user's responses from inside the recipe
+
 ```<lucy include>``` can operate in two different ways:
 1. It can simply copy the HTML of the included view
 2. It can make a new call to the API, and use the included view as a template for displaying the result.
@@ -104,3 +108,4 @@ If, for example, KalturaMediaListResponse was just an array of entryIds, we coul
   <lucy include="KalturaMediaEntry" action="getMedia" inputvars="{id: entryId}"></lucy>
 </lucy>
 ```
+
