@@ -110,7 +110,7 @@ app.controller('Answers', function($scope) {
       $scope.answers[key] = stored[key];
     }
     for (key in $scope.recipe.defaults) {
-      if (!$scope.answers[key] && !$scope.answers[key] === 0 && !$scope.answer[key] === '') $scope.answers[key] = $scope.recipe.defaults[key];
+      if (!$scope.answers[key]) $scope.answers[key] = $scope.recipe.defaults[key];
     }
   }
   $scope.setDefaults();
