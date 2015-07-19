@@ -18,12 +18,12 @@
         "type": "text",
         "name": "fromDay",
         "label": "From Day",
-        "default": "2015-07-01"
+        "default": "20150701"
       }, {
         "type": "text",
         "name": "toDay",
         "label": "To Day",
-        "default": "2015-07-10"
+        "default": "20150710"
       }]
     },
     {
@@ -64,12 +64,12 @@
         "type": "text",
         "name": "fromDay",
         "label": "From Day",
-        "default": "2015-07-01"
+        "default": "20150701"
       }, {
         "type": "text",
         "name": "toDay",
         "label": "To Day",
-        "default": "2015-07-10"
+        "default": "20150710"
       }]
     }
   ],

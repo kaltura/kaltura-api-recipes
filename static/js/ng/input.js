@@ -18,7 +18,9 @@ app.controller('Radio', function($scope) {
       var params = arg.parameters || {};
       for (name in params) {
         var param = params[name];
-        if (param.enum) {
+        if (param.answer) {
+          cls[name] = $('#Answers').scope().answers[param.answer];
+        } else if (param.enum) {
           cls[name] = window[param.enum][param.value];
         } else {
           cls[name] = param;

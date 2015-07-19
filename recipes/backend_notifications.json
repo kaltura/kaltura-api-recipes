@@ -16,8 +16,28 @@
         "hidden": true
       }]
     }, {
-      "title": "Choosing a Template",
-      "tip": "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.\n\nIn order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```\n\nChoose a template to clone.",
+      "title": "Notification Template Types",
+      "affects": "listTemplatesEventNotificationTemplate",
+      "tip": [
+        "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.",
+        "There are two main types of templates:\n*E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n*HTTP templates, which will cause a particular URL to be called with data for the notification event.",
+        "Which type would you like to create?"
+      ],
+      "inputs": [{
+        "name": "typeEqual",
+        "label": "Template Type",
+        "type": "select",
+        "choices": [
+          {"label": "E-mail Template", "value": "emailNotification.Email"},
+          {"label": "HTTP Template", "value": "httpNotification.Http"}
+        ]
+      }]
+    }, {
+      "title": "Choosing a Template to Clone",
+      "tip": [
+        "In order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```",
+        "Choose a template to clone."
+      ],
       "affects": "listTemplatesEventNotificationTemplate",
       "inputs": [{
         "name": "id",
@@ -26,6 +46,12 @@
         "dynamicChoices": {
           "service": "eventNotificationTemplate",
           "action": "listTemplates",
+          "arguments": [{
+            "class": "KalturaEventNotificationTemplateFilter",
+            "parameters": {
+              "typeEqual": {"answer": "typeEqual"}
+            }
+          }],
           "map": {
             "value": "id",
             "label": "name"
@@ -35,7 +61,7 @@
     }, {
       "page": 2,
       "title": "Cloning the Template",
-      "tip": "Fill in some additional details for your template and use the form below to create it",
+      "tip": "Use the form below to fill in some additional details for your template and create it",
       "affects": "cloneEventNotificationTemplate",
       "inputs": []
     }, {
