@@ -4,9 +4,19 @@
     <p>{{result.description}}</p>
   </div>
   <div class="col-xs-12 col-md-6 col-md-offset-1">
+    <script src="https://cdnapisec.kaltura.com/p/{{ result.partnerId }}/sp/{{ result.partnerId }}00/embedIframeJs/uiconf_id/{{ answers.uiConf }}/partner_id/{{ result.partnerId }}">
+    </script>
     <div id="kaltura_player_{{ result.id }}" style="width: 560px; height: 395px;">
-      <script src="https://cdnapisec.kaltura.com/p/{{ result.partnerId }}/sp/{{ result.partnerId }}00/embedIframeJs/uiconf_id/{{ answers.uiConf }}/partner_id/{{ result.partnerId }}?autoembed=true&entry_id={{ result.id }}&playerId=kaltura_player_{{ result.id }}&width=560&height=395">
-      </script>
     </div>
+    <script>
+    kWidget.thumbEmbed({
+      "targetId": "kaltura_player_{{ result.id }}",
+      "wid": "_{{ result.partnerId }}",
+      "uiconf_id": {{ answers.uiConf }},
+      "flashvars": {},
+      "cache_st": 1437326770,
+      "entry_id": "{{ result.id }}"
+    });
+    </script>
   </div>
 </div>

@@ -42,6 +42,8 @@
       KalturaSessionType.ADMIN,
       1760921)
     </script>
+    <script src="http://player.kaltura.com/mwEmbedLoader.php"></script>
+    <script src="http://player.kaltura.com/kWidget/kWidget.auth.js"></script>
     <script type="text/javascript">
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
@@ -128,10 +130,19 @@
     </script>
 
     <script id="MediaListLikes-template" type="text/x-underscore-template" style="display: none">
+      <table class="table">
+        <tr>
+          <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
+        
       <% result.forEach(function(video, index) { %>
-        <h3><%= index + 1 %>. <%= video.name %></h3>
-        <p>Rank: <%= video.rank %></p>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= video.name %></td>
+          <td><%= video.rank %></td>
+          <td><%= video.votes %></td>
+        </tr>
       <% }); %>
+      </table>
     </script>
     <script type="text/javascript">
       var MediaListLikes = _.template($('#MediaListLikes-template').text());

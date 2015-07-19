@@ -1,5 +1,3 @@
-<script src="http://player.kaltura.com/mwEmbedLoader.php"></script>
-<script src="http://player.kaltura.com/kWidget/kWidget.auth.js"></script>
 <script src="/js/kaltura_thumb_rotator.js"></script>
 <style>
   .player-col {
@@ -13,6 +11,7 @@
       <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300">
       </script>
     </div>
+    <p class="small">Click on a thumbnail to choose a video</p>
   </div>
 </div>
 <hr></hr>

@@ -109,6 +109,8 @@ var buildRecipe = function(req, res, callback) {
     });
     buildParams.actions.setup = {};
     buildParams.actions.setup[language] = CodeTemplates.setups[language];
+    buildParams.views.setup = {};
+    buildParams.views.setup[language] = CodeTemplates.setups['html'];
     views.forEach(function(viewName) {
       buildParams.views[viewName] = {};
       buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;

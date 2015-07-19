@@ -42,6 +42,8 @@
       KalturaSessionType.ADMIN,
       1760921)
     </script>
+    <script src="http://player.kaltura.com/mwEmbedLoader.php"></script>
+    <script src="http://player.kaltura.com/kWidget/kWidget.auth.js"></script>
     <script type="text/javascript">
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
@@ -68,8 +70,6 @@
   </head>
   <body>
     <script id="DynamicThumbnails-template" type="text/x-underscore-template" style="display: none">
-      <script src="http://player.kaltura.com/mwEmbedLoader.php"><% print("</"+"script>"); %>
-      <script src="http://player.kaltura.com/kWidget/kWidget.auth.js"><% print("</"+"script>"); %>
       <script src="/js/kaltura_thumb_rotator.js"><% print("</"+"script>"); %>
       <style>
         .player-col {
@@ -83,6 +83,7 @@
             <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300">
             <% print("</"+"script>"); %>
           </div>
+          <p class="small">Click on a thumbnail to choose a video</p>
         </div>
       </div>
       <hr></hr>

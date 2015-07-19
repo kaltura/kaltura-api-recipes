@@ -20,7 +20,7 @@
       "affects": "listTemplatesEventNotificationTemplate",
       "tip": [
         "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.",
-        "There are two main types of templates:\n*E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n*HTTP templates, which will cause a particular URL to be called with data for the notification event.",
+        "There are two main types of templates:\n*E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n*HTTP templates, which will cause a particular URL to be called with data for the notification event. You can [read more here](https://github.com/kaltura/server/blob/master/plugins/event_notification/providers/http/README.md) about setting up your server to handle HTTP Notifications.",
         "Which type would you like to create?"
       ],
       "inputs": [{
