@@ -72,9 +72,6 @@
     <script id="KalturaMediaListResponse-template" type="text/x-underscore-template" style="display: none">
       <h1>Videos</h1>
       <hr></hr>
-      <% if(result.length == 0) { %>
-        <p><i>No results</i></p>
-      <% } %>
       <% result.forEach(function(video, index) { %>
         <% if(index < 5) { %>
           <%
