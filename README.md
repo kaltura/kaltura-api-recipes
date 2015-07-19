@@ -23,6 +23,7 @@ Finally, the LucyBot code buildier libraries are contained in the Git Submodule 
 ```bash
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 npm install && bower install
+export KALTURA_RECIPES_PORT=3000
 node server.js
 ```
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
