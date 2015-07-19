@@ -19,6 +19,7 @@
           "name": "orderBy",
           "type": "select-chosen",
           "label": "Order By",
+          "default": "-createdAt",
           "choices": [
             {"label": "CREATED_AT_ASC", "value": "+createdAt"},
             {"label": "DURATION_ASC", "value": "+duration"},

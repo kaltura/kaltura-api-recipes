@@ -49,7 +49,7 @@ app.controller('Recipe', function($scope) {
       if (!curSet.inputs) return;
       var answers = $('#Answers').scope().answers;
       var setDefault = function(input) {
-        if (!answers[input.name] && input.default) answers[input.name] = input.default;
+        if (answers[input.name] === undefined && input.default) answers[input.name] = input.default;
       }
       curSet.inputs.forEach(function(input) {
         if (input.type === 'group') {
@@ -91,13 +91,14 @@ app.controller('Answers', function($scope) {
   var credentialsChanged = function() {
     if ($scope.answers.partnerId && $scope.answers.adminSecret) {
       startKalturaSession($scope.answers.partnerId, $scope.answers.userId, $scope.answers.adminSecret);
-      var stored = localStorage.getItem(STORAGE_KEY) || '{}';
-      stored = JSON.parse(stored);
-      stored.partnerId = $scope.answers.partnerId;
-      stored.adminSecret = $scope.answers.adminSecret;
-      stored.userId = $scope.answers.userId;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
     }
+    var stored = localStorage.getItem(STORAGE_KEY) || '{}';
+    stored = JSON.parse(stored);
+    stored.partnerId = $scope.answers.partnerId;
+    stored.adminSecret = $scope.answers.adminSecret;
+    stored.userId = $scope.answers.userId || '';
+    console.log('stored', stored.userId);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   }
   $scope.$watch('answers.partnerId', credentialsChanged);
   $scope.$watch('answers.adminSecret', credentialsChanged);
@@ -107,10 +108,12 @@ app.controller('Answers', function($scope) {
     var stored = localStorage.getItem(STORAGE_KEY) || '{}';
     stored = JSON.parse(stored);
     for (key in stored) {
+      console.log('set stored def', key, stored[key]);
       $scope.answers[key] = stored[key];
     }
     for (key in $scope.recipe.defaults) {
-      if (!$scope.answers[key]) $scope.answers[key] = $scope.recipe.defaults[key];
+      console.log('set def', key);
+      if (!$scope.answers[key] && !$scope.answers[key] === 0 && !$scope.answer[key] === '') $scope.answers[key] = $scope.recipe.defaults[key];
     }
   }
   $scope.setDefaults();
