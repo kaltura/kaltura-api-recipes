@@ -5,6 +5,9 @@ block body
     var RECIPE = !{JSON.stringify(recipe)};
   script(src="/js/ng/input.js")
   script(src="/js/ng/recipe.js")
+  script(src="/js/ng/download-zip.js")
+  script(src="/bower/jszip/dist/jszip.min.js")
+  script(src="/bower/FileSaver/FileSaver.min.js")
   link(href="/css/recipe.css" rel="stylesheet")
   #Recipe.container-fluid(ng-controller="Recipe")
     a.btn.btn-link.recipe-btn(href="/")
@@ -53,7 +56,7 @@ block body
 
       #Code.col-xs-12.col-md-6.col-no-bottom(ng-controller="Code",ng-hide="!ready")
         .row
-          .btn-group.col-xs-6.col-no-right.col-no-bottom(role='group')
+          .btn-group.col-xs-4.col-no-right.col-no-bottom(role='group')
             button.pin-bottom.pin-right.btn-group.btn.btn-default.width-full.btn-code-toolbar.dropdown-toggle(
                     role='group',type='button',data-toggle='dropdown')
               span.fa.fa-file-code-o
@@ -64,10 +67,14 @@ block body
                 a(ng-click='setFile($index)')
                   span(ng-if="file.type",ng-class="{fa: true, 'fa-desktop': file.type === 'client', 'fa-plug': file.type === 'server'}")
                   span &nbsp;&nbsp;{{ file.filename }}
-          .btn-group.col-xs-6.col-no-left.col-no-bottom
+          .btn-group.col-xs-4.col-no-left.col-no-right.col-no-bottom
             a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click='toggleExpand()')
               i(ng-class="{fa: true, 'fa-expand': !expanded, 'fa-compress': expanded}")
               span.hidden-xs &nbsp; {{ expanded ? 'View Snippet' : 'View Full File' }}
+          #Downloader.btn-group.col-xs-4.col-no-left.col-no-bottom(ng-controller="Downloader")
+            a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click="download()")
+              i.fa.fa-download
+              span &nbsp;Download Zip
          .row(ng-if="ready")
           .col-xs-12
             .hljs-div.pin-top(hljs source='getActiveCode()')
