@@ -10,4 +10,4 @@ App.use('/', Express.static(__dirname + '/static'));
 App.use('/', require('./routes/pages.js'));
 App.use('/recipes', require('./routes/recipes.js'));
 
-App.listen(3000);
+App.listen(process.env.KALTURA_RECIPES_PORT || 3000);
