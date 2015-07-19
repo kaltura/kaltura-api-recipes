@@ -97,7 +97,6 @@ app.controller('Answers', function($scope) {
     stored.partnerId = $scope.answers.partnerId;
     stored.adminSecret = $scope.answers.adminSecret;
     stored.userId = $scope.answers.userId || '';
-    console.log('stored', stored.userId);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   }
   $scope.$watch('answers.partnerId', credentialsChanged);
@@ -108,11 +107,9 @@ app.controller('Answers', function($scope) {
     var stored = localStorage.getItem(STORAGE_KEY) || '{}';
     stored = JSON.parse(stored);
     for (key in stored) {
-      console.log('set stored def', key, stored[key]);
       $scope.answers[key] = stored[key];
     }
     for (key in $scope.recipe.defaults) {
-      console.log('set def', key);
       if (!$scope.answers[key] && !$scope.answers[key] === 0 && !$scope.answer[key] === '') $scope.answers[key] = $scope.recipe.defaults[key];
     }
   }
