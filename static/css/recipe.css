@@ -2,6 +2,10 @@ footer {
   margin-top: 0px !important;
 }
 
+.recipe-btn {
+  font-size: 18px;
+}
+
 .text-pink {
   color: #be69a6;
 }

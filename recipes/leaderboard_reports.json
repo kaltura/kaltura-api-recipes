@@ -63,19 +63,27 @@
     }]
   }, {
     "page": 1,
-    "title": "Seeing Your Most Liked Videos",
+    "title": "Ranking Videos by Votes/Likes",
     "affects": "listMedia",
-    "tip": "You can use ```media.list``` to see which videos are getting the most likes by setting ```totalRankGreaterThanOrEqual=1``` and ```orderBy=KalturaMediaEntryOrderBy.TOTAL_RANK_DESC``` in the filter.",
+    "tip": [
+      "Both ‘Votes' and 'Likes' use the same fields in the DB. For a reliable voting experience, you should chose between ‘like' experience where users would click a ‘Like’ button or a 5-points voting scale, where users would be presented an option to cast a vote between 1 to 5.",
+      "You can use ```media.list``` to see which videos are getting the most likes or votes. For each result, ```entry.rank``` will show the average rating for the entry, while ```entry.votes``` will show the total number of votes/likes. Use ```KalturaMediaEntryFilter``` to refine and sort your search",
+      "* To restrict your search to videos that have at least one vote/like, set ```totalRankGreaterThanOrEqual=1```",
+      "* To see which videos have the highest average rating, set ```orderBy=KalturaMediaEntryOrderBy.RANK_DESC```.",
+      "* To see which videos have the most likes, set ```orderBy=KalturaMediaEntryOrderBy.TOTAL_RANK_DESC``` in the filter."
+    ],
     "inputs": [{
       "name": "orderBy",
-      "type": "text",
+      "type": "select",
       "default": "-rank",
-      "hidden": "true"
+      "choices": [
+        {"label": "TOTAL_RANK_DESC", "value": "-totalRank"},
+        {"label": "RANK_DESC", "value": "-rank"}
+      ]
     }, {
       "name": "totalRankGreaterThanOrEqual",
       "type": "number",
-      "default": 1,
-      "hidden": true
+      "default": 1
     }]
   }],
   "pages": [

@@ -3,6 +3,11 @@ var STORAGE_KEY = 'KALTURA_CREDS';
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
+  $scope.recipe.control_sets.forEach(function(set) {
+    if (Array.isArray(set.tip)) {
+      set.tip = set.tip.join('\n\n');
+    }
+  })
 
   $scope.ready = false;
 
