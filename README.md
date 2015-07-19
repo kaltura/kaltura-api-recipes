@@ -1,5 +1,14 @@
 # LucyBot recipes for the Kaltura API
 
+## Installation
+```bash
+git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
+npm install && bower install
+export KALTURA_RECIPES_PORT=3000
+node server.js
+```
+You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
+
 ## Overview
 
 This repository contains tutorials - known as recipes - for working with Kaltura's API. The repository is structured as follows:
@@ -18,15 +27,6 @@ Other directories control the webserver:
 * ```test/``` contains the test files, along with golden files for tracking changes to the generated code.
  
 Finally, the LucyBot code buildier libraries are contained in the Git Submodule ```lucy-langs```. To update to the latest version, simply enter the directory and run ```git pull```.
-
-## Installation
-```bash
-git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
-npm install && bower install
-export KALTURA_RECIPES_PORT=3000
-node server.js
-```
-You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
 
 ## Adding a New Recipe
 
