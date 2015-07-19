@@ -47,6 +47,7 @@
     <script type="text/javascript">
       var listCuePoint = function(request, callback) {
         filter = new KalturaCuePointFilter();
+        filter.entryIdEqual = "1_318vzqcr";
 
         pager = new KalturaFilterPager();
 
@@ -160,7 +161,7 @@
           cuePoint.protocolType = KalturaAdProtocolType.VAST;
           cuePoint.sourceUrl = $('input[name="sourceUrl"]').val();
           cuePoint.startTime = $('input[name="startTime"]').val();
-          cuePoint.entryId = "";
+          cuePoint.entryId = "1_318vzqcr";
           client.cuePoint.add(function(success, cuePoint) {
             $('.container').html(CuePointAdded({result: cuePoint}));
           }, cuePoint);
@@ -177,7 +178,7 @@
       <div id="getMedia-result"></div>
       <%
           getMedia({
-             entryId: null,
+             entryId: "1_318vzqcr",
           }, function(result) {
             $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
           })

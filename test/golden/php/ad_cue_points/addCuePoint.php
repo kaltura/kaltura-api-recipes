@@ -14,7 +14,7 @@ $client->setKS($ks);
 $cuePoint = new KalturaAdCuePoint;
 $cuePoint->sourceUrl = $_POST["sourceUrl"];
 $cuePoint->startTime = $_POST["startTime"];
-$cuePoint->entryId = null;
+$cuePoint->entryId = "1_318vzqcr";
 $result = $client->cuePoint->add($cuePoint);
 echo json_encode($result);
 ?>

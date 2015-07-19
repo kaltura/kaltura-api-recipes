@@ -12,6 +12,7 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaCuePointFilter();
+$filter->entryIdEqual = "1_318vzqcr";
 
 $pager = new KalturaFilterPager();
 
