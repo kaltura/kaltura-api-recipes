@@ -19,6 +19,14 @@ Other directories control the webserver:
  
 Finally, the LucyBot code buildier libraries are contained in the Git Submodule ```lucy-langs```. To update to the latest version, simply enter the directory and run ```git pull```.
 
+## Installation
+```bash
+git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
+npm install && bower install
+node server.js
+```
+You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
+
 ## Adding a New Recipe
 
 Recipes are controlled by the JSON files under ```recipes/```. To add a new recipe, simply create a new JSON file in that directory. JSON is structured as follows:
