@@ -18,7 +18,7 @@ app.controller('Recipe', function($scope) {
   }
   $scope.onAnswerChanged = function() {
     if (changeTimeout) clearTimeout(changeTimeout);
-    changeTimeout = setTimeout(refreshAll, 250);
+    changeTimeout = setTimeout(refreshAll, 1000);
   }
 
   $scope.activeComponent = $scope.recipe.control_sets[0].affects;

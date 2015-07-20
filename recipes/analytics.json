@@ -7,21 +7,17 @@
   "control_sets": [
     {
       "title": "Getting a Top Content report",
-      "tip": "Find out how your viewers are engaging with your content - which content your viewers are watching the most, and which videos are getting little attention",
+      "tip": [
+        "Find out how your viewers are engaging with your content - which content your viewers are watching the most, and which videos are getting little attention",
+        "You must specify a date range for your report. There are two options:\n* ```filter.fromDay``` and ```filter.toDay```, which should be specified in YYYYMMDD format\n* ```filter.fromDate``` and ```filter.toDate```, which should be in epoch/unix format (i.e. the number of seconds since 1/1/1970)",
+        "You should only specify one of the two options."
+      ],
       "affects": "getTotalReport",
       "inputs": [{
         "type": "number",
         "name": "reportType",
         "default": 1,
         "hidden": true
-      }, {
-        "type": "datetime",
-        "name": "fromDate",
-        "label": "From Date"
-      }, {
-        "type": "datetime",
-        "name": "toDate",
-        "label": "To Date"
       }, {
         "type": "text",
         "name": "fromDay",
@@ -32,6 +28,14 @@
         "name": "toDay",
         "label": "To Day",
         "default": "20150710"
+      }, {
+        "type": "datetime",
+        "name": "fromDate",
+        "label": "From Date"
+      }, {
+        "type": "datetime",
+        "name": "toDate",
+        "label": "To Date"
       }]
     },
     {

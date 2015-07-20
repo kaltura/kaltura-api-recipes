@@ -10,7 +10,7 @@ app.controller('Input', function($scope) {
 app.controller('DateTime', function($scope) {
   $scope.date = {};
   $scope.$watch('date.date', function() {
-    $scope.model[$scope.input.name] = Date.parse($scope.date.date)
+    $scope.model[$scope.input.name] = Date.parse($scope.date.date) / 1000;
     $scope.onAnswerChanged();
   })
 })
