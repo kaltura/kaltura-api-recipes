@@ -5,51 +5,55 @@
   "needsAdmin": true,
   "description": "Learn how to use the API to find your most watched videos and most valuable users",
   "control_sets": [{
-    "title": "Getting reports",
-    "tip": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```\n\nTo find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
+    "title": "Finding Your Most Viewed Videos",
+    "tip": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
     "affects": "getTableReport",
     "inputs": [{
-      "type": "select-chosen",
+      "type": "select",
       "name": "reportType",
       "label": "Report Type",
-      "default": 1,
+      "default": 13,
       "choices": [
-        {"label": "TOP_CONTENT", "value": 1},
-        {"label": "CONTENT_DROPOFF", "value": 2},
-        {"label": "CONTENT_INTERACTIONS", "value": 3},
-        {"label": "MAP_OVERLAY", "value": 4},
-        {"label": "TOP_CONTRIBUTORS", "value": 5},
-        {"label": "TOP_SYNDICATION", "value": 6},
-        {"label": "CONTENT_CONTRIBUTIONS", "value": 7},
         {"label": "USER_ENGAGEMENT", "value": 11},
         {"label": "SPEFICIC_USER_ENGAGEMENT", "value": 12},
-        {"label": "USER_TOP_CONTENT", "value": 13},
-        {"label": "USER_CONTENT_DROPOFF", "value": 14},
-        {"label": "USER_CONTENT_INTERACTIONS", "value": 15},
-        {"label": "APPLICATIONS", "value": 16},
-        {"label": "USER_USAGE", "value": 17},
-        {"label": "SPECIFIC_USER_USAGE", "value": 18},
-        {"label": "PARTNER_USAGE", "value": 201}, 
-        {"label": "VAR_USAGE", "value": 19},
-        {"label": "TOP_CREATORS", "value": 20},
-        {"label": "PLATFORMS", "value": 21},
-        {"label": "OPERATION_SYSTEM", "value": 22},
-        {"label": "BROWSERS", "value": 23},
-        {"label": "LIVE", "value": 24},
-        {"label": "TOP_PLAYBACK_CONTEXT", "value": 25}
+        {"label": "USER_TOP_CONTENT", "value": 13}
       ]
     }, {
       "type": "select-chosen",
       "name": "order",
       "label": "Order By",
       "default": "count_plays",
+      "hidden": true
+    }, {
+      "type": "text",
+      "name": "fromDay",
+      "label": "From Day",
+      "default": "20150615"
+    }, {
+      "type": "text",
+      "name": "toDay",
+      "label": "To Day",
+      "default": "20150715"
+    }]
+  }, {
+    "title": "Finding Your Top Contributors",
+    "tip": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
+    "affects": "getTableReport",
+    "inputs": [{
+      "type": "select",
+      "name": "reportType",
+      "label": "Report Type",
+      "default": 5,
       "choices": [
-        {"label": "count_plays", "value": "count_plays"},
-        {"label": "sum_time_viewed", "value": "sum_time_viewed"},
-        {"label": "avg_time_viewed", "value": "avg_time_viewed"},
-        {"label": "unique_videos", "value": "unique_videos"},
-        {"label": "count_total", "value": "count_total"}
+        {"label": "TOP_CONTRIBUTORS", "value": 5},
+        {"label": "TOP_CREATORS", "value": 20}
       ]
+    }, {
+      "type": "select-chosen",
+      "name": "order",
+      "label": "Order By",
+      "default": "count_plays",
+      "hidden": true
     }, {
       "type": "text",
       "name": "fromDay",
