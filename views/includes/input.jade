@@ -27,11 +27,18 @@
       span {{input.label}}
       a.btn.btn-xs.text-warning(
             ng-show="model[input.name] !== undefined && !input.required"
-            ng-click="model[input.name] = undefined; onAnswerChanged()")
+            ng-click="model[input.name] = undefined; dateFocused = false; onAnswerChanged()")
         i.fa.fa-remove
         span &nbsp;clear
-    input.form-control(disabled type="text" ng-model="model[input.name]")
-    datetimepicker(ng-model="date.date")
+    .input-group
+      a.input-group-addon(ng-click="dateFocused = true")
+        i.fa.fa-calendar
+      input.form-control(
+          type="number"
+          ng-model="model[input.name]"
+          ng-readonly="true"
+          ng-focus="dateFocused = true")
+    datetimepicker(ng-model="date.date" ng-show="dateFocused")
 
   .form-group(ng-if="input.type === 'select'", ng-controller="Radio")
     label
