@@ -1,6 +1,11 @@
 .recipe-input(ng-controller="Input" ng-show="!input.hidden")
   .form-group(ng-if="input.type === 'text' || input.type === 'number'")
     label {{input.label}}
+      a.btn.btn-xs.text-warning(
+            ng-show="model[input.name] !== undefined && !input.required"
+            ng-click="model[input.name] = undefined; onAnswerChanged()")
+        i.fa.fa-remove
+        span &nbsp;clear
     input.input-sm.form-control(type="{{ input.type }}",
           placeholder="{{ input.placeholder }}",
           ng-change="onAnswerChanged()",
@@ -16,6 +21,17 @@
         ng-change="onAnswerChanged()"
         ng-options="choice.value as choice.label for choice in input.choices")
       option
+
+  .form-group(ng-if="input.type === 'datetime'" ng-controller="DateTime")
+    label
+      span {{input.label}}
+      a.btn.btn-xs.text-warning(
+            ng-show="model[input.name] !== undefined && !input.required"
+            ng-click="model[input.name] = undefined; onAnswerChanged()")
+        i.fa.fa-remove
+        span &nbsp;clear
+    input.form-control(disabled type="text" ng-model="model[input.name]")
+    datetimepicker(ng-model="date.date")
 
   .form-group(ng-if="input.type === 'select'", ng-controller="Radio")
     label
