@@ -70,6 +70,15 @@
       "tip": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
       "affects": "listEventNotificationTemplate",
       "inputs": []
+    }, {
+      "page": -1,
+      "affects": "HandleHTTPNotifications",
+      "title": "Handling HTTP Notifications",
+      "tip": [
+        "If you create an HTTP Notification, you'll need to set up your server to handle incoming notifications",
+        "Use the ```KalturaHttpNotificationClientPlugin``` library to parse incoming requests at the URL you specified."
+      ],
+      "inputs": []
     }
   ],
   "pages": [{
@@ -101,6 +110,7 @@
     "KalturaPermission"
   ],
   "actions": [
+    {"action": "HandleHTTPNotifications", "forceServer": true},
     {"service": "eventNotificationTemplate", "action": "listTemplates", "view": "KalturaEventNotificationTemplateListResponse"},
     {"action": "cloneEventNotificationTemplate", "view": "KalturaEventNotificationTemplate"},
     {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"},

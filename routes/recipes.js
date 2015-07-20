@@ -104,7 +104,7 @@ var buildRecipe = function(req, res, callback) {
         actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
       }
 
-      buildParams.actions[actionName] = {view: action.view};
+      buildParams.actions[actionName] = {view: action.view, forceServer: action.forceServer};
       buildParams.actions[actionName][language] = actionTmpl;
     });
     buildParams.actions.setup = {};

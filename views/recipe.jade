@@ -1,6 +1,6 @@
 extends layout
 
-block body
+block head
   script.
     var RECIPE = !{JSON.stringify(recipe)};
   script(src="/js/ng/input.js")
@@ -9,6 +9,10 @@ block body
   script(src="/bower/jszip/dist/jszip.min.js")
   script(src="/bower/FileSaver/FileSaver.min.js")
   link(href="/css/recipe.css" rel="stylesheet")
+  
+  title Kaltura VPaaS Cookbook: #{recipe.title} Recipe
+
+block body
   #Recipe.container-fluid(ng-controller="Recipe")
     a.btn.btn-link.recipe-btn(href="/")
       i.fa.fa-chevron-circle-left
