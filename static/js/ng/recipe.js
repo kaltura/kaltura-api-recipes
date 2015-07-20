@@ -35,6 +35,7 @@ app.controller('Recipe', function($scope) {
       demoURL += 'lucy_page=' + page;
     }
     for (key in answers) {
+      if (answers[key] === undefined) continue;
       if (addedOne) demoURL += '&';
       addedOne = true;
       demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));

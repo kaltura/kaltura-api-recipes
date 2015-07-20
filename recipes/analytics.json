@@ -15,6 +15,14 @@
         "default": 1,
         "hidden": true
       }, {
+        "type": "datetime",
+        "name": "fromDate",
+        "label": "From Date"
+      }, {
+        "type": "datetime",
+        "name": "toDate",
+        "label": "To Date"
+      }, {
         "type": "text",
         "name": "fromDay",
         "label": "From Day",
