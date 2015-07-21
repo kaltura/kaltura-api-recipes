@@ -82,6 +82,14 @@
         "name": "toDay",
         "label": "To Day",
         "default": "20150710"
+      }, {
+        "type": "datetime",
+        "name": "fromDate",
+        "label": "From Date"
+      }, {
+        "type": "datetime",
+        "name": "toDate",
+        "label": "To Date"
       }]
     }
   ],
