@@ -22,6 +22,9 @@ block body
         #Language.control-set(ng-controller="Language",ng-hide="controlSetIdx >= 0")
           h3.header-no-top.text-regular {{ recipe.title }}
           p {{ recipe.description }}
+          if recipe.video
+            .video-container
+              iframe(src="#{recipe.video}" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0")
           p Choose your programming language to start building!
           .dropdown
             button.btn.btn-info.btn-width-lg.btn-spaced(type='button',data-toggle='dropdown')
