@@ -5,7 +5,7 @@
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 git submodule init && git submodule update # You'll need access to bobby-brennan/lucy-langs
 cd lucy-langs && npm install && cd ..
-npm install && bower install
+npm install
 export KALTURA_RECIPES_PORT=3000
 node server.js
 ```
