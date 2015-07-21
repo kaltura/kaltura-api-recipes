@@ -8,8 +8,7 @@
           href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
     </script>
-    <script src="http://player.kaltura.com/mwEmbedLoader.php"></script>
-    <script src="http://player.kaltura.com/kWidget/kWidget.auth.js"></script>
+    <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921"></script>
   </head>
   <body>
     <div class="container" style="margin-top:40px">
