@@ -1,7 +1,7 @@
 <?php
 require_once('lib/KalturaClient.php');
 $config = new KalturaConfiguration(1760921);
-$config->serviceUrl = 'http://www.kaltura.com/';
+$config->serviceUrl = 'https://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
   "8d6cb692ab0f41bfa6bde373204c4b40",
@@ -12,6 +12,7 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaMediaEntryFilter();
+$filter->orderBy = "-createdAt";
 
 $pager = new KalturaFilterPager();
 

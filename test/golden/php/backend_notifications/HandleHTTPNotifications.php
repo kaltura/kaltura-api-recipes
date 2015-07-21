@@ -11,14 +11,8 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$filter = new KalturaEventNotificationTemplateFilter();
+require_once('lib/KalturaClient.php');
+require_once('lib/KalturaPlugins/KalturaHttpNotificationClientPlugin.php');
 
-$pager = new KalturaFilterPager();
-
-
-$result = $client->eventNotificationTemplate->listAction(
-  $filter, 
-  $pager);
-$result = (object)$result->objects;
-include 'KalturaEventNotificationTemplateListResponse.php';
+$object = unserialize($_POST['data']);
 ?>

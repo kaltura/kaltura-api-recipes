@@ -23,7 +23,7 @@
 
     <script>
       var config = new KalturaConfiguration(1760921);
-      config.serviceUrl = "http://www.kaltura.com/";
+      config.serviceUrl = "https://www.kaltura.com/";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
         if (!success || (ks.code && ks.message)) {
@@ -73,12 +73,6 @@
   </head>
   <body>
     <script id="KalturaReportTotal-template" type="text/x-underscore-template" style="display: none">
-      <% if(5 == 1) { %>
-        <h1>Report - Top Content</h1>
-      <% } %>
-      <% if(5 == 5) { %>
-        <h1>Report - Top Contributors</h1>
-      <% } %>
       <table class="table">
         <tr id="Header"><td><%= result.header %></td></tr>
         <tr id="Data"><td><%= result.data %></td></tr>

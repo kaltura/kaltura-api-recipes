@@ -1,7 +1,7 @@
 <?php
 require_once('lib/KalturaClient.php');
 $config = new KalturaConfiguration(1760921);
-$config->serviceUrl = 'http://www.kaltura.com/';
+$config->serviceUrl = 'https://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
   "8d6cb692ab0f41bfa6bde373204c4b40",
@@ -17,7 +17,7 @@ $reportInputFilter->toDay = "20150715";
 
 $pager = new KalturaFilterPager();
 
-$reportType = 1;
+$reportType = 13;
 $order = "count_plays";
 $objectIds = null;
 

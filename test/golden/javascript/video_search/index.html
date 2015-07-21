@@ -23,7 +23,7 @@
 
     <script>
       var config = new KalturaConfiguration(1760921);
-      config.serviceUrl = "http://www.kaltura.com/";
+      config.serviceUrl = "https://www.kaltura.com/";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
         if (!success || (ks.code && ks.message)) {
@@ -47,6 +47,7 @@
     <script type="text/javascript">
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
+        filter.orderBy = "-createdAt";
 
         pager = new KalturaFilterPager();
 

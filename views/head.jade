@@ -33,7 +33,7 @@ script(type="text/javascript" src="/js/KalturaClient.js")
 script(type="text/javascript").
   var startKalturaSession = function(partnerID, userId, secret) {
     var config = new KalturaConfiguration(partnerID);
-    config.serviceUrl = "http://www.kaltura.com/";
+    config.serviceUrl = "https://www.kaltura.com/";
     window.KC = new KalturaClient(config);
     KC.session.start(function(success, ks) {
       if (!success || (ks.code && ks.message)) return console.log('Kaltura Error', success, ks);

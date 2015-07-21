@@ -2,7 +2,7 @@
   "name": "dynamic_thumbnails",
   "title": "Dynamic Thumbnails",
   "icon": "image",
-  "video": "http://cdnapi.kaltura.com/html5/html5lib/v2.31/mwEmbedFrame.php/p/811441/uiconf_id/29963831/entry_id/0_co4cdmxv?wid=_811441&iframeembed=true&playerId=kaltura_player_1437495263&entry_id=0_co4cdmxv&flashvars[streamerType]=auto",
+  "video": "https://cdnapisec.kaltura.com/html5/html5lib/v2.31/mwEmbedFrame.php/p/811441/uiconf_id/29963831/entry_id/0_co4cdmxv?wid=_811441&iframeembed=true&playerId=kaltura_player_1437495263&entry_id=0_co4cdmxv&flashvars[streamerType]=auto",
   "description": "Create a gallery page with rotating dynamic thumbnails.",
   "defaults": {
     "uiConf": 28959921
