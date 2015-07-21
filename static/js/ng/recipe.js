@@ -18,7 +18,7 @@ app.controller('Recipe', function($scope) {
   }
   $scope.onAnswerChanged = function() {
     if (changeTimeout) clearTimeout(changeTimeout);
-    changeTimeout = setTimeout(refreshAll, 250);
+    changeTimeout = setTimeout(refreshAll, 1000);
   }
 
   $scope.activeComponent = $scope.recipe.control_sets[0].affects;
@@ -35,6 +35,7 @@ app.controller('Recipe', function($scope) {
       demoURL += 'lucy_page=' + page;
     }
     for (key in answers) {
+      if (answers[key] === undefined) continue;
       if (addedOne) demoURL += '&';
       addedOne = true;
       demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));

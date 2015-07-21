@@ -1,11 +1,15 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(content='IE=edge', http-equiv='X-UA-Compatible')
+    meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
 
-block head
-  link(rel="stylesheet" href="/css/home.css")
-  title Kaltura VPaaS Interactive Code Cookbook
+    link(href='/css/styles.css', rel='stylesheet')
+    link(rel="stylesheet" href="/css/home.css")
+    title Kaltura VPaaS Interactive Code Cookbook
 
-block body
-
+body
   .container
     .row
       each recipe, recipeName in recipes
