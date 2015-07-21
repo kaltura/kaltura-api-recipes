@@ -2,8 +2,8 @@
   var setupUpload = function() {
     if (!client.ks) return setTimeout(setupUpload, 100);
     file = $('input[name="fileData"]').fileupload({
-      apiURL:'http://www.kaltura.com/api_v3/',
-      url: 'http://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',
+      apiURL:'https://www.kaltura.com/api_v3/',
+      url: 'https://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',
       ks: client.ks,
       singleFileUploads: true,
       dataType: 'json',
