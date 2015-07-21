@@ -11,6 +11,11 @@ node server.js
 ```
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
 
+```bash
+npm install -g forever
+forever start server.js
+```
+
 ## Overview
 
 This repository contains tutorials - known as recipes - for working with Kaltura's API. The repository is structured as follows:

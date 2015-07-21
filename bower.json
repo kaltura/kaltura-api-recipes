@@ -17,5 +17,8 @@
     "angular-bootstrap-datetimepicker": "~0.3.13",
     "moment": "~2.10.3",
     "jquery": "~2.1.4"
+  },
+  "resolutions": {
+    "angular": "~1.4.1"
   }
 }
