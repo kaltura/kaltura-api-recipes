@@ -11,7 +11,7 @@ app.controller('Downloader', function($scope) {
       $scope.recipe.description,
       '',
       '## Installation',
-      'You can download the [' + language.label + ' client library here](http://www.kaltura.com/api_v3/testme/client-libs.php)',
+      'You can download the [' + language.label + ' client library here](https://www.kaltura.com/api_v3/testme/client-libs.php)',
       'To use this example, extract it to the /' + libDir + ' subfolder'
     ].join('\n');
 
