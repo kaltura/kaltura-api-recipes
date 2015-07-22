@@ -197,7 +197,7 @@ app.controller('Demo', function($scope) {
     if (curSet.page === -1) {
       $('.demo-frame').attr('src', '');
     } else {
-      var answers = $('#Answers').scope().answers,
+      var answers = $('#Answers').scope().answers;
       var page = curSet.page || 0;
       var url = '/recipes/' + $scope.recipe.name + '/embed?page=' + page;
       var form = $('#DemoForm').html('');
