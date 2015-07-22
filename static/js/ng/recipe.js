@@ -88,26 +88,57 @@ app.controller('Language', function($scope) {
   }
 });
 
+var USE_COOKIES = true;
+var COOKIE_TIMEOUT_MS = 900000;
+var getStoredCredentials = function() {
+  var stored = '{}';
+  if (USE_COOKIES) {
+    var cookies = document.cookie.split(';');
+    var credCookie = cookies.filter(function(c) {
+      return c.indexOf(STORAGE_KEY) === 0;
+    })[0];
+    if (credCookie) stored = credCookie.substring(STORAGE_KEY.length + 1);
+  } else {
+    var local = localStorage.getItem(STORAGE_KEY);
+    if (local) stored = local;
+  }
+  try {
+    stored = JSON.parse(stored);
+  } catch (e) {
+    console.log('Error parsing credentials:' + stored);
+    stored = {};
+  }
+  return stored;
+}
+var storeCredentials = function(creds) {
+  if (USE_COOKIES) {
+    var now = new Date();
+    var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
+    var cookie = STORAGE_KEY + '=' + JSON.stringify(creds) + '; expires=' + expires.toUTCString();
+    document.cookie = cookie;
+  } else {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(creds));
+  }
+}
+
 app.controller('Answers', function($scope) {
   $scope.answers = {};
   var credentialsChanged = function() {
     if ($scope.answers.partnerId && $scope.answers.adminSecret) {
       startKalturaSession($scope.answers.partnerId, $scope.answers.userId, $scope.answers.adminSecret);
     }
-    var stored = localStorage.getItem(STORAGE_KEY) || '{}';
-    stored = JSON.parse(stored);
+    var stored = getStoredCredentials();
     stored.partnerId = $scope.answers.partnerId;
     stored.adminSecret = $scope.answers.adminSecret;
     stored.userId = $scope.answers.userId || '';
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    storeCredentials(stored);
   }
   $scope.$watch('answers.partnerId', credentialsChanged);
   $scope.$watch('answers.adminSecret', credentialsChanged);
   $scope.$watch('answers.userId', credentialsChanged);
 
   $scope.setDefaults = function() {
-    var stored = localStorage.getItem(STORAGE_KEY) || '{}';
-    stored = JSON.parse(stored);
+    var stored = getStoredCredentials();
     for (key in stored) {
       $scope.answers[key] = stored[key];
     }
