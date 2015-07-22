@@ -193,11 +193,20 @@ app.controller('Code', function($scope) {
 
 app.controller('Demo', function($scope) {
   $scope.refresh = function() {
-    if ($scope.recipe.control_sets[$scope.controlSetIdx].page === -1) {
-      $('.demo-frame').attr('src', '')
+    var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+    if (curSet.page === -1) {
+      $('.demo-frame').attr('src', '');
     } else {
-      var demoUrl = $scope.getDemoUrl();
-      $('.demo-frame').attr('src', demoUrl);
+      var answers = $('#Answers').scope().answers,
+      var page = curSet.page || 0;
+      var url = '/recipes/' + $scope.recipe.name + '/embed?page=' + page;
+      var form = $('#DemoForm').html('');
+      form.attr('action', url);
+      for (answer in answers) {
+        form.append('<input type="text" name="' + answer + '" />');
+        form.find('input[name="' + answer + '"]').val(JSON.stringify(answers[answer]))
+      }
+      form.submit();
     }
   }
   $scope.refresh();

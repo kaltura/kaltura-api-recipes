@@ -15,6 +15,7 @@ var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 
+Router.use('/:recipe/embed', require('body-parser').urlencoded({extended: true}));
 Router.use(require('body-parser').json());
 
 Router.use(function(req, res, next) {
@@ -38,13 +39,14 @@ Router.post('/:recipe/code', function(req, res) {
   });
 });
 
-Router.get('/:recipe/embed', function(req, res) {
-  req.body = req.body || {};
+Router.post('/:recipe/embed', function(req, res) {
+  req.body = {
+    answers: req.body
+  }
   req.body.language = 'javascript';
-  req.body.page = req.query.lucy_page;
-  req.body.answers = {};
-  for (key in req.query) {
-    req.body.answers[key] = JSON.parse(req.query[key]);
+  req.body.page = req.query.page;
+  for (answer in req.body.answers) {
+    req.body.answers[answer] = JSON.parse(req.body.answers[answer]);
   }
   buildRecipe(req, res, function(err, files) {
     if (err) return res.status(500).json(err);

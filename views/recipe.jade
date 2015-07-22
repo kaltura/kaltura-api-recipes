@@ -94,4 +94,5 @@ block body
           span.small
             i.fa.fa-question-circle(ng-click="showHelp = !showHelp")
           span.small(ng-if="showHelp") &nbsp;This is a live demonstration of the code generated above.
-      iframe.demo-frame
+      iframe#DemoFrame.demo-frame(name="DemoFrame")
+      form#DemoForm.hidden(action='/recipes/#{recipe.name}/embed' method="POST" target="DemoFrame")
