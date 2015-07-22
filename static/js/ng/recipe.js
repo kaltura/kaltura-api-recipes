@@ -23,26 +23,6 @@ app.controller('Recipe', function($scope) {
 
   $scope.activeComponent = $scope.recipe.control_sets[0].affects;
 
-  $scope.getDemoUrl = function(forcePage) {
-    var answers = angular.element('#Answers');
-    answers = answers && answers.scope() ? answers.scope().answers : {};
-    var demoURL = '/recipes/' + $scope.recipe.name + '/embed?'
-    var addedOne = false;
-    var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
-    if (curSet && curSet.page) {
-      addedOne = true;
-      var page = forcePage && curSet.page === -1 ? 0 : curSet.page;
-      demoURL += 'lucy_page=' + page;
-    }
-    for (key in answers) {
-      if (answers[key] === undefined) continue;
-      if (addedOne) demoURL += '&';
-      addedOne = true;
-      demoURL += key + '=' + encodeURIComponent(JSON.stringify(answers[key]));
-    }
-    return demoURL;
-  }
-  
   $scope.controlSetIdx = -1;
   $scope.setControlSet = function(controlSetIdx) {
     $scope.controlSetIdx = controlSetIdx;
@@ -147,11 +127,6 @@ app.controller('Answers', function($scope) {
     }
   }
   $scope.setDefaults();
-
-  $scope.openDemo = function() {
-    var demoUrl = $scope.getDemoUrl(true);
-    window.open(demoUrl, '_blank');
-  }
 });
 
 app.controller('Code', function($scope) {
