@@ -31,6 +31,7 @@ script(type="text/javascript" src="/js/KalturaVO.js")
 script(type="text/javascript" src="/js/KalturaServices.js")
 script(type="text/javascript" src="/js/KalturaClient.js")
 script(type="text/javascript").
+  var KC = null;
   var startKalturaSession = function(partnerID, userId, secret) {
     var config = new KalturaConfiguration(partnerID);
     config.serviceUrl = "https://www.kaltura.com/";

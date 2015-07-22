@@ -18,6 +18,7 @@ app.controller('DateTime', function($scope) {
 app.controller('Radio', function($scope) {
   var dc = $scope.input.dynamicChoices;
   if (dc) {
+    if (!KC) return console.log('Error: Kaltura Client is null');
     var action = dc.action, service = dc.service;
     if (action === 'list') action += 'Action';
     var args = dc.arguments || [];
