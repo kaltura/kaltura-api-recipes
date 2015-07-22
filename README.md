@@ -6,9 +6,22 @@ git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-rec
 git submodule init && git submodule update # You'll need access to bobby-brennan/lucy-langs
 cd lucy-langs && npm install && cd ..
 npm install
+```
+
+## Startup
+To use in development mode, run
+```bash
 export KALTURA_RECIPES_PORT=3000
+export LUCYBOT_DEV=true
 node server.js
 ```
+
+To use in production, run
+```bash
+export KALTURA_RECIPES_PORT=443
+sudo node server.js
+```
+
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
 
 ```bash
