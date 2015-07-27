@@ -9,6 +9,6 @@
   </p>
 <?php } ?>
 <?php
-  include "AddCuePoint.php";
+  include "AddAdCuePoint.php";
 ?>
 <hr></hr>
