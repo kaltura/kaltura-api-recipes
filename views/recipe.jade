@@ -68,7 +68,7 @@ block body
                     role='group',type='button',data-toggle='dropdown')
               span.fa.fa-file-code-o
               span &nbsp;
-              span.hidden-xs {{ files[activeFileIdx].filename }} &nbsp;
+              span.hidden-xs {{ files[activeFileIdx].filename.substring(files[activeFileIdx].filename.lastIndexOf('/') + 1) }} &nbsp;
               span.caret
             ul.dropdown-menu
               li.nav(role='presentation',ng-repeat="file in files")

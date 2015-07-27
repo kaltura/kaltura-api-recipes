@@ -60,6 +60,8 @@ app.controller('Language', function($scope) {
     id: 'javascript', label: 'JavaScript'
   }, {
     id: 'php', label: 'PHP'
+  }, {
+    id: 'node', label: 'NodeJS'
   }];
 
   $scope.setLanguage = function(language) {
@@ -144,11 +146,7 @@ app.controller('Code', function($scope) {
       data: JSON.stringify(data),
       contentType: 'application/json'
     }).success(function(files) {
-      $scope.files = files;
-      $scope.files.forEach(function(f) {
-        var slash = f.filename.lastIndexOf('/');
-        if (slash !== -1) f.filename = f.filename.substring(slash + 1);
-      })
+      $scope.files = files.filter(function(f) {return !f.hidden && !f.directory});
       $scope.setActiveComponent($scope.activeComponent);
       $scope.$apply();
     }).fail(function(err) {
@@ -209,6 +207,7 @@ app.controller('Demo', function($scope) {
       var form = $('#DemoForm').html('');
       form.attr('action', url);
       for (answer in answers) {
+        if (typeof answers[answer] === 'undefined' || answers[answer] === null) continue;
         form.append('<input type="text" name="' + answer + '" />');
         form.find('input[name="' + answer + '"]').val(JSON.stringify(answers[answer]))
       }

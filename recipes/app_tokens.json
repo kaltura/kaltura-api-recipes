@@ -26,6 +26,7 @@
   ],
   "views": [
     "KalturaAppTokenListResponse",
+    "AddAppTokenForm",
     "AddAppToken"
   ],
   "actions": [
