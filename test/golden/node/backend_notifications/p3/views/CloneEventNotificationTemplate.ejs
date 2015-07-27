@@ -1,0 +1,18 @@
+<% include AddEventNotificationTemplateForm -%>
+<script>
+  $('#AddEventNotificationTemplateForm').submit(function() {
+    var data = new FormData(document.getElementById('AddEventNotificationTemplateForm'));
+    $.ajax({
+       url: '/cloneEventNotificationTemplate',
+       type: 'POST',
+       data: data,
+       contentType: false,
+       cache: false,
+       processData: false,
+       success: function (data, textStatus, jqXHR) {
+         $('#CloneStatus').text('Success!');
+       }
+    }); 
+    return false;
+  })
+</script>

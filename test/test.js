@@ -1,8 +1,10 @@
+var Async = require('async');
 var Util = require('util');
 var FS = require('fs');
 var Path = require('path');
 var Request = require('request');
 var Mkdirp = require('mkdirp');
+var Rmdir = require('rimraf')
 
 var Server = require('./server.js');
 
@@ -25,8 +27,9 @@ var buildCode = function(recipe, data, done) {
     body: data,
   }, function(err, resp, files) {
     if (err) throw err;
-    var baseDir = Path.join(GOLDEN_BASE, data.language, recipe);
-    if (!FS.existsSync(baseDir)) FS.mkdirSync(baseDir);
+    var baseDir = Path.join(GOLDEN_BASE, data.language, recipe, 'p' + data.page);
+    if (FS.existsSync(baseDir)) Rmdir.sync(baseDir);
+    Mkdirp.sync(baseDir);
     var dirs = files.filter(function(f) {return f.directory});
     files = files.filter(function(f) {return !f.directory});
     dirs.forEach(function(dir) {
@@ -71,7 +74,7 @@ var LANGUAGES = ['php', 'javascript', 'node']
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
   ANSWERS[recipeName] = ANSWERS[recipeName] || {};
-  ANSWERS[recipeName].libraryDirectory = '../lib/';
+  ANSWERS[recipeName].libraryDirectory = '../../lib/';
   recipe.control_sets.forEach(function(set) {
     var inputs = set.inputs || [];
     inputs.forEach(function(input) {
@@ -89,13 +92,16 @@ describe('sample code', function() {
   });
 
   Object.keys(Recipes).forEach(function(recipe) {
-    if (!Recipes[recipe].broken) {
-      var answers = ANSWERS[recipe];
-      LANGUAGES.forEach(function(language) {
-        it('should build ' + recipe + ' recipe for ' + language, function(done) {
-          buildCode(recipe, {language: language, answers: answers}, done);
-        });
+    if (Recipes[recipe].broken) return;
+    var answers = ANSWERS[recipe];
+    LANGUAGES.forEach(function(language) {
+      it('should build ' + recipe + ' recipe for ' + language, function(done) {
+        Async.parallel(Recipes[recipe].pages.map(function(page, pageIndex) {
+          return function(callback) {
+            buildCode(recipe, {language: language, answers: answers, page: pageIndex}, callback);
+          }
+        }), done);
       });
-    }
+    });
   });
 })
