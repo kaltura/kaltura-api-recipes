@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="KalturaCuePointListResponse"></div>
+      <div class="KalturaCuePointListResponse"></div>
       <script>
         var element = $('.KalturaCuePointListResponse').last();
         element[0].loadData = function() {

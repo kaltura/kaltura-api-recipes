@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <?php
+      <?php
         include "UploadForm.php";
       ?>
     </div>

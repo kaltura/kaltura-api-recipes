@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="KalturaPermissionListResponse"></div>
+      <div class="KalturaPermissionListResponse"></div>
       <script>
         var element = $('.KalturaPermissionListResponse').last();
         element[0].loadData = function() {

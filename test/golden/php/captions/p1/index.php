@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="CaptionSearch"></div>
+      <div class="CaptionSearch"></div>
       <script>
         var element = $('.CaptionSearch').last();
         element[0].loadData = function() {

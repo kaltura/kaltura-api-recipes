@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="CodeCuePointListResponse"></div>
+      <div class="CodeCuePointListResponse"></div>
       <script>
         var element = $('.CodeCuePointListResponse').last();
         element[0].loadData = function() {

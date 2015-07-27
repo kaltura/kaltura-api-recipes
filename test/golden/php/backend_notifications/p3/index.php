@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="KalturaEventNotificationTemplateListResponse"></div>
+      <div class="KalturaEventNotificationTemplateListResponse"></div>
       <script>
         var element = $('.KalturaEventNotificationTemplateListResponse').last();
         element[0].loadData = function() {

@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="KalturaReportTable"></div>
+      <div class="KalturaReportTable"></div>
       <script>
         var element = $('.KalturaReportTable').last();
         element[0].loadData = function() {

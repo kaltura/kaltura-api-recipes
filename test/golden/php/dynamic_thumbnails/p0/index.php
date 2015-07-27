@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="DynamicThumbnails"></div>
+      <div class="DynamicThumbnails"></div>
       <script>
         var element = $('.DynamicThumbnails').last();
         element[0].loadData = function() {

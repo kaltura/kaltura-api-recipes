@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-            <div class="CloneEventNotificationTemplate"></div>
+      <div class="CloneEventNotificationTemplate"></div>
       <script>
         var element = $('.CloneEventNotificationTemplate').last();
         element[0].loadData = function() {
