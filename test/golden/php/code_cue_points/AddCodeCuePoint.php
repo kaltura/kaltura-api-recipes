@@ -3,7 +3,7 @@
 ?>
 <script>
   $('#AddCodeCuePointForm').submit(function() {
-    var data = new FormData(document.getElementById('AddCuePointForm'));
+    var data = new FormData(document.getElementById('AddCodeCuePointForm'));
      $.ajax({
        url: '/addCodeCuePoint.php',
        type: 'POST',
