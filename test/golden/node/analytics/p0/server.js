@@ -40,8 +40,7 @@ app.post('/getTotalReport', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaReportTotal', {request: req.body, result: results})
+      res.render('KalturaReportTotal', {request: req.body, result: results})
     }
   },
   reportType,

@@ -36,13 +36,13 @@ app.post('/getMedia', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaMediaEntry', {request: req.body, result: results})
+      res.render('KalturaMediaEntry', {request: req.body, result: results})
     }
   },
   entryId,
   version);
 });
+
 app.post('/searchCaptionAssetItem', function(req, res) {
   entryFilter = new Kaltura.objects.KalturaBaseEntryFilter();
 
@@ -56,21 +56,21 @@ app.post('/searchCaptionAssetItem', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('CaptionSearch', {request: req.body, result: results.objects})
+      res.render('CaptionSearch', {request: req.body, result: results.objects})
     }
   },
   entryFilter,
   captionAssetItemFilter,
   captionAssetItemPager);
 });
+
 app.post('/attachCaptions', function(req, res) {
   req.body = req.body || {};
   var bus = new busboy({headers: req.headers});
   var dest = null;
   bus.on('file', function(field, file, filename) {
     dest = __dirname + '/' + filename;
-    file.pipe(require('fs').createWriteStream(filename));
+    file.pipe(require('fs').createWriteStream(dest));
   });
   bus.on('field', function(field, value) {
     req.body[field] = value;
@@ -80,7 +80,6 @@ app.post('/attachCaptions', function(req, res) {
     client.uploadToken.add(function(result) {
       var tokenId = result.id;
       client.uploadToken.upload(function(result) {
-        console.log('uploaded', dest, result)
         var captionResource = new Kaltura.objects.KalturaUploadedFileTokenResource();
         captionResource.token = result.id;
         captionAsset = new Kaltura.objects.KalturaCaptionAsset();
@@ -89,9 +88,7 @@ app.post('/attachCaptions', function(req, res) {
         captionAsset.language = Kaltura.enums.KalturaLanguage.EN;
         captionAsset.label = 'English';
         client.captionAsset.add(function(newAsset) {
-          console.log('add asset', newAsset);
           client.captionAsset.setContent(function(result) {
-            console.log('set content', result);
             res.render('CaptionsAttached', {request: req.body, result: result})
           }, newAsset.id, captionResource);
         }, "1_9kdmnhuv", captionAsset)

@@ -10,4 +10,4 @@ var checkStatus = function(entry) {
     }, 100);
   }
 }
-client.baseEntry.addFromUploadedFile(entry);
+client.baseEntry.addFromUploadedFile(checkStatus, entry, uploadTokenId);

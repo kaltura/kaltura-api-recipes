@@ -40,13 +40,13 @@ app.post('/listMedia', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('MediaListLikes', {request: req.body, result: results.objects})
+      res.render('MediaListLikes', {request: req.body, result: results.objects})
     }
   },
   filter,
   pager);
 });
+
 app.post('/getTableReport', function(req, res) {
   reportInputFilter = new Kaltura.objects.KalturaReportInputFilter();
   reportInputFilter.fromDay = "20150615";
@@ -62,8 +62,7 @@ app.post('/getTableReport', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaReportTable', {request: req.body, result: results})
+      res.render('KalturaReportTable', {request: req.body, result: results})
     }
   },
   reportType,

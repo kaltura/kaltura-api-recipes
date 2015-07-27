@@ -1,3 +1,4 @@
 <% result.forEach(function(permission, index) { %>
-  <% include KalturaPermission -%>
+  <% result = permission; -%>
+<% include KalturaPermission -%>
 <% }); %>

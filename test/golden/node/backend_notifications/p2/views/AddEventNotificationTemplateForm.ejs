@@ -2,7 +2,8 @@
 <hr></hr>
 <% result.forEach(function(template, index) { %>
   <% if(template.id == null) { %>
-    <% include KalturaEventNotificationTemplate -%>
+    <% result = template; -%>
+<% include KalturaEventNotificationTemplate -%>
     <form id="AddEventNotificationTemplateForm">
       <div class="form-group">
         <label>Template Name</label>

@@ -1,17 +1,17 @@
 <lucy include="AddEventNotificationTemplateForm"></lucy>
 <script>
   $('#AddEventNotificationTemplateForm').submit(function() {
-    var data = new FormData(document.getElementById('AddEventNotificationTemplateForm'));
+    var data = $(this).serialize();
     $.ajax({
-       url: '/cloneEventNotificationTemplate',
-       type: 'POST',
-       data: data,
-       contentType: false,
-       cache: false,
-       processData: false,
-       success: function (data, textStatus, jqXHR) {
-         $('#CloneStatus').text('Success!');
-       }
+      url: '/cloneEventNotificationTemplate',
+      type: 'POST',
+      data: data,
+      contentType: 'application/x-www-form-urlencoded',
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        $('#CloneStatus').text('Success!');
+      }
     }); 
     return false;
   })

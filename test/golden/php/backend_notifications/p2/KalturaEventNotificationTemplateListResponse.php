@@ -2,7 +2,7 @@
 <hr></hr>
 <?php foreach($result as $index=>$template) { ?>
   <?php
-  $result = $template;
-  include "KalturaEventNotificationTemplate.php";
-?>
+    $result = $template;
+    include "KalturaEventNotificationTemplate.php";
+  ?>
 <?php } ?>

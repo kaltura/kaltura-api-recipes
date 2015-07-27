@@ -41,15 +41,16 @@ app.post('/CreateBaseEntry', function(req, res) {
       }, 100);
     }
   }
-  client.baseEntry.addFromUploadedFile(entry);
+  client.baseEntry.addFromUploadedFile(checkStatus, entry, uploadTokenId);
 });
+
 app.post('/UploadFile', function(req, res) {
   req.body = req.body || {};
   var bus = new busboy({headers: req.headers});
   var dest = null;
   bus.on('file', function(field, file, filename) {
     dest = __dirname + '/' + filename;
-    file.pipe(require('fs').createWriteStream(filename));
+    file.pipe(require('fs').createWriteStream(dest));
   });
   bus.on('field', function(field, value) {
     req.body[field] = value;

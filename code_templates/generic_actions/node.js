@@ -15,11 +15,10 @@ client.<%- service %>.<%- action %>(function(results) {
   if (results.code && results.message) {
     console.log('Kaltura Error', success, results);
   } else {
-    console.log('Kaltura Result', results);
 <% if (returns === 'list') { -%>
-<%- '<\%- Lucy.returnCode("results.objects", 4) %\>' %>
+    <%- '<\%- Lucy.returnCode("results.objects", 4) %\>' %>
 <% } else { -%>
-<%- '<\%- Lucy.returnCode("results", 4) %\>' %>
+    <%- '<\%- Lucy.returnCode("results", 4) %\>' %>
 <% } -%>
   }
 }<%- parameters.length === 0 ? ');' : ',' %>

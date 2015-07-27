@@ -3,7 +3,7 @@ var bus = new busboy({headers: req.headers});
 var dest = null;
 bus.on('file', function(field, file, filename) {
   dest = __dirname + '/' + filename;
-  file.pipe(require('fs').createWriteStream(filename));
+  file.pipe(require('fs').createWriteStream(dest));
 });
 bus.on('field', function(field, value) {
   req.body[field] = value;

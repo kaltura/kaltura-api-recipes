@@ -33,6 +33,7 @@ app.post('/HandleHTTPNotifications', function(req, res) {
     console.log('Kaltura Notification', req.body);
   });
 });
+
 app.post('/listTemplatesEventNotificationTemplate', function(req, res) {
   filter = new Kaltura.objects.KalturaEventNotificationTemplateFilter();
 
@@ -43,13 +44,13 @@ app.post('/listTemplatesEventNotificationTemplate', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
+      res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
     }
   },
   filter,
   pager);
 });
+
 app.post('/cloneEventNotificationTemplate', function(req, res) {
   var template = null;
   if (req.body.email) {
@@ -71,6 +72,7 @@ app.post('/cloneEventNotificationTemplate', function(req, res) {
     Kaltura.enums.KalturaEventNotificationTemplateStatus.ACTIVE);
   }, null, template);
 });
+
 app.post('/listEventNotificationTemplate', function(req, res) {
   filter = new Kaltura.objects.KalturaEventNotificationTemplateFilter();
 
@@ -81,13 +83,13 @@ app.post('/listEventNotificationTemplate', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
+      res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
     }
   },
   filter,
   pager);
 });
+
 app.post('/listPermission', function(req, res) {
   filter = new Kaltura.objects.KalturaPermissionFilter();
   filter.nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
@@ -99,8 +101,7 @@ app.post('/listPermission', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaPermissionListResponse', {request: req.body, result: results.objects})
+      res.render('KalturaPermissionListResponse', {request: req.body, result: results.objects})
     }
   },
   filter,

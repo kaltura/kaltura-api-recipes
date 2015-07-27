@@ -7,8 +7,8 @@
   var element = $('.CreatedEntry').last();
   element[0].loadData = function() {
     $('.CreatedEntry').last().load('CreateBaseEntry', {
-       name: result.fileName,
-       uploadTokenId: result.id,
+       name: <%- JSON.stringify(result.fileName) %>,
+       uploadTokenId: <%- JSON.stringify(result.id) %>,
     });
   }
   element[0].loadData();

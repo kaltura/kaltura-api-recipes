@@ -40,13 +40,13 @@ app.post('/listCuePoint', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('CodeCuePointListResponse', {request: req.body, result: results.objects})
+      res.render('CodeCuePointListResponse', {request: req.body, result: results.objects})
     }
   },
   filter,
   pager);
 });
+
 app.post('/addCodeCuePoint', function(req, res) {
   var cuePoint = new Kaltura.objects.KalturaCodeCuePoint();
   cuePoint.code = req.body.code;
@@ -57,6 +57,7 @@ app.post('/addCodeCuePoint', function(req, res) {
     res.render('CodeCuePointAdded', {request: req.body, result: result})
   }, cuePoint);
 });
+
 app.post('/getMedia', function(req, res) {
   var entryId = req.body.entryId;
   var version = null;
@@ -65,8 +66,7 @@ app.post('/getMedia', function(req, res) {
     if (results.code && results.message) {
       console.log('Kaltura Error', success, results);
     } else {
-      console.log('Kaltura Result', results);
-  res.render('KalturaMediaEntry', {request: req.body, result: results})
+      res.render('KalturaMediaEntry', {request: req.body, result: results})
     }
   },
   entryId,
