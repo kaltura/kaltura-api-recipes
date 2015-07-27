@@ -136,8 +136,8 @@
       var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
-    <script id="AddCuePoint-template" type="text/x-underscore-template" style="display: none">
-      <form id="AddCuePointForm">
+    <script id="AddAdCuePointForm-template" type="text/x-underscore-template" style="display: none">
+      <form id="AddAdCuePointForm">
         <div class="form-group">
           <label>Start Time (ms)</label>
           <input class="form-control" type="number" name="startTime"></input>
@@ -152,8 +152,17 @@
       </form>
       <hr></hr>
       <div id="CuePointAdded"></div>
+    </script>
+    <script type="text/javascript">
+      var AddAdCuePointForm = _.template($('#AddAdCuePointForm-template').text());
+    </script>
+
+    <script id="AddAdCuePoint-template" type="text/x-underscore-template" style="display: none">
+      <%
+          print(AddAdCuePointForm({result: result}));
+      %>
       <script>
-        $('#AddCuePointForm').submit(function() {
+        $('#AddAdCuePointForm').submit(function() {
           var cuePoint = new KalturaAdCuePoint();
           cuePoint.cuePointType = KalturaCuePointType.AD;
           cuePoint.adType = KalturaAdType.VIDEO;
@@ -169,7 +178,7 @@
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var AddCuePoint = _.template($('#AddCuePoint-template').text());
+      var AddAdCuePoint = _.template($('#AddAdCuePoint-template').text());
     </script>
 
     <script id="CuePointAdded-template" type="text/x-underscore-template" style="display: none">

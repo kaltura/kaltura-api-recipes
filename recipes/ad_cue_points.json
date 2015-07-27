@@ -47,7 +47,7 @@
     }, {
       "title": "Adding a Cue Point",
       "tip": "You can use the form below to add cue points to your video.",
-      "affects": "AddCuePoint",
+      "affects": "AddAdCuePoint",
       "inputs": []
     }
   ],
@@ -62,7 +62,8 @@
   "views": [
     "KalturaCuePointListResponse",
     "KalturaMediaEntry",
-    "AddCuePoint",
+    "AddAdCuePointForm",
+    "AddAdCuePoint",
     "CuePointAdded"
   ],
   "actions": [
