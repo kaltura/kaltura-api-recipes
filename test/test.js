@@ -2,6 +2,7 @@ var Util = require('util');
 var FS = require('fs');
 var Path = require('path');
 var Request = require('request');
+var Mkdirp = require('mkdirp');
 
 var Server = require('./server.js');
 
@@ -25,9 +26,13 @@ var buildCode = function(recipe, data, done) {
   }, function(err, resp, files) {
     if (err) throw err;
     var baseDir = Path.join(GOLDEN_BASE, data.language, recipe);
-    if (!FS.existsSync(baseDir)) {
-      FS.mkdirSync(baseDir);
-    }
+    if (!FS.existsSync(baseDir)) FS.mkdirSync(baseDir);
+    var dirs = files.filter(function(f) {return f.directory});
+    files = files.filter(function(f) {return !f.directory});
+    dirs.forEach(function(dir) {
+      var filename = Path.join(baseDir, dir.filename);
+      if (!FS.existsSync(filename)) Mkdirp.sync(filename);
+    })
     files.forEach(function(file) {
       FS.writeFileSync(Path.join(baseDir, file.filename), file.contents);
     });
@@ -61,7 +66,7 @@ var ANSWERS = {
     uiConf: 28959921,
   }
 }
-var LANGUAGES = ['php', 'javascript']
+var LANGUAGES = ['php', 'javascript', 'node']
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];

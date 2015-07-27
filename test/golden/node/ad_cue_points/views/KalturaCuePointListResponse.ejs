@@ -1,0 +1,12 @@
+<h1>Cue Points</h1>
+<hr></hr>
+<% if(result.length === 0) { %>
+  <i>No cue points found</i>
+<% } %>
+<% result.forEach(function(cuePoint, index) { %>
+  <p>
+  <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
+  </p>
+<% }); %>
+<% include AddCuePoint -%>
+<hr></hr>
