@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var Kaltura = require('./lib/KalturaClient.js');
+var Kaltura = require('./../lib/KalturaClient.js');
 var config = new Kaltura.KalturaConfiguration(1760921);
 config.serviceUrl = "https://www.kaltura.com/";
 var client = new Kaltura.KalturaClient(config);
