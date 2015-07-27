@@ -43,7 +43,7 @@
     },
     {
       "title": "Getting other Report Types",
-      "tip": "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/api_v3/lib/types/enums/KalturaReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are",
+      "tip": "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/alpha/lib/enums/ReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are",
       "affects": "getTotalReport",
       "inputs": [{
         "type": "select",
