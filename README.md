@@ -89,8 +89,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   ],
   "view": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
   "views": [
-    "KalturaMediaListResponse",
-    "KalturaMediaEntry"
+    "myView"
   ],
   "actions": "An array of actions that are used in this recipe.",
   "actions": [{
@@ -108,7 +107,7 @@ Views are snippets of HTML for displaying responses from the API. Any valid HTML
 LucyBot also provides some helper tags:
 * Use ```{{ variable.name }}``` to print the value of a given variable
 * Use ```<lucy for="thing" in="array">``` to iterate over an array
-* Use ```<lucy if="condition">``` to guard blocks of HTML
+* Use ```<lucy if="condition">``` to add conditionals
 * Use ```<lucy include="ViewName">``` to include other views
 
 You have access to two global variables inside of your views:
