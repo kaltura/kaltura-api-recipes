@@ -137,8 +137,8 @@
       var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
-    <script id="AddCodeCuePoint-template" type="text/x-underscore-template" style="display: none">
-      <form id="AddCuePointForm">
+    <script id="AddCodeCuePointForm-template" type="text/x-underscore-template" style="display: none">
+      <form id="AddCodeCuePointForm">
         <div class="form-group">
           <label>Code</label>
           <input class="form-control" type="text" name="code"></input>
@@ -157,8 +157,17 @@
       </form>
       <hr></hr>
       <div id="CodeCuePointAdded"></div>
+    </script>
+    <script type="text/javascript">
+      var AddCodeCuePointForm = _.template($('#AddCodeCuePointForm-template').text());
+    </script>
+
+    <script id="AddCodeCuePoint-template" type="text/x-underscore-template" style="display: none">
+      <%
+          print(AddCodeCuePointForm({result: result}));
+      %>
       <script>
-        $('#AddCuePointForm').submit(function() {
+        $('#AddCodeCuePointForm').submit(function() {
           var cuePoint = new KalturaCodeCuePoint();
           cuePoint.cuePointType = KalturaCuePointType.CODE;
           cuePoint.entryId = "1_318vzqcr";

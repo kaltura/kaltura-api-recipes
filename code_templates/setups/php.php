@@ -1,4 +1,4 @@
-require_once('lib/KalturaClient.php');
+require_once('<%- Lucy.answer('libraryDirectory') || 'lib/' %>KalturaClient.php');
 $config = new KalturaConfiguration(<%- Lucy.variable('answers.partnerId') %>);
 $config->serviceUrl = 'https://www.kaltura.com/';
 $client = new KalturaClient($config);

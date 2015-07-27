@@ -71,6 +71,7 @@ var LANGUAGES = ['php', 'javascript', 'node']
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
   ANSWERS[recipeName] = ANSWERS[recipeName] || {};
+  ANSWERS[recipeName].libraryDirectory = '../lib/';
   recipe.control_sets.forEach(function(set) {
     var inputs = set.inputs || [];
     inputs.forEach(function(input) {

@@ -1,5 +1,5 @@
 <?php
-require_once('lib/KalturaClient.php');
+require_once('../lib/KalturaClient.php');
 $config = new KalturaConfiguration(1760921);
 $config->serviceUrl = 'https://www.kaltura.com/';
 $client = new KalturaClient($config);
