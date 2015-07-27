@@ -1,4 +1,5 @@
 var STORAGE_KEY = 'KALTURA_CREDS';
+var MS_IN_MONTH = 1000 * 60 * 60 * 24 * 30;
 
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
@@ -118,12 +119,38 @@ app.controller('Answers', function($scope) {
   $scope.$watch('answers.partnerId', credentialsChanged);
   $scope.$watch('answers.adminSecret', credentialsChanged);
   $scope.$watch('answers.userId', credentialsChanged);
+  var useDates = function(newDate) {
+    if (!newDate) return;
+    delete $scope.answers.toDay;
+    delete $scope.answers.fromDay;
+  }
+  var useDays = function(newDay) {
+    if (!newDay) return;
+    delete $scope.answers.toDate;
+    delete $scope.answers.fromDate;
+  }
+  $scope.$watch('answers.toDay', useDays);
+  $scope.$watch('answers.fromDay', useDays);
+  $scope.$watch('answers.toDate', useDates);
+  $scope.$watch('answers.fromDate', useDates);
 
   $scope.setDefaults = function() {
     var stored = getStoredCredentials();
     for (key in stored) {
       $scope.answers[key] = stored[key];
     }
+    var today = new Date();
+    var lastMonth = new Date(today.getTime() - MS_IN_MONTH);
+    var getDayStr = function(d) {
+      var year = d.getFullYear().toString();
+      var month = (d.getMonth() + 1).toString();
+      if (month.length < 2) month = '0' + month;
+      var day = d.getDate().toString();
+      if (day.length < 2) day = '0' + day;
+      return year + month + day;
+    }
+    $scope.answers.toDay = getDayStr(today);
+    $scope.answers.fromDay = getDayStr(lastMonth);
     for (key in $scope.recipe.defaults) {
       if (!$scope.answers[key]) $scope.answers[key] = $scope.recipe.defaults[key];
     }

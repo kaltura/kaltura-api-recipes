@@ -34,6 +34,14 @@
       "name": "toDay",
       "label": "To Day",
       "default": "20150715"
+    }, {
+      "type": "datetime",
+      "name": "fromDate",
+      "label": "From Date"
+    }, {
+      "type": "datetime",
+      "name": "toDate",
+      "label": "To Date"
     }]
   }, {
     "title": "Finding Your Top Contributors",
@@ -57,13 +65,19 @@
     }, {
       "type": "text",
       "name": "fromDay",
-      "label": "From Day",
-      "default": "20150615"
+      "label": "From Day"
     }, {
       "type": "text",
       "name": "toDay",
-      "label": "To Day",
-      "default": "20150715"
+      "label": "To Day"
+    }, {
+      "type": "datetime",
+      "name": "fromDate",
+      "label": "From Date"
+    }, {
+      "type": "datetime",
+      "name": "toDate",
+      "label": "To Date"
     }]
   }, {
     "page": 1,
