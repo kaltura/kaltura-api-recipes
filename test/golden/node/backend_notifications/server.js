@@ -28,6 +28,11 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
+app.post('/HandleHTTPNotifications', function(req, res) {
+  app.post('*', function(req, res) {
+    console.log('Kaltura Notification', req.body);
+  });
+});
 app.post('/listTemplatesEventNotificationTemplate', function(req, res) {
   filter = new Kaltura.objects.KalturaEventNotificationTemplateFilter();
 
@@ -44,6 +49,27 @@ app.post('/listTemplatesEventNotificationTemplate', function(req, res) {
   },
   filter,
   pager);
+});
+app.post('/cloneEventNotificationTemplate', function(req, res) {
+  var template = null;
+  if (req.body.email) {
+    template = new Kaltura.objects.KalturaEmailNotificationTemplate();
+    var recipient = new KalturaEmailNotificationRecipient();
+    recipient.email = req.body.email;
+    template.to = new KalturaEmailNotificationStaticRecipientProvider();
+    template.to.emailRecipients = [recipient];
+  } else {
+    template = new KalturaHttpNotificationTemplate();
+    template.url = req.body.url;
+  }
+  template.name = req.body.name;
+  template = client.eventNotificationTemplate.cloneAction(function(template) {
+    client.eventNotificationTemplate.updateStatus(function(template) {
+      res.render('KalturaEventNotificationTemplate', {request: req.body, result: template}) 
+    },
+    template.id,
+    Kaltura.enums.KalturaEventNotificationTemplateStatus.ACTIVE);
+  }, null, template);
 });
 app.post('/listEventNotificationTemplate', function(req, res) {
   filter = new Kaltura.objects.KalturaEventNotificationTemplateFilter();

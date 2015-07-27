@@ -28,5 +28,42 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
+app.post('/CreateBaseEntry', function(req, res) {
+  var entry = new Kaltura.objects.KalturaBaseEntry();
+  entry.name = req.body.name;
+  var uploadTokenId = req.body.uploadTokenId;
+  var checkStatus = function(entry) {
+    if (entry.status === 2) {
+      res.render('CreatedEntry', {request: req.body, result: entry})
+    } else {
+      setTimeout(function() {
+        client.media.get(checkStatus, entry.id);
+      }, 100);
+    }
+  }
+  client.baseEntry.addFromUploadedFile(entry);
+});
+app.post('/UploadFile', function(req, res) {
+  req.body = req.body || {};
+  var bus = new busboy({headers: req.headers});
+  var dest = null;
+  bus.on('file', function(field, file, filename) {
+    dest = __dirname + '/' + filename;
+    file.pipe(require('fs').createWriteStream(filename));
+  });
+  bus.on('field', function(field, value) {
+    req.body[field] = value;
+  });
+  bus.on('finish', function() {
+    var uploadToken = new Kaltura.objects.KalturaUploadToken();
+    client.uploadToken.add(function(result) {
+      var tokenId = result.id;
+      client.uploadToken.upload(function(result) {
+        res.render('UploadDone', {request: req.body, result: result})
+      }, tokenId, dest);
+    }, uploadToken)
+  });
+  req.pipe(bus);
+});
 
 app.listen(process.env.PORT || 3333);
