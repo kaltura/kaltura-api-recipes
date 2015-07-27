@@ -27,7 +27,7 @@ $captionAsset->format = KalturaCaptionType::SRT;
 $captionAsset->isDefault = true;
 $captionAsset->language = KalturaLanguage::EN;
 $captionAsset->label = 'English';
-$newAsset = $client->captionAsset->add("1_318vzqcr", $captionAsset);
+$newAsset = $client->captionAsset->add("1_9kdmnhuv", $captionAsset);
 $client->captionAsset->setContent($newAsset->id, $captionResource);
 $result = (object)$result;
 include 'CaptionsAttached.php';

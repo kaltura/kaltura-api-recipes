@@ -1,0 +1,28 @@
+<h1>Clone Template</h1>
+<hr>
+<lucy for="template" in="result">
+  <lucy if="template.id == answers.id">
+    <lucy include="KalturaEventNotificationTemplate" resultvar="template"></lucy>
+    <form id="AddEventNotificationTemplateForm">
+      <div class="form-group">
+        <label>Template Name</label>
+        <input class="form-control" type="text" name="name">
+      </div>
+      <div class="form-group">
+        <lucy if="template.type == 'emailNotification.Email'">
+          <label>E-mail Address</label>
+          <input class="form-control" type="text" name="email">
+        </lucy>
+        <lucy if="template.type == 'httpNotification.Http'">
+          <label>URL</label>
+          <input class="form-control" type="text" name="url">
+        </lucy>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Create Notification">
+      </div>
+    </form>
+    <div class="alert alert-info" id="CloneStatus" style="display: none"></div>
+  </lucy>
+</lucy>
+

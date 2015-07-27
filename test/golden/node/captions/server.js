@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var busboy = require('busboy');
 var request = require('request');
 var Kaltura = require('./../lib/KalturaClient.js');
 var config = new Kaltura.KalturaConfiguration(1760921);
@@ -28,7 +29,7 @@ app.get('/', function(req, res) {
 })
 
 app.post('/getMedia', function(req, res) {
-  var entryId = "1_318vzqcr";
+  var entryId = "1_9kdmnhuv";
   var version = null;
 
   client.media.get(function(results) {
@@ -62,6 +63,42 @@ app.post('/searchCaptionAssetItem', function(req, res) {
   entryFilter,
   captionAssetItemFilter,
   captionAssetItemPager);
+});
+app.post('/attachCaptions', function(req, res) {
+  req.body = req.body || {};
+  var bus = new busboy({headers: req.headers});
+  var dest = null;
+  bus.on('file', function(field, file, filename) {
+    dest = __dirname + '/' + filename;
+    file.pipe(require('fs').createWriteStream(filename));
+  });
+  bus.on('field', function(field, value) {
+    req.body[field] = value;
+  });
+  bus.on('finish', function() {
+    var uploadToken = new Kaltura.objects.KalturaUploadToken();
+    client.uploadToken.add(function(result) {
+      var tokenId = result.id;
+      client.uploadToken.upload(function(result) {
+        console.log('uploaded', dest, result)
+        var captionResource = new Kaltura.objects.KalturaUploadedFileTokenResource();
+        captionResource.token = result.id;
+        captionAsset = new Kaltura.objects.KalturaCaptionAsset();
+        captionAsset.format = Kaltura.enums.KalturaCaptionType.SRT;
+        captionAsset.isDefault = true;
+        captionAsset.language = Kaltura.enums.KalturaLanguage.EN;
+        captionAsset.label = 'English';
+        client.captionAsset.add(function(newAsset) {
+          console.log('add asset', newAsset);
+          client.captionAsset.setContent(function(result) {
+            console.log('set content', result);
+            res.render('CaptionsAttached', {request: req.body, result: result})
+          }, newAsset.id, captionResource);
+        }, "1_9kdmnhuv", captionAsset)
+      }, tokenId, dest);
+    }, uploadToken)
+  })
+  req.pipe(bus);
 });
 
 app.listen(process.env.PORT || 3333);

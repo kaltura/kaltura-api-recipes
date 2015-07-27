@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var busboy = require('busboy');
 var request = require('request');
 var Kaltura = require('./../lib/KalturaClient.js');
 var config = new Kaltura.KalturaConfiguration(1760921);
@@ -44,6 +45,15 @@ app.post('/listCuePoint', function(req, res) {
   },
   filter,
   pager);
+});
+app.post('/addCuePoint', function(req, res) {
+  var cuePoint = new Kaltura.objects.KalturaAdCuePoint();
+  cuePoint.sourceUrl = req.body.sourceUrl;
+  cuePoint.startTime = req.body.startTime;
+  cuePoint.entryId = "1_318vzqcr";
+  client.cuePoint.add(function(result) {
+    res.json(result);
+  }, cuePoint);
 });
 app.post('/getMedia', function(req, res) {
   var entryId = req.body.entryId;

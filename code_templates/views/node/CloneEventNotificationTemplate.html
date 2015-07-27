@@ -1,11 +1,9 @@
-<?php
-  include "AddEventNotificationTemplateForm.php";
-?>
+<lucy include="AddEventNotificationTemplateForm"></lucy>
 <script>
   $('#AddEventNotificationTemplateForm').submit(function() {
     var data = new FormData(document.getElementById('AddEventNotificationTemplateForm'));
     $.ajax({
-       url: '/cloneEventNotificationTemplate.php',
+       url: '/cloneEventNotificationTemplate',
        type: 'POST',
        data: data,
        contentType: false,

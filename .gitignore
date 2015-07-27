@@ -1,6 +1,10 @@
 node_modules/
 static/bower/
 static/test.html
+
 test/golden/php/*/lib/
+
+test/golden/node/**/*.mp4
+test/golden/node/**/*.srt
 test/golden/php/**/*.mp4
 test/golden/php/**/*.srt

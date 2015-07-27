@@ -166,7 +166,7 @@
       var KalturaEventNotificationTemplate = _.template($('#KalturaEventNotificationTemplate-template').text());
     </script>
 
-    <script id="CloneEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
+    <script id="AddEventNotificationTemplateForm-template" type="text/x-underscore-template" style="display: none">
       <h1>Clone Template</h1>
       <hr></hr>
       <% result.forEach(function(template, index) { %>
@@ -196,6 +196,15 @@
           <div class="alert alert-info" id="CloneStatus" style="display: none"></div>
         <% } %>
       <% }); %>
+    </script>
+    <script type="text/javascript">
+      var AddEventNotificationTemplateForm = _.template($('#AddEventNotificationTemplateForm-template').text());
+    </script>
+
+    <script id="CloneEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
+      <%
+          print(AddEventNotificationTemplateForm({result: result}));
+      %>
       <script>
         $('#AddEventNotificationTemplateForm').submit(function() {
           $('#CloneStatus').text('Cloning...').show();

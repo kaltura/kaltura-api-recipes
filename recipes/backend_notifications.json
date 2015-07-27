@@ -105,6 +105,7 @@
   "views": [
     "KalturaEventNotificationTemplateListResponse",
     "KalturaEventNotificationTemplate",
+    "AddEventNotificationTemplateForm",
     "CloneEventNotificationTemplate",
     "KalturaPermissionListResponse",
     "KalturaPermission"
