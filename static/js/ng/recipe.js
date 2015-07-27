@@ -128,6 +128,10 @@ app.controller('Answers', function($scope) {
     if (!newDay) return;
     delete $scope.answers.toDate;
     delete $scope.answers.fromDate;
+    var datetime = $('[ng-controller="DateTime"]');
+    datetime.each(function() {
+      $(this).scope().dateFocused = false;
+    });
   }
   $scope.$watch('answers.toDay', useDays);
   $scope.$watch('answers.fromDay', useDays);
