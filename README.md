@@ -107,7 +107,7 @@ Views are snippets of HTML for displaying responses from the API. Any valid HTML
 LucyBot also provides some helper tags:
 * Use ```{{ variable.name }}``` to print the value of a given variable
 * Use ```<lucy for="thing" in="array">``` to iterate over an array
-* Use ```<lucy if="condition">``` to guard blocks of HTML
+* Use ```<lucy if="condition">``` to add conditionals
 * Use ```<lucy include="ViewName">``` to include other views
 
 You have access to two global variables inside of your views:
