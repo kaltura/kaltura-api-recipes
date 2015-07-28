@@ -39,6 +39,9 @@ script(type="text/javascript").
     KC.session.start(function(success, ks) {
       if (!success || (ks.code && ks.message)) return console.log('Kaltura Error', success, ks);
       KC.setKs(ks);
+      KC.uiConf.listAction(function(success, results) {
+        $('#Answers').scope().answers['uiConf'] = results.objects[0].id;
+      })
     }, secret,
     userId,
     KalturaSessionType.ADMIN,
