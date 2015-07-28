@@ -40,7 +40,17 @@ script(type="text/javascript").
       if (!success || (ks.code && ks.message)) return console.log('Kaltura Error', success, ks);
       KC.setKs(ks);
       KC.uiConf.listAction(function(success, results) {
-        $('#Answers').scope().answers['uiConf'] = results.objects[0].id;
+        var uiConfs = results.objects.filter(function(uiConf) {
+          return uiConf.tags && uiConf.tags.indexOf('html5studio') !== -1;
+        })
+        if (uiConfs.length === 0) {
+          $('#Answers').scope().answers['uiConf'] = results.objects[0].id;
+          if (RECIPE.name === 'dynamic_thumbnails') {
+            $('#Recipe').scope().globalError = 'This recipe requires an HTML5 enabled uiConf. Please use the KMC to create one.'
+          }
+        } else {
+          $('#Answers').scope().answers['uiConf'] = uiConfs[0].id;
+        }
       })
     }, secret,
     userId,
