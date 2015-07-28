@@ -2,5 +2,5 @@
   $('#UploadStatus').text('Uploaded file {{ result.fileName }}. Creating entry...');
 </script>
 </script>
-<lucy include="CreatedEntry" action="CreateBaseEntry" inputvars="{name: result.fileName, uploadTokenId: result.id}">
+<lucy include="CreatedEntry" action="CreateMediaEntry" inputvars="{name: result.fileName, uploadTokenId: result.id}">
 </lucy>

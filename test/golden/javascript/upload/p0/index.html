@@ -44,29 +44,35 @@
     </script>
     <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921"></script>
     <script type="text/javascript">
-      var CreateBaseEntry = function(request, callback) {
+      var CreateMediaEntry = function(request, callback) {
         entry = new KalturaMediaEntry();
         entry.name = request.name;
-        var uploadTokenId = request.uploadTokenId;
-
-        var checkStatus = function(success, results) {
-          if (!success || (results.code && results.message)) {
-            console.log('Kaltura Error', success, results);
-          } else if (results.status !== 2) {
-            var statusMessage = results.status === 1 ?
-                'converting' : 'status ' + results.status;
-            $('#UploadStatus').text(
-                'Entry not ready yet (' + statusMessage + ')');
-            setTimeout(function() {
-              client.media.get(checkStatus, results.id);
-            }, 100);
-          } else {
-            $('#UploadStatusBar').hide();
-            $('#UploadSuccess').show();
-            callback(results)
+        entry.mediaType = 1;
+        client.media.add(function(success, entry) {
+          if (!success || (entry.code && entry.message)) {
+            return console.log('Kaltura Error', success, entry);
           }
-        }
-        client.baseEntry.addFromUploadedFile(checkStatus, entry, uploadTokenId);
+          var mediaResource = new KalturaUploadedFileTokenResource();
+          mediaResource.token = request.uploadTokenId;
+          var checkStatus = function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            } else if (results.status !== 2) {
+              var statusMessage = results.status === 1 ?
+                  'converting' : 'status ' + results.status;
+              $('#UploadStatus').text(
+                  'Entry not ready yet (' + statusMessage + ')');
+              setTimeout(function() {
+                client.media.get(checkStatus, results.id);
+              }, 1000);
+            } else {
+              $('#UploadStatusBar').hide();
+              $('#UploadSuccess').show();
+              callback(results)
+            }
+          }
+          client.media.addContent(checkStatus, entry.id, mediaResource);
+        }, entry);
       };
     </script>
   </head>
@@ -117,13 +123,13 @@
         $('#UploadStatus').text('Uploaded file <%= result.fileName %>. Creating entry...');
       <% print("</"+"script>"); %>
 
-      <div id="CreateBaseEntry-result"></div>
+      <div id="CreateMediaEntry-result"></div>
       <%
-          CreateBaseEntry({
+          CreateMediaEntry({
              name: result.fileName,
              uploadTokenId: result.id,
           }, function(result) {
-            $('#CreateBaseEntry-result').replaceWith(CreatedEntryView({result: result}))
+            $('#CreateMediaEntry-result').replaceWith(CreatedEntryView({result: result}))
           })
       %>
     </script>

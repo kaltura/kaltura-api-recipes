@@ -28,20 +28,24 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
-app.post('/CreateBaseEntry', function(req, res) {
-  var entry = new Kaltura.objects.KalturaBaseEntry();
+app.post('/CreateMediaEntry', function(req, res) {
+  var entry = new Kaltura.objects.KalturaMediaEntry();
   entry.name = req.body.name;
-  var uploadTokenId = req.body.uploadTokenId;
-  var checkStatus = function(entry) {
-    if (entry.status === 2) {
-      res.render('CreatedEntry', {request: req.body, result: entry})
-    } else {
-      setTimeout(function() {
-        client.media.get(checkStatus, entry.id);
-      }, 100);
+  entry.mediaType = 1;
+  client.media.add(function(entry) {
+    var mediaResource = new Kaltura.objects.KalturaUploadedFileTokenResource();
+    mediaResource.token = req.body.uploadTokenId;
+    var checkStatus = function(entry) {
+      if (entry.status === 2) {
+        res.render('CreatedEntry', {request: req.body, result: entry})
+      } else {
+        setTimeout(function() {
+          client.media.get(checkStatus, entry.id);
+        }, 100);
+      }
     }
-  }
-  client.baseEntry.addFromUploadedFile(checkStatus, entry, uploadTokenId);
+    client.media.addContent(checkStatus, entry.id, mediaResource);
+  }, entry);
 });
 
 app.post('/UploadFile', function(req, res) {

@@ -1,6 +1,6 @@
 entry = new KalturaMediaEntry();
 entry.name = <%- Lucy.code.variable('answers.name') %>;
-entry.type = KalturaEntryType.AUTOMATIC;
+entry.mediaType = <%- Lucy.code.variable('answers.mediaType') %>;
 client.media.add(function(success, entry) {
   if (!success || (entry.code && entry.message)) {
     return console.log('Kaltura Error', success, entry);
