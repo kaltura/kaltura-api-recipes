@@ -100,12 +100,12 @@
         </p>
       <% }); %>
       <%
-          print(AddAdCuePoint({result: result}));
+          print(AddAdCuePointView({result: result}));
       %>
       <hr></hr>
     </script>
     <script type="text/javascript">
-      var KalturaCuePointListResponse = _.template($('#KalturaCuePointListResponse-template').text());
+      var KalturaCuePointListResponseView = _.template($('#KalturaCuePointListResponse-template').text());
     </script>
 
     <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
@@ -133,7 +133,7 @@
       </div>
     </script>
     <script type="text/javascript">
-      var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
+      var KalturaMediaEntryView = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
     <script id="AddAdCuePointForm-template" type="text/x-underscore-template" style="display: none">
@@ -154,12 +154,12 @@
       <div id="CuePointAdded"></div>
     </script>
     <script type="text/javascript">
-      var AddAdCuePointForm = _.template($('#AddAdCuePointForm-template').text());
+      var AddAdCuePointFormView = _.template($('#AddAdCuePointForm-template').text());
     </script>
 
     <script id="AddAdCuePoint-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(AddAdCuePointForm({result: result}));
+          print(AddAdCuePointFormView({result: result}));
       %>
       <script>
         $('#AddAdCuePointForm').submit(function() {
@@ -171,14 +171,14 @@
           cuePoint.startTime = $('input[name="startTime"]').val();
           cuePoint.entryId = "1_318vzqcr";
           client.cuePoint.add(function(success, cuePoint) {
-            $('.container').html(CuePointAdded({result: cuePoint}));
+            $('.container').html(CuePointAddedView({result: cuePoint}));
           }, cuePoint);
           return false;
         })
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var AddAdCuePoint = _.template($('#AddAdCuePoint-template').text());
+      var AddAdCuePointView = _.template($('#AddAdCuePoint-template').text());
     </script>
 
     <script id="CuePointAdded-template" type="text/x-underscore-template" style="display: none">
@@ -188,14 +188,14 @@
           getMedia({
              entryId: "1_318vzqcr",
           }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
+            $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
           })
       %>
       <script>
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var CuePointAdded = _.template($('#CuePointAdded-template').text());
+      var CuePointAddedView = _.template($('#CuePointAdded-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -203,7 +203,7 @@
     </div>
     <script type="text/javascript">
       listCuePoint({}, function(result) {
-        $('.container').html(KalturaCuePointListResponse({result: result}));
+        $('.container').html(KalturaCuePointListResponseView({result: result}));
       })
     </script>
   </body>

@@ -9,7 +9,11 @@
   "control_sets": [
     {
       "title": "Uploading a Video",
-      "tip": "Use an ```<input type=\"file\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)\n\nYou can use the page below to upload a video or image file. If you don't have a video file handy, you can [download a sample](/this-is-my-jam.mp4)",
+      "tip": [
+        "Use an ```<input type=\"file\">``` tag to upload a video file. Javascript clients should use the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload)",
+        "You can use the page below to upload a video or image file. If you don't have a video file handy, you can [download a sample](/this-is-my-jam.mp4)",
+        "You can read more about media uploads [here](http://knowledge.kaltura.com/faq/create-new-kaltura-entry-and-upload-video-file-using-kaltura-api)"
+      ],
       "affects": "UploadForm",
       "inputs": []
     }, {

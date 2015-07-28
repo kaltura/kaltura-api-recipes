@@ -98,7 +98,6 @@
         captionAsset.label = 'English';
         client.captionAsset.add(function(success, newAsset) {
           client.captionAsset.setContent(function(success, response) {
-            console.log('set content', success, response);
             callback(response)
           }, newAsset.id, captionResource);
         }, "1_9kdmnhuv", captionAsset);
@@ -131,7 +130,7 @@
       </div>
     </script>
     <script type="text/javascript">
-      var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
+      var KalturaMediaEntryView = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
     <script id="UploadCaptions-template" type="text/x-underscore-template" style="display: none">
@@ -150,7 +149,7 @@
             },
             done: function(e, data) {
               $('#Uploading').hide();
-              $('#UploadDone').html(CaptionUploadDone({result: data.result}));
+              $('#UploadDone').html(CaptionUploadDoneView({result: data.result}));
             },
           });
         };
@@ -168,7 +167,7 @@
       <div id="UploadDone"></div>
     </script>
     <script type="text/javascript">
-      var UploadCaptions = _.template($('#UploadCaptions-template').text());
+      var UploadCaptionsView = _.template($('#UploadCaptions-template').text());
     </script>
 
     <script id="CaptionUploadDone-template" type="text/x-underscore-template" style="display: none">
@@ -178,12 +177,12 @@
           attachCaptions({
              token: result.id,
           }, function(result) {
-            $('#attachCaptions-result').replaceWith(CaptionsAttached({result: result}))
+            $('#attachCaptions-result').replaceWith(CaptionsAttachedView({result: result}))
           })
       %>
     </script>
     <script type="text/javascript">
-      var CaptionUploadDone = _.template($('#CaptionUploadDone-template').text());
+      var CaptionUploadDoneView = _.template($('#CaptionUploadDone-template').text());
     </script>
 
     <script id="CaptionsAttached-template" type="text/x-underscore-template" style="display: none">
@@ -192,12 +191,12 @@
       <%
           getMedia({
           }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntry({result: result}))
+            $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
           })
       %>
     </script>
     <script type="text/javascript">
-      var CaptionsAttached = _.template($('#CaptionsAttached-template').text());
+      var CaptionsAttachedView = _.template($('#CaptionsAttached-template').text());
     </script>
 
     <script id="CaptionSearch-template" type="text/x-underscore-template" style="display: none">
@@ -216,7 +215,7 @@
       <% }); %>
     </script>
     <script type="text/javascript">
-      var CaptionSearch = _.template($('#CaptionSearch-template').text());
+      var CaptionSearchView = _.template($('#CaptionSearch-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -224,7 +223,7 @@
     </div>
     <script type="text/javascript">
       searchCaptionAssetItem({}, function(result) {
-        $('.container').html(CaptionSearch({result: result}));
+        $('.container').html(CaptionSearchView({result: result}));
       })
     </script>
   </body>

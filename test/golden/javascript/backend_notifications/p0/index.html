@@ -139,12 +139,12 @@
       <hr></hr>
       <% result.forEach(function(template, index) { %>
         <%
-            print(KalturaEventNotificationTemplate({result: template}));
+            print(KalturaEventNotificationTemplateView({result: template}));
         %>
       <% }); %>
     </script>
     <script type="text/javascript">
-      var KalturaEventNotificationTemplateListResponse = _.template($('#KalturaEventNotificationTemplateListResponse-template').text());
+      var KalturaEventNotificationTemplateListResponseView = _.template($('#KalturaEventNotificationTemplateListResponse-template').text());
     </script>
 
     <script id="KalturaEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
@@ -163,7 +163,7 @@
       <hr></hr>
     </script>
     <script type="text/javascript">
-      var KalturaEventNotificationTemplate = _.template($('#KalturaEventNotificationTemplate-template').text());
+      var KalturaEventNotificationTemplateView = _.template($('#KalturaEventNotificationTemplate-template').text());
     </script>
 
     <script id="AddEventNotificationTemplateForm-template" type="text/x-underscore-template" style="display: none">
@@ -172,7 +172,7 @@
       <% result.forEach(function(template, index) { %>
         <% if(template.id == null) { %>
           <%
-          print(KalturaEventNotificationTemplate({result: template}));
+          print(KalturaEventNotificationTemplateView({result: template}));
       %>
           <form id="AddEventNotificationTemplateForm">
             <div class="form-group">
@@ -198,12 +198,12 @@
       <% }); %>
     </script>
     <script type="text/javascript">
-      var AddEventNotificationTemplateForm = _.template($('#AddEventNotificationTemplateForm-template').text());
+      var AddEventNotificationTemplateFormView = _.template($('#AddEventNotificationTemplateForm-template').text());
     </script>
 
     <script id="CloneEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(AddEventNotificationTemplateForm({result: result}));
+          print(AddEventNotificationTemplateFormView({result: result}));
       %>
       <script>
         $('#AddEventNotificationTemplateForm').submit(function() {
@@ -214,18 +214,18 @@
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var CloneEventNotificationTemplate = _.template($('#CloneEventNotificationTemplate-template').text());
+      var CloneEventNotificationTemplateView = _.template($('#CloneEventNotificationTemplate-template').text());
     </script>
 
     <script id="KalturaPermissionListResponse-template" type="text/x-underscore-template" style="display: none">
       <% result.forEach(function(permission, index) { %>
         <%
-          print(KalturaPermission({result: permission}));
+          print(KalturaPermissionView({result: permission}));
       %>
       <% }); %>
     </script>
     <script type="text/javascript">
-      var KalturaPermissionListResponse = _.template($('#KalturaPermissionListResponse-template').text());
+      var KalturaPermissionListResponseView = _.template($('#KalturaPermissionListResponse-template').text());
     </script>
 
     <script id="KalturaPermission-template" type="text/x-underscore-template" style="display: none">
@@ -243,7 +243,7 @@
       </p>
     </script>
     <script type="text/javascript">
-      var KalturaPermission = _.template($('#KalturaPermission-template').text());
+      var KalturaPermissionView = _.template($('#KalturaPermission-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -251,7 +251,7 @@
     </div>
     <script type="text/javascript">
       listTemplatesEventNotificationTemplate({}, function(result) {
-        $('.container').html(KalturaEventNotificationTemplateListResponse({result: result}));
+        $('.container').html(KalturaEventNotificationTemplateListResponseView({result: result}));
       })
     </script>
   </body>
