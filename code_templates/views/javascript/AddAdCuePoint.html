@@ -9,7 +9,7 @@
     cuePoint.startTime = $('input[name="startTime"]').val();
     cuePoint.entryId = "<%- Lucy.answer('entryIdEqual') %>";
     client.cuePoint.add(function(success, cuePoint) {
-      $('.container').html(CuePointAdded({result: cuePoint}));
+      $('.container').html(CuePointAddedView({result: cuePoint}));
     }, cuePoint);
     return false;
   })

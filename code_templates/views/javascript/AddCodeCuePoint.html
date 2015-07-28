@@ -8,7 +8,7 @@
     cuePoint.description = $('input[name="description"]').val();
     cuePoint.startTime = $('input[name="startTime"]').val();
     client.cuePoint.add(function(success, cuePoint) {
-      $('.container').html(CodeCuePointAdded({result: cuePoint}));
+      $('.container').html(CodeCuePointAddedView({result: cuePoint}));
     }, cuePoint);
     return false;
   })

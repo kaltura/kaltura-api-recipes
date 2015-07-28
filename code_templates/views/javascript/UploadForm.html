@@ -12,7 +12,7 @@
         $('#UploadStatusBar').show();
       },
       done: function(e, data) {
-        $('#UploadDone').html(UploadDone({result: data.result}));
+        $('#UploadDone').html(UploadDoneView({result: data.result}));
       },
     });
   };

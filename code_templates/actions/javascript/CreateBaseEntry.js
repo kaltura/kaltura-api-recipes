@@ -1,4 +1,4 @@
-entry = new KalturaBaseEntry();
+entry = new KalturaMediaEntry();
 entry.name = <%- Lucy.code.variable('answers.name') %>;
 var uploadTokenId = <%- Lucy.code.variable('answers.uploadTokenId') %>;
 

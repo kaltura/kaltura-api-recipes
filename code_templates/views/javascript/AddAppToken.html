@@ -6,7 +6,7 @@
     appToken.sessionType = parseInt($('input[name="sessionType"]').val());
     client.appToken.add(function(success, appToken) {
       client.appToken.listAction(function(success, response) {
-        $('.container').html(KalturaAppTokenListResponse({result: response.objects}));
+        $('.container').html(KalturaAppTokenListResponseView({result: response.objects}));
       })
     }, appToken);
     return false;

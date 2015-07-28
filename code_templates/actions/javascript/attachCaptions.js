@@ -7,7 +7,6 @@ captionAsset.language = KalturaLanguage.EN;
 captionAsset.label = 'English';
 client.captionAsset.add(function(success, newAsset) {
   client.captionAsset.setContent(function(success, response) {
-    console.log('set content', success, response);
     <%- Lucy.returnCode('response') %>
   }, newAsset.id, captionResource);
 }, <%- Lucy.code.variable('answers.entryId') %>, captionAsset);
