@@ -11,13 +11,16 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$entry = new KalturaBaseEntry();
+$entry = new KalturaMediaEntry();
 $entry->name = $_POST["name"];
-$uploadTokenId = $_POST["uploadTokenId"];
+$entry->mediaType = 1;
+$entry = $client->media->add($entry);
+$mediaResource = new KalturaUploadedFileTokenResource();
+$mediaResource->token = $_POST["uploadTokenId"];
 
-$result = $client->baseEntry->addFromUploadedFile($entry, $uploadTokenId);
+$result = $client->media->addContent($entry->id, $mediaResource);
 while ($result->status != 2) {
-  sleep(.1);
+  sleep(1);
   $result = $client->media->get($result->id);
 }
 $result = (object)$result;

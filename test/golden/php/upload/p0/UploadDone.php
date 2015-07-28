@@ -6,7 +6,7 @@
 <script>
   var element = $('.CreatedEntry').last();
   element[0].loadData = function() {
-    $('.CreatedEntry').last().load('CreateBaseEntry.php', {
+    $('.CreatedEntry').last().load('CreateMediaEntry.php', {
        name: <?php echo json_encode($result->fileName) ?>,
        uploadTokenId: <?php echo json_encode($result->id) ?>,
     });
