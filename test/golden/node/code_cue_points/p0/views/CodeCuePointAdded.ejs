@@ -16,7 +16,6 @@
 </script>
 <script>
   jsCallbackReady = function(playerId) {
-    console.log('cb ready', arguments);
     $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );
     window['writeLog'] = function(result) {
       var cuePoint = result.cuePoint

@@ -105,7 +105,7 @@
       <% }); %>
     </script>
     <script type="text/javascript">
-      var DynamicThumbnails = _.template($('#DynamicThumbnails-template').text());
+      var DynamicThumbnailsView = _.template($('#DynamicThumbnails-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -113,7 +113,7 @@
     </div>
     <script type="text/javascript">
       listMedia({}, function(result) {
-        $('.container').html(DynamicThumbnails({result: result}));
+        $('.container').html(DynamicThumbnailsView({result: result}));
       })
     </script>
   </body>

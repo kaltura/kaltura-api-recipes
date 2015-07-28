@@ -74,7 +74,7 @@
       <% } %>
     </script>
     <script type="text/javascript">
-      var KalturaUser = _.template($('#KalturaUser-template').text());
+      var KalturaUserView = _.template($('#KalturaUser-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -82,7 +82,7 @@
     </div>
     <script type="text/javascript">
       getUser({}, function(result) {
-        $('.container').html(KalturaUser({result: result}));
+        $('.container').html(KalturaUserView({result: result}));
       })
     </script>
   </body>

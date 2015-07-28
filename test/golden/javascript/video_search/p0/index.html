@@ -75,13 +75,13 @@
       <% result.forEach(function(video, index) { %>
         <% if(index < 5) { %>
           <%
-              print(KalturaMediaEntry({result: video}));
+              print(KalturaMediaEntryView({result: video}));
           %>
         <% } %>
       <% }); %>
     </script>
     <script type="text/javascript">
-      var KalturaMediaListResponse = _.template($('#KalturaMediaListResponse-template').text());
+      var KalturaMediaListResponseView = _.template($('#KalturaMediaListResponse-template').text());
     </script>
 
     <script id="KalturaMediaEntry-template" type="text/x-underscore-template" style="display: none">
@@ -109,7 +109,7 @@
       </div>
     </script>
     <script type="text/javascript">
-      var KalturaMediaEntry = _.template($('#KalturaMediaEntry-template').text());
+      var KalturaMediaEntryView = _.template($('#KalturaMediaEntry-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -117,7 +117,7 @@
     </div>
     <script type="text/javascript">
       listMedia({}, function(result) {
-        $('.container').html(KalturaMediaListResponse({result: result}));
+        $('.container').html(KalturaMediaListResponseView({result: result}));
       })
     </script>
   </body>

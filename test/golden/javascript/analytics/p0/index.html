@@ -84,7 +84,7 @@
       <% print("</"+"script>"); %>
     </script>
     <script type="text/javascript">
-      var KalturaReportTotal = _.template($('#KalturaReportTotal-template').text());
+      var KalturaReportTotalView = _.template($('#KalturaReportTotal-template').text());
     </script>
 
     <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
@@ -92,7 +92,7 @@
     </div>
     <script type="text/javascript">
       getTotalReport({}, function(result) {
-        $('.container').html(KalturaReportTotal({result: result}));
+        $('.container').html(KalturaReportTotalView({result: result}));
       })
     </script>
   </body>
