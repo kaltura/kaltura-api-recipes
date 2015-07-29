@@ -1,7 +1,7 @@
 var authBase = {
   "page": -1,
   "title": "Starting a KalturaSession",
-  "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Admin Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+  "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
   "affects": "setup",
   "inputs": [
     {
@@ -17,7 +17,7 @@ var authBase = {
     },
     {
       "type": "text",
-      "label": "Admin Secret",
+      "label": "Secret",
       "name": "adminSecret"
     },
     {
