@@ -61,7 +61,6 @@
               "label": "name"
             }
           },
-          "default": 28959921,
           "type": "select-chosen",
           "label": "UI Configuration ID",
           "name": "uiConf",
