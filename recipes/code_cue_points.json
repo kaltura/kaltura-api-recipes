@@ -17,7 +17,6 @@
         },
         {
           "type": "select-chosen",
-          "default": 28959921,
           "name": "uiConf",
           "dynamicChoices": {
             "service": "uiConf",

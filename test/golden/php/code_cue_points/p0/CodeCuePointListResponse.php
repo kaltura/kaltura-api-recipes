@@ -9,6 +9,6 @@
   <p><?php echo $cuePoint->description ?></p>
 <?php } ?>
 <?php
-  include "AddCodeCuePoint.php";
+  require "AddCodeCuePoint.php";
 ?>
 <hr></hr>

@@ -1,5 +1,5 @@
 <?php
-  include "AddAdCuePointForm.php";
+  require "AddAdCuePointForm.php";
 ?>
 <script>
   $('#AddAdCuePointForm').submit(function() {

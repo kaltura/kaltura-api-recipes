@@ -16,5 +16,5 @@ $userId = "lucybot@example.com";
 $result = $client->user->get(
   $userId);
 $result = (object)$result;
-include 'KalturaUser.php';
+require 'KalturaUser.php';
 ?>

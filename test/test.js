@@ -52,22 +52,25 @@ var ANSWERS = {
   },
   captions: {
     entryId: '1_9kdmnhuv',
-    uiConf: 24666901,
+    uiConf: 30633631,
   },
   code_cue_points: {
     entryIdEqual: '1_318vzqcr',
-    uiConf: 28959921,
+    uiConf: 30633631,
   },
   ad_cue_points: {
     entryIdEqual: '1_318vzqcr',
-    uiConf: 28959921,
+    uiConf: 30633631,
   },
   dynamic_thumbnails: {
-    uiConf: 28959921,
+    uiConf: 30633631,
+  },
+  video_search: {
+    uiConf: 30633631,
   },
   upload: {
-    uiConf: 28959921,
-  }
+    uiConf: 30633631,
+  },
 }
 var LANGUAGES = ['php', 'javascript', 'node']
 

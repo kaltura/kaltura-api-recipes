@@ -27,5 +27,5 @@ template->name = $_POST["name"];
 $template = $client->eventNotificationTemplate->cloneAction(null, template);
 $template = $client.eventNotificationTemplate.updateStatus($template.id, KalturaEventNotificationTemplateStatus::ACTIVE);
 $result = (object)$template;
-include 'KalturaEventNotificationTemplate.php';
+require 'KalturaEventNotificationTemplate.php';
 ?>

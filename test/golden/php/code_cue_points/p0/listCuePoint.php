@@ -22,5 +22,5 @@ $result = $client->cuePoint->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'CodeCuePointListResponse.php';
+require 'CodeCuePointListResponse.php';
 ?>

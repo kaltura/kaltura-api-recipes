@@ -23,5 +23,5 @@ $result = $client->report->getTotal(
   $reportInputFilter, 
   $objectIds);
 $result = (object)$result;
-include 'KalturaReportTotal.php';
+require 'KalturaReportTotal.php';
 ?>

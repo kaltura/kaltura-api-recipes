@@ -3,6 +3,6 @@
 <?php foreach($result as $index=>$template) { ?>
   <?php
     $result = $template;
-    include "KalturaEventNotificationTemplate.php";
+    require "KalturaEventNotificationTemplate.php";
   ?>
 <?php } ?>

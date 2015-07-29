@@ -1,3 +1,3 @@
 <?php
-  include "KalturaMediaEntry.php";
+  require "KalturaMediaEntry.php";
 ?>
