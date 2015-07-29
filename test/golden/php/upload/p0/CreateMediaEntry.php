@@ -24,5 +24,5 @@ while ($result->status != 2) {
   $result = $client->media->get($result->id);
 }
 $result = (object)$result;
-include 'CreatedEntry.php';
+require 'CreatedEntry.php';
 ?>

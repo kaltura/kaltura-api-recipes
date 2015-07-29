@@ -21,5 +21,5 @@ $result = $client->media->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'KalturaMediaListResponse.php';
+require 'KalturaMediaListResponse.php';
 ?>

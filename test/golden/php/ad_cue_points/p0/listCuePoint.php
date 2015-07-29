@@ -21,5 +21,5 @@ $result = $client->cuePoint->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'KalturaCuePointListResponse.php';
+require 'KalturaCuePointListResponse.php';
 ?>

@@ -28,5 +28,5 @@ $result = $client->report->getTable(
   $order, 
   $objectIds);
 $result = (object)$result;
-include 'KalturaReportTable.php';
+require 'KalturaReportTable.php';
 ?>

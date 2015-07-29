@@ -4,7 +4,7 @@
   <?php if($template->id == null) { ?>
     <?php
   $result = $template;
-  include "KalturaEventNotificationTemplate.php";
+  require "KalturaEventNotificationTemplate.php";
 ?>
     <form id="AddEventNotificationTemplateForm">
       <div class="form-group">

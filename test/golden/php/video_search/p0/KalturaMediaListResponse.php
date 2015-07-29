@@ -4,7 +4,7 @@
   <?php if($index < 5) { ?>
     <?php
       $result = $video;
-      include "KalturaMediaEntry.php";
+      require "KalturaMediaEntry.php";
     ?>
   <?php } ?>
 <?php } ?>

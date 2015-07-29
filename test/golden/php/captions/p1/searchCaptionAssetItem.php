@@ -24,5 +24,5 @@ $result = $client->captionAssetItem->search(
   $captionAssetItemFilter, 
   $captionAssetItemPager);
 $result = (object)$result->objects;
-include 'CaptionSearch.php';
+require 'CaptionSearch.php';
 ?>

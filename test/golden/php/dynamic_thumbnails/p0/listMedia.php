@@ -20,5 +20,5 @@ $result = $client->media->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'DynamicThumbnails.php';
+require 'DynamicThumbnails.php';
 ?>
