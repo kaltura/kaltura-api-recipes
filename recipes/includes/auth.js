@@ -17,7 +17,7 @@ var authBase = {
     },
     {
       "type": "text",
-      "label": "Admin Secret",
+      "label": "Secret",
       "name": "adminSecret"
     },
     {
