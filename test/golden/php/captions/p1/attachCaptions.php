@@ -30,5 +30,5 @@ $captionAsset->label = 'English';
 $newAsset = $client->captionAsset->add("1_9kdmnhuv", $captionAsset);
 $client->captionAsset->setContent($newAsset->id, $captionResource);
 $result = (object)$result;
-include 'CaptionsAttached.php';
+require 'CaptionsAttached.php';
 ?>

@@ -22,5 +22,5 @@ $result = $client->media->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'MediaListLikes.php';
+require 'MediaListLikes.php';
 ?>

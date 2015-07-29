@@ -20,5 +20,5 @@ $result = $client->eventNotificationTemplate->listTemplates(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'KalturaEventNotificationTemplateListResponse.php';
+require 'KalturaEventNotificationTemplateListResponse.php';
 ?>

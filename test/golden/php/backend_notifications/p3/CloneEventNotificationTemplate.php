@@ -1,5 +1,5 @@
 <?php
-  include "AddEventNotificationTemplateForm.php";
+  require "AddEventNotificationTemplateForm.php";
 ?>
 <script>
   $('#AddEventNotificationTemplateForm').submit(function() {

@@ -18,5 +18,5 @@ $result = $client->media->get(
   $entryId, 
   $version);
 $result = (object)$result;
-include 'KalturaMediaEntry.php';
+require 'KalturaMediaEntry.php';
 ?>

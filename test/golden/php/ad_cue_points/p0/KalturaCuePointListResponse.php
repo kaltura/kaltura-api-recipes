@@ -9,6 +9,6 @@
   </p>
 <?php } ?>
 <?php
-  include "AddAdCuePoint.php";
+  require "AddAdCuePoint.php";
 ?>
 <hr></hr>

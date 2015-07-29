@@ -18,5 +18,5 @@ $cuePoint->startTime = $_POST["startTime"];
 $cuePoint->entryId = "1_318vzqcr";
 $result = $client->cuePoint->add($cuePoint);
 $result = (object)$result;
-include 'CodeCuePointAdded.php';
+require 'CodeCuePointAdded.php';
 ?>

@@ -42,7 +42,7 @@
       KalturaSessionType.ADMIN,
       1760921)
     </script>
-    <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/28959921/partner_id/1760921"></script>
+    <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/30633631/partner_id/1760921"></script>
     <script type="text/javascript">
       var listCuePoint = function(request, callback) {
         filter = new KalturaCuePointFilter();
@@ -115,7 +115,7 @@
           <p><%= result.description %></p>
         </div>
         <div class="col-xs-12 col-md-6 col-md-offset-1">
-          <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/28959921/partner_id/<%= result.partnerId %>">
+          <script src="https://cdnapisec.kaltura.com/p/<%= result.partnerId %>/sp/<%= result.partnerId %>00/embedIframeJs/uiconf_id/30633631/partner_id/<%= result.partnerId %>">
           <% print("</"+"script>"); %>
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
           </div>
@@ -123,7 +123,7 @@
           kWidget.thumbEmbed({
             "targetId": "kaltura_player_<%= result.id %>",
             "wid": "_<%= result.partnerId %>",
-            "uiconf_id": 28959921,
+            "uiconf_id": 30633631,
             "flashvars": {},
             "cache_st": 1437326770,
             "entry_id": "<%= result.id %>"

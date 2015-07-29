@@ -4,7 +4,7 @@
     <p><?php echo $result->description ?></p>
   </div>
   <div class="col-xs-12 col-md-6 col-md-offset-1">
-    <script src="https://cdnapisec.kaltura.com/p/<?php echo $result->partnerId ?>/sp/<?php echo $result->partnerId ?>00/embedIframeJs/uiconf_id/24666901/partner_id/<?php echo $result->partnerId ?>">
+    <script src="https://cdnapisec.kaltura.com/p/<?php echo $result->partnerId ?>/sp/<?php echo $result->partnerId ?>00/embedIframeJs/uiconf_id/30633631/partner_id/<?php echo $result->partnerId ?>">
     </script>
     <div id="kaltura_player_<?php echo $result->id ?>" style="width: 560px; height: 395px;">
     </div>
@@ -12,7 +12,7 @@
     kWidget.thumbEmbed({
       "targetId": "kaltura_player_<?php echo $result->id ?>",
       "wid": "_<?php echo $result->partnerId ?>",
-      "uiconf_id": 24666901,
+      "uiconf_id": 30633631,
       "flashvars": {},
       "cache_st": 1437326770,
       "entry_id": "<?php echo $result->id ?>"

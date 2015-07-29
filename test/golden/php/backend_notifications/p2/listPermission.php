@@ -21,5 +21,5 @@ $result = $client->permission->listAction(
   $filter, 
   $pager);
 $result = (object)$result->objects;
-include 'KalturaPermissionListResponse.php';
+require 'KalturaPermissionListResponse.php';
 ?>
