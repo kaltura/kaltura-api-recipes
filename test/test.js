@@ -15,7 +15,7 @@ var GOLDEN_BASE = __dirname + '/golden';
 
 var AUTH_ANSWERS = {
   partnerId: 1760921,
-  adminSecret: '8d6cb692ab0f41bfa6bde373204c4b40',
+  secret: '8d6cb692ab0f41bfa6bde373204c4b40',
 }
 
 var buildCode = function(recipe, data, done) {

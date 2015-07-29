@@ -1,11 +1,13 @@
 require_once('<%- Lucy.answer('libraryDirectory') || 'lib/' %>KalturaClient.php');
-$config = new KalturaConfiguration(<%- Lucy.variable('answers.partnerId') %>);
+require_once('Credentials.php');
+
+$config = new KalturaConfiguration($PARTNER_ID);
 $config->serviceUrl = 'https://www.kaltura.com/';
 $client = new KalturaClient($config);
 $ks = $client->session->start(
-  <%- Lucy.variable("answers.adminSecret") %>,
-  <%- Lucy.variable("answers.userId") %>,
-  <%- Lucy.answer('sessionType') === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
-  <%- Lucy.variable('answers.partnerId') %>,
+  $SECRET,
+  $USER_ID,
+  $SESSION_TYPE,
+  $PARTNER_ID,
   null, null);
 $client->setKS($ks);

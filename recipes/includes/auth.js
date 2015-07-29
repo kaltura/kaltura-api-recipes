@@ -18,7 +18,7 @@ var authBase = {
     {
       "type": "text",
       "label": "Secret",
-      "name": "adminSecret"
+      "name": "secret"
     },
     {
       "type": "select",

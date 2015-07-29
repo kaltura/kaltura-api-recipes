@@ -8,7 +8,7 @@ client.session.start(function(ks) {
   } else {
     client.setKs(ks);
   }
-}, <%- Lucy.variable("answers.adminSecret") %>,
+}, <%- Lucy.variable("answers.secret") %>,
 <%- Lucy.variable("answers.userId") %>,
 <%- Lucy.answer('sessionType') === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
 <%- Lucy.variable('answers.partnerId') %>)
