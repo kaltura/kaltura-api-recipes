@@ -107,17 +107,17 @@ var storeCredentials = function(creds) {
 app.controller('Answers', function($scope) {
   $scope.answers = {};
   var credentialsChanged = function() {
-    if ($scope.answers.partnerId && $scope.answers.adminSecret) {
-      startKalturaSession($scope.answers.partnerId, $scope.answers.userId, $scope.answers.adminSecret);
+    if ($scope.answers.partnerId && $scope.answers.secret) {
+      startKalturaSession($scope.answers.partnerId, $scope.answers.userId, $scope.answers.secret);
     }
     var stored = getStoredCredentials();
     stored.partnerId = $scope.answers.partnerId;
-    stored.adminSecret = $scope.answers.adminSecret;
+    stored.secret = $scope.answers.secret;
     stored.userId = $scope.answers.userId || '';
     storeCredentials(stored);
   }
   $scope.$watch('answers.partnerId', credentialsChanged);
-  $scope.$watch('answers.adminSecret', credentialsChanged);
+  $scope.$watch('answers.secret', credentialsChanged);
   $scope.$watch('answers.userId', credentialsChanged);
   var useDates = function(newDate) {
     if (!newDate) return;

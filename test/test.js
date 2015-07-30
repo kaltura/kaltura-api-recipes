@@ -16,6 +16,7 @@ var GOLDEN_BASE = __dirname + '/golden';
 var AUTH_ANSWERS = {
   partnerId: 1760921,
   secret: '8d6cb692ab0f41bfa6bde373204c4b40',
+  serviceURL: process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/'
 }
 
 var buildCode = function(recipe, data, done) {

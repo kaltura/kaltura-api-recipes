@@ -2,7 +2,7 @@ require_once('<%- Lucy.answer('libraryDirectory') || 'lib/' %>KalturaClient.php'
 require_once('Credentials.php');
 
 $config = new KalturaConfiguration($PARTNER_ID);
-$config->serviceUrl = 'https://www.kaltura.com/';
+$config->serviceUrl = <%- Lucy.code.variable('answers.serviceURL') %>;
 $client = new KalturaClient($config);
 $ks = $client->session->start(
   $SECRET,

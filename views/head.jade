@@ -40,6 +40,7 @@ script(type="text/javascript").
       if (!success || (ks.code && ks.message)) return console.log('Kaltura Error', success, ks);
       KC.setKs(ks);
       KC.uiConf.listAction(function(success, results) {
+        console.log('setting uiconf', results.objects);
         var uiConfs = results.objects.filter(function(uiConf) {
           return uiConf.tags && uiConf.tags.indexOf('html5studio') !== -1;
         })
