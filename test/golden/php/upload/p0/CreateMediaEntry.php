@@ -1,13 +1,15 @@
 <?php
 require_once('../../lib/KalturaClient.php');
-$config = new KalturaConfiguration(1760921);
-$config->serviceUrl = 'https://www.kaltura.com/';
+require_once('Credentials.php');
+
+$config = new KalturaConfiguration($PARTNER_ID);
+$config->serviceUrl = "https://www.kaltura.com/";
 $client = new KalturaClient($config);
 $ks = $client->session->start(
-  "8d6cb692ab0f41bfa6bde373204c4b40",
-  "lucybot@example.com",
-  KalturaSessionType::ADMIN,
-  1760921,
+  $SECRET,
+  $USER_ID,
+  $SESSION_TYPE,
+  $PARTNER_ID,
   null, null);
 $client->setKS($ks);
 

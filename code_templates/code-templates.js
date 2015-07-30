@@ -10,15 +10,20 @@ var populateTemplates = function(type) {
     var ext = Path.extname(tmpl);
     var name = Path.basename(tmpl, ext);
     var filename = Path.join(__dirname, type, tmpl);
-    if (type === 'views' || type === 'actions') {
+    if (type === 'views' || type === 'actions' || type === 'static') {
       var lang = name;
       var tmplsInner = FS.readdirSync(filename);
       tmplsInner.forEach(function(tmplInner) {
         ext = Path.extname(tmplInner);
         name = Path.basename(tmplInner, ext);
         var filenameInner = Path.join(__dirname, type, lang, tmplInner);
-        Templates[type][name] = Templates[type][name] || {};
-        Templates[type][name][lang] = FS.readFileSync(filenameInner, 'utf8');
+        if (type === 'static') {
+          Templates[type][lang] = Templates[type][lang] || {};
+          Templates[type][lang][name] = FS.readFileSync(filenameInner, 'utf8');
+        } else {
+          Templates[type][name] = Templates[type][name] || {};
+          Templates[type][name][lang] = FS.readFileSync(filenameInner, 'utf8');
+        }
       })
     } else {
       Templates[type][name] = FS.readFileSync(filename, 'utf8');
@@ -26,5 +31,5 @@ var populateTemplates = function(type) {
   });
 }
 
-var types = ['actions', 'views', 'generic_actions', 'setups'];
+var types = ['actions', 'views', 'generic_actions', 'setups', 'static'];
 types.forEach(populateTemplates);

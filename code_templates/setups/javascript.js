@@ -11,7 +11,7 @@
 
 <script>
   var config = new KalturaConfiguration(<%- Lucy.answer('partnerId') %>);
-  config.serviceUrl = "https://www.kaltura.com/";
+  config.serviceUrl = <%- Lucy.code.variable('answers.serviceURL') %>;
   var client = new KalturaClient(config);
   client.session.start(function(success, ks) {
     if (!success || (ks.code && ks.message)) {
@@ -25,7 +25,7 @@
     // as this exposes your Admin Secret to users.
     // Instead, generate a session on the server and pass the
     // KS to the client.
-  }, <%- Lucy.variable("answers.adminSecret") %>,
+  }, <%- Lucy.variable("answers.secret") %>,
   <%- Lucy.variable("answers.userId") %>,
   <%- Lucy.answer('sessionType') === 0 ? 'KalturaSessionType.USER' : 'KalturaSessionType.ADMIN' %>,
   <%- Lucy.variable('answers.partnerId') %>)

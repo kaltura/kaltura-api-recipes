@@ -1,6 +1,6 @@
 var Kaltura = require('./<%- Lucy.answer("libraryDirectory") || "lib/" %>KalturaClient.js');
 var config = new Kaltura.KalturaConfiguration(<%- Lucy.answer('partnerId') %>);
-config.serviceUrl = "https://www.kaltura.com/";
+config.serviceUrl = <%- Lucy.code.variable('answers.serviceURL') %>;
 var client = new Kaltura.KalturaClient(config);
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
@@ -8,7 +8,7 @@ client.session.start(function(ks) {
   } else {
     client.setKs(ks);
   }
-}, <%- Lucy.variable("answers.adminSecret") %>,
+}, <%- Lucy.variable("answers.secret") %>,
 <%- Lucy.variable("answers.userId") %>,
 <%- Lucy.answer('sessionType') === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
 <%- Lucy.variable('answers.partnerId') %>)

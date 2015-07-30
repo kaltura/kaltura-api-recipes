@@ -117,6 +117,7 @@ var buildRecipe = function(req, res, callback) {
       buildParams.views[viewName] = {};
       buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
     });
+    buildParams.staticFiles = CodeTemplates.static[language];
     CodeBuilders.RecipeV2.build(buildParams, callback);
   });
 };
