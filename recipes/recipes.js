@@ -25,5 +25,6 @@ files.forEach(function(filename) {
   var auth = Recipes[name].needsAdmin ? AuthStep.admin : AuthStep.sessionSelect;
   Recipes[name].control_sets.unshift(auth);
   Recipes[name].defaults = Recipes[name].defaults || {};
-  Recipes[name].defaults.serviceURL = 'https://www.kaltura.com/';
+  Recipes[name].defaults.serviceURL =
+      process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
 });
