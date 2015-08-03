@@ -124,10 +124,14 @@ describe('sample code', function() {
 
 var startServer = function(language, directory) {
   if (language == 'php' || language === 'javascript') {
-    return Exec('php -S 0.0.0.0:3333 -t ' + directory);
-  } else {
-    return Exec('node ' + Path.join(directory, 'server.js'));
+    proc = Exec('php -S 0.0.0.0:3333 -t ' + directory);
+  } else if (language === 'node') {
+    proc = Exec('node ' + Path.join(directory, 'server.js'));
   }
+  proc.on('error', function(err) {
+    Expect(err).to.equal(null);
+  });
+  return proc;
 } 
 
 describe('golden servers', function() {
