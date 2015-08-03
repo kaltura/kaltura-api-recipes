@@ -33,7 +33,7 @@ app.post('/getTotalReport', function(req, res) {
   reportInputFilter.fromDay = "2015-07-01";
   reportInputFilter.toDay = "2015-07-10";
 
-  var reportType = 5;
+  var reportType = Kaltura.enums.KalturaReportType.TOP_CONTRIBUTORS;
   var objectIds = null;
 
   client.report.getTotal(function(results) {

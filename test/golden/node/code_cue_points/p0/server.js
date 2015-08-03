@@ -30,7 +30,7 @@ app.get('/', function(req, res) {
 
 app.post('/listCuePoint', function(req, res) {
   filter = new Kaltura.objects.KalturaCuePointFilter();
-  filter.cuePointTypeEqual = "codeCuePoint.Code";
+  filter.cuePointTypeEqual = Kaltura.enums.KalturaCuePointType.CODE;
   filter.entryIdEqual = "1_318vzqcr";
 
   pager = new Kaltura.objects.KalturaFilterPager();

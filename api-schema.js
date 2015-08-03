@@ -3,9 +3,7 @@ var Path = require('path');
 var XMLParser = require('xml2js').parseString;
 
 var SchemaXML = FS.readFileSync(Path.join(__dirname, 'api_schema.xml'), 'utf8');
-var Schema = module.exports = {classes: {}, services: {}};
-
-var BLACKLISTED_FIELDS = ['id', 'partnerId'];
+var Schema = module.exports = {classes: {}, services: {}, enums: {}};
 
 XMLParser(SchemaXML, function(err, result) {
   if (err) throw err;
@@ -20,7 +18,7 @@ XMLParser(SchemaXML, function(err, result) {
       if (result) actionJS.returns = result.$.type;
       if (!action.param) return;
       action.param.forEach(function(param) {
-        var paramJS = actionJS.parameters[param.$.name] = {type: param.$.type};
+        var paramJS = actionJS.parameters[param.$.name] = {type: param.$.type, enumType: param.$.enumType};
       });
     });
   });
@@ -43,7 +41,17 @@ XMLParser(SchemaXML, function(err, result) {
       } else {
         propJS.type = prop.$.type;
       }
+      propJS.enumType = prop.$.enumType;
     });
+  });
+
+  result.enums[0].enum.forEach(function(en) {
+    var enumJS = Schema.enums[en.$.name] = {values: {}};
+    vals = en.const || []
+    vals.forEach(function(val) {
+      enumJS.values[val.$.name] = val.$.value;
+      if (en.$.enumType === 'int') enumJS.values[val.$.name] = parseInt(enumJS.values[val.$.name]);
+    })
   });
 });
 

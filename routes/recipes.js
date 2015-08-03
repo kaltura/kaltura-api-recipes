@@ -79,18 +79,24 @@ var buildRecipe = function(req, res, callback) {
         for (parameter in actionSchema.parameters) {
           var type = actionSchema.parameters[parameter].type;
           var paramObject = {name: parameter, class: type}
+          var enumType = actionSchema.parameters[parameter].enumType;
+          if (enumType) paramObject.enum = {name: enumType, values: Schema.enums[enumType].values};
           codeParams.parameters.push(paramObject);
           if (type.indexOf('Kaltura') !== 0) continue;
+
           paramObject.fields = [];
           var cls = Schema.classes[type];
           if (!cls) throw new Error('Type ' + type + ' not found in schema');
           for (field in cls.properties) {
             if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
               var fieldType = cls.properties[field].type;
-              paramObject.fields.push({
+              var enumType = cls.properties[field].enumType;
+              var field = {
                   name: field,
                   type: fieldType,
-              });
+              };
+              if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
+              paramObject.fields.push(field);
             }
           }
         }

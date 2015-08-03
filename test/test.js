@@ -1,22 +1,26 @@
 var Async = require('async');
+var Exec = require('child_process').exec;
 var Util = require('util');
 var FS = require('fs');
 var Path = require('path');
 var Request = require('request');
 var Mkdirp = require('mkdirp');
 var Rmdir = require('rimraf')
+var Expect = require('chai').expect;
 
 var Server = require('./server.js');
 
-var PORT = 3333;
+var PORT = 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
 var GOLDEN_BASE = __dirname + '/golden';
 
 var AUTH_ANSWERS = {
-  partnerId: 1760921,
-  secret: '8d6cb692ab0f41bfa6bde373204c4b40',
-  serviceURL: process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/'
+  partnerId: parseInt(process.env.KALTURA_PARTNER_ID) || 1760921,
+  secret: process.env.KALTURA_SECRET || process.env.KALTURA_ADMIN_SECRET || '8d6cb692ab0f41bfa6bde373204c4b40',
+  serviceURL: process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/',
+  userId: process.env.KALTURA_USER_ID || 'lucybot@example.com',
+  sessionType: process.env.KALTURA_SECRET ? 0 : 2
 }
 
 var buildCode = function(recipe, data, done) {
@@ -29,17 +33,24 @@ var buildCode = function(recipe, data, done) {
   }, function(err, resp, files) {
     if (err) throw err;
     var baseDir = Path.join(GOLDEN_BASE, data.language, recipe, 'p' + data.page);
-    if (FS.existsSync(baseDir)) Rmdir.sync(baseDir);
-    Mkdirp.sync(baseDir);
-    var dirs = files.filter(function(f) {return f.directory});
-    files = files.filter(function(f) {return !f.directory});
-    dirs.forEach(function(dir) {
-      var filename = Path.join(baseDir, dir.filename);
-      if (!FS.existsSync(filename)) Mkdirp.sync(filename);
-    })
-    files.forEach(function(file) {
-      FS.writeFileSync(Path.join(baseDir, file.filename), file.contents);
-    });
+    if (process.env.WRITE_GOLDEN) {
+      if (FS.existsSync(baseDir)) Rmdir.sync(baseDir);
+      Mkdirp.sync(baseDir);
+      var dirs = files.filter(function(f) {return f.directory});
+      files = files.filter(function(f) {return !f.directory});
+      dirs.forEach(function(dir) {
+        var filename = Path.join(baseDir, dir.filename);
+        if (!FS.existsSync(filename)) Mkdirp.sync(filename);
+      })
+      files.forEach(function(file) {
+        FS.writeFileSync(Path.join(baseDir, file.filename), file.contents);
+      });
+    } else {
+      files.filter(function(f) {return !f.directory}).forEach(function(file) {
+        var golden = FS.readFileSync(Path.join(baseDir, file.filename), 'utf8')
+        Expect(golden).to.equal(file.contents)
+      })
+    }
     done();
   });
 }
@@ -47,7 +58,7 @@ var buildCode = function(recipe, data, done) {
 var Recipes = require('../recipes/recipes.js');
 var ANSWERS = {
   analytics: {
-    reportType: 5,
+    reportType: "5",
     fromDay: '2015-07-01',
     toDay: '2015-07-10',
   },
@@ -73,7 +84,7 @@ var ANSWERS = {
     uiConf: 30633631,
   },
 }
-var LANGUAGES = ['php', 'javascript', 'node']
+var LANGUAGES = ['php', 'javascript', 'node'];
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
@@ -108,4 +119,39 @@ describe('sample code', function() {
       });
     });
   });
+});
+
+var startServer = function(language, directory) {
+  if (language == 'php' || language === 'javascript') {
+    return Exec('php -S 0.0.0.0:3333 -t ' + directory);
+  } else {
+    return Exec('node ' + Path.join(directory, 'server.js'));
+  }
+} 
+
+describe('golden servers', function() {
+  Object.keys(Recipes).forEach(function(recipe) {
+    if (Recipes[recipe].broken) return;
+    LANGUAGES.forEach(function(language) {
+      Recipes[recipe].pages.forEach(function(page, pageIndex) {
+        it ('should start server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
+          var proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
+          Request('http://127.0.0.1:3333/', function(err, resp, body) {
+            Expect(err).to.equal(null);
+            var goldenDir = Path.join(__dirname, 'golden', 'responses', language, recipe, 'p' + pageIndex);
+            var goldenFile = Path.join(goldenDir, 'response.html');
+            if (process.env.WRITE_GOLDEN) {
+              if (!FS.existsSync(goldenDir)) Mkdirp.sync(goldenDir);
+              FS.writeFileSync(goldenFile, body);
+            } else {
+              golden = FS.readFileSync(goldenFile, 'utf8');
+              Expect(golden).to.equal(body);
+            }
+            proc.kill('SIGHUP');
+            done();
+          });
+        });
+      });
+    });
+  })
 })
