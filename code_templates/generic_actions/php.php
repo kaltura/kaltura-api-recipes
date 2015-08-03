@@ -16,7 +16,9 @@ $<%- param.name %>-><%- field.name %> = <%- field.enum.name %>::<%- valueName %>
 
 <% }); -%>
 <% parameters.filter(function(param) {return !param.fields}).forEach(function(param, index) { -%>
-<%     if (!param.enum) { %>
+<%     if (param.name === 'userId') { -%>
+$<%- param.name %> = USER_ID;
+<%     } else if (!param.enum) { %>
 $<%- param.name %> = <%- '<\%- Lucy.code.variable("answers.' + param.name + '") %\>' %>;
 <%     } else { -%>
 <%       for (valueName in param.enum.values) { -%>

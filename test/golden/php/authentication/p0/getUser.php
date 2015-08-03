@@ -13,7 +13,7 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$userId = "lucybot@example.com";
+$userId = USER_ID;
 
 $result = $client->user->get(
   $userId);
