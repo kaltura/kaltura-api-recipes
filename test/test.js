@@ -33,7 +33,6 @@ var buildCode = function(recipe, data, done) {
   }, function(err, resp, files) {
     Expect(err).to.equal(null);
     Expect(files).to.be.instanceof(Array);
-    if (err) throw err;
     var baseDir = Path.join(GOLDEN_BASE, data.language, recipe, 'p' + data.page);
     if (process.env.WRITE_GOLDEN) {
       if (FS.existsSync(baseDir)) Rmdir.sync(baseDir);
