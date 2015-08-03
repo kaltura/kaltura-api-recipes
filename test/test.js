@@ -13,6 +13,8 @@ var Server = require('./server.js');
 var PORT = 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
+var PROCESS_WAIT_TIME = 500;
+
 var GOLDEN_BASE = __dirname + '/golden';
 
 var AUTH_ANSWERS = {
@@ -144,11 +146,11 @@ Object.keys(Recipes).forEach(function(recipe) {
         var proc;
         before(function(done) {
           proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
-          setTimeout(done, 500);
+          setTimeout(done, PROCESS_WAIT_TIME);
         });
         after(function(done) {
           proc.kill('SIGHUP');
-          setTimeout(done, 500);
+          setTimeout(done, PROCESS_WAIT_TIME);
         })
         it ('should return HTML', function(done) {
           Request('http://127.0.0.1:3333/', function(err, resp, body) {
