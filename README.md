@@ -38,6 +38,8 @@ You can set the credentials for testing using environment variables:
 ```export KALTURA_PARTNER_ID=123456```
 
 ```export KALTURA_SECRET=abcd1234```
+or
+```export KALTURA_ADMIN_SECRET=abcd1234```
 
 ```export KALTURA_USER_ID=foo@bar.com```
 
