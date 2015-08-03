@@ -19,8 +19,10 @@ $reportInputFilter->toDay = "20150715";
 
 $pager = new KalturaFilterPager();
 
-$reportType = 13;
+$reportType = KalturaReportType::USER_TOP_CONTENT;
+
 $order = "count_plays";
+
 $objectIds = null;
 
 $result = $client->report->getTable(

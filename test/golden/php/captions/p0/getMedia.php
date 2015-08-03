@@ -14,6 +14,7 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $entryId = "1_9kdmnhuv";
+
 $version = null;
 
 $result = $client->media->get(

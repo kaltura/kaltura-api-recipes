@@ -17,7 +17,8 @@ $reportInputFilter = new KalturaReportInputFilter();
 $reportInputFilter->fromDay = "2015-07-01";
 $reportInputFilter->toDay = "2015-07-10";
 
-$reportType = 5;
+$reportType = KalturaReportType::TOP_CONTRIBUTORS;
+
 $objectIds = null;
 
 $result = $client->report->getTotal(

@@ -12,11 +12,11 @@
       "type": "select",
       "name": "reportType",
       "label": "Report Type",
-      "default": 13,
+      "default": "13",
       "choices": [
-        {"label": "USER_ENGAGEMENT", "value": 11},
-        {"label": "SPEFICIC_USER_ENGAGEMENT", "value": 12},
-        {"label": "USER_TOP_CONTENT", "value": 13}
+        {"label": "USER_ENGAGEMENT", "value": "11"},
+        {"label": "SPEFICIC_USER_ENGAGEMENT", "value": "12"},
+        {"label": "USER_TOP_CONTENT", "value": "13"}
       ]
     }, {
       "type": "select-chosen",
@@ -51,10 +51,10 @@
       "type": "select",
       "name": "reportType",
       "label": "Report Type",
-      "default": 5,
+      "default": "5",
       "choices": [
-        {"label": "TOP_CONTRIBUTORS", "value": 5},
-        {"label": "TOP_CREATORS", "value": 20}
+        {"label": "TOP_CONTRIBUTORS", "value": "5"},
+        {"label": "TOP_CREATORS", "value": "20"}
       ]
     }, {
       "type": "select-chosen",

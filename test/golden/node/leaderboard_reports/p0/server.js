@@ -54,7 +54,7 @@ app.post('/getTableReport', function(req, res) {
 
   pager = new Kaltura.objects.KalturaFilterPager();
 
-  var reportType = 13;
+  var reportType = Kaltura.enums.KalturaReportType.USER_TOP_CONTENT;
   var order = "count_plays";
   var objectIds = null;
 

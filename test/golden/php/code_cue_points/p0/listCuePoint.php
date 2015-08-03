@@ -14,7 +14,7 @@ $ks = $client->session->start(
 $client->setKS($ks);
 
 $filter = new KalturaCuePointFilter();
-$filter->cuePointTypeEqual = "codeCuePoint.Code";
+$filter->cuePointTypeEqual = KalturaCuePointType::CODE;
 $filter->entryIdEqual = "1_318vzqcr";
 
 $pager = new KalturaFilterPager();

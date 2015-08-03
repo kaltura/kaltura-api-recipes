@@ -47,7 +47,7 @@ var buildCode = function(recipe, data, done) {
 var Recipes = require('../recipes/recipes.js');
 var ANSWERS = {
   analytics: {
-    reportType: 5,
+    reportType: "5",
     fromDay: '2015-07-01',
     toDay: '2015-07-10',
   },
