@@ -1,6 +1,5 @@
 # LucyBot recipes for the Kaltura API
 
-
 ## Installation
 ```bash
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
