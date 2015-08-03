@@ -17,9 +17,10 @@ var GOLDEN_BASE = __dirname + '/golden';
 
 var AUTH_ANSWERS = {
   partnerId: parseInt(process.env.KALTURA_PARTNER_ID) || 1760921,
-  secret: process.env.KALTURA_SECRET || '8d6cb692ab0f41bfa6bde373204c4b40',
+  secret: process.env.KALTURA_SECRET || process.env.KALTURA_ADMIN_SECRET || '8d6cb692ab0f41bfa6bde373204c4b40',
   serviceURL: process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/',
-  userId: process.env.KALTURA_USER_ID,
+  userId: process.env.KALTURA_USER_ID || 'lucybot@example.com',
+  sessionType: process.env.KALTURA_SECRET ? 0 : 2
 }
 
 var buildCode = function(recipe, data, done) {
