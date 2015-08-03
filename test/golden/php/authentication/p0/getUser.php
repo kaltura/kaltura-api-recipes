@@ -13,10 +13,7 @@ $ks = $client->session->start(
   null, null);
 $client->setKS($ks);
 
-$userId = "lucybot@example.com";
-
-$result = $client->user->get(
-  $userId);
+$result = $client->user->get(USER_ID);
 $result = (object)$result;
 require 'KalturaUser.php';
 ?>
