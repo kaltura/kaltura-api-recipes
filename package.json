@@ -23,8 +23,7 @@
     "ejs": "^2.3.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
-    "xml2js": "^0.4.9",
-    "underscore": "~1.8.3"
+    "xml2js": "^0.4.9"
   },
   "devDependencies": {
     "rimraf": "~2.4.2",
