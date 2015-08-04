@@ -10,7 +10,7 @@ var Expect = require('chai').expect;
 
 var Server = require('./server.js');
 
-var PORT = 3334;
+var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
 var PROCESS_WAIT_TIME = 500;
