@@ -12,11 +12,11 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <div class="KalturaCuePointListResponse"></div>
+      <div class="CaptionSearch"></div>
       <script>
-        var element = $('.KalturaCuePointListResponse').last();
+        var element = $('.CaptionSearch').last();
         element[0].loadData = function() {
-          $('.KalturaCuePointListResponse').last().load('listCuePoint.php');
+          $('.CaptionSearch').last().load('searchCaptionAssetItem', {});
         }
         element[0].loadData();
       </script>

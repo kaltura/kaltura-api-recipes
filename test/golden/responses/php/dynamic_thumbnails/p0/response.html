@@ -12,11 +12,11 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <div class="KalturaCuePointListResponse"></div>
+      <div class="DynamicThumbnails"></div>
       <script>
-        var element = $('.KalturaCuePointListResponse').last();
+        var element = $('.DynamicThumbnails').last();
         element[0].loadData = function() {
-          $('.KalturaCuePointListResponse').last().load('listCuePoint.php');
+          $('.DynamicThumbnails').last().load('listMedia.php');
         }
         element[0].loadData();
       </script>

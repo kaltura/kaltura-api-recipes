@@ -16,7 +16,7 @@
       <script>
         var element = $('.KalturaCuePointListResponse').last();
         element[0].loadData = function() {
-          $('.KalturaCuePointListResponse').last().load('listCuePoint.php');
+          $('.KalturaCuePointListResponse').last().load('listCuePoint', {});
         }
         element[0].loadData();
       </script>

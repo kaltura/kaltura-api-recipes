@@ -1,5 +1,5 @@
 var Async = require('async');
-var Exec = require('child_process').exec;
+var Spawn = require('child_process').spawn;
 var Util = require('util');
 var FS = require('fs');
 var Path = require('path');
@@ -12,6 +12,8 @@ var Server = require('./server.js');
 
 var PORT = 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
+
+var PROCESS_WAIT_TIME = 500;
 
 var GOLDEN_BASE = __dirname + '/golden';
 
@@ -31,7 +33,8 @@ var buildCode = function(recipe, data, done) {
     json: true,
     body: data,
   }, function(err, resp, files) {
-    if (err) throw err;
+    Expect(err).to.equal(null);
+    Expect(files).to.be.instanceof(Array);
     var baseDir = Path.join(GOLDEN_BASE, data.language, recipe, 'p' + data.page);
     if (process.env.WRITE_GOLDEN) {
       if (FS.existsSync(baseDir)) Rmdir.sync(baseDir);
@@ -123,19 +126,33 @@ describe('sample code', function() {
 
 var startServer = function(language, directory) {
   if (language == 'php' || language === 'javascript') {
-    return Exec('php -S 0.0.0.0:3333 -t ' + directory);
-  } else {
-    return Exec('node ' + Path.join(directory, 'server.js'));
+    proc = Spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});
+  } else if (language === 'node') {
+    proc = Spawn('node', [Path.join(directory, 'server.js')], {stdio: 'pipe'});
   }
+  proc.stderr.on('data', function(err) {
+    if (err.toString().match(/\[200\]: \//)) return;
+    console.log('    ERROR:', err.toString());
+    Expect(err).to.equal(null);
+  })
+  return proc;
 } 
 
-describe('golden servers', function() {
-  Object.keys(Recipes).forEach(function(recipe) {
-    if (Recipes[recipe].broken) return;
-    LANGUAGES.forEach(function(language) {
-      Recipes[recipe].pages.forEach(function(page, pageIndex) {
-        it ('should start server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
-          var proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
+Object.keys(Recipes).forEach(function(recipe) {
+  if (Recipes[recipe].broken) return;
+  LANGUAGES.forEach(function(language) {
+    Recipes[recipe].pages.forEach(function(page, pageIndex) {
+      describe('server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
+        var proc;
+        before(function(done) {
+          proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
+          setTimeout(done, PROCESS_WAIT_TIME);
+        });
+        after(function(done) {
+          proc.kill('SIGHUP');
+          setTimeout(done, PROCESS_WAIT_TIME);
+        })
+        it ('should return HTML', function(done) {
           Request('http://127.0.0.1:3333/', function(err, resp, body) {
             Expect(err).to.equal(null);
             var goldenDir = Path.join(__dirname, 'golden', 'responses', language, recipe, 'p' + pageIndex);
@@ -147,11 +164,10 @@ describe('golden servers', function() {
               golden = FS.readFileSync(goldenFile, 'utf8');
               Expect(golden).to.equal(body);
             }
-            proc.kill('SIGHUP');
             done();
           });
-        });
+        })
       });
     });
-  })
+  });
 })
