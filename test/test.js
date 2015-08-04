@@ -132,6 +132,7 @@ var startServer = function(language, directory) {
   }
   proc.stderr.on('data', function(err) {
     if (err.toString().match(/\[200\]: \//)) return;
+    if (!err.toString().trim()) return;
     console.log('    ERROR:', err.toString());
     Expect(err).to.equal(null);
   })
