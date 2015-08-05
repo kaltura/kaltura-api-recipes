@@ -38,7 +38,8 @@ app.post('/listMedia', function(req, res) {
 
   client.media.listAction(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('MediaListLikes', {request: req.body, result: results})
     } else {
       res.render('MediaListLikes', {request: req.body, result: results.objects})
     }
@@ -60,7 +61,8 @@ app.post('/getTableReport', function(req, res) {
 
   client.report.getTable(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaReportTable', {request: req.body, result: results})
     } else {
       res.render('KalturaReportTable', {request: req.body, result: results})
     }

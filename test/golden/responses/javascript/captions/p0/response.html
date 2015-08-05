@@ -53,6 +53,7 @@
           client.media.get(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
+              callback(results)
             } else {
               console.log('Kaltura Result', results);
               callback(results)
@@ -77,6 +78,7 @@
           client.captionAssetItem.search(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
+              callback(results)
             } else {
               console.log('Kaltura Result', results);
               callback(results.objects)

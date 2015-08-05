@@ -57,6 +57,7 @@
           client.media.listAction(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
+              callback(results)
             } else {
               console.log('Kaltura Result', results);
               callback(results.objects)
@@ -83,6 +84,7 @@
           client.report.getTable(function(success, results) {
             if (!success || (results.code && results.message)) {
               console.log('Kaltura Error', success, results);
+              callback(results)
             } else {
               console.log('Kaltura Result', results);
               callback(results)

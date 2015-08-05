@@ -13,7 +13,7 @@ var Server = require('./server.js');
 var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
-var PROCESS_WAIT_TIME = 500;
+var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 500;
 
 var GOLDEN_BASE = __dirname + '/golden';
 
@@ -135,6 +135,9 @@ var startServer = function(language, directory) {
     if (!err.toString().trim()) return;
     console.log('    ERROR:', err.toString());
     Expect(err).to.equal(null);
+  });
+  proc.on('error', function(err) {
+    Expect(err).to.equal(null);
   })
   return proc;
 } 
@@ -146,10 +149,12 @@ Object.keys(Recipes).forEach(function(recipe) {
       describe('server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
         var proc;
         before(function(done) {
+          this.timeout(PROCESS_WAIT_TIME + 100);
           proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
           setTimeout(done, PROCESS_WAIT_TIME);
         });
         after(function(done) {
+          this.timeout(PROCESS_WAIT_TIME + 100);
           proc.kill('SIGHUP');
           setTimeout(done, PROCESS_WAIT_TIME);
         })

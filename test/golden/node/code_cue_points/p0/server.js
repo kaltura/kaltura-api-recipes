@@ -38,7 +38,8 @@ app.post('/listCuePoint', function(req, res) {
 
   client.cuePoint.listAction(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('CodeCuePointListResponse', {request: req.body, result: results})
     } else {
       res.render('CodeCuePointListResponse', {request: req.body, result: results.objects})
     }
@@ -64,7 +65,8 @@ app.post('/getMedia', function(req, res) {
 
   client.media.get(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaMediaEntry', {request: req.body, result: results})
     } else {
       res.render('KalturaMediaEntry', {request: req.body, result: results})
     }

@@ -36,7 +36,8 @@ app.post('/listMedia', function(req, res) {
 
   client.media.listAction(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('DynamicThumbnails', {request: req.body, result: results})
     } else {
       res.render('DynamicThumbnails', {request: req.body, result: results.objects})
     }

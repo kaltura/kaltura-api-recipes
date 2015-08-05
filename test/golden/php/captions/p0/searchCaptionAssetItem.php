@@ -21,10 +21,19 @@ $captionAssetItemFilter->contentLike = "support";
 $captionAssetItemPager = new KalturaFilterPager();
 
 
-$result = $client->captionAssetItem->search(
-  $entryFilter, 
-  $captionAssetItemFilter, 
-  $captionAssetItemPager);
-$result = (object)$result->objects;
-require 'CaptionSearch.php';
+try {
+  $result = $client->captionAssetItem->search(
+    $entryFilter, 
+    $captionAssetItemFilter, 
+    $captionAssetItemPager);
+  $result = (object)$result->objects;
+  require 'CaptionSearch.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'CaptionSearch.php';
+}
 ?>

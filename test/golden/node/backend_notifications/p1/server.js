@@ -42,7 +42,8 @@ app.post('/listTemplatesEventNotificationTemplate', function(req, res) {
 
   client.eventNotificationTemplate.listTemplates(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results})
     } else {
       res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
     }
@@ -81,7 +82,8 @@ app.post('/listEventNotificationTemplate', function(req, res) {
 
   client.eventNotificationTemplate.listAction(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results})
     } else {
       res.render('KalturaEventNotificationTemplateListResponse', {request: req.body, result: results.objects})
     }
@@ -99,7 +101,8 @@ app.post('/listPermission', function(req, res) {
 
   client.permission.listAction(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaPermissionListResponse', {request: req.body, result: results})
     } else {
       res.render('KalturaPermissionListResponse', {request: req.body, result: results.objects})
     }

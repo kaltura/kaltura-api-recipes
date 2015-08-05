@@ -15,8 +15,17 @@ $client->setKS($ks);
 
 $userId = USER_ID;
 
-$result = $client->user->get(
-  $userId);
-$result = (object)$result;
-require 'KalturaUser.php';
+try {
+  $result = $client->user->get(
+    $userId);
+  $result = (object)$result;
+  require 'KalturaUser.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaUser.php';
+}
 ?>

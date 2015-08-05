@@ -33,7 +33,8 @@ app.post('/getUser', function(req, res) {
 
   client.user.get(function(results) {
     if (results.code && results.message) {
-      console.log('Kaltura Error', success, results);
+      console.log('Kaltura Error', results);
+      res.render('KalturaUser', {request: req.body, result: results})
     } else {
       res.render('KalturaUser', {request: req.body, result: results})
     }

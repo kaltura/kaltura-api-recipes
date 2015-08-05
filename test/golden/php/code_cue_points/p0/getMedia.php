@@ -17,9 +17,18 @@ $entryId = $_POST["entryId"];
 
 $version = null;
 
-$result = $client->media->get(
-  $entryId, 
-  $version);
-$result = (object)$result;
-require 'KalturaMediaEntry.php';
+try {
+  $result = $client->media->get(
+    $entryId, 
+    $version);
+  $result = (object)$result;
+  require 'KalturaMediaEntry.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaMediaEntry.php';
+}
 ?>

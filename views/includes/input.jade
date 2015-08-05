@@ -9,7 +9,10 @@
     input.input-sm.form-control(type="{{ input.type }}",
           placeholder="{{ input.placeholder }}",
           ng-change="onAnswerChanged()",
+          name="{{input.name}}"
           ng-model="model[input.name]")
+    span.text-danger(ng-if="!inputForm[input.name].$valid")
+      span(ng-if="input.type === 'number'") Must be a number
     span.help-block(ng-if="input.tip") {{ input.tip }}
 
   .form-group(ng-if="input.type === 'select-chosen'", ng-controller="Radio")

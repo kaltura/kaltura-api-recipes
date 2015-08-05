@@ -20,9 +20,18 @@ $filter->orderBy = "-rank";
 $pager = new KalturaFilterPager();
 
 
-$result = $client->media->listAction(
-  $filter, 
-  $pager);
-$result = (object)$result->objects;
-require 'MediaListLikes.php';
+try {
+  $result = $client->media->listAction(
+    $filter, 
+    $pager);
+  $result = (object)$result->objects;
+  require 'MediaListLikes.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'MediaListLikes.php';
+}
 ?>

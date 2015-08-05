@@ -29,7 +29,8 @@ var <%- param.name %> = Kaltura.enums.<%- param.enum.name %>.<%- valueName %>;
 
 client.<%- service %>.<%- action %>(function(results) {
   if (results.code && results.message) {
-    console.log('Kaltura Error', success, results);
+    console.log('Kaltura Error', results);
+    <%- '<\%- Lucy.returnCode("results", 4) %\>' %>
   } else {
 <% if (returns === 'list') { -%>
     <%- '<\%- Lucy.returnCode("results.objects", 4) %\>' %>
