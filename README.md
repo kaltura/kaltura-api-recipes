@@ -4,6 +4,7 @@
 ```bash
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 git submodule init && git submodule update # You'll need access to bobby-brennan/lucy-langs
+cd lucy-langs && npm install && cd ..
 npm install
 ```
 
@@ -89,7 +90,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
 {
   "name": "the name of this file",
   "title": "the title of the recipe",
-  "icon": "the name of a fontawesome icon",
+  "icon": "the name of a fontawesome icon. Can be any one of those listed in static/bower/fontawesome/scss/_icons.scss",
   "description": "A short description of the recipe",
   
   "control_sets": "this is an array of steps for the recipe, structured as below",
@@ -114,7 +115,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   "pages": "An array of single page apps to generate along side this recipe.",
   "pages": [
     {
-      "view": "The name of the main view for this recipe, e.g. KalturaMediaListResponse.",
+      "view": "The name of the main view for this recipe, e.g. KalturaMediaListResponse. The view file should reside under code_templates/views/html",
       "data": {
         "action": "The action that supplies the data for the initial load of this page"
       }
@@ -170,3 +171,72 @@ If, for example, KalturaMediaListResponse was just an array of entryIds, we coul
 </lucy>
 ```
 
+## Step by step example for adding a new recipe
+The sample recipe will accept an entry ID as input and output the entry's name, ID, descrption and number of plays.
+
+The below json file should be placed under the recipes dir
+
+```json
+{
+    "name": "entry_lookup",
+    "title": "Entry Lookup",
+    "icon": "search",
+    "description": "Learn how to get a specific entry ID using Kaltura's API",
+    "control_sets": [
+        {
+            "inputs": [
+                {
+                    "default": "",
+                    "type": "text",
+                    "label": "Entry ID",
+                    "name": "entryId"
+                }
+            ],
+            "affects": "getMedia",
+            "tip": "This is how to retrieve a single entry. Use Media Entry Filters to select which content you want to show.",
+            "title": "Filtering Results"
+        }
+    ],
+    "pages": [
+        {
+            "view": "KalturaSimpleEntry",
+            "data": {
+                "action": "getMedia"
+            }
+        }
+    ],
+    "views": [
+        "KalturaSimpleEntry"
+    ],
+    "actions": [
+        {
+            "service": "media",
+            "action": "get",
+            "view": "KalturaSimpleEntry"
+        }
+    ]
+}
+```
+
+The recipe uses the KalturaSimpleEntry view to display the results. The view file should be placed under: code_templates/views/html/KalturaSimpleEntry.html
+```
+<div id="ErrorMessage" class="alert alert-danger" style="display: none">
+</div>
+<lucy if="result.id">
+  <h1>Entry Info</h1>
+  <p>Name: {{ result.name }}</p>
+  <p>ID: {{ result.id }}</p>
+  <p>Description: {{ result.description }}</p>
+  <p>Plays: {{ result.plays }}</p>
+</lucy>
+
+```
+After restarting the node, the new recipe should appear on the index page.
+
+```
+"icon": "search"
+```
+controls which icon will be displayed. Available options are here:
+```
+static/bower/fontawesome/scss/_icons.scss
+```
