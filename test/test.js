@@ -149,10 +149,12 @@ Object.keys(Recipes).forEach(function(recipe) {
       describe('server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
         var proc;
         before(function(done) {
+          this.timeout(PROCESS_WAIT_TIME + 100);
           proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
           setTimeout(done, PROCESS_WAIT_TIME);
         });
         after(function(done) {
+          this.timeout(PROCESS_WAIT_TIME + 100);
           proc.kill('SIGHUP');
           setTimeout(done, PROCESS_WAIT_TIME);
         })
