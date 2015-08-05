@@ -36,19 +36,20 @@ block body
         .control-set(ng-if="controlSetIdx >= 0")
           h3.header-no-top.text-regular {{ recipe.control_sets[controlSetIdx].title }}
           p(marked="recipe.control_sets[controlSetIdx].tip")
-          .control-input.form-group(ng-repeat="input in recipe.control_sets[controlSetIdx].inputs")
-            div(ng-if="input.type === 'group'")
-              .panel.panel-default
-                .panel-heading
-                  h4.panel-title.text-regular
-                    a.link-fill.link-plain(data-toggle="collapse",href="#group{{$index}}")
-                      i.fa.fa-plus-square-o
-                      span &nbsp;{{ input.label }}
-                .panel-collapse.collapse(id="group{{$index}}")
-                  .panel-body
-                    div(ng-repeat="input in input.inputs")
-                      include ./includes/input.jade
-            include ./includes/input.jade
+          form(name="inputForm" id="InputForm")
+            .control-input.form-group(ng-repeat="input in recipe.control_sets[controlSetIdx].inputs")
+              div(ng-if="input.type === 'group'")
+                .panel.panel-default
+                  .panel-heading
+                    h4.panel-title.text-regular
+                      a.link-fill.link-plain(data-toggle="collapse",href="#group{{$index}}")
+                        i.fa.fa-plus-square-o
+                        span &nbsp;{{ input.label }}
+                  .panel-collapse.collapse(id="group{{$index}}")
+                    .panel-body
+                      div(ng-repeat="input in input.inputs")
+                        include ./includes/input.jade
+              include ./includes/input.jade
           a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 !== recipe.control_sets.length',
                                                  ng-click='setControlSet(controlSetIdx + 1)') Next
           a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 === recipe.control_sets.length',
