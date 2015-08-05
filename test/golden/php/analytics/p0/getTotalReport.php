@@ -21,10 +21,19 @@ $reportType = KalturaReportType::TOP_CONTRIBUTORS;
 
 $objectIds = null;
 
-$result = $client->report->getTotal(
-  $reportType, 
-  $reportInputFilter, 
-  $objectIds);
-$result = (object)$result;
-require 'KalturaReportTotal.php';
+try {
+  $result = $client->report->getTotal(
+    $reportType, 
+    $reportInputFilter, 
+    $objectIds);
+  $result = (object)$result;
+  require 'KalturaReportTotal.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaReportTotal.php';
+}
 ?>

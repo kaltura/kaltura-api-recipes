@@ -18,9 +18,18 @@ $filter = new KalturaEventNotificationTemplateFilter();
 $pager = new KalturaFilterPager();
 
 
-$result = $client->eventNotificationTemplate->listAction(
-  $filter, 
-  $pager);
-$result = (object)$result->objects;
-require 'KalturaEventNotificationTemplateListResponse.php';
+try {
+  $result = $client->eventNotificationTemplate->listAction(
+    $filter, 
+    $pager);
+  $result = (object)$result->objects;
+  require 'KalturaEventNotificationTemplateListResponse.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaEventNotificationTemplateListResponse.php';
+}
 ?>

@@ -32,6 +32,7 @@ var getResults = function() {
   client.<%- service %>.<%- action %>(function(success, results) {
     if (!success || (results.code && results.message)) {
       console.log('Kaltura Error', success, results);
+<%- '<\%- Lucy.returnCode("results", 6) %\>' %>
     } else {
       console.log('Kaltura Result', results);
 <% if (returns === 'list') { -%>

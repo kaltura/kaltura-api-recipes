@@ -25,12 +25,21 @@ $order = "count_plays";
 
 $objectIds = null;
 
-$result = $client->report->getTable(
-  $reportType, 
-  $reportInputFilter, 
-  $pager, 
-  $order, 
-  $objectIds);
-$result = (object)$result;
-require 'KalturaReportTable.php';
+try {
+  $result = $client->report->getTable(
+    $reportType, 
+    $reportInputFilter, 
+    $pager, 
+    $order, 
+    $objectIds);
+  $result = (object)$result;
+  require 'KalturaReportTable.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaReportTable.php';
+}
 ?>

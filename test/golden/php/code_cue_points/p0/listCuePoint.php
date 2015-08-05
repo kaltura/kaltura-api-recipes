@@ -20,9 +20,18 @@ $filter->entryIdEqual = "1_318vzqcr";
 $pager = new KalturaFilterPager();
 
 
-$result = $client->cuePoint->listAction(
-  $filter, 
-  $pager);
-$result = (object)$result->objects;
-require 'CodeCuePointListResponse.php';
+try {
+  $result = $client->cuePoint->listAction(
+    $filter, 
+    $pager);
+  $result = (object)$result->objects;
+  require 'CodeCuePointListResponse.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'CodeCuePointListResponse.php';
+}
 ?>

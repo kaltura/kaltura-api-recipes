@@ -19,9 +19,18 @@ $filter->nameEqual = "EVENTNOTIFICATION_PLUGIN_PERMISSION";
 $pager = new KalturaFilterPager();
 
 
-$result = $client->permission->listAction(
-  $filter, 
-  $pager);
-$result = (object)$result->objects;
-require 'KalturaPermissionListResponse.php';
+try {
+  $result = $client->permission->listAction(
+    $filter, 
+    $pager);
+  $result = (object)$result->objects;
+  require 'KalturaPermissionListResponse.php';
+} catch (Exception $e) {
+  $result = array(
+    code => $e->getCode(),
+    message => $e->getMessage()
+  );
+  $result = (object)$result;
+  require 'KalturaPermissionListResponse.php';
+}
 ?>
