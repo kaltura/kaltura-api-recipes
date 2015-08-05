@@ -121,7 +121,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
       }
     }
   ],
-  "view": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
+  "views": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
   "views": [
     "myView"
   ],
