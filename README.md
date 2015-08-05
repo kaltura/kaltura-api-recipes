@@ -149,7 +149,9 @@ You have access to two global variables inside of your views:
 * ```answers``` which contains the user's responses from inside the recipe
 
 ```<lucy include>``` can operate in two different ways:
+
 1. It can simply copy the HTML of the included view
+
 2. It can make a new call to the API, and use the included view as a template for displaying the result.
 
 Case (1) is the default behavior. In addition, you can use ```<lucy include="ViewName" resultvar="foo">``` to use variable "foo" in place of API output. For example, since KalturaMediaListResponse is just an array of KalturaMediaEntry, we can have:
