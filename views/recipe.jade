@@ -53,7 +53,7 @@ block body
           a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 !== recipe.control_sets.length',
                                                  ng-click='setControlSet(controlSetIdx + 1)') Next
           a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 === recipe.control_sets.length',
-                                                 href='/') Finish
+                                                 ng-click="finish()") Finish
         .text-center
           ul.pagination(ng-if="ready")
             li(ng-class="{ active: controlSetIdx === -1}")

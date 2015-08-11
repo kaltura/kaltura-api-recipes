@@ -4,6 +4,9 @@ var MS_IN_MONTH = 1000 * 60 * 60 * 24 * 30;
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
+  mixpanel.track('enter_recipe', {
+    recipe: $scope.recipe.name
+  });
   $scope.recipe.control_sets.forEach(function(set) {
     if (Array.isArray(set.tip)) {
       set.tip = set.tip.join('\n\n');
@@ -26,6 +29,10 @@ app.controller('Recipe', function($scope) {
 
   $scope.controlSetIdx = -1;
   $scope.setControlSet = function(controlSetIdx) {
+    mixpanel.track('view_step', {
+      step: controlSetIdx,
+      recipe: $scope.recipe.name,
+    })
     $scope.controlSetIdx = controlSetIdx;
     if (controlSetIdx >= 0) {
       var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
@@ -54,6 +61,13 @@ app.controller('Recipe', function($scope) {
     }
     angular.element('#Code').scope().refresh();
   }
+
+  $scope.finish = function() {
+    mixpanel.track('recipe_finish', {
+      recipe: $scope.recipe.name
+    });
+    window.location.href = '/';
+  }
 });
 
 app.controller('Language', function($scope) {
@@ -66,6 +80,9 @@ app.controller('Language', function($scope) {
   }];
 
   $scope.setLanguage = function(language) {
+    mixpanel.track('set_language', {
+      language: language
+    })
     $scope.language = language;
     $scope.start();
   }
