@@ -142,6 +142,7 @@ LucyBot also provides some helper tags:
 * Use ```{{ variable.name }}``` to print the value of a given variable
 * Use ```<lucy for="thing" in="array">``` to iterate over an array
 * Use ```<lucy if="condition">``` to add conditionals
+* Use ```<lucy if="result.message && result.code">``` to check for errors and print error messages
 * Use ```<lucy include="ViewName">``` to include other views
 
 You have access to two global variables inside of your views:
@@ -222,6 +223,9 @@ The recipe uses the KalturaSimpleEntry view to display the results. The view fil
 ```
 <div id="ErrorMessage" class="alert alert-danger" style="display: none">
 </div>
+<lucy if="result.message && result.code">
+    <h1>{{result.message}}</h1>
+</lucy>
 <lucy if="result.id">
   <h1>Entry Info</h1>
   <p>Name: {{ result.name }}</p>
