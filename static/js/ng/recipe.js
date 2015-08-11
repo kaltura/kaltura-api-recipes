@@ -65,7 +65,8 @@ app.controller('Recipe', function($scope) {
   $scope.finish = function() {
     mixpanel.track('recipe_finish', {
       recipe: $scope.recipe.name
-    })
+    });
+    window.location.href = '/';
   }
 });
 
