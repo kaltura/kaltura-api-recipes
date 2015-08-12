@@ -69,7 +69,10 @@ var buildRecipe = function(req, res, callback) {
       if (!actionTmpl && action.service) {
         var actionKey = action.action.indexOf('Action') === -1 ? action.action
               : action.action.substring(0, action.action.length - 6);
-        var actionSchema = Schema.services[action.service].actions[actionKey];
+        var serviceSchema = Schema.services[action.service];
+        if (!serviceSchema) throw new Error("Service " + action.service + " not found");
+        var actionSchema = serviceSchema.actions[actionKey];
+        if (!actionSchema) throw new Error("Action " + action.service + "->" + actionKey + " not found");
         var codeParams = {
           parameters: [],
           service: action.service,

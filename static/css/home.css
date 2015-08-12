@@ -4,10 +4,6 @@ body {
   padding-bottom: 30px;
 }
 
-.recipe-col {
-  position: relative;
-}
-
 .recipe-link {
   position: absolute;
   top: 0;
@@ -21,8 +17,8 @@ body {
   border: 1px solid #333;
   border-radius: 4px;
   height: 280px;
-  margin: 15px;
   padding: 10px;
+  margin-bottom: 30px;
   background-color: #fff;
 }
 
