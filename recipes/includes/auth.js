@@ -1,7 +1,11 @@
 var authBase = {
   "page": -1,
   "title": "Starting a KalturaSession",
-  "tip": "Start a KalturaSession (ks) by supplying your Partner ID and Secret.\n\nYou can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+  "tip": [
+    "Start a KalturaSession (ks) by supplying your Partner ID and Secret.",
+    "You can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
+    "If you don't have a Kaltura account, you can [sign up for free](http://corp.kaltura.com/free-trial)"
+  ],
   "affects": "setup",
   "inputs": [
     {
