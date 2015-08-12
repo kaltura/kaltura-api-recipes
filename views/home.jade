@@ -12,14 +12,37 @@ html
       mixpanel.track('home')
     title Kaltura VPaaS Interactive Code Cookbook
 
-body
-  .container
+    script(src="/bower/angular/angular.min.js")
+    script.
+      var App = angular.module('App', []);
+      App.controller('Recipes', function($scope) {
+        $scope.recipes = $scope.matchingRecipes =
+          !{JSON.stringify(Object.keys(recipes).map(function(k) {return recipes[k]}))};
+        $scope.$watch('query', function(q) {
+          if (q) {
+            q = q.toLowerCase();
+            $scope.matchingRecipes = $scope.recipes.filter(function(r) {
+              return r.title.toLowerCase().indexOf(q) !== -1 ||
+                     r.description.toLowerCase().indexOf(q) !== -1
+            })
+          } else {
+            $scope.matchingRecipes = $scope.recipes;
+          }
+        })
+      })
+
+body(ng-app="App")
+  .container(ng-controller="Recipes")
     .row
-      each recipe, recipeName in recipes
-        if !recipe.broken
-          .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col
-            a.recipe-link(href="/recipes/#{recipeName}")
-            .recipe-item
-              h3.recipe-title #{recipe.title}
-              p.recipe-icon.fa(class="fa-#{ recipe.icon || 'plug' }")
-              p.recipe-description.text-left #{recipe.description}
+      .col-xs-12
+        .form-group
+          input.form-control(type="text" ng-model="query" placeholder="Search")
+    .row
+      .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col(
+            ng-repeat="recipe in matchingRecipes"
+            ng-if="!recipe.broken")
+        a.recipe-link(href="/recipes/{{recipe.name}}")
+        .recipe-item
+          h3.recipe-title {{recipe.title}}
+          p.recipe-icon.fa(ng-class="'fa-' + (recipe.icon || 'plug')")
+          p.recipe-description.text-left {{recipe.description}}
