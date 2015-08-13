@@ -107,6 +107,30 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
           "default": "The default value to use (optional)",
           "type": "text|number|radio|select|select-chosen",
           "label": "A human-readable label for the input",
+          "choices": "An array of options. Only valid for type = radio|select|select-chosen",
+          "choices": [{
+            "value": "The value assigned to this field for this choice",
+            "label": "A human-readable label for this choice"
+          }],
+          "dynamicChoices": "Similar to choices, but will use an API call to fill out the list. The API call must return an array",
+          "dynamicChoices": {
+            "service": "A Kaltura service",
+            "action": "An action within that service",
+            "map": "Sets value and label from the fields returned by the API",
+            "map": {
+              "value": "The field to use for the value, e.g. 'id'",
+              "label": "The field to use for the label, e.g. 'name'"
+            },
+            "arguments": "An array of arguments to pass to the API call",
+            "arguments": [{
+              "class": "A Kaltura class, e.g. KalturaMediaEntryFilter",
+              "parameters": "A set of fields to set. Can be constants or user inputs from previous control_steps",
+              "parameters": {
+                "fieldName, e.g. orderBy": "value, e.g. +createdAt",
+                "fieldName": {"answers": "answerName"}
+              }
+            }]
+          }
         }
       ],
       
