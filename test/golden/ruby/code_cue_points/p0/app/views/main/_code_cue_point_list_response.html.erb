@@ -4,9 +4,9 @@
   <i>No cue points found</i>
 <% end %>
 <% result.each_index do | index | cuePoint = result.fetch(index) %>
-  <h3><%= cue_point.code %></h3>
-  <p><%= cue_point.start_time %>ms - <%= cue_point.end_time %>ms</p>
-  <p><%= cue_point.description %></p>
+  <h3><%= cuePoint.code %></h3>
+  <p><%= cuePoint.start_time %>ms - <%= cuePoint.end_time %>ms</p>
+  <p><%= cuePoint.description %></p>
 <% end %>
 <%= render "add_code_cue_point.html.erb" %>
 <hr></hr>

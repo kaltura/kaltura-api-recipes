@@ -34,7 +34,7 @@ class MainController < ApplicationController
     cuePoint.start_time = params[:startTime]
     cuePoint.entry_id = "1_318vzqcr"
     result = @@client.cuePoint.add(cuePoint)
-    render :json result
+    render json: result
   end
 
   def getMedia

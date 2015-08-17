@@ -16,8 +16,10 @@ var Schema = require('../api-schema.js');
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 
 var camelToUnderscore = function(camel) {
-  return camel.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
-    return lower + '_' + upper.toLowerCase();
+  return camel.replace(/(\w+\.)(.*)/g, function(whole, variable, member) {
+    return variable + member.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
+      return lower + '_' + upper.toLowerCase();
+    });
   })
 }
 
