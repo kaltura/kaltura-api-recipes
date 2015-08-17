@@ -1,5 +1,5 @@
 var Router = module.exports = require('express').Router();
-var CodeBuilders = require('../lucy-langs/builders/builders.js');
+var AppBuilder = require('../lucy-codegen/generators/app.js');
 
 var Async = require('async');
 var EJS = require('ejs');
@@ -59,7 +59,7 @@ var buildRecipe = function(req, res, callback) {
   var actions = recipe.actions;
   var views = recipe.views;
   var language = req.body.language;
-  CodeBuilders.RecipeV2.fixAnswers(req.body.answers, function(err, answers) {
+  AppBuilder.fixAnswers(req.body.answers, function(err, answers) {
     if (err) return res.status(500).send('Error parsing answers');
     var buildParams = {answers: answers, actions: {}, views: {}};
     buildParams.main = recipe.pages[req.body.page || 0];
@@ -127,7 +127,7 @@ var buildRecipe = function(req, res, callback) {
       buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
     });
     buildParams.staticFiles = CodeTemplates.static[language];
-    CodeBuilders.RecipeV2.build(buildParams, callback);
+    AppBuilder.build(buildParams, callback);
   });
 };
 
