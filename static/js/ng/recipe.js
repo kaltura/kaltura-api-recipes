@@ -182,6 +182,12 @@ app.controller('Answers', function($scope) {
 app.controller('Code', function($scope) {
   $scope.expanded = false;
   $scope.files = [];
+
+  $scope.getHLJSLanguage = function() {
+    var ret = $('#Language').scope().language.id;
+    return ret === 'node' ? 'javascript' : ret;
+  }
+
   $scope.refresh = function() {
     var data = {
       language: $('#Language').scope().language.id,

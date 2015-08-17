@@ -86,7 +86,7 @@ block body
               span.hidden-xs &nbsp;Download Zip
          .row(ng-if="ready")
           .col-xs-12
-            .hljs-div.pin-top(hljs source='getActiveCode()')
+            .hljs-div.pin-top(hljs source='getActiveCode()' language="{{ getHLJSLanguage() }}")
     .alert.alert-danger(ng-if="globalError")
       p {{ globalError }}
     #Demo.row.demo-row(ng-controller="Demo", ng-if="ready", ng-show="recipe.control_sets[controlSetIdx].page !== -1")
