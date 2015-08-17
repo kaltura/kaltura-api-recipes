@@ -19,7 +19,7 @@ class MainController < ApplicationController
     entryId = "1_9kdmnhuv";
     version = nil;
 
-    results = @@client.media_service.(
+    results = @@client.media_service.get(
         entryId,
         version)
     render :template => "main/_kaltura_media_entry", :locals => {:result => results}
@@ -34,7 +34,7 @@ class MainController < ApplicationController
     captionAssetItemPager = KalturaFilterPager.new();
 
 
-    results = @@client.caption_asset_item_service.(
+    results = @@client.caption_asset_item_service.search(
         entryFilter,
         captionAssetItemFilter,
         captionAssetItemPager)

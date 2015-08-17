@@ -5,7 +5,7 @@
     })
   }
   var rewriteAction = function(a) {
-    if (a.indexOf('Action') !== 0) a = a.substring(0, a.length - 6);
+    if (a.indexOf('Action') !== -1) a = a.substring(0, a.length - 6);
     return rewriteVariable(a);
   }
 -%>

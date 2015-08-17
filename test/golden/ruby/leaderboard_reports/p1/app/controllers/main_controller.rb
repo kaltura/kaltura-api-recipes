@@ -40,7 +40,7 @@ class MainController < ApplicationController
     order = "count_plays";
     objectIds = nil;
 
-    results = @@client.report_service.ge(
+    results = @@client.report_service.get_table(
         reportType,
         reportInputFilter,
         pager,

@@ -43,7 +43,7 @@ class MainController < ApplicationController
     entryId = request[:entryId];
     version = nil;
 
-    results = @@client.media_service.(
+    results = @@client.media_service.get(
         entryId,
         version)
     render :template => "main/_kaltura_media_entry", :locals => {:result => results}

@@ -25,7 +25,7 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.event_notification_template_service.list_tem(
+    results = @@client.event_notification_template_service.list_templates(
         filter,
         pager)
     render :template => "main/_kaltura_event_notification_template_list_response", :locals => {:result => results.objects}
