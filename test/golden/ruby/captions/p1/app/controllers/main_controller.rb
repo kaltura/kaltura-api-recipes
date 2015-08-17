@@ -19,7 +19,7 @@ class MainController < ApplicationController
     entryId = "1_9kdmnhuv";
     version = nil;
 
-    results = @@client.media_service.get(
+    results = @@client.media_service.(
         entryId,
         version)
     render :template => "main/_kaltura_media_entry", :locals => {:result => results}
@@ -34,10 +34,26 @@ class MainController < ApplicationController
     captionAssetItemPager = KalturaFilterPager.new();
 
 
-    results = @@client.caption_asset_item_service.search(
+    results = @@client.caption_asset_item_service.(
         entryFilter,
         captionAssetItemFilter,
         captionAssetItemPager)
     render :template => "main/_caption_search", :locals => {:result => results.objects}
+  end
+
+  def attachCaptions
+    uploadToken = KalturaUploadToken.new();
+    result = @@client.upload_token_service.add(uploadToken)
+    result = @@client.uploadToken.upload(result.id, dest)
+    var captionResource = KalturaUploadedFileTokenResource.new();
+    captionResource.token = result.id;
+    captionAsset = KalturaCaptionAsset.new();
+    captionAsset.format = KalturaCaptionType::SRT;
+    captionAsset.is_default = true;
+    captionAsset.language = KalturaLanguage::EN;
+    captionAsset.label = 'English';
+    newAsset = @@client.caption_asset_service.add("1_9kdmnhuv", captionAsset)
+    result = @@client.caption_asset_service.set_content(newAsset.id, captionResource)
+    render :template => "main/_captions_attached", :locals => {:result => result}
   end
 end

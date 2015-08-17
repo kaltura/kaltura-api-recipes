@@ -9,11 +9,11 @@
         <input class="form-control" type="text" name="name"></input>
       </div>
       <div class="form-group">
-        <% if template.type == 'emailNotification.Email' %>
+        <% if template.type == 'email_notification.Email' %>
           <label>E-mail Address</label>
           <input class="form-control" type="text" name="email"></input>
         <% end %>
-        <% if template.type == 'httpNotification.Http' %>
+        <% if template.type == 'http_notification.Http' %>
           <label>URL</label>
           <input class="form-control" type="text" name="url"></input>
         <% end %>

@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'CaptionSearch' => 'main#CaptionSearch'
   post 'getMedia' => 'main#getMedia'
   post 'searchCaptionAssetItem' => 'main#searchCaptionAssetItem'
+  post 'attachCaptions' => 'main#attachCaptions'
   root 'main#index'
 end

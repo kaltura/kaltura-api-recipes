@@ -15,16 +15,40 @@ class MainController < ApplicationController
       1760921)
 
 
+  def HandleHTTPNotifications
+    puts 'Kaltura Notification:' + params
+  end
+
   def listTemplatesEventNotificationTemplate
     filter = KalturaEventNotificationTemplateFilter.new();
 
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.event_notification_template_service.list_templates(
+    results = @@client.event_notification_template_service.list_tem(
         filter,
         pager)
     render :template => "main/_kaltura_event_notification_template_list_response", :locals => {:result => results.objects}
+  end
+
+  def cloneEventNotificationTemplate
+    template = null
+    if params[:email] then
+      template = KalturaEmailNotificationTemplate.new()
+      recipient = KalturaEmailNotificationRecipient.new()
+      recipient.email = params[:email]
+      template.to = KalturaEmailNotificationStaticRecipientProvider.new()
+      template.to.email_recipients = [recipient]
+    else
+      template = KalturaHttpNotificationTemplate.new()
+      template.url = params[:url]
+    end
+    template.name = params[:name]
+    template = @@client.event_notification_template_service.clone(nil, template)
+    template = @@client.eventNotificationTemplate.updateStatus(
+      template.id,
+      KalturaEventNotificationTemplateStatus::ACTIVE)
+        render :template => "main/_kaltura_event_notification_template", :locals => {:result => template}
   end
 
   def listEventNotificationTemplate
@@ -33,7 +57,7 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.event_notification_template_service.list_action(
+    results = @@client.event_notification_template_service.list(
         filter,
         pager)
     render :template => "main/_kaltura_event_notification_template_list_response", :locals => {:result => results.objects}
@@ -46,7 +70,7 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.permission_service.list_action(
+    results = @@client.permission_service.list(
         filter,
         pager)
     render :template => "main/_kaltura_permission_list_response", :locals => {:result => results.objects}

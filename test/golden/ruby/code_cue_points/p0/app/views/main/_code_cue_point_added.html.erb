@@ -9,7 +9,7 @@
   var element = $('.KalturaMediaEntry').last();
   element[0].loadData = function() {
     $('.KalturaMediaEntry').last().load('getMedia', {
-       entryId: nil,
+       entryId: "1_318vzqcr",
     });
   }
   element[0].loadData();
@@ -17,13 +17,13 @@
 
 <script>
   jsCallbackReady = function(playerId) {
-    $('#' + playerId)[0].add_js_listener( "cuePointReached", "writeLog" );
+    $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );
     window['writeLog'] = function(result) {
-      var cuePoint = result.cue_point
+      var cuePoint = result.cuePoint
       $('table').append(
         '<tr><td>' + cuePoint.code +
-        '</td><td>' + cuePoint.start_time +
-        '</td><td>' + cuePoint.end_time + '</td></tr>'
+        '</td><td>' + cuePoint.startTime +
+        '</td><td>' + cuePoint.endTime + '</td></tr>'
       );
     }
   }

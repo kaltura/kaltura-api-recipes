@@ -21,7 +21,7 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.media_service.list_action(
+    results = @@client.media_service.list(
         filter,
         pager)
     render :template => "main/_dynamic_thumbnails", :locals => {:result => results.objects}

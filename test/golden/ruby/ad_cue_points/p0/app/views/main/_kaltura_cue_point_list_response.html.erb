@@ -5,7 +5,7 @@
 <% end %>
 <% result.each_index do | index | cuePoint = result.fetch(index) %>
   <p>
-  <%= cuePoint.cue_point_type %> starting at <%= cuePoint.start_time %> milliseconds
+  <%= cue_point.cue_point_type %> starting at <%= cue_point.start_time %> milliseconds
   </p>
 <% end %>
 <%= render "add_ad_cue_point.html.erb" %>

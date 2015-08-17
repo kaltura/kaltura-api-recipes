@@ -23,7 +23,7 @@ class MainController < ApplicationController
     reportType = KalturaReportType::TOP_CONTRIBUTORS;
     objectIds = nil;
 
-    results = @@client.report_service.get_total(
+    results = @@client.report_service.ge(
         reportType,
         reportInputFilter,
         objectIds)

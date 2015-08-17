@@ -7,7 +7,7 @@
   var element = $('.CreatedEntry').last();
   element[0].loadData = function() {
     $('.CreatedEntry').last().load('CreateMediaEntry', {
-       name: <%= result.file_name.to_json %>,
+       name: <%= result.fileName.to_json %>,
        uploadTokenId: <%= result.id.to_json %>,
     });
   }

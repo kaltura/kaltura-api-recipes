@@ -11,7 +11,7 @@
   var rows = data.split(';');
   $('table').html('');
   $('table').append(getRow(headers));
-  rows.for_each(function(row) {
+  rows.forEach(function(row) {
     $('table').append(getRow(row));
   })
 </script>

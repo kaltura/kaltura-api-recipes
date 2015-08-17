@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get 'UploadDone' => 'main#UploadDone'
   get 'CreatedEntry' => 'main#CreatedEntry'
   get 'KalturaMediaEntry' => 'main#KalturaMediaEntry'
+  post 'CreateMediaEntry' => 'main#CreateMediaEntry'
+  post 'UploadFile' => 'main#UploadFile'
   root 'main#index'
 end

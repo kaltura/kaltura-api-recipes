@@ -4,6 +4,10 @@
       return lower + '_' + upper.toLowerCase();
     })
   }
+  var rewriteAction = function(a) {
+    if (a.indexOf('Action') !== 0) a = a.substring(0, a.length - 6);
+    return rewriteVariable(a);
+  }
 -%>
 <% parameters.filter(function(param) {return param.fields}).forEach(function(param) { -%>
 <%- param.name %> = <%- param.class %>.new();
@@ -34,7 +38,7 @@
 <%     } -%>
 <% }); -%>
 
-results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteVariable(action) %>(<%- parameters.length === 0 ? ')' : '' %>
+results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteAction(action) %>(<%- parameters.length === 0 ? ')' : '' %>
 <% parameters.forEach(function(param, index) { -%>
     <%- param.name %><%- index < parameters.length - 1 ? ',' : ')' %>
 <% }); -%>

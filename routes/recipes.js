@@ -15,12 +15,26 @@ var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 
+var camelToUnderscore = function(camel) {
+  return camel.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
+    return lower + '_' + upper.toLowerCase();
+  })
+}
+
 var fixRubyVariables = function(html) {
-  return html.replace(/\.[a-z]+[A-Z]\w*/g, function(whole) {
-    return whole.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
-      return lower + '_' + upper.toLowerCase();
-    });
-  });
+  return html.replace(/if="([^"]+)"/g, function(whole, cond) {
+    cond = camelToUnderscore(cond);
+    return 'if="' + cond + '"';
+  }).replace(/in="([^"]+)"/g, function(whole, group) {
+    group = camelToUnderscore(group);
+    return 'in="' + group + '"'; 
+  }).replace(/\{\{([^\}]+)\}\}/g, function(whole, variable) {
+    variable = variable.trim();
+    if (variable.indexOf('answers') !== 0) {
+      variable = camelToUnderscore(variable);
+    }
+    return '{{ ' + variable + ' }}';
+  })
 }
 
 Router.use('/:recipe/embed', require('body-parser').urlencoded({extended: true}));

@@ -23,7 +23,7 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.media_service.list_action(
+    results = @@client.media_service.list(
         filter,
         pager)
     render :template => "main/_media_list_likes", :locals => {:result => results.objects}
@@ -40,7 +40,7 @@ class MainController < ApplicationController
     order = "count_plays";
     objectIds = nil;
 
-    results = @@client.report_service.get_table(
+    results = @@client.report_service.ge(
         reportType,
         reportInputFilter,
         pager,

@@ -23,17 +23,27 @@ class MainController < ApplicationController
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.cue_point_service.list_action(
+    results = @@client.cue_point_service.list(
         filter,
         pager)
     render :template => "main/_code_cue_point_list_response", :locals => {:result => results.objects}
+  end
+
+  def addCodeCuePoint
+    cuePoint = KalturaCodeCuePoint.new();
+    cuePoint.code = params[:code];
+    cuePoint.description = params[:description]
+    cuePoint.start_time = params[:startTime];
+    cuePoint.entry_id = "1_318vzqcr";
+    result = @@client.cue_point_service.add(cuePoint);
+    render :template => "main/_code_cue_point_added", :locals => {:result => result}
   end
 
   def getMedia
     entryId = request[:entryId];
     version = nil;
 
-    results = @@client.media_service.get(
+    results = @@client.media_service.(
         entryId,
         version)
     render :template => "main/_kaltura_media_entry", :locals => {:result => results}

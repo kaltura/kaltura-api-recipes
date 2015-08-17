@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'AddAdCuePoint' => 'main#AddAdCuePoint'
   get 'CuePointAdded' => 'main#CuePointAdded'
   post 'listCuePoint' => 'main#listCuePoint'
+  post 'addCuePoint' => 'main#addCuePoint'
   post 'getMedia' => 'main#getMedia'
   root 'main#index'
 end

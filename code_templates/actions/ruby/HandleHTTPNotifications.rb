@@ -1,0 +1,1 @@
+puts 'Kaltura Notification:' + params
