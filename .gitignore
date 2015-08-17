@@ -4,6 +4,7 @@ static/test.html
 
 test/golden/php/*/lib/
 test/golden/ruby/**/**/*.lock
+test/golden/ruby/**/**/log/
 test/golden/ruby/**/**/tmp/
 
 test/golden/node/**/**/*.png
