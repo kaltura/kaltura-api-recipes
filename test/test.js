@@ -87,7 +87,7 @@ var ANSWERS = {
     uiConf: 30633631,
   },
 }
-var LANGUAGES = ['php', 'javascript', 'node'];
+var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
@@ -123,7 +123,7 @@ describe('sample code', function() {
     });
   });
 });
-
+return;
 var startServer = function(language, directory) {
   if (language == 'php' || language === 'javascript') {
     proc = Spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});

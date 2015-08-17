@@ -1,0 +1,13 @@
+<h3><%= result.id %> - <%= result.name %></h3>
+<p>System Name: <%= result.system_name %></p>
+<p>Type: <%= result.type %></p>
+<% if result.type == 'httpNotification.Http' %>
+  <p>URL: <%= result.url %></p>
+<% end %>
+<% if result.type == 'emailNotification.Email' %>
+  <p>Subject: <%= result.subject %></p>
+  <div style="font-size: 12px">
+    <%= result.body %>
+  </div>
+<% end %>
+<hr></hr>

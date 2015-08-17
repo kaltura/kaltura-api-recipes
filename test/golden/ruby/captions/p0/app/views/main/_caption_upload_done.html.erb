@@ -1,0 +1,11 @@
+<p>Caption file uploaded. Adding to video nil</p>
+<div class="CaptionsAttached"></div>
+<script>
+  var element = $('.CaptionsAttached').last();
+  element[0].loadData = function() {
+    $('.CaptionsAttached').last().load('attachCaptions', {
+       token: <%= result.id.to_json %>,
+    });
+  }
+  element[0].loadData();
+</script>

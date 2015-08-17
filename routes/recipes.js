@@ -15,6 +15,14 @@ var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 
+var fixRubyVariables = function(html) {
+  return html.replace(/\.[a-z]+[A-Z]\w*/g, function(whole) {
+    return whole.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
+      return lower + '_' + upper.toLowerCase();
+    });
+  });
+}
+
 Router.use('/:recipe/embed', require('body-parser').urlencoded({extended: true}));
 Router.use(require('body-parser').json());
 
@@ -124,7 +132,10 @@ var buildRecipe = function(req, res, callback) {
     buildParams.views.setup[language] = CodeTemplates.setups['html'];
     views.forEach(function(viewName) {
       buildParams.views[viewName] = {};
-      buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+      var html = buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+      if (language === 'ruby' && html) {
+        buildParams.views[viewName][language] = fixRubyVariables(html);
+      }
     });
     buildParams.staticFiles = CodeTemplates.static[language];
     AppBuilder.build(buildParams, callback);
