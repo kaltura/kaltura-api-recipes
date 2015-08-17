@@ -33,7 +33,7 @@ class MainController < ApplicationController
     cuePoint.source_url = params[:sourceUrl]
     cuePoint.start_time = params[:startTime]
     cuePoint.entry_id = "1_318vzqcr"
-    result = @@client.cuePoint.add(cuePoint)
+    result = @@client.cue_point_service.add(cuePoint)
     render json: result
   end
 

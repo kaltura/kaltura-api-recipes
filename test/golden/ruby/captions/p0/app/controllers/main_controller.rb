@@ -42,9 +42,11 @@ class MainController < ApplicationController
   end
 
   def attachCaptions
+    path = File.join(Dir.pwd, "public", params[:fileData].original_filename)
+    File.open(path, "wb") { |f| f.write(params[:fileData].read) }
     uploadToken = KalturaUploadToken.new();
     result = @@client.upload_token_service.add(uploadToken)
-    result = @@client.uploadToken.upload(result.id, dest)
+    result = @@client.upload_token_service.upload(result.id, path)
     var captionResource = KalturaUploadedFileTokenResource.new();
     captionResource.token = result.id;
     captionAsset = KalturaCaptionAsset.new();

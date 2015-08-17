@@ -16,3 +16,25 @@ Started GET "/" for 24.91.128.214 at 2015-02-09 00:16:23 +0000
 Processing by Rails::WelcomeController#index as HTML
   Rendered /home/ec2-user/.gem/ruby/2.0/gems/railties-4.2.0/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
 Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 24.91.128.214 at 2015-08-17 21:30:16 +0000
+Processing by MainController#index as HTML
+  Rendered main/_upload_form.html.erb (0.3ms)
+  Rendered main/index.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 449ms (Views: 439.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/UploadFile" for 24.91.128.214 at 2015-08-17 21:30:24 +0000
+Processing by MainController#UploadFile as */*
+  Parameters: {"fileData"=>#<ActionDispatch::Http::UploadedFile:0x000000045412e0 @tempfile=#<File:/tmp/RackMultipart20150817-20524-7nonl0.svg>, @original_filename="noun_3067_cc.svg", @content_type="image/svg+xml", @headers="Content-Disposition: form-data; name=\"fileData\"; filename=\"noun_3067_cc.svg\"\r\nContent-Type: image/svg+xml\r\n">}
+Completed 500 Internal Server Error in 512ms
+
+Kaltura::KalturaAPIError (Upload failed):
+  app/controllers/main_controller.rb:38:in `UploadFile'
+
+
+  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_source.erb (2.6ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_trace.text.erb (0.4ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_request_and_response.text.erb (0.7ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/diagnostics.text.erb (12.2ms)
