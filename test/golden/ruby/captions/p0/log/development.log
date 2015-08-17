@@ -16,25 +16,3 @@ Started GET "/" for 24.91.128.214 at 2015-02-09 00:16:23 +0000
 Processing by Rails::WelcomeController#index as HTML
   Rendered /home/ec2-user/.gem/ruby/2.0/gems/railties-4.2.0/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
 Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
-
-
-Started GET "/" for 24.91.128.214 at 2015-08-17 21:23:40 +0000
-Processing by MainController#index as HTML
-  Rendered main/_upload_captions.html.erb (0.4ms)
-  Rendered main/index.html.erb within layouts/application (33.4ms)
-Completed 200 OK in 468ms (Views: 458.2ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/attachCaptions" for 24.91.128.214 at 2015-08-17 21:23:50 +0000
-Processing by MainController#attachCaptions as */*
-  Parameters: {"fileData"=>#<ActionDispatch::Http::UploadedFile:0x000000053f30b8 @tempfile=#<File:/tmp/RackMultipart20150817-19479-aq63gu.srt>, @original_filename="sample_captions-1.srt", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"fileData\"; filename=\"sample_captions-1.srt\"\r\nContent-Type: application/octet-stream\r\n">}
-Completed 500 Internal Server Error in 571ms
-
-Kaltura::KalturaAPIError (Upload failed):
-  app/controllers/main_controller.rb:49:in `attachCaptions'
-
-
-  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_source.erb (2.7ms)
-  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_trace.text.erb (0.5ms)
-  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/_request_and_response.text.erb (0.7ms)
-  Rendered /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/web-console-2.0.0/lib/action_dispatch/templates/rescues/diagnostics.text.erb (12.6ms)
