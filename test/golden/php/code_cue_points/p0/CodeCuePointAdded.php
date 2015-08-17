@@ -14,6 +14,7 @@
   }
   element[0].loadData();
 </script>
+
 <script>
   jsCallbackReady = function(playerId) {
     $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );

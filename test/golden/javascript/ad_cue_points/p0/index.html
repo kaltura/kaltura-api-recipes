@@ -102,8 +102,9 @@
         </p>
       <% }); %>
       <%
-          print(AddAdCuePointView({result: result}));
+        print(AddAdCuePointView({result: result}));
       %>
+
       <hr></hr>
     </script>
     <script type="text/javascript">
@@ -161,8 +162,9 @@
 
     <script id="AddAdCuePoint-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(AddAdCuePointFormView({result: result}));
+        print(AddAdCuePointFormView({result: result}));
       %>
+
       <script>
         $('#AddAdCuePointForm').submit(function() {
           var cuePoint = new KalturaAdCuePoint();
@@ -187,12 +189,13 @@
       <p>Cue point added. Loading video...</p>
       <div id="getMedia-result"></div>
       <%
-          getMedia({
-             entryId: "1_318vzqcr",
-          }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
-          })
+        getMedia({
+           entryId: "1_318vzqcr",
+        }, function(result) {
+          $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
+        })
       %>
+
       <script>
       <% print("</"+"script>"); %>
     </script>

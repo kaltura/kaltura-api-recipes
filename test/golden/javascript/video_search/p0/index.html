@@ -76,8 +76,9 @@
       <% result.forEach(function(video, index) { %>
         <% if(index < 5) { %>
           <%
-              print(KalturaMediaEntryView({result: video}));
+            print(KalturaMediaEntryView({result: video}));
           %>
+
         <% } %>
       <% }); %>
     </script>

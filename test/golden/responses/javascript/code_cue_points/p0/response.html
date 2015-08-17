@@ -103,8 +103,9 @@
         <p><%= cuePoint.description %></p>
       <% }); %>
       <%
-          print(AddCodeCuePointView({result: result}));
+        print(AddCodeCuePointView({result: result}));
       %>
+
       <hr></hr>
     </script>
     <script type="text/javascript">
@@ -166,8 +167,9 @@
 
     <script id="AddCodeCuePoint-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(AddCodeCuePointFormView({result: result}));
+        print(AddCodeCuePointFormView({result: result}));
       %>
+
       <script>
         $('#AddCodeCuePointForm').submit(function() {
           var cuePoint = new KalturaCodeCuePoint();
@@ -196,12 +198,13 @@
       <hr></hr>
       <div id="getMedia-result"></div>
       <%
-          getMedia({
-             entryId: "1_318vzqcr",
-          }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
-          })
+        getMedia({
+           entryId: "1_318vzqcr",
+        }, function(result) {
+          $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
+        })
       %>
+
       <script>
         jsCallbackReady = function(playerId) {
           $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );

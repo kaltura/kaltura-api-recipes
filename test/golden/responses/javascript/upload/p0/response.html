@@ -125,12 +125,12 @@
 
       <div id="CreateMediaEntry-result"></div>
       <%
-          CreateMediaEntry({
-             name: result.fileName,
-             uploadTokenId: result.id,
-          }, function(result) {
-            $('#CreateMediaEntry-result').replaceWith(CreatedEntryView({result: result}))
-          })
+        CreateMediaEntry({
+           name: result.fileName,
+           uploadTokenId: result.id,
+        }, function(result) {
+          $('#CreateMediaEntry-result').replaceWith(CreatedEntryView({result: result}))
+        })
       %>
     </script>
     <script type="text/javascript">
@@ -139,7 +139,7 @@
 
     <script id="CreatedEntry-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(KalturaMediaEntryView({result: result}));
+        print(KalturaMediaEntryView({result: result}));
       %>
     </script>
     <script type="text/javascript">
