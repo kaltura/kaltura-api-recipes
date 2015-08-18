@@ -7,6 +7,6 @@ mediaResource.token = <%- Lucy.code.variable('answers.uploadTokenId') %>
 entry = @@client.media_service.add_content(entry.id, mediaResource)
 while entry.status != 2 do
   sleep 1
-  entry = @@client.media.get()
+  entry = @@client.media_service.get()
 end
 <%- Lucy.returnCode('entry') %>
