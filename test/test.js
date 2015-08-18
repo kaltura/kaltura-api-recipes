@@ -13,7 +13,7 @@ var Server = require('./server.js');
 var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
-var MIN_TIMEOUT = 5000;
+var MIN_TIMEOUT = 15000;
 var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 500;
 
 var GOLDEN_BASE = __dirname + '/golden';
@@ -125,40 +125,30 @@ describe('sample code', function() {
   });
 });
 
-var setServerStartCallback = function(language, proc, started) {
-  if (language === 'ruby') {
-    proc.stderr.on('data', function(data) {
-      data = data.toString();
-      if (data.indexOf('HTTPServer#start') !== -1) {
-        started();
-      }
-    })
-  } else {
-    setTimeout(started, PROCESS_WAIT_TIME);
-  }
-}
-
 var startServer = function(language, directory, started) {
+  var proc = null;
   if (language == 'php' || language === 'javascript') {
     proc = Proc.spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});
+    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
   } else if (language === 'node') {
     proc = Proc.spawn('node', [Path.join(directory, 'server.js')], {stdio: 'pipe'});
+    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
   } else if (language === 'ruby') {
     var bin = Path.join(directory, 'bin/rails');
     FS.chmodSync(bin, '777');
-    proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {cwd: directory});
+    Proc.spawn('bundle', ['install'], {cwd: directory}).on('exit', function() {
+      proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {
+          cwd: directory,
+      });
+      proc.stderr.on('data', function(data) {
+        data = data.toString();
+        console.log('data', data)
+        if (data.indexOf('HTTPServer#start') !== -1) {
+          started(proc);
+        }
+      })
+    }).on('data', function(d) {console.log(d.toString())})
   }
-  proc.stdout.on('data', function(data) {
-    console.log('      ' + data.toString());
-  });
-  proc.stderr.on('data', function(err) {
-    console.log('      ' + err.toString());
-  });
-  proc.on('error', function(err) {
-    Expect(err).to.equal(null);
-  });
-  setServerStartCallback(language, proc, started);
-  return proc;
 }
 
 var killServer = function(language, proc, killed) {
@@ -171,16 +161,29 @@ Object.keys(Recipes).forEach(function(recipe) {
   LANGUAGES.forEach(function(language) {
     Recipes[recipe].pages.forEach(function(page, pageIndex) {
       describe('server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
-        var proc;
+        var proc = null;
         before(function(done) {
           this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
-          proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex), done);
+          startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex), function(server) {
+            proc = server;
+            proc.stdout.on('data', function(data) {
+              console.log('      ' + data.toString());
+            });
+            proc.stderr.on('data', function(err) {
+              console.log('      ' + err.toString());
+            });
+            proc.on('error', function(err) {
+              Expect(err).to.equal(null);
+            });
+            done();
+          });
         });
         after(function(done) {
           this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
           killServer(language, proc, done);
         })
         it ('should return HTML', function(done) {
+          this.timeout(MIN_TIMEOUT);
           Request('http://127.0.0.1:3333/', function(err, resp, body) {
             Expect(err).to.equal(null);
             var goldenDir = Path.join(__dirname, 'golden', 'responses', language, recipe, 'p' + pageIndex);

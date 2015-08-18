@@ -88,6 +88,7 @@ var buildRecipe = function(req, res, callback) {
     var buildParams = {answers: answers, actions: {}, views: {}};
     buildParams.main = recipe.pages[req.body.page || 0];
     buildParams.language = language;
+    if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
     actions.forEach(function(action) {
       var actionTmpl = CodeTemplates.actions[action.action] ? CodeTemplates.actions[action.action][language] : null;
       if (!actionTmpl && action.service) {
