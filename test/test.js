@@ -13,7 +13,7 @@ var Server = require('./server.js');
 var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
-var MIN_TIMEOUT = 15000;
+var MIN_TIMEOUT = 5000;
 var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 500;
 
 var GOLDEN_BASE = __dirname + '/golden';
@@ -136,19 +136,27 @@ var startServer = function(language, directory, started) {
   } else if (language === 'ruby') {
     var bin = Path.join(directory, 'bin/rails');
     FS.chmodSync(bin, '777');
-    Proc.spawn('bundle', ['install'], {cwd: directory}).on('exit', function() {
-      proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {
-          cwd: directory,
-      });
-      proc.stderr.on('data', function(data) {
-        data = data.toString();
-        console.log('data', data)
-        if (data.indexOf('HTTPServer#start') !== -1) {
-          started(proc);
-        }
-      })
-    }).on('data', function(d) {console.log(d.toString())})
+    FS.writeFileSync(Path.join(directory, 'Gemfile.lock'),
+                     FS.readFileSync(Path.join(__dirname, 'golden/ruby/Gemfile.lock'), 'utf8'))
+    proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {
+        cwd: directory,
+    });
+    proc.stderr.on('data', function(data) {
+      data = data.toString();
+      if (data.indexOf('HTTPServer#start') !== -1) {
+        started(proc);
+      }
+    })
   }
+  proc.stdout.on('data', function(data) {
+    console.log('      ' + data.toString());
+  });
+  proc.stderr.on('data', function(err) {
+    console.log('      ' + err.toString());
+  });
+  proc.on('error', function(err) {
+    Expect(err).to.equal(null);
+  });
 }
 
 var killServer = function(language, proc, killed) {
@@ -166,15 +174,6 @@ Object.keys(Recipes).forEach(function(recipe) {
           this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
           startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex), function(server) {
             proc = server;
-            proc.stdout.on('data', function(data) {
-              console.log('      ' + data.toString());
-            });
-            proc.stderr.on('data', function(err) {
-              console.log('      ' + err.toString());
-            });
-            proc.on('error', function(err) {
-              Expect(err).to.equal(null);
-            });
             done();
           });
         });

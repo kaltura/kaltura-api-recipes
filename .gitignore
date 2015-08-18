@@ -2,13 +2,13 @@ node_modules/
 static/bower/
 static/test.html
 
-test/golden/ruby/**/**/*.lock
-test/golden/ruby/**/**/log/
-test/golden/ruby/**/**/tmp/
+test/golden/ruby/*/*/*.lock
+test/golden/ruby/*/*/log/
+test/golden/ruby/*/*/tmp/
 
-test/golden/node/**/**/*.png
-test/golden/node/**/**/*.mp4
-test/golden/node/**/**/*.srt
-test/golden/php/**/**/*.png
-test/golden/php/**/**/*.mp4
-test/golden/php/**/**/*.srt
+test/golden/node/*/*/*.png
+test/golden/node/*/*/*.mp4
+test/golden/node/*/*/*.srt
+test/golden/php/*/*/*.png
+test/golden/php/*/*/*.mp4
+test/golden/php/*/*/*.srt
