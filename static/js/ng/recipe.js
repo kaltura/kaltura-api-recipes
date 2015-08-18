@@ -77,6 +77,8 @@ app.controller('Language', function($scope) {
     id: 'php', label: 'PHP'
   }, {
     id: 'node', label: 'NodeJS'
+  }, {
+    id: 'ruby', label: 'Ruby'
   }];
 
   $scope.setLanguage = function(language) {
