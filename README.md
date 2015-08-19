@@ -55,6 +55,24 @@ or
 
 ```export KALTURA_USER_ID=foo@bar.com```
 
+You can also mock the answers that are collected in the Recipe UI forms by setting
+
+```export KALTURA_ANSWERS_FILE=/path/to/answers.json```
+
+Where answers.json is a map from recipe names to answer/value pairs, e.g. 
+
+```json
+"analytics": {
+  "reportType": "5",
+  "fromDay": "2015-07-01",
+  "toDay": "2015-07-10",
+},
+"captions": {
+  "entryId": "1_9kdmnhuv",
+  "uiConf": 30633631
+}
+```
+
 
 
 To use a different service URL, you can set KALTURA_SERVICE_URL flag:
