@@ -1,11 +1,10 @@
-entry = KalturaMediaEntry.new()
+entry = Kaltura::KalturaMediaEntry.new
 entry.name = <%- Lucy.code.variable('answers.name') %>
 entry.media_type = <%- Lucy.code.variable('answers.mediaType') %>
-entry = @@client.media_service.add(entry)
-mediaResource = KalturaUploadedFileTokenResource.new()
-mediaResource.token = <%- Lucy.code.variable('answers.uploadTokenId') %>
-entry = @@client.media_service.add_content(entry.id, mediaResource)
-while entry.status != 2 do
+token = <%- Lucy.code.variable('answers.upload_token_id') %>
+entry = @@client.media_service.add_from_uploaded_file(entry, token)
+
+while entry.status != "2" do
   sleep 1
   entry = @@client.media_service.get(entry.id)
 end

@@ -16,26 +16,29 @@ class MainController < ApplicationController
 
 
   def CreateMediaEntry
-    entry = KalturaMediaEntry.new()
+    entry = Kaltura::KalturaMediaEntry.new
     entry.name = request[:name]
     entry.media_type = 1
-    entry = @@client.media.add(entry)
-    mediaResource = KalturaUploadedFileTokenResource.new()
-    mediaResource.token = request[:uploadTokenId]
-    entry = @@client.media_service.add_content(entry.id, mediaResource)
-    while entry.status != 2 do
+    token = request[:upload_token_id]
+    entry = @@client.media_service.add_from_uploaded_file(entry, token)
+
+    while entry.status != "2" do
       sleep 1
-      entry = @@client.media.get()
+      entry = @@client.media_service.get(entry.id)
     end
-    render :template => "main/_created_entry", :locals => {:result => entry}
+    render :template => "main/_kaltura_media_entry", :locals => {:result => entry}
   end
 
   def UploadFile
-    path = File.join(Dir.pwd, "public", params[:fileData].original_filename)
+    name = params[:fileData].original_filename
+    directory = "/tmp/"
+    path = File.join(directory, name)
     File.open(path, "wb") { |f| f.write(params[:fileData].read) }
-    uploadToken = KalturaUploadToken.new();
+    video_file=File.open(path)
+    uploadToken = KalturaUploadToken.new
     result = @@client.upload_token_service.add(uploadToken)
-    result = @@client.upload_token_service.upload(result.id, path)
+    token = result.id
+    result = @@client.upload_token_service.upload(token,video_file,nil,nil,nil)
     render :template => "main/_upload_done", :locals => {:result => result}
   end
 end

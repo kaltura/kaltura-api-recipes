@@ -1,6 +1,10 @@
-path = File.join(Dir.pwd, "public", params[:fileData].original_filename)
+name = params[:fileData].original_filename
+directory = "/tmp/"
+path = File.join(directory, name)
 File.open(path, "wb") { |f| f.write(params[:fileData].read) }
-uploadToken = KalturaUploadToken.new();
+video_file=File.open(path)
+uploadToken = KalturaUploadToken.new
 result = @@client.upload_token_service.add(uploadToken)
-result = @@client.upload_token_service.upload(result.id, path)
+token = result.id
+result = @@client.upload_token_service.upload(token,video_file,nil,nil,nil)
 <%- Lucy.returnCode('result') %>

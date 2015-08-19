@@ -38,11 +38,10 @@
   "views": [
     "UploadForm",
     "UploadDone",
-    "CreatedEntry",
     "KalturaMediaEntry"
   ],
   "actions": [
-    {"action": "CreateMediaEntry", "view": "CreatedEntry"},
+    {"action": "CreateMediaEntry", "view": "KalturaMediaEntry"},
     {"action": "UploadFile", "view": "UploadDone"}
   ]
 }

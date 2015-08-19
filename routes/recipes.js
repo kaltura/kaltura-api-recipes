@@ -30,6 +30,8 @@ var fixRubyVariables = function(html) {
   }).replace(/in="([^"]+)"/g, function(whole, group) {
     group = camelToUnderscore(group);
     return 'in="' + group + '"'; 
+  }).replace(/inputvars="(.*)"/g, function(whole, vars) {
+    return 'inputvars="' + camelToUnderscore(vars) + '"';
   }).replace(/\{\{([^\}]+)\}\}/g, function(whole, variable) {
     variable = variable.trim();
     if (variable.indexOf('answers') !== 0) {
