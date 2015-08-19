@@ -37,6 +37,12 @@ the code in ```test/golden/{language}/{recipe_name}```.
 The tests will also run the generated code on port 3333 and check the output of 127.0.0.1:3333/
 against golden files in ```test/golden/responses/{language}/{recipe_name}```
 
+Note that in order to run the servers for each language (and therefore the tests), you'll need to have the following installed:
+* **Ruby**: gem, bundler, rake
+* **NodeJS**: node, npm
+* **PHP**: php
+* **JavaScript**: php
+
 You can regenerate the golden files by setting
 
 ```export WRITE_GOLDEN=true```
