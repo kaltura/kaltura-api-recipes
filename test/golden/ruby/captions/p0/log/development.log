@@ -16,3 +16,58 @@ Started GET "/" for 24.91.128.214 at 2015-02-09 00:16:23 +0000
 Processing by Rails::WelcomeController#index as HTML
   Rendered /home/ec2-user/.gem/ruby/2.0/gems/railties-4.2.0/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
 Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 50.153.149.125 at 2015-08-19 14:15:17 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by MainController#index as HTML
+  Rendered main/_upload_captions.html.erb (0.4ms)
+  Rendered main/index.html.erb within layouts/application (30.8ms)
+Completed 200 OK in 784ms (Views: 774.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/attachCaptions" for 50.153.149.125 at 2015-08-19 14:15:29 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by MainController#attachCaptions as */*
+  Parameters: {"fileData"=>#<ActionDispatch::Http::UploadedFile:0x007fcc20ba9ae8 @tempfile=#<File:/tmp/RackMultipart20150819-12938-cesphb.srt>, @original_filename="1_8sh4bt77.srt", @content_type="application/octet-stream", @headers="Content-Disposition: form-data; name=\"fileData\"; filename=\"1_8sh4bt77.srt\"\r\nContent-Type: application/octet-stream\r\n">}
+  Rendered main/_captions_attached.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2126ms (Views: 17.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1&_=1439993717803" for 50.153.149.125 at 2015-08-19 14:15:31 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/jquery_ujs.self-ca5248a2fad13d6bd58ea121318d642f195f0b2dd818b30615f785ff365e8d1f.js?body=1&_=1439993717804" for 50.153.149.125 at 2015-08-19 14:15:32 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1&_=1439993717805" for 50.153.149.125 at 2015-08-19 14:15:32 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-3a3c8b61bda630ee689740ce7cbd0dd8ea6fdd45e2c42eef4661ab38cf268afe.js?body=1&_=1439993717806" for 50.153.149.125 at 2015-08-19 14:15:32 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started POST "/getMedia" for 50.153.149.125 at 2015-08-19 14:15:33 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by MainController#getMedia as HTML
+  Rendered main/_kaltura_media_entry.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 266ms (Views: 17.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1&_=1439993730127" for 50.153.149.125 at 2015-08-19 14:15:33 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/jquery_ujs.self-ca5248a2fad13d6bd58ea121318d642f195f0b2dd818b30615f785ff365e8d1f.js?body=1&_=1439993730128" for 50.153.149.125 at 2015-08-19 14:15:34 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1&_=1439993730129" for 50.153.149.125 at 2015-08-19 14:15:34 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-3a3c8b61bda630ee689740ce7cbd0dd8ea6fdd45e2c42eef4661ab38cf268afe.js?body=1&_=1439993730130" for 50.153.149.125 at 2015-08-19 14:15:35 +0000
+Cannot render console from 50.153.149.125! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
