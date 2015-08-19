@@ -26,6 +26,39 @@ var AUTH_ANSWERS = {
   sessionType: process.env.KALTURA_SECRET ? 0 : 2
 }
 
+var ANSWERS = process.env.KALTURA_ANSWERS_FILE ?
+    JSON.parse(FS.readFileSync(process.env.KALTURA_ANSWERS_FILE, 'utf8'))
+    : {
+        analytics: {
+          reportType: "5",
+          fromDay: '2015-07-01',
+          toDay: '2015-07-10',
+        },
+        captions: {
+          entryId: '1_9kdmnhuv',
+          uiConf: 30633631,
+        },
+        code_cue_points: {
+          entryIdEqual: '1_318vzqcr',
+          uiConf: 30633631,
+        },
+        ad_cue_points: {
+          entryIdEqual: '1_318vzqcr',
+          uiConf: 30633631,
+        },
+        dynamic_thumbnails: {
+          uiConf: 30633631,
+        },
+        video_search: {
+          uiConf: 30633631,
+        },
+        upload: {
+          uiConf: 30633631,
+        },
+      }
+
+var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];
+
 var buildCode = function(recipe, data, done) {
   data.answers = data.answers || {};
   Util._extend(data.answers, AUTH_ANSWERS);
@@ -60,35 +93,6 @@ var buildCode = function(recipe, data, done) {
 }
 
 var Recipes = require('../recipes/recipes.js');
-var ANSWERS = {
-  analytics: {
-    reportType: "5",
-    fromDay: '2015-07-01',
-    toDay: '2015-07-10',
-  },
-  captions: {
-    entryId: '1_9kdmnhuv',
-    uiConf: 30633631,
-  },
-  code_cue_points: {
-    entryIdEqual: '1_318vzqcr',
-    uiConf: 30633631,
-  },
-  ad_cue_points: {
-    entryIdEqual: '1_318vzqcr',
-    uiConf: 30633631,
-  },
-  dynamic_thumbnails: {
-    uiConf: 30633631,
-  },
-  video_search: {
-    uiConf: 30633631,
-  },
-  upload: {
-    uiConf: 30633631,
-  },
-}
-var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
