@@ -1,0 +1,13 @@
+<h1>Search Results for "support"</h1>
+<hr></hr>
+<% result.each_index do | index | caption = result.fetch(index) %>
+  <div class="row">
+    <div class="col-xs-4 text-right">
+      <img src="<%= caption.entry.thumbnail_url %>"></img>
+    </div>
+    <div class="col-xs-7 col-xs-offset-1">
+      <p><i><%= caption.content %></i></p>
+    </div>
+  </div>
+  <hr></hr>
+<% end %>

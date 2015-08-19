@@ -1,0 +1,7 @@
+<h1>Videos</h1>
+<hr></hr>
+<% result.each_index do | index | video = result.fetch(index) %>
+  <% if index < 5 %>
+    <%= render "kaltura_media_entry.html.erb", :result => video %>
+  <% end %>
+<% end %>

@@ -77,6 +77,8 @@ app.controller('Language', function($scope) {
     id: 'php', label: 'PHP'
   }, {
     id: 'node', label: 'NodeJS'
+  }, {
+    id: 'ruby', label: 'Ruby'
   }];
 
   $scope.setLanguage = function(language) {
@@ -184,6 +186,10 @@ app.controller('Code', function($scope) {
   $scope.files = [];
 
   $scope.getHLJSLanguage = function() {
+    if ($scope.activeFileIdx >= 0) {
+      var filename = $scope.files[$scope.activeFileIdx].filename;
+      if (filename.indexOf('.html') !== -1) return 'html'
+    }
     var ret = $('#Language').scope().language.id;
     return ret === 'node' ? 'javascript' : ret;
   }

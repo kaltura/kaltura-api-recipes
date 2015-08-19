@@ -1,0 +1,18 @@
+<lucy include="AddAdCuePointForm"></lucy>
+<script>
+  $('#AddAdCuePointForm').submit(function() {
+    var data = $(this).serialize();
+    $.ajax({
+      url: '/addCuePoint',
+      type: 'POST',
+      data: data,
+      contentType: 'application/x-www-form-urlencoded',
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        $('.container').load('listCuePoint', data);
+      }
+    });
+    return false;
+  })
+</script>

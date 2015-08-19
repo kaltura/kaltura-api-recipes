@@ -1,0 +1,3 @@
+<% result.each_index do | index | permission = result.fetch(index) %>
+  <%= render "kaltura_permission.html.erb", :result => permission %>
+<% end %>

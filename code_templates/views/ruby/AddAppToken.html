@@ -1,0 +1,19 @@
+<lucy include="AddAppTokenForm"></lucy>
+<script>
+  $('#AddAppTokenForm').submit(function() {
+    var data = $(this).serialize();
+    data.sessionType = parseInt(data.sessionType);
+    $.ajax({
+      url: '/addAppToken',
+      type: 'POST',
+      data: data,
+      contentType: 'application/x-www-form-urlencoded',
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        $('.container').load('listAppToken', data);
+      }
+    });
+    return false;
+  })
+</script>

@@ -26,5 +26,5 @@ while ($result->status != 2) {
   $result = $client->media->get($result->id);
 }
 $result = (object)$result;
-require 'CreatedEntry.php';
+require 'KalturaMediaEntry.php';
 ?>

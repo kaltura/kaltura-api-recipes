@@ -1,0 +1,18 @@
+<%= render "add_event_notification_template_form.html.erb" %>
+<script>
+  $('#AddEventNotificationTemplateForm').submit(function() {
+    var data = $(this).serialize();
+    $.ajax({
+      url: '/cloneEventNotificationTemplate',
+      type: 'POST',
+      data: data,
+      contentType: 'application/x-www-form-urlencoded',
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        $('#CloneStatus').text('Success!');
+      }
+    }); 
+    return false;
+  })
+</script>
