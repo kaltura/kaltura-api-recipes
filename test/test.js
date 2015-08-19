@@ -1,5 +1,5 @@
 var Async = require('async');
-var Spawn = require('child_process').spawn;
+var Proc = require('child_process');
 var Util = require('util');
 var FS = require('fs');
 var Path = require('path');
@@ -13,6 +13,7 @@ var Server = require('./server.js');
 var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
+var MIN_TIMEOUT = 5000;
 var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 500;
 
 var GOLDEN_BASE = __dirname + '/golden';
@@ -87,7 +88,7 @@ var ANSWERS = {
     uiConf: 30633631,
   },
 }
-var LANGUAGES = ['php', 'javascript', 'node'];
+var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
@@ -124,41 +125,64 @@ describe('sample code', function() {
   });
 });
 
-var startServer = function(language, directory) {
+var startServer = function(language, directory, started) {
+  var proc = null;
   if (language == 'php' || language === 'javascript') {
-    proc = Spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});
+    proc = Proc.spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});
+    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
   } else if (language === 'node') {
-    proc = Spawn('node', [Path.join(directory, 'server.js')], {stdio: 'pipe'});
+    proc = Proc.spawn('node', [Path.join(directory, 'server.js')], {stdio: 'pipe'});
+    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
+  } else if (language === 'ruby') {
+    var bin = Path.join(directory, 'bin/rails');
+    FS.chmodSync(bin, '777');
+    FS.writeFileSync(Path.join(directory, 'Gemfile.lock'),
+                     FS.readFileSync(Path.join(__dirname, 'golden/ruby/Gemfile.lock'), 'utf8'))
+    proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {
+        cwd: directory,
+    });
+    proc.stderr.on('data', function(data) {
+      data = data.toString();
+      if (data.indexOf('HTTPServer#start') !== -1) {
+        started(proc);
+      }
+    })
   }
+  proc.stdout.on('data', function(data) {
+    console.log('      ' + data.toString());
+  });
   proc.stderr.on('data', function(err) {
-    if (err.toString().match(/\[200\]: \//)) return;
-    if (!err.toString().trim()) return;
-    console.log('    ERROR:', err.toString());
-    Expect(err).to.equal(null);
+    console.log('      ' + err.toString());
   });
   proc.on('error', function(err) {
     Expect(err).to.equal(null);
-  })
-  return proc;
-} 
+  });
+}
+
+var killServer = function(language, proc, killed) {
+  proc.kill('SIGKILL');
+  setTimeout(killed, PROCESS_WAIT_TIME);
+}
 
 Object.keys(Recipes).forEach(function(recipe) {
   if (Recipes[recipe].broken) return;
   LANGUAGES.forEach(function(language) {
     Recipes[recipe].pages.forEach(function(page, pageIndex) {
       describe('server for ' + recipe + ' p' + pageIndex + ' in ' + language, function(done) {
-        var proc;
+        var proc = null;
         before(function(done) {
-          this.timeout(PROCESS_WAIT_TIME + 100);
-          proc = startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex));
-          setTimeout(done, PROCESS_WAIT_TIME);
+          this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
+          startServer(language, Path.join(__dirname, 'golden', language, recipe, 'p' + pageIndex), function(server) {
+            proc = server;
+            done();
+          });
         });
         after(function(done) {
-          this.timeout(PROCESS_WAIT_TIME + 100);
-          proc.kill('SIGHUP');
-          setTimeout(done, PROCESS_WAIT_TIME);
+          this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
+          killServer(language, proc, done);
         })
         it ('should return HTML', function(done) {
+          this.timeout(MIN_TIMEOUT);
           Request('http://127.0.0.1:3333/', function(err, resp, body) {
             Expect(err).to.equal(null);
             var goldenDir = Path.join(__dirname, 'golden', 'responses', language, recipe, 'p' + pageIndex);

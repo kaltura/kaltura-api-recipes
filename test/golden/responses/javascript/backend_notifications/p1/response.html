@@ -142,8 +142,9 @@
       <hr></hr>
       <% result.forEach(function(template, index) { %>
         <%
-            print(KalturaEventNotificationTemplateView({result: template}));
+          print(KalturaEventNotificationTemplateView({result: template}));
         %>
+
       <% }); %>
     </script>
     <script type="text/javascript">
@@ -175,8 +176,9 @@
       <% result.forEach(function(template, index) { %>
         <% if(template.id == null) { %>
           <%
-          print(KalturaEventNotificationTemplateView({result: template}));
+        print(KalturaEventNotificationTemplateView({result: template}));
       %>
+
           <form id="AddEventNotificationTemplateForm">
             <div class="form-group">
               <label>Template Name</label>
@@ -206,8 +208,9 @@
 
     <script id="CloneEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
       <%
-          print(AddEventNotificationTemplateFormView({result: result}));
+        print(AddEventNotificationTemplateFormView({result: result}));
       %>
+
       <script>
         $('#AddEventNotificationTemplateForm').submit(function() {
           $('#CloneStatus').text('Cloning...').show();
@@ -223,8 +226,9 @@
     <script id="KalturaPermissionListResponse-template" type="text/x-underscore-template" style="display: none">
       <% result.forEach(function(permission, index) { %>
         <%
-          print(KalturaPermissionView({result: permission}));
+        print(KalturaPermissionView({result: permission}));
       %>
+
       <% }); %>
     </script>
     <script type="text/javascript">

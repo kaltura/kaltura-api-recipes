@@ -37,7 +37,7 @@ app.post('/CreateMediaEntry', function(req, res) {
     mediaResource.token = req.body.uploadTokenId;
     var checkStatus = function(entry) {
       if (entry.status === 2) {
-        res.render('CreatedEntry', {request: req.body, result: entry})
+        res.render('KalturaMediaEntry', {request: req.body, result: entry})
       } else {
         setTimeout(function() {
           client.media.get(checkStatus, entry.id);

@@ -1,5 +1,5 @@
 var Router = module.exports = require('express').Router();
-var CodeBuilders = require('../lucy-langs/builders/builders.js');
+var AppBuilder = require('../lucy-codegen/generators/app.js');
 
 var Async = require('async');
 var EJS = require('ejs');
@@ -14,6 +14,32 @@ var SchemaXML = FS.readFileSync(Path.join(__dirname, '../api_schema.xml'), 'utf8
 var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
+
+var camelToUnderscore = function(camel) {
+  return camel.replace(/(\w+\.)(.*)/g, function(whole, variable, member) {
+    return variable + member.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
+      return lower + '_' + upper.toLowerCase();
+    });
+  })
+}
+
+var fixRubyVariables = function(html) {
+  return html.replace(/if="([^"]+)"/g, function(whole, cond) {
+    cond = camelToUnderscore(cond);
+    return 'if="' + cond + '"';
+  }).replace(/in="([^"]+)"/g, function(whole, group) {
+    group = camelToUnderscore(group);
+    return 'in="' + group + '"'; 
+  }).replace(/inputvars="(.*)"/g, function(whole, vars) {
+    return 'inputvars="' + camelToUnderscore(vars) + '"';
+  }).replace(/\{\{([^\}]+)\}\}/g, function(whole, variable) {
+    variable = variable.trim();
+    if (variable.indexOf('answers') !== 0) {
+      variable = camelToUnderscore(variable);
+    }
+    return '{{ ' + variable + ' }}';
+  })
+}
 
 Router.use('/:recipe/embed', require('body-parser').urlencoded({extended: true}));
 Router.use(require('body-parser').json());
@@ -59,11 +85,12 @@ var buildRecipe = function(req, res, callback) {
   var actions = recipe.actions;
   var views = recipe.views;
   var language = req.body.language;
-  CodeBuilders.RecipeV2.fixAnswers(req.body.answers, function(err, answers) {
+  AppBuilder.fixAnswers(req.body.answers, function(err, answers) {
     if (err) return res.status(500).send('Error parsing answers');
     var buildParams = {answers: answers, actions: {}, views: {}};
     buildParams.main = recipe.pages[req.body.page || 0];
     buildParams.language = language;
+    if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
     actions.forEach(function(action) {
       var actionTmpl = CodeTemplates.actions[action.action] ? CodeTemplates.actions[action.action][language] : null;
       if (!actionTmpl && action.service) {
@@ -124,10 +151,13 @@ var buildRecipe = function(req, res, callback) {
     buildParams.views.setup[language] = CodeTemplates.setups['html'];
     views.forEach(function(viewName) {
       buildParams.views[viewName] = {};
-      buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+      var html = buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+      if (language === 'ruby' && html) {
+        buildParams.views[viewName][language] = fixRubyVariables(html);
+      }
     });
     buildParams.staticFiles = CodeTemplates.static[language];
-    CodeBuilders.RecipeV2.build(buildParams, callback);
+    AppBuilder.build(buildParams, callback);
   });
 };
 

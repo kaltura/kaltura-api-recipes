@@ -176,11 +176,11 @@
       <p>Caption file uploaded. Adding to video "1_9kdmnhuv"</p>
       <div id="attachCaptions-result"></div>
       <%
-          attachCaptions({
-             token: result.id,
-          }, function(result) {
-            $('#attachCaptions-result').replaceWith(CaptionsAttachedView({result: result}))
-          })
+        attachCaptions({
+           token: result.id,
+        }, function(result) {
+          $('#attachCaptions-result').replaceWith(CaptionsAttachedView({result: result}))
+        })
       %>
     </script>
     <script type="text/javascript">
@@ -191,10 +191,10 @@
       <p>Captions attached!</p>
       <div id="getMedia-result"></div>
       <%
-          getMedia({
-          }, function(result) {
-            $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
-          })
+        getMedia({
+        }, function(result) {
+          $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
+        })
       %>
     </script>
     <script type="text/javascript">

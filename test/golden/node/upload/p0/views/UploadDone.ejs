@@ -2,11 +2,11 @@
   $('#UploadStatus').text('Uploaded file <%= result.fileName %>. Creating entry...');
 </script>
 
-<div class="CreatedEntry"></div>
+<div class="KalturaMediaEntry"></div>
 <script>
-  var element = $('.CreatedEntry').last();
+  var element = $('.KalturaMediaEntry').last();
   element[0].loadData = function() {
-    $('.CreatedEntry').last().load('CreateMediaEntry', {
+    $('.KalturaMediaEntry').last().load('CreateMediaEntry', {
        name: <%- JSON.stringify(result.fileName) %>,
        uploadTokenId: <%- JSON.stringify(result.id) %>,
     });
