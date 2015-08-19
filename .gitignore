@@ -2,6 +2,7 @@ node_modules/
 static/bower/
 static/test.html
 
+test/golden/ruby/**/development.log
 test/golden/ruby/*/*/*.lock
 test/golden/ruby/*/*/log/
 test/golden/ruby/*/*/tmp/
