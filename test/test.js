@@ -14,7 +14,7 @@ var PORT = process.env.TEST_SERVER_PORT || 3334;
 var BASE_URL = 'http://127.0.0.1:' + PORT + '/recipes';
 
 var MIN_TIMEOUT = 5000;
-var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 500;
+var PROCESS_WAIT_TIME = parseInt(process.env.TEST_WAIT_TIME) || 2000;
 
 var GOLDEN_BASE = __dirname + '/golden';
 

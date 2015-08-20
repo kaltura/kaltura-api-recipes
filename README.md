@@ -37,6 +37,12 @@ the code in ```test/golden/{language}/{recipe_name}```.
 The tests will also run the generated code on port 3333 and check the output of 127.0.0.1:3333/
 against golden files in ```test/golden/responses/{language}/{recipe_name}```
 
+Note that in order to run the servers for each language (and therefore the tests), you'll need to have the following installed:
+* **Ruby**: gem, bundler, rake
+* **NodeJS**: node, npm
+* **PHP**: php
+* **JavaScript**: php
+
 You can regenerate the golden files by setting
 
 ```export WRITE_GOLDEN=true```
@@ -163,7 +169,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
       }
     }
   ],
-  "view": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
+  "views": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
   "views": [
     "myView"
   ],
@@ -192,7 +198,9 @@ You have access to two global variables inside of your views:
 * ```answers``` which contains the user's responses from inside the recipe
 
 ```<lucy include>``` can operate in two different ways:
+
 1. It can simply copy the HTML of the included view
+
 2. It can make a new call to the API, and use the included view as a template for displaying the result.
 
 Case (1) is the default behavior. In addition, you can use ```<lucy include="ViewName" resultvar="foo">``` to use variable "foo" in place of API output. For example, since KalturaMediaListResponse is just an array of KalturaMediaEntry, we can have:
