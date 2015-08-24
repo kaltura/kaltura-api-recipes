@@ -157,6 +157,8 @@ var buildRecipe = function(req, res, callback) {
       }
     });
     buildParams.staticFiles = CodeTemplates.static[language];
+    buildParams.languageOptions = {};
+    buildParams.languageOptions.ruby = {hashMethod: 'getter'}
     AppBuilder.build(buildParams, callback);
   });
 };
