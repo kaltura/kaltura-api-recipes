@@ -85,7 +85,7 @@ var buildCode = function(recipe, data, done) {
     } else {
       files.filter(function(f) {return !f.directory}).forEach(function(file) {
         var golden = FS.readFileSync(Path.join(baseDir, file.filename), 'utf8')
-        Expect(golden).to.equal(file.contents)
+        Expect(file.contents).to.equal(golden)
       })
     }
     done();
@@ -128,6 +128,8 @@ describe('sample code', function() {
     });
   });
 });
+
+if (process.env.SKIP_RESPONSES) return;
 
 var startServer = function(language, directory, started) {
   var proc = null;
@@ -196,7 +198,7 @@ Object.keys(Recipes).forEach(function(recipe) {
               FS.writeFileSync(goldenFile, body);
             } else {
               golden = FS.readFileSync(goldenFile, 'utf8');
-              Expect(golden).to.equal(body);
+              Expect(body).to.equal(golden);
             }
             done();
           });
