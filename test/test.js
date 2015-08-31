@@ -112,8 +112,7 @@ for (recipeName in Recipes) {
 
 describe('sample code', function() {
   before(function(done) {
-    Server.listen(PORT);
-    done();
+    Server.listen(PORT, done);
   });
 
   Object.keys(Recipes).forEach(function(recipe) {

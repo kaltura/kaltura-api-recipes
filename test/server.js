@@ -2,10 +2,11 @@ var Express = require('express');
 
 var App = Express();
 
-App.use('/recipes', require('../routes/recipes.js'));
-
 module.exports = {
-  listen: function(port) {
-    App.listen(port);
+  listen: function(port, callback) {
+    require('../recipe-server.js').getRouter(function(router) {
+      App.use('/recipes', router);
+      App.listen(port);
+    });
   }
 }
