@@ -4,7 +4,7 @@ var App = Express();
 
 module.exports = {
   listen: function(port, callback) {
-    require('../recipe-server.js').getRouter(function(router) {
+    require('../routes/recipes.js').getRouter(function(router) {
       App.use('/recipes', router);
       App.listen(port);
     });

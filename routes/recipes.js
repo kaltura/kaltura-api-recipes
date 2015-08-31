@@ -6,10 +6,10 @@ var XMLParser = require('xml2js').parseString;
 
 var RecipeServer = require('lucy-recipes');
 
-var Recipes = require('./recipes/recipes.js');
+var Recipes = require('../recipes/recipes.js');
 
-var CodeTemplates = require('./code_templates/code-templates.js');
-var Schema = require('./api-schema.js');
+var CodeTemplates = require('../code_templates/code-templates.js');
+var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 
@@ -100,13 +100,26 @@ var setup = function(callback) {
     var recipeParams = {
       actions: actions,
       views: views,
-      directory: __dirname + '/recipes',
+      recipes: require('../recipes/recipes.js'),
       dependencies: {
         ruby: ['kaltura-client']
       },
       languageOptions: {
         ruby: {hashMethod: 'getter'}
       },
+      rootDir: '/recipes',
+      jsIncludes: [
+        '/js/ox.ajast.js',
+        '/js/webtoolkit.md5.js',
+        '/js/KalturaClientBase.js',
+        '/js/KalturaTypes.js',
+        '/js/KalturaVO.js',
+        '/js/KalturaServices.js',
+        '/js/KalturaClient.js',
+        '/js/mixpanel.js',
+        '/js/kc-setup.js',
+        '/js/dynamic-choices.js',
+      ],
       // fixRuby, staticFiles
     }
 

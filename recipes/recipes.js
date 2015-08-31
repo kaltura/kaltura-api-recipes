@@ -22,9 +22,14 @@ files.forEach(function(filename) {
     console.log('Error parsing recipe ' + name);
     throw e;
   }
-  var auth = Recipes[name].needsAdmin ? AuthStep.admin : AuthStep.sessionSelect;
-  Recipes[name].control_sets.unshift(auth);
-  Recipes[name].defaults = Recipes[name].defaults || {};
-  Recipes[name].defaults.serviceURL =
+  var recipe = Recipes[name];
+  var auth = recipe.needsAdmin ? AuthStep.admin : AuthStep.sessionSelect;
+  recipe.control_sets.unshift(auth);
+  recipe.defaults = recipe.defaults || {};
+  recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
+  recipe.actions = recipe.actions || [];
+  recipe.actions.forEach(function(action) {
+    if (action.service) action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+  })
 });

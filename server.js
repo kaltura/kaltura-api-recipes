@@ -4,10 +4,9 @@ var App = Express();
 App.set('views', __dirname + '/views')
 App.set('view engine', 'jade');
 App.engine('jade', require('jade').__express);
-
 App.use('/', Express.static(__dirname + '/static'));
 
-require('./recipe-server.js').getRouter(function(router) {
+require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes', router);
 
   if (process.env.LUCYBOT_DEV) {
