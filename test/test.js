@@ -8,7 +8,7 @@ var Mkdirp = require('mkdirp');
 var Rmdir = require('rimraf')
 var Expect = require('chai').expect;
 
-var Languages = require('../lucy-codegen/langs/langs.js');
+var Languages = require('lucy-codegen').languages;
 
 var Server = require('./server.js');
 

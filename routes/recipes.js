@@ -1,5 +1,5 @@
 var Router = module.exports = require('express').Router();
-var AppBuilder = require('../lucy-codegen/generators/app.js');
+var AppBuilder = require('lucy-codegen').app;
 
 var Async = require('async');
 var EJS = require('ejs');
