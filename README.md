@@ -1,10 +1,10 @@
 # LucyBot recipes for the Kaltura API
 
 ## Installation
+Note that you will need access to the lucy-codegen ssh key to install.
 ```bash
+ssh-add /path/to/lucy-codegen/ssh-key
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
-git submodule init && git submodule update # You'll need access to bobby-brennan/lucy-codegen
-cd lucy-codegen && npm install && cd ..
 npm install
 ```
 
@@ -104,8 +104,6 @@ Other directories control the webserver:
 * ```scripts/``` contains helpful scripts for doing things like compiling LESS to CSS
 * ```test/``` contains the test files, along with golden files for tracking changes to the generated code.
  
-Finally, the LucyBot code buildier libraries are contained in the Git Submodule ```lucy-codegen```. To update to the latest version, simply enter the directory and run ```git pull```.
-
 ## Adding a New Recipe
 
 Recipes are controlled by the JSON files under ```recipes/```. To add a new recipe, simply create a new JSON file in that directory. JSON is structured as follows:

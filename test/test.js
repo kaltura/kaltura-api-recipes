@@ -8,6 +8,8 @@ var Mkdirp = require('mkdirp');
 var Rmdir = require('rimraf')
 var Expect = require('chai').expect;
 
+var Languages = require('lucy-codegen').languages;
+
 var Server = require('./server.js');
 
 var PORT = process.env.TEST_SERVER_PORT || 3334;
@@ -85,7 +87,7 @@ var buildCode = function(recipe, data, done) {
     } else {
       files.filter(function(f) {return !f.directory}).forEach(function(file) {
         var golden = FS.readFileSync(Path.join(baseDir, file.filename), 'utf8')
-        Expect(golden).to.equal(file.contents)
+        Expect(file.contents).to.equal(golden)
       })
     }
     done();
@@ -129,28 +131,36 @@ describe('sample code', function() {
   });
 });
 
+if (process.env.SKIP_RESPONSES) return;
+
 var startServer = function(language, directory, started) {
+  var serverOpts = {
+    port: 3333,
+    directory: directory,
+  };
+  var procArgs = {
+    stdio: 'pipe',
+    cwd: directory,
+  };
   var proc = null;
-  if (language == 'php' || language === 'javascript') {
-    proc = Proc.spawn('php', ('-S 0.0.0.0:3333 -t ' + directory).split(' '), {stdio: 'pipe'});
-    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
-  } else if (language === 'node') {
-    proc = Proc.spawn('node', [Path.join(directory, 'server.js')], {stdio: 'pipe'});
-    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
-  } else if (language === 'ruby') {
+  var cmd = Languages[language].app.startServer(serverOpts);
+  var args = cmd.substring(cmd.indexOf(' ') + 1).split(' ');
+  cmd = cmd.substring(0, cmd.indexOf(' '));
+  if (language === 'ruby') {
     var bin = Path.join(directory, 'bin/rails');
     FS.chmodSync(bin, '777');
     FS.writeFileSync(Path.join(directory, 'Gemfile.lock'),
                      FS.readFileSync(Path.join(__dirname, 'golden/ruby/Gemfile.lock'), 'utf8'))
-    proc = Proc.spawn('bin/rails', 'server -b 0.0.0.0 -p 3333'.split(' '), {
-        cwd: directory,
-    });
+    proc = Proc.spawn(cmd, args, procArgs);
     proc.stderr.on('data', function(data) {
       data = data.toString();
       if (data.indexOf('HTTPServer#start') !== -1) {
         started(proc);
       }
     })
+  } else {
+    proc = Proc.spawn(cmd, args, procArgs);
+    setTimeout(function() {started(proc)}, PROCESS_WAIT_TIME);
   }
   proc.stdout.on('data', function(data) {
     console.log('      ' + data.toString());
@@ -183,6 +193,7 @@ Object.keys(Recipes).forEach(function(recipe) {
         });
         after(function(done) {
           this.timeout(Math.max(MIN_TIMEOUT, PROCESS_WAIT_TIME + 1000));
+          if (!proc) throw new Error("server never started");
           killServer(language, proc, done);
         })
         it ('should return HTML', function(done) {
@@ -196,7 +207,7 @@ Object.keys(Recipes).forEach(function(recipe) {
               FS.writeFileSync(goldenFile, body);
             } else {
               golden = FS.readFileSync(goldenFile, 'utf8');
-              Expect(golden).to.equal(body);
+              Expect(body).to.equal(golden);
             }
             done();
           });
