@@ -257,7 +257,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listPermission({}, function(result) {
+      listPermission({
+      }, function(result) {
         $('.container').html(KalturaPermissionListResponseView({result: result}));
       })
     </script>

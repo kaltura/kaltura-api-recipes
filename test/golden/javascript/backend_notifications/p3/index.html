@@ -257,7 +257,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listEventNotificationTemplate({}, function(result) {
+      listEventNotificationTemplate({
+      }, function(result) {
         $('.container').html(KalturaEventNotificationTemplateListResponseView({result: result}));
       })
     </script>

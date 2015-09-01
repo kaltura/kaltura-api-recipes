@@ -190,7 +190,7 @@
       <div id="getMedia-result"></div>
       <%
         getMedia({
-           entryId: "1_318vzqcr",
+             'entryId': "1_318vzqcr",
         }, function(result) {
           $('#getMedia-result').replaceWith(KalturaMediaEntryView({result: result}))
         })
@@ -207,7 +207,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listCuePoint({}, function(result) {
+      listCuePoint({
+      }, function(result) {
         $('.container').html(KalturaCuePointListResponseView({result: result}));
       })
     </script>
