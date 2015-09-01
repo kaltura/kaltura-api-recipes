@@ -1,4 +1,4 @@
-<p>Caption file uploaded. Adding to video "1_9kdmnhuv"</p>
+<p>Caption file uploaded. Adding to video 1_9kdmnhuv</p>
 <div class="CaptionsAttached"></div>
 <script>
   var element = $('.CaptionsAttached').last();
