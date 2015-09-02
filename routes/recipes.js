@@ -85,81 +85,78 @@ var buildRecipe = function(req, res, callback) {
   var actions = recipe.actions;
   var views = recipe.views;
   var language = req.body.language;
-  AppBuilder.fixAnswers(req.body.answers, function(err, answers) {
-    if (err) return res.status(500).send('Error parsing answers');
-    var buildParams = {answers: answers, actions: {}, views: {}};
-    buildParams.main = recipe.pages[req.body.page || 0];
-    buildParams.language = language;
-    if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
-    actions.forEach(function(action) {
-      var actionTmpl = CodeTemplates.actions[action.action] ? CodeTemplates.actions[action.action][language] : null;
-      if (!actionTmpl && action.service) {
-        var actionKey = action.action.indexOf('Action') === -1 ? action.action
-              : action.action.substring(0, action.action.length - 6);
-        var serviceSchema = Schema.services[action.service];
-        if (!serviceSchema) throw new Error("Service " + action.service + " not found");
-        var actionSchema = serviceSchema.actions[actionKey];
-        if (!actionSchema) throw new Error("Action " + action.service + "->" + actionKey + " not found");
-        var codeParams = {
-          parameters: [],
-          service: action.service,
-          action: action.action,
-          returns: actionSchema.returns && actionSchema.returns.indexOf('ListResponse') !== -1 ? 'list' : 'object',
-        }
-        for (parameter in actionSchema.parameters) {
-          var type = actionSchema.parameters[parameter].type;
-          var paramObject = {name: parameter, class: type}
-          var enumType = actionSchema.parameters[parameter].enumType;
-          if (enumType) paramObject.enum = {name: enumType, values: Schema.enums[enumType].values};
-          codeParams.parameters.push(paramObject);
-          if (type.indexOf('Kaltura') !== 0) continue;
+  var buildParams = {answers: req.body.answers, actions: {}, views: {}};
+  buildParams.main = recipe.pages[req.body.page || 0];
+  buildParams.language = language;
+  if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
+  actions.forEach(function(action) {
+    var actionTmpl = CodeTemplates.actions[action.action] ? CodeTemplates.actions[action.action][language] : null;
+    if (!actionTmpl && action.service) {
+      var actionKey = action.action.indexOf('Action') === -1 ? action.action
+            : action.action.substring(0, action.action.length - 6);
+      var serviceSchema = Schema.services[action.service];
+      if (!serviceSchema) throw new Error("Service " + action.service + " not found");
+      var actionSchema = serviceSchema.actions[actionKey];
+      if (!actionSchema) throw new Error("Action " + action.service + "->" + actionKey + " not found");
+      var codeParams = {
+        parameters: [],
+        service: action.service,
+        action: action.action,
+        returns: actionSchema.returns && actionSchema.returns.indexOf('ListResponse') !== -1 ? 'list' : 'object',
+      }
+      for (parameter in actionSchema.parameters) {
+        var type = actionSchema.parameters[parameter].type;
+        var paramObject = {name: parameter, class: type}
+        var enumType = actionSchema.parameters[parameter].enumType;
+        if (enumType) paramObject.enum = {name: enumType, values: Schema.enums[enumType].values};
+        codeParams.parameters.push(paramObject);
+        if (type.indexOf('Kaltura') !== 0) continue;
 
-          paramObject.fields = [];
-          var cls = Schema.classes[type];
-          if (!cls) throw new Error('Type ' + type + ' not found in schema');
-          for (field in cls.properties) {
-            if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
-              var fieldType = cls.properties[field].type;
-              var enumType = cls.properties[field].enumType;
-              var field = {
-                  name: field,
-                  type: fieldType,
-              };
-              if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
-              paramObject.fields.push(field);
-            }
+        paramObject.fields = [];
+        var cls = Schema.classes[type];
+        if (!cls) throw new Error('Type ' + type + ' not found in schema');
+        for (field in cls.properties) {
+          if (BLACKLISTED_FIELDS.indexOf(field) === -1) {
+            var fieldType = cls.properties[field].type;
+            var enumType = cls.properties[field].enumType;
+            var field = {
+                name: field,
+                type: fieldType,
+            };
+            if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
+            paramObject.fields.push(field);
           }
         }
-        actionTmpl = EJS.render(CodeTemplates.generic_actions[language], codeParams);
       }
-      if (!actionTmpl) return;
+      actionTmpl = EJS.render(CodeTemplates.generic_actions[language], codeParams);
+    }
+    if (!actionTmpl) return;
 
-      var actionName = action.action;
-      if (actionName.indexOf('Action') === actionName.length - 6) {
-        actionName = actionName.substring(0, actionName.length - 6);
-      }
-      if (action.service) {
-        actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
-      }
+    var actionName = action.action;
+    if (actionName.indexOf('Action') === actionName.length - 6) {
+      actionName = actionName.substring(0, actionName.length - 6);
+    }
+    if (action.service) {
+      actionName += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+    }
 
-      buildParams.actions[actionName] = {view: action.view, forceServer: action.forceServer};
-      buildParams.actions[actionName][language] = actionTmpl;
-    });
-    buildParams.actions.setup = {};
-    buildParams.actions.setup[language] = CodeTemplates.setups[language];
-    buildParams.views.setup = {};
-    buildParams.views.setup[language] = CodeTemplates.setups['html'];
-    views.forEach(function(viewName) {
-      buildParams.views[viewName] = {};
-      var html = buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
-      if (language === 'ruby' && html) {
-        buildParams.views[viewName][language] = fixRubyVariables(html);
-      }
-    });
-    buildParams.staticFiles = CodeTemplates.static[language];
-    buildParams.languageOptions = {};
-    buildParams.languageOptions.ruby = {hashMethod: 'getter'}
-    AppBuilder.build(buildParams, callback);
+    buildParams.actions[actionName] = {view: action.view, forceServer: action.forceServer};
+    buildParams.actions[actionName][language] = actionTmpl;
   });
+  buildParams.actions.setup = {};
+  buildParams.actions.setup[language] = CodeTemplates.setups[language];
+  buildParams.views.setup = {};
+  buildParams.views.setup[language] = CodeTemplates.setups['html'];
+  views.forEach(function(viewName) {
+    buildParams.views[viewName] = {};
+    var html = buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
+    if (language === 'ruby' && html) {
+      buildParams.views[viewName][language] = fixRubyVariables(html);
+    }
+  });
+  buildParams.staticFiles = CodeTemplates.static[language];
+  buildParams.languageOptions = {};
+  buildParams.languageOptions.ruby = {hashMethod: 'getter'}
+  AppBuilder.build(buildParams, callback);
 };
 
