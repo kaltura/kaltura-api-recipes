@@ -1,0 +1,55 @@
+{
+  "name": "webvtt_captions",
+  "title": "Serve WebVTT Captions",
+  "icon": "cc",
+  "description": "Learn how to serve a WebVTT caption",
+  "control_sets": [{
+    "affects": "listCaptionAsset",
+    "inputs": [{
+                    "default": "",
+                    "type": "text",
+                    "label": "Entry ID",
+                    "name": "entryIdEqual"
+    }]
+  }, {
+    "affects": "getCaptionAsset",
+    "inputs": [{
+      "type": "select-chosen",
+      "name": "captionAssetId",
+      "label": "Language",
+    "dynamicChoices": {
+	"service": "captionAsset",
+	"action": "listAction",
+	    "map": {
+		"value": "id",
+		"label": "label"
+	    },   
+	"arguments": [{
+	    "class": "KalturaCaptionAssetFilter",
+	    "parameters": {
+		"entryIdEqual": {"answer": "entryIdEqual"}
+	    }    
+	}]   
+    } 
+    }],
+    "page": 1
+  }],
+  "views": [
+      "KalturaCaptionAssetListResponse", 
+      "KalturaCaptionAsset"
+  ],
+  "pages": [
+    {
+    "view": "KalturaCaptionAssetListResponse",
+    "data": {"action": "listCaptionAsset"}
+    }, 
+    {
+    "view": "KalturaCaptionAsset",
+    "data": {"action": "getCaptionAsset"}
+    }
+  ],
+  "actions": [
+    {"service": "captionAsset", "action": "listAction", "view": "KalturaCaptionAssetListResponse"},
+    {"service": "captionAsset", "action": "get", "view": "KalturaCaptionAsset"}
+  ]
+}
