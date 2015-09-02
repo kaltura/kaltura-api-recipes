@@ -7,6 +7,7 @@ module.exports = {
     require('../routes/recipes.js').getRouter(function(router) {
       App.use('/recipes', router);
       App.listen(port);
+      callback();
     });
   }
 }

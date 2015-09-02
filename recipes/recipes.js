@@ -30,6 +30,7 @@ files.forEach(function(filename) {
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
   recipe.actions = recipe.actions || [];
   recipe.actions.forEach(function(action) {
+    action.action = action.action.replace(/Action$/, '');
     if (action.service) action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
   })
 });

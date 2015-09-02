@@ -40,7 +40,7 @@ var fixRubyVariables = function(html) {
 }
 
 var setup = function(callback) {
-    Schema.initialize(function() {
+  Schema.initialize(function() {
     var actions = CodeTemplates.actions;
     var views = CodeTemplates.views;
     for (var service in Schema.services) {

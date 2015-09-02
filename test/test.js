@@ -112,6 +112,7 @@ for (recipeName in Recipes) {
 
 describe('sample code', function() {
   before(function(done) {
+    this.timeout(4000);
     Server.listen(PORT, done);
   });
 
