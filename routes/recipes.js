@@ -12,6 +12,7 @@ var CodeTemplates = require('../code_templates/code-templates.js');
 var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
+var ACTION_FIELDS = ['list', 'clone'];
 
 var camelToUnderscore = function(camel) {
   return camel.replace(/(\w+\.)(.*)/g, function(whole, variable, member) {
@@ -53,6 +54,7 @@ var setup = function(callback) {
           action: action,
           returns: actionSchema.returns && actionSchema.returns.indexOf('ListResponse') !== -1 ? 'list' : 'object',
         }
+        if (ACTION_FIELDS.indexOf(action) !== -1) codeParams.action += 'Action';
         for (parameter in actionSchema.parameters) {
           var type = actionSchema.parameters[parameter].type;
           var paramObject = {name: parameter, class: type}
@@ -77,9 +79,7 @@ var setup = function(callback) {
           }
         }
         var actionName = action;
-        if (actionName.indexOf('Action') === actionName.length - 6) {
-          actionName = actionName.substring(0, actionName.length - 6);
-        }
+        actionName = actionName.replace(/Action$/, '');
         actionName += service.charAt(0).toUpperCase() + service.substring(1);
         actions[actionName] = actions[actionName] || {};
         for (lang in CodeTemplates.generic_actions) {
@@ -97,9 +97,15 @@ var setup = function(callback) {
       views.setup[lang] = CodeTemplates.setups['html'];
     }
 
+    for (view in views) {
+      if (view === 'setup') continue;
+      if (!views[view].ruby) views[view].ruby = fixRubyVariables(views[view].all);
+    }
+
     var recipeParams = {
       actions: actions,
       views: views,
+      staticFiles: CodeTemplates.static,
       recipes: require('../recipes/recipes.js'),
       dependencies: {
         ruby: ['kaltura-client']
@@ -120,7 +126,6 @@ var setup = function(callback) {
         '/js/kc-setup.js',
         '/js/dynamic-choices.js',
       ],
-      // fixRuby, staticFiles
     }
 
     var server = new RecipeServer(recipeParams);
