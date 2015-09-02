@@ -147,7 +147,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      listMedia({}, function(result) {
+      listMedia({
+      }, function(result) {
         $('.container').html(MediaListLikesView({result: result}));
       })
     </script>

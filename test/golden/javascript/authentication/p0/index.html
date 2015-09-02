@@ -82,7 +82,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      getUser({}, function(result) {
+      getUser({
+      }, function(result) {
         $('.container').html(KalturaUserView({result: result}));
       })
     </script>

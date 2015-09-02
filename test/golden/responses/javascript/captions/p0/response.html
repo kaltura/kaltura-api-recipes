@@ -173,11 +173,11 @@
     </script>
 
     <script id="CaptionUploadDone-template" type="text/x-underscore-template" style="display: none">
-      <p>Caption file uploaded. Adding to video "1_9kdmnhuv"</p>
+      <p>Caption file uploaded. Adding to video 1_9kdmnhuv</p>
       <div id="attachCaptions-result"></div>
       <%
         attachCaptions({
-           token: result.id,
+             'token': result.id,
         }, function(result) {
           $('#attachCaptions-result').replaceWith(CaptionsAttachedView({result: result}))
         })
@@ -202,7 +202,7 @@
     </script>
 
     <script id="CaptionSearch-template" type="text/x-underscore-template" style="display: none">
-      <h1>Search Results for "support"</h1>
+      <h1>Search Results for support</h1>
       <hr></hr>
       <% result.forEach(function(caption, index) { %>
         <div class="row">

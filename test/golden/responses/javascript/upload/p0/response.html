@@ -126,8 +126,8 @@
       <div id="CreateMediaEntry-result"></div>
       <%
         CreateMediaEntry({
-           name: result.fileName,
-           uploadTokenId: result.id,
+             'name': result.fileName,
+             'uploadTokenId': result.id,
         }, function(result) {
           $('#CreateMediaEntry-result').replaceWith(KalturaMediaEntryView({result: result}))
         })

@@ -147,7 +147,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      getTableReport({}, function(result) {
+      getTableReport({
+      }, function(result) {
         $('.container').html(KalturaReportTableView({result: result}));
       })
     </script>

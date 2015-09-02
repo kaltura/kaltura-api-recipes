@@ -92,7 +92,8 @@
     <div class="container" style="margin-top:40px">
     </div>
     <script type="text/javascript">
-      getTotalReport({}, function(result) {
+      getTotalReport({
+      }, function(result) {
         $('.container').html(KalturaReportTotalView({result: result}));
       })
     </script>
