@@ -114,6 +114,8 @@ var setup = function(callback) {
         ruby: {hashMethod: 'getter'}
       },
       rootDir: '/recipes',
+      galleryTitle: 'Kaltura VPaaS Interactive Code Cookbook',
+      recipeTitle: 'Kaltura VPaaS Cookbook: {{ recipe }} Recipe',
       jsIncludes: [
         '/js/ox.ajast.js',
         '/js/webtoolkit.md5.js',
@@ -125,6 +127,7 @@ var setup = function(callback) {
         '/js/mixpanel.js',
         '/js/kc-setup.js',
         '/js/dynamic-choices.js',
+        '/js/answer-defaults.js',
       ],
     }
 

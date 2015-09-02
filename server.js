@@ -1,10 +1,11 @@
 var Express = require('express');
 
 var App = Express();
-App.set('views', __dirname + '/views')
-App.set('view engine', 'jade');
-App.engine('jade', require('jade').__express);
 App.use('/', Express.static(__dirname + '/static'));
+
+App.get('/', function(req, res) {
+  res.redirect('/recipes');
+})
 
 require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes', router);
