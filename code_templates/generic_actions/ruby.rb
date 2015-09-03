@@ -13,7 +13,9 @@
 <%- param.name %> = <%- param.class %>.new();
 <%   param.fields.forEach(function(field) { -%>
 <%- '<\% if (Lucy.answer("' + field.name + '") !== null) { -%\>' %>
-<%     if (!field.enum) { -%>
+<%     if (field.type.indexOf('Kaltura') === 0) { -%>
+<%- param.name %>.<%- rewriteVariable(field.name) %> = <%- '<\%- Lucy.answer("' + field.name + '") %\>' %>.new();
+<%     } else if (!field.enum) { -%>
 <%- param.name %>.<%- rewriteVariable(field.name) %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
 <%     } else { -%>
 <%       for (valueName in field.enum.values) { -%>

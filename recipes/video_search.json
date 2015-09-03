@@ -10,7 +10,12 @@
           "default": "",
           "type": "text",
           "label": "Query",
-          "name": "nameLike"
+          "name": "freeText"
+        },
+        {
+          "name": "advancedSearch",
+          "hidden": true,
+          "default": "KalturaMetadataSearchItem"
         },
         {
           "name": "orderBy",

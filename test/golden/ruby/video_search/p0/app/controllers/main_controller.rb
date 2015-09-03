@@ -18,6 +18,7 @@ class MainController < ApplicationController
   def listMedia
     filter = KalturaMediaEntryFilter.new();
     filter.order_by = "-createdAt";
+    filter.advanced_search = KalturaMetadataSearchItem.new();
 
     pager = KalturaFilterPager.new();
 

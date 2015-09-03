@@ -31,6 +31,7 @@ app.get('/', function(req, res) {
 app.post('/listMedia', function(req, res) {
   filter = new Kaltura.objects.KalturaMediaEntryFilter();
   filter.orderBy = "-createdAt";
+  filter.advancedSearch = new Kaltura.objects.KalturaMetadataSearchItem();
 
   pager = new Kaltura.objects.KalturaFilterPager();
 

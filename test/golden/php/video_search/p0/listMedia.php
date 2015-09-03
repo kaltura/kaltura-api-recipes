@@ -15,6 +15,7 @@ $client->setKS($ks);
 
 $filter = new KalturaMediaEntryFilter();
 $filter->orderBy = "-createdAt";
+$filter->advancedSearch = new KalturaMetadataSearchItem();
 
 $pager = new KalturaFilterPager();
 
