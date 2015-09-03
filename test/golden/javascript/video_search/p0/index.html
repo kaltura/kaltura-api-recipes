@@ -47,6 +47,7 @@
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
         filter.orderBy = "-createdAt";
+        filter.advancedSearch = new KalturaMetadataSearchItem();
 
         pager = new KalturaFilterPager();
 

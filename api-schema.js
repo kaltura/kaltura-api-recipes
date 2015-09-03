@@ -36,11 +36,7 @@ XMLParser(SchemaXML, function(err, result) {
     }
     props.forEach(function(prop) {
       var propJS = classJS.properties[prop.$.name] = {};
-      if (prop.$.type.indexOf('Kaltura') === 0) {
-        propJS.$ref = '#/classes/' + prop.$.type;
-      } else {
-        propJS.type = prop.$.type;
-      }
+      propJS.type = prop.$.type;
       propJS.enumType = prop.$.enumType;
     });
   });
