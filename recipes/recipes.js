@@ -12,12 +12,17 @@ var BLACKLIST = ['app_tokens', 'live_broadcast'];
 
 files.forEach(function(filename) {
   if (filename === thisFile) return;
-  var name = filename.substring(0, filename.length - 5);
-  if (BLACKLIST.indexOf(name) !== -1) return;
   filename = Path.join(__dirname, filename);
   if (FS.statSync(filename).isDirectory()) return;
+  var ext = Path.extname(filename);
+  var name = Path.basename(filename, ext);
+  if (BLACKLIST.indexOf(name) !== -1) return;
   try {
-    Recipes[name] = JSON.parse(FS.readFileSync(filename, 'utf8'));
+    if (ext === '.json') {
+      Recipes[name] = JSON.parse(FS.readFileSync(filename, 'utf8'));
+    } else if (ext === '.js') {
+      Recipes[name] = require(filename);
+    }
   } catch (e) {
     console.log('Error parsing recipe ' + name);
     throw e;
