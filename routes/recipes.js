@@ -82,11 +82,13 @@ Router.post('/:recipe/embed', function(req, res) {
 
 var buildRecipe = function(req, res, callback) {
   var recipe = Recipes[req.params.recipe];
+  if (!recipe) throw new Error("Recipe " + req.params.recipe + " not found");
   var actions = recipe.actions;
   var views = recipe.views;
   var language = req.body.language;
   var buildParams = {answers: req.body.answers, actions: {}, views: {}};
   buildParams.main = recipe.pages[req.body.page || 0];
+  if (!buildParams.main) throw new Error("Page " + (req.body.page || 0) + " not found for recipe " + req.params.recipe);
   buildParams.language = language;
   if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
   actions.forEach(function(action) {
