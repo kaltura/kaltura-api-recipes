@@ -1,4 +1,4 @@
-{
+module.exports = {
   "name": "video_search",
   "title": "Video Search",
   "icon": "search",
