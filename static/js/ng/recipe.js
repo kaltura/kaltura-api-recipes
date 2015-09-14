@@ -262,7 +262,6 @@ app.controller('Code', function($scope) {
 
 app.controller('Demo', function($scope) {
   $scope.refresh = function() {
-    console.log('refreshing!');
     var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
     if (curSet.page === -1) {
       $('.demo-frame').attr('src', '');
@@ -280,9 +279,7 @@ app.controller('Demo', function($scope) {
       form.submit();
     }
   }
-  console.log('maybe init refresh');
   if (!$scope.recipe.control_sets[$scope.controlSetIdx].disableAutorefresh) {
-    console.log('init refresh');
     $scope.refresh();
   }
 });
