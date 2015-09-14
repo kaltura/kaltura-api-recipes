@@ -150,6 +150,7 @@ var buildRecipe = function(req, res, callback) {
   buildParams.views.setup = {};
   buildParams.views.setup[language] = CodeTemplates.setups['html'];
   views.forEach(function(viewName) {
+    if (!CodeTemplates.views[viewName]) throw new Error("View " + viewName + " not found");
     buildParams.views[viewName] = {};
     var html = buildParams.views[viewName][language] = CodeTemplates.views[viewName][language] || CodeTemplates.views[viewName].html;
     if (language === 'ruby' && html) {

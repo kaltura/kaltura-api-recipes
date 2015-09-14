@@ -18,8 +18,13 @@ app.controller('Recipe', function($scope) {
   var changeTimeout = null;
   var refreshAll = function() {
     angular.element('#Code').scope().refresh();
+    if (!$scope.recipe.control_sets[$scope.controlSetIdx].disableAutorefresh) angular.element('#Demo').scope().refresh();
+  }
+
+  $scope.refreshDemo = function() {
     angular.element('#Demo').scope().refresh();
   }
+
   $scope.onAnswerChanged = function() {
     if (changeTimeout) clearTimeout(changeTimeout);
     changeTimeout = setTimeout(refreshAll, 1000);
@@ -274,5 +279,7 @@ app.controller('Demo', function($scope) {
       form.submit();
     }
   }
-  $scope.refresh();
+  if (!$scope.recipe.control_sets[$scope.controlSetIdx].disableAutorefresh) {
+    $scope.refresh();
+  }
 });

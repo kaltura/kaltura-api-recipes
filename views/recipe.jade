@@ -50,10 +50,15 @@ block body
                       div(ng-repeat="input in input.inputs")
                         include ./includes/input.jade
               include ./includes/input.jade
-          a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 !== recipe.control_sets.length',
-                                                 ng-click='setControlSet(controlSetIdx + 1)') Next
-          a.btn.btn-info.btn-spaced.btn-width-sm(ng-if='controlSetIdx + 1 === recipe.control_sets.length',
-                                                 ng-click="finish()") Finish
+          a.btn.btn-success.btn-spaced.btn-width-sm(
+              ng-if="recipe.control_sets[controlSetIdx].disableAutorefresh",
+              ng-click="refreshDemo()") Send Request
+          a.btn.btn-info.btn-spaced.btn-width-sm(
+              ng-if='controlSetIdx + 1 !== recipe.control_sets.length',
+              ng-click='setControlSet(controlSetIdx + 1)') Next
+          a.btn.btn-info.btn-spaced.btn-width-sm(
+              ng-if='controlSetIdx + 1 === recipe.control_sets.length',
+              ng-click="finish()") Finish
         .text-center
           ul.pagination(ng-if="ready")
             li(ng-class="{ active: controlSetIdx === -1}")
