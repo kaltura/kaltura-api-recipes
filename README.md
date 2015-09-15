@@ -122,6 +122,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
       "page": "The index of the Single Page App to show below the recipe (see array 'pages' below)",
       "tip": "The body of text for this recipe. Markdown is supported here so you can [create links](www.google.com) or call out ```snippetsOf.code()```",
       "affects": "The name of a view or action pertinent to this step. This controls what snippet of sample code is displayed to the user",
+      "disableAutorefresh": "When set to true, the demo only gets refreshed when you hit 'SendRequest' after filling out the necessary fields. Default is false.",
       "inputs": "An array of HTML inputs to display to the user. Fields entered here can be used in your recipes or embedded in the sample code",
       "inputs": [
         {
@@ -181,6 +182,27 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
 }
 ```
 
+## Reading file contents within a recipe
+See recipes/metadata.js for example.
+        {
+          "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
+          "type": "text",
+          "label": "XSD data",
+          "name": "xsdData",
+          "hidden": true
+        }
+
+This will set the xsdData field to the value read from data/metadata_profile_sample.xsd.
+In order to enable that, the recipe needs to be a JS file instead of JSON and include the import of the fs module, like so:
+```
+var FS = require('fs');
+```
+The actual JSON recipe then needs to be assigned to module.exports, like so:
+```
+module.exports = {
+	"json recipe": "goes in here"
+}
+```
 ## Adding a new View
 
 Views are snippets of HTML for displaying responses from the API. Any valid HTML can be used here, including ```<script>``` and ```<style>``` tags.

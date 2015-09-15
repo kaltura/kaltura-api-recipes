@@ -26,19 +26,19 @@ module.exports = {
         },
         {
           "default": "1",
-          "type": "numeric",
+          "type": "number",
           "name": "metadataObjectType",
           "hidden": true
         },
         {
           "default": 1,
-          "type": "numeric",
+          "type": "number",
           "name": "objectType",
           "hidden": true
         },
         {
           "default": 1,
-          "type": "numeric",
+          "type": "number",
           "name": "createMode",
           "hidden": true
         },
