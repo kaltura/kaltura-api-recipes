@@ -4,7 +4,7 @@ var busboy = require('busboy');
 var request = require('request');
 var Kaltura = require('./../../lib/KalturaClient.js');
 var config = new Kaltura.KalturaConfiguration(1760921);
-config.serviceUrl = "https://www.kaltura.com";
+config.serviceUrl = "https://www.kaltura.com/";
 var client = new Kaltura.KalturaClient(config);
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
@@ -12,9 +12,9 @@ client.session.start(function(ks) {
   } else {
     client.setKs(ks);
   }
-}, "e472b44321fe63f669d825479b21cdb2",
+}, "8d6cb692ab0f41bfa6bde373204c4b40",
 "lucybot@example.com",
-Kaltura.enums.KalturaSessionType.USER,
+Kaltura.enums.KalturaSessionType.ADMIN,
 1760921)
 
 var app = express();

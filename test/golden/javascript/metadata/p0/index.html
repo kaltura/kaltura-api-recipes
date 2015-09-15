@@ -23,7 +23,7 @@
 
     <script>
       var config = new KalturaConfiguration(1760921);
-      config.serviceUrl = "https://www.kaltura.com";
+      config.serviceUrl = "https://www.kaltura.com/";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
         if (!success || (ks.code && ks.message)) {
@@ -37,9 +37,9 @@
         // as this exposes your Admin Secret to users.
         // Instead, generate a session on the server and pass the
         // KS to the client.
-      }, "e472b44321fe63f669d825479b21cdb2",
+      }, "8d6cb692ab0f41bfa6bde373204c4b40",
       "lucybot@example.com",
-      KalturaSessionType.USER,
+      KalturaSessionType.ADMIN,
       1760921)
     </script>
     
@@ -78,7 +78,7 @@
       <% } %>
       <h2>Metadata Object <%= result.name %></h2>
       <p><b>System Name:</b> <%= result.systemName %></p>
-      <p>XSD: <%- result.xsd %></p>
+      <p>XSD: <%= { result.xsd %>}</p>
     </script>
     <script type="text/javascript">
       var metadataProfileShowView = _.template($('#metadataProfileShow-template').text());

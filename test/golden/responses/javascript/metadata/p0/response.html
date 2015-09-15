@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">
+    </script>
+    <script src="/js/ox.ajast.js"></script>
+    <script src="/js/webtoolkit.md5.js"></script>
+    <script src="/js/KalturaClientBase.js"></script>
+    <script src="/js/KalturaTypes.js"></script>
+    <script src="/js/KalturaVO.js"></script>
+    <script src="/js/KalturaServices.js"></script>
+    <script src="/js/KalturaClient.js"></script>
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+    <script src="/js/jquery.fileupload-kaltura.js"></script>
+
+    <script>
+      var config = new KalturaConfiguration(1760921);
+      config.serviceUrl = "https://www.kaltura.com/";
+      var client = new KalturaClient(config);
+      client.session.start(function(success, ks) {
+        if (!success || (ks.code && ks.message)) {
+          console.log('Error starting session', success, ks);
+          $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
+        } else {
+          client.setKs(ks);
+        }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
+      }, "8d6cb692ab0f41bfa6bde373204c4b40",
+      "lucybot@example.com",
+      KalturaSessionType.ADMIN,
+      1760921)
+    </script>
+    
+    <script type="text/javascript">
+      var addMetadataProfile = function(request, callback) {
+        metadataProfile = new KalturaMetadataProfile();
+        metadataProfile.metadataObjectType = KalturaMetadataObjectType.ENTRY;
+        metadataProfile.createMode = KalturaMetadataProfileCreateMode.API;
+
+        var xsdData = "<xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n  <xsd:element name=\"metadata\">\n    <xsd:complexType>\n      <xsd:sequence>\n        <xsd:element id=\"md_5F84A7E4-5509-993D-CE9C-3B60C0713775\" name=\"Somefield\" minOccurs=\"0\" maxOccurs=\"1\" type=\"textType\">\n          <xsd:annotation>\n            <xsd:documentation></xsd:documentation>\n            <xsd:appinfo>\n              <label>somefield</label>\n              <key>somefield</key>\n              <searchable>true</searchable>\n              <timeControl>false</timeControl>\n              <description></description>\n            </xsd:appinfo>\n          </xsd:annotation>\n        </xsd:element>\n      </xsd:sequence>\n    </xsd:complexType>\n  </xsd:element>\n  <xsd:complexType name=\"textType\">\n    <xsd:simpleContent>\n      <xsd:extension base=\"xsd:string\"/>\n    </xsd:simpleContent>\n  </xsd:complexType>\n  <xsd:complexType name=\"dateType\">\n    <xsd:simpleContent>\n      <xsd:extension base=\"xsd:long\"/>\n    </xsd:simpleContent>\n  </xsd:complexType>\n  <xsd:complexType name=\"objectType\">\n    <xsd:simpleContent>\n      <xsd:extension base=\"xsd:string\"/>\n    </xsd:simpleContent>\n  </xsd:complexType>\n  <xsd:simpleType name=\"listType\">\n    <xsd:restriction base=\"xsd:string\"/>\n  </xsd:simpleType>\n</xsd:schema>";
+        var viewsData = null;
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.metadataProfile.add(function(success, results) {
+            if (!success || (results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+              callback(results)
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results)
+            }
+          },
+          metadataProfile,
+          xsdData,
+          viewsData);
+        }
+        getResults();
+      };
+    </script>
+  </head>
+  <body>
+    <script id="metadataProfileShow-template" type="text/x-underscore-template" style="display: none">
+      <% if(result.message && result.code) { %>
+              <h1><%= result.message %></h1>
+      <% } %>
+      <h2>Metadata Object <%= result.name %></h2>
+      <p><b>System Name:</b> <%= result.systemName %></p>
+      <p>XSD: <%= { result.xsd %>}</p>
+    </script>
+    <script type="text/javascript">
+      var metadataProfileShowView = _.template($('#metadataProfileShow-template').text());
+    </script>
+
+    <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
+    <div class="container" style="margin-top:40px">
+    </div>
+    <script type="text/javascript">
+      addMetadataProfile({
+      }, function(result) {
+        $('.container').html(metadataProfileShowView({result: result}));
+      })
+    </script>
+  </body>
+</html>
