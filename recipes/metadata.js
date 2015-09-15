@@ -43,7 +43,7 @@ module.exports = {
           "hidden": true
         },
         {
-          "default": "<xsd:schema></xsd:schema>",
+	  "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
           "type": "text",
           "label": "XSD data",
           "name": "xsdData",
