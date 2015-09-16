@@ -114,7 +114,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   "title": "the title of the recipe",
   "icon": "the name of a fontawesome icon. Can be any one of those listed in static/bower/fontawesome/scss/_icons.scss",
   "description": "A short description of the recipe",
-  
+  "needsAdmin": "Set to true if this recipe requires an ADMIN session type",
   "control_sets": "this is an array of steps for the recipe, structured as below",
   "control_sets": [
     {
