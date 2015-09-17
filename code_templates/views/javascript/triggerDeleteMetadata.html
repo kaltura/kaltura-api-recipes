@@ -1,0 +1,16 @@
+<script>
+  $('.btn-danger').click(function() {
+    var button = $(this);
+    var id = button.attr('data-metadata-id');
+    id = parseInt(id);
+    client.metadataProfile.deleteAction(function(success, result) {
+      if (!success) {
+        button.replaceWith('<div class="alert alert-danger">Failed</div>')
+      } else {
+        client.metadataProfile.listAction(function(success, result) {
+          $('.container').html(KalturaMetadataProfileListResponseView({result: result.objects}));
+        })
+      }
+    }, id)
+  });
+</script>

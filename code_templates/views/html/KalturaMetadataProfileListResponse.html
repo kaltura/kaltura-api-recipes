@@ -1,0 +1,12 @@
+<lucy for="profile" in ="result">
+  <div class="row">
+    <div class="col-xs-8">
+      <lucy include="metadataProfileShow" resultvar="profile" indent="6">
+      </lucy>
+    </div>
+    <div class="col-xs-4 text-center">
+      <a class="btn btn-danger" data-metadata-id="{{ profile.id }}">Delete</a>
+    </div>
+  </div>
+</lucy>
+<lucy include="triggerDeleteMetadata"></lucy>
