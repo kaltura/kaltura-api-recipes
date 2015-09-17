@@ -43,31 +43,50 @@ module.exports = {
           "hidden": true
         },
         {
-	  "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
+          "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
           "type": "text",
           "label": "XSD data",
           "name": "xsdData",
           "hidden": true
         }
      ]  
-    }
-    ],
+    }, {
+      "page": 1,
+      "inputs": [],
+    }],
     "pages": [
         {
             "view": "metadataProfileShow",
             "data": {
                 "action": "addMetadataProfile"
             }
+        },
+        {
+          "view": "KalturaMetadataProfileListResponse",
+          "data": {
+            "action": "listMetadataProfile"
+          }
         }
     ],
     "views": [
         "metadataProfileShow",
+        "KalturaMetadataProfileListResponse",
+        "triggerDeleteMetadata",
     ],
     "actions": [
         {
             "service": "metadataProfile",
             "action": "add",
             "view": "metadataProfileShow"
+        },
+        {
+            "service": "metadataProfile",
+            "action": "deleteAction",
+        },
+        {
+            "service": "metadataProfile",
+            "action": "listAction",
+            "view": "KalturaMetadataProfileListResponse"
         },
      ]
 }
