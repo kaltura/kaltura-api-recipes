@@ -32,7 +32,7 @@ $<%- param.name %> = <%- param.enum.name %>::<%- valueName %>;
 <% }); -%>
 
 try {
-  $result = $client-><%- service %>-><%- action %>(<%- parameters.length === 0 ? ');' : '' %>
+  $result = $client-><%- service %>-><%- action === 'deleteAction' ? 'delete' : action %>(<%- parameters.length === 0 ? ');' : '' %>
 <% parameters.forEach(function(param, index) { -%>
     $<%- param.name %><%- index < parameters.length -1 ? ', ' : ');' %>
 <% }); -%>

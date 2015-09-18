@@ -5,8 +5,15 @@
       </lucy>
     </div>
     <div class="col-xs-4 text-center">
-      <a class="btn btn-danger" data-metadata-id="{{ profile.id }}">Delete</a>
+      <h2>
+        <lucy button="Delete"
+              indent="6"
+              type="danger"
+              action="deleteMetadataProfile"
+              view="metadataProfileDeleted"
+              inputvars="{id: profile.id}">
+        </lucy>
+      </h2>
     </div>
   </div>
 </lucy>
-<lucy include="triggerDeleteMetadata"></lucy>

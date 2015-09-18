@@ -71,7 +71,7 @@ module.exports = {
     "views": [
         "metadataProfileShow",
         "KalturaMetadataProfileListResponse",
-        "triggerDeleteMetadata",
+        "metadataProfileDeleted",
     ],
     "actions": [
         {
@@ -82,6 +82,7 @@ module.exports = {
         {
             "service": "metadataProfile",
             "action": "deleteAction",
+            "view": "metadataProfileDeleted"
         },
         {
             "service": "metadataProfile",
