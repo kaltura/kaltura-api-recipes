@@ -1,0 +1,19 @@
+<% result.forEach(function(profile, index) { %>
+  <div class="row">
+    <div class="col-xs-8">
+      <% result = profile; -%>
+      <% include metadataProfileShow -%>
+    </div>
+    <div class="col-xs-4 text-center">
+      <h2>
+        <a class="btn btn-danger"
+         data-action="deleteMetadataProfile"
+         data-view="metadataProfileDeletedView"
+         data-answers="{id: <%- profile.id %>}">
+         Delete
+      </a>
+
+      </h2>
+    </div>
+  </div>
+<% }); %>
