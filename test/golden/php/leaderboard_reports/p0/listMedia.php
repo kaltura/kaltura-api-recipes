@@ -24,8 +24,8 @@ try {
   $result = $client->media->listAction(
     $filter, 
     $pager);
-  $result = (object)$result->objects;
-  ?>
+  $result = (object) $result->objects;
+?>
 <table class="table">
   <tr>
     <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
@@ -40,26 +40,8 @@ try {
 <?php } ?>
 </table>
 <?php
+
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-  $result = (object)$result;
-  ?>
-<table class="table">
-  <tr>
-    <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
-  
-<?php foreach($result as $index=>$video) { ?>
-  <tr>
-    <td><?php echo $index + 1 ?></td>
-    <td><?php echo $video->name ?></td>
-    <td><?php echo $video->rank ?></td>
-    <td><?php echo $video->votes ?></td>
-  </tr>
-<?php } ?>
-</table>
-<?php
+  echo $e->getMessage();
 }
 ?>

@@ -42,9 +42,5 @@ try {
 <%- '<\%- Lucy.returnCode("$result", 2) %\>' %>
 <% } -%>
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-<%- '<\%- Lucy.returnCode("$result", 2) %\>' %>
+  echo $e->getMessage();
 }

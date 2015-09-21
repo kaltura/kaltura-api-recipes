@@ -28,7 +28,7 @@ if (isset($_POST["email"])) {
 template->name = $_POST["name"];
 $template = $client->eventNotificationTemplate->cloneAction(null, template);
 $template = $client.eventNotificationTemplate.updateStatus($template.id, KalturaEventNotificationTemplateStatus::ACTIVE);
-$result = (object)$template;
+$result = (object) $template;
 ?>
 <h3><?php echo $result->id ?> - <?php echo $result->name ?></h3>
 <p>System Name: <?php echo $result->systemName ?></p>

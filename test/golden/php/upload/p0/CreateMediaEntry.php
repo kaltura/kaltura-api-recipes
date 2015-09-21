@@ -25,7 +25,7 @@ while ($result->status != 2) {
   sleep(1);
   $result = $client->media->get($result->id);
 }
-$result = (object)$result;
+$result = (object) $result;
 ?>
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xs-12 col-md-5">

@@ -19,7 +19,7 @@ $cuePoint->description = $_POST["description"];
 $cuePoint->startTime = $_POST["startTime"];
 $cuePoint->entryId = "1_318vzqcr";
 $result = $client->cuePoint->add($cuePoint);
-$result = (object)$result;
+$result = (object) $result;
 ?>
 <div id="CuePoints">
   <table class="table">

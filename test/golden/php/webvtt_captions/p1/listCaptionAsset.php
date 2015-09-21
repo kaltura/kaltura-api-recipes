@@ -22,8 +22,8 @@ try {
   $result = $client->captionAsset->listAction(
     $filter, 
     $pager);
-  $result = (object)$result->objects;
-  ?>
+  $result = (object) $result->objects;
+?>
 <h1>Assets</h1>
 <hr></hr>
 <?php foreach($result as $index=>$asset) { ?>
@@ -44,32 +44,8 @@ try {
 <?php } ?>
 
 <?php
+
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-  $result = (object)$result;
-  ?>
-<h1>Assets</h1>
-<hr></hr>
-<?php foreach($result as $index=>$asset) { ?>
-  <?php if($index < 5) { ?>
-    <?php $result = $asset; ?><div id="ErrorMessage" class="alert alert-danger" style="display: none">
-    </div>
-    <?php if($result->message && $result->code) { ?>
-        <h1><?php echo $result->message ?></h1>
-    <?php } ?>
-    <?php if($result->id) { ?>
-      <h1>Caption Asset info:</h1>
-      <p>Caption Asset ID: <?php echo $result->id ?></p>
-      <p>Language: <?php echo $result->language ?></p>
-      <p>Size: <?php echo $result->size ?></p>
-    <?php } ?>
-
-  <?php } ?>
-<?php } ?>
-
-<?php
+  echo $e->getMessage();
 }
 ?>

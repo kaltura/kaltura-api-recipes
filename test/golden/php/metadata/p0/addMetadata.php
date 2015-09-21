@@ -26,8 +26,8 @@ try {
     $objectType, 
     $objectId, 
     $xmlData);
-  $result = (object)$result;
-  ?>
+  $result = (object) $result;
+?>
 <?php if($result->message && $result->code) { ?>
         <h1><?php echo $result->message ?></h1><?php } else { ?>
 	    <h2>Metadata Object <?php echo $result->name ?></h2>
@@ -40,24 +40,8 @@ try {
 <?php } ?>
 
 <?php
+
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-  $result = (object)$result;
-  ?>
-<?php if($result->message && $result->code) { ?>
-        <h1><?php echo $result->message ?></h1><?php } else { ?>
-	    <h2>Metadata Object <?php echo $result->name ?></h2>
-	    <p><b>ID:</b> <?php echo $result->id ?></p>
-	    <p>XML:
-	    <pre>
-	    <?php echo htmlspecialchars($result->xml) ?>
-	    </pre>
-	    </p>
-<?php } ?>
-
-<?php
+  echo $e->getMessage();
 }
 ?>

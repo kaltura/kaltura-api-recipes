@@ -28,8 +28,8 @@ try {
     $metadataProfile, 
     $xsdData, 
     $viewsData);
-  $result = (object)$result;
-  ?>
+  $result = (object) $result;
+?>
 <?php if($result->message && $result->code) { ?>
         <h1><?php echo $result->message ?></h1><?php } else { ?>
 	    <h2>Metadata Profile Object <?php echo $result->name ?></h2>
@@ -42,24 +42,8 @@ try {
 <?php } ?>
 
 <?php
+
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-  $result = (object)$result;
-  ?>
-<?php if($result->message && $result->code) { ?>
-        <h1><?php echo $result->message ?></h1><?php } else { ?>
-	    <h2>Metadata Profile Object <?php echo $result->name ?></h2>
-	    <p><b>System Name:</b> <?php echo $result->systemName ?></p>
-	    <p>XSD:
-	    <pre>
-	    <?php echo htmlspecialchars($result->xsd) ?>
-	    </pre>
-	    </p>
-<?php } ?>
-
-<?php
+  echo $e->getMessage();
 }
 ?>

@@ -31,7 +31,7 @@ $captionAsset->language = KalturaLanguage::EN;
 $captionAsset->label = 'English';
 $newAsset = $client->captionAsset->add("1_9kdmnhuv", $captionAsset);
 $client->captionAsset->setContent($newAsset->id, $captionResource);
-$result = (object)$result;
+$result = (object) $result;
 ?>
 <p>Captions attached!</p>
 <div class="KalturaMediaEntry"></div>

@@ -21,7 +21,7 @@ $resume = null;
 $finalChunk = null;
 $resumeAt = null;
 $result = $client->uploadToken->upload($tok, $_FILES["fileData"]["name"], $resume, $finalChunk, $resumeAt);
-$result = (object)$result;
+$result = (object) $result;
 ?>
 <script>
   $('#UploadStatus').text('Uploaded file <?php echo $result->fileName ?>. Creating entry...');
