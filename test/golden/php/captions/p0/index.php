@@ -12,9 +12,42 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <?php
-        require "UploadCaptions.php";
-      ?>
+      <h1>Upload Captions</h1>
+      <label>Caption File (SRT)</label>
+      <form id="UploadForm">
+        <input type="file" name="fileData"></input>
+        <input type="submit" value="Upload"></input>
+      </form>
+      <div id="UploadDone"></div>
+
+      <script>
+        $('#UploadForm').submit(function() {
+          var data = new FormData(document.getElementById('UploadForm'));
+          $.ajax({
+            url: '/attachCaptions.php',
+            type: 'POST',
+            data: data,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data, textStatus, jqXHR) {
+              $('#UploadDone').html(data);
+            }
+          });
+          return false;
+        })
+      </script>
+
     </div>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = el.attr('data-action');
+        var view = el.attr('data-view');
+        eval('var answers = ' + el.attr('data-answers'));
+        el.parent().load(action + '.php', answers);
+      })
+    </script>
   </body>
 </html>

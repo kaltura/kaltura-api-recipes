@@ -1,6 +1,6 @@
 <% if(result.message && result.code) { %>
-        <h1><%= result.message %></h1>
+        <h1><%- result.message %></h1>
 <% } %>
-<h2>Metadata Object <%= result.name %></h2>
-<p><b>System Name:</b> <%= result.systemName %></p>
-<p>XSD: <%= { result.xsd %>}</p>
+<h2>Metadata Object <%- result.name %></h2>
+<p><b>System Name:</b> <%- result.systemName %></p>
+<p>XSD: <%= result.xsd %></p>

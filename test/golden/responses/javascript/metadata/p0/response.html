@@ -78,7 +78,7 @@
       <% } %>
       <h2>Metadata Object <%= result.name %></h2>
       <p><b>System Name:</b> <%= result.systemName %></p>
-      <p>XSD: <%= { result.xsd %>}</p>
+      <p>XSD: <%- result.xsd %></p>
     </script>
     <script type="text/javascript">
       var metadataProfileShowView = _.template($('#metadataProfileShow-template').text());
@@ -91,6 +91,17 @@
       addMetadataProfile({
       }, function(result) {
         $('.container').html(metadataProfileShowView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
       })
     </script>
   </body>

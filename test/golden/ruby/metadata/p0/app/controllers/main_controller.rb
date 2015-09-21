@@ -27,6 +27,6 @@ class MainController < ApplicationController
         metadataProfile,
         xsdData,
         viewsData)
-    render :template => "main/metadata_profile_show", :locals => {:result => results}
+    render :template => "main/_metadata_profile_show", :locals => {:result => results}
   end
 end

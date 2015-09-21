@@ -4,10 +4,10 @@
   
 <% result.forEach(function(video, index) { %>
   <tr>
-    <td><%= index + 1 %></td>
-    <td><%= video.name %></td>
-    <td><%= video.rank %></td>
-    <td><%= video.votes %></td>
+    <td><%- index + 1 %></td>
+    <td><%- video.name %></td>
+    <td><%- video.rank %></td>
+    <td><%- video.votes %></td>
   </tr>
 <% }); %>
 </table>
