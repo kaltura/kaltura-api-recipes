@@ -57,6 +57,10 @@ var ANSWERS = process.env.KALTURA_ANSWERS_FILE ?
         upload: {
           uiConf: 30633631,
         },
+        metadata: {
+          name: 'foo',
+          systemName: 'bar'
+        }
       }
 
 var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];

@@ -15,6 +15,8 @@ $client->setKS($ks);
 
 $metadataProfile = new KalturaMetadataProfile();
 $metadataProfile->metadataObjectType = KalturaMetadataObjectType::ENTRY;
+$metadataProfile->name = "foo";
+$metadataProfile->systemName = "bar";
 $metadataProfile->createMode = KalturaMetadataProfileCreateMode::API;
 
 
