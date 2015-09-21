@@ -40,7 +40,7 @@ app.controller('Radio', function($scope) {
     var callback = function(success, results) {
       if (!success || (results.code && results.message)) return console.log('Kaltura Error', success, results);
       $scope.input.choices = results.objects.map(function(obj) {
-        return {value: obj[dc.map.value], label: obj[dc.map.label]};
+        return {value: obj[dc.map.value], label: obj[dc.map.label] || obj[dc.map.value]};
       });
       $scope.$apply();
     };
