@@ -211,12 +211,27 @@ LucyBot also provides some helper tags:
 * Use ```{{ variable.name }}``` to print the value of a given variable
 * Use ```<lucy for="thing" in="array">``` to iterate over an array
 * Use ```<lucy if="condition">``` to add conditionals
+* Use ```<lucy else>``` inside ```<lucy if>``` to add ```else``` blocks
 * Use ```<lucy if="result.message && result.code">``` to check for errors and print error messages
 * Use ```<lucy include="ViewName">``` to include other views
 
 You have access to two global variables inside of your views:
 * ```result``` which is the API's response (but can be overriden via ```<lucy include>```)
 * ```answers``` which contains the user's responses from inside the recipe
+
+For example, the following is a valid view:
+```html
+<h1>Results</h1>
+<lucy for="item" in="result">
+  <lucy if="item.title == 'foobar'">
+    This is a foobar
+    <lucy else>
+      Unknown title: {{ item.title }}
+    </lucy>
+  </lucy>
+</lucy>
+```
+
 
 ```<lucy include>``` can operate in two different ways:
 
