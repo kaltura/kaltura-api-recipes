@@ -17,7 +17,7 @@
       contentType: false,
       cache: false,
       processData: false,
-      success: function (data, textStatus, jqXHR) {
+      success: function(data, textStatus, jqXHR) {
         $('#UploadDone').html(data);
       }
     });

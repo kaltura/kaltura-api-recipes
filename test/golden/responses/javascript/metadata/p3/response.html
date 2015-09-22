@@ -116,15 +116,15 @@
 
     <script id="metadataShow-template" type="text/x-underscore-template" style="display: none">
       <% if(result.message && result.code) { %>
-              <h1><%= result.message %></h1>
-      	<% } else { %>
-      	    <h2>Metadata Object <%= result.name %></h2>
-      	    <p><b>Metadata ID:</b> <%= result.id %></p>
-      	    <p>XML:
-      	    <pre>
+        <h1><%= result.message %></h1>
+      <% } else { %>
+        <h2>Metadata Object <%= result.name %></h2>
+        <p><b>Metadata ID:</b> <%= result.id %></p>
+        <p>XML:
+          <pre>
       	    <%- result.xml %>
       	    </pre>
-      	    </p>
+        </p>
       <% } %>
     </script>
     <script type="text/javascript">

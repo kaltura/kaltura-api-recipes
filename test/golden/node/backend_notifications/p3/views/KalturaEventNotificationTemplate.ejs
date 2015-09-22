@@ -1,17 +1,17 @@
 <% if(result.message && result.code) { %>
-        <h1><%- result.message %></h1>
-	<% } else { %>
-		<h3><%- result.id %> - <%- result.name %></h3>
-		<p>System Name: <%- result.systemName %></p>
-		<p>Type: <%- result.type %></p>
-		<% if(result.type == 'httpNotification.Http') { %>
-		  <p>URL: <%- result.url %></p>
-		<% } %>
-		<% if(result.type == 'emailNotification.Email') { %>
-		  <p>Subject: <%- result.subject %></p>
-		  <div style="font-size: 12px">
-		    <%- result.body %>
-		  </div>
-		<% } %>
-		<hr></hr>
+  <h1><%- result.message %></h1>
+<% } else { %>
+  <h3><%- result.id %> - <%- result.name %></h3>
+  <p>System Name: <%- result.systemName %></p>
+  <p>Type: <%- result.type %></p>
+  <% if(result.type == 'httpNotification.Http') { %>
+    <p>URL: <%- result.url %></p>
+  <% } %>
+  <% if(result.type == 'emailNotification.Email') { %>
+    <p>Subject: <%- result.subject %></p>
+    <div style="font-size: 12px">
+      <%- result.body %>
+    </div>
+  <% } %>
+  <hr></hr>
 <% } %>

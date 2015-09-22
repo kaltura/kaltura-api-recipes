@@ -1,7 +1,7 @@
 <div id="ErrorMessage" class="alert alert-danger" style="display: none">
 </div>
 <?php if($result->message && $result->code) { ?>
-        <h1><?php echo $result->message ?></h1>
+  <h1><?php echo $result->message ?></h1>
 <?php } ?>
 <?php if($result->partnerId) { ?>
   <h1>Logged In!</h1>

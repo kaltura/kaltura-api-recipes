@@ -38,17 +38,20 @@ $result = (object) $result;
     <div id="kaltura_player_<?php echo $result->id ?>" style="width: 560px; height: 395px;">
     </div>
     <script>
-    kWidget.thumbEmbed({
-      "targetId": "kaltura_player_<?php echo $result->id ?>",
-      "wid": "_<?php echo $result->partnerId ?>",
-      "uiconf_id": 30633631,
-      "flashvars": {},
-      "cache_st": 1437326770,
-      "entry_id": "<?php echo $result->id ?>"
-    });
+      kWidget.thumbEmbed({
+        "targetId": "kaltura_player_<?php echo $result->id ?>",
+        "wid": "_<?php echo $result->partnerId ?>",
+        "uiconf_id": {
+          {
+            answers.uiConf
+          }
+        },
+        "flashvars": {},
+        "cache_st": 1437326770,
+        "entry_id": "<?php echo $result->id ?>"
+      });
     </script>
   </div>
 </div>
-
 <?php
 ?>

@@ -41,7 +41,6 @@ try {
   </div>
   <hr></hr>
 <?php } ?>
-
 <?php
 
 } catch (Exception $e) {

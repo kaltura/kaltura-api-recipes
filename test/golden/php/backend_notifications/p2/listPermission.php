@@ -38,9 +38,7 @@ try {
     <span>Deleted</span>
   <?php } ?>
 </p>
-
 <?php } ?>
-
 <?php
 
 } catch (Exception $e) {

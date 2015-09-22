@@ -74,8 +74,12 @@
   <body>
     <script id="KalturaReportTotal-template" type="text/x-underscore-template" style="display: none">
       <table class="table">
-        <tr id="Header"><td><%= result.header %></td></tr>
-        <tr id="Data"><td><%= result.data %></td></tr>
+        <tr id="Header">
+          <td><%= result.header %></td>
+        </tr>
+        <tr id="Data">
+          <td><%= result.data %></td>
+        </tr>
       </table>
       <script>
         var cur = $('#Header').html()

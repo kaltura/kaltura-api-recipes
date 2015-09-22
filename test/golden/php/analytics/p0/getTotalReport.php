@@ -29,8 +29,12 @@ try {
   $result = (object) $result;
 ?>
 <table class="table">
-  <tr id="Header"><td><?php echo $result->header ?></td></tr>
-  <tr id="Data"><td><?php echo $result->data ?></td></tr>
+  <tr id="Header">
+    <td><?php echo $result->header ?></td>
+  </tr>
+  <tr id="Data">
+    <td><?php echo $result->data ?></td>
+  </tr>
 </table>
 <script>
   var cur = $('#Header').html()
@@ -38,7 +42,6 @@ try {
   cur = $('#Data').html()
   $('#Data').html(cur.replace(/,/g, '</td><td>'));
 </script>
-
 <?php
 
 } catch (Exception $e) {

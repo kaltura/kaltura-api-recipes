@@ -58,8 +58,6 @@ try {
     <hr></hr>
   <?php } ?>
 <?php } ?>
-
-
 <?php
 
 } catch (Exception $e) {
