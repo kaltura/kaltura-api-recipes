@@ -201,10 +201,12 @@ app.controller('Code', function($scope) {
 
   $scope.refresh = function() {
     var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+    var page = curSet.page || 0;
+    if (page === -1) page = 0;
     var data = {
       language: $('#Language').scope().language.id,
       answers: $('#Answers').scope().answers,
-      page: curSet.page || 0,
+      page: page,
     }
     var url = '/recipes/' + $scope.recipe.name + '/code';
     $.ajax({
