@@ -21,6 +21,7 @@ try {
   $result = (object) $result;
 ?>
 <div class="info info-success">Deleted</div>
+
 <?php
 
 } catch (Exception $e) {

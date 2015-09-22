@@ -74,20 +74,17 @@
     <script id="MediaListLikes-template" type="text/x-underscore-template" style="display: none">
       <table class="table">
         <tr>
-          <td></td>
-          <td>Name</td>
-          <td>Rank</td>
-          <td>Votes</td>
-        </tr>
+          <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
         
-        <% result.forEach(function(video, index) { %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= video.name %></td>
-            <td><%= video.rank %></td>
-            <td><%= video.votes %></td>
-          </tr>
-        <% }); %></table>
+      <% result.forEach(function(video, index) { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= video.name %></td>
+          <td><%= video.rank %></td>
+          <td><%= video.votes %></td>
+        </tr>
+      <% }); %>
+      </table>
     </script>
     <script type="text/javascript">
       var MediaListLikesView = _.template($('#MediaListLikes-template').text());

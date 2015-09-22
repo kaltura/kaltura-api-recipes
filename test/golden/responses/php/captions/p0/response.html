@@ -31,13 +31,14 @@
             contentType: false,
             cache: false,
             processData: false,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
               $('#UploadDone').html(data);
             }
           });
           return false;
         })
       </script>
+
     </div>
     <script>
       $(".container").on('click', "a[data-action]", function(event) {

@@ -99,18 +99,14 @@
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
           </div>
           <script>
-            kWidget.thumbEmbed({
-              "targetId": "kaltura_player_<%= result.id %>",
-              "wid": "_<%= result.partnerId %>",
-              "uiconf_id": {
-                {
-                  answers.uiConf
-                }
-              },
-              "flashvars": {},
-              "cache_st": 1437326770,
-              "entry_id": "<%= result.id %>"
-            });
+          kWidget.thumbEmbed({
+            "targetId": "kaltura_player_<%= result.id %>",
+            "wid": "_<%= result.partnerId %>",
+            "uiconf_id": 30633631,
+            "flashvars": {},
+            "cache_st": 1437326770,
+            "entry_id": "<%= result.id %>"
+          });
           <% print("</"+"script>"); %>
         </div>
       </div>
