@@ -32,17 +32,20 @@ var <%- param.name %> = <%- param.enum.name %>.<%- valueName %>;
 var getResults = function() {
   if (!client.ks) return setTimeout(getResults, 100);
   client.<%- service %>.<%- action %>(function(success, results) {
+<% if (returns === 'list') { -%>
     if (!success || (results && results.code && results.message)) {
       console.log('Kaltura Error', success, results);
 <%- '<\%- Lucy.returnCode("results", 6) %\>' %>
     } else {
       console.log('Kaltura Result', results);
-<% if (returns === 'list') { -%>
 <%- '<\%- Lucy.returnCode("results.objects", 6) %\>' %>
-<% } else { -%>
-<%- '<\%- Lucy.returnCode("results", 6) %\>' %>
-<% } -%>
     }
+<% } else { -%>
+    if (!success || (results && results.code && results.message)) {
+      console.log('Kaltura Error', success, results);
+    }
+<%- '<\%- Lucy.returnCode("results", 4) %\>' %>
+<% } -%>
   }<%- parameters.length === 0 ? ');' : ',' %>
 <% parameters.forEach(function(param, index) { -%>
   <%- param.name %><%- index < parameters.length - 1 ? ',' : ');' %>
