@@ -160,8 +160,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
       
     }
   ],
-  "pages": "An array of single page apps to generate along side this recipe.",
-  "pages": [
+  "pages": "An array of single page apps to generate as part of this recipe. These apps are shown below the recipe instructions and sample code.",
+  "pages": [{
     "views": "An array of views that are used in this page. This should contain the view in 'start' below, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
     "views": [
       "myView"
@@ -179,7 +179,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
           "action": "The action that supplies the data for the initial load of this page"
         }
     }
-  ]
+  }]
 }
 ```
 
