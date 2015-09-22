@@ -54,7 +54,7 @@ app.post('/addMetadata', function(req, res) {
   var metadataProfileId = null;
   var objectType = Kaltura.enums.KalturaMetadataObjectType.ENTRY;
   var objectId = null;
-  var xmlData = null;
+  var xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
   client.metadata.add(function(results) {
     if (results.code && results.message) {

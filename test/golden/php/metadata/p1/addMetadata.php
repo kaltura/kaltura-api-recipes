@@ -18,7 +18,7 @@ $objectType = KalturaMetadataObjectType::ENTRY;
 
 $objectId = null;
 
-$xmlData = null;
+$xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
 try {
   $result = $client->metadata->add(

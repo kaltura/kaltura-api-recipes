@@ -258,6 +258,13 @@ If, for example, KalturaMediaListResponse was just an array of entryIds, we coul
 </lucy>
 ```
 
+## Displaying an XML in the view
+Using 3 '{' will cause the XML to display as a string instead of being parsed, like so:
+```
+{{{ result.xsd }}}
+```
+For example, see the metadata recipe's view under: code_templates/views/html/metadataShow.html
+
 ## Step by step example for adding a new recipe
 The sample recipe will accept an entry ID as input and output the entry's name, ID, descrption and number of plays.
 
@@ -322,6 +329,18 @@ The recipe uses the KalturaSimpleEntry view to display the results. The view fil
 
 ```
 After restarting the node, the new recipe should appear on the index page.
+
+Once the recipe works correctly, one needs to generate proper tests for it by setting:
+```
+export WRITE_GOLDEN=true
+```
+and running:
+```
+npm test
+```
+And then commiting them.
+
+## Selecting an icon for the recipe
 
 ```
 "icon": "search"
