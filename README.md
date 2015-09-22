@@ -300,7 +300,7 @@ The below json file should be placed under the recipes dir
             "service": "media",
             "action": "get",
             "view": "KalturaSimpleEntry"
-        }]
+        }],
         "start": {
             "view": "KalturaSimpleEntry",
             "data": {
