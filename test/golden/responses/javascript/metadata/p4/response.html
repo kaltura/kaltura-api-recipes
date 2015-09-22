@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">
+    </script>
+    <script src="/js/ox.ajast.js"></script>
+    <script src="/js/webtoolkit.md5.js"></script>
+    <script src="/js/KalturaClientBase.js"></script>
+    <script src="/js/KalturaTypes.js"></script>
+    <script src="/js/KalturaVO.js"></script>
+    <script src="/js/KalturaServices.js"></script>
+    <script src="/js/KalturaClient.js"></script>
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+    <script src="/js/jquery.fileupload-kaltura.js"></script>
+
+    <script>
+      var config = new KalturaConfiguration(1760921);
+      config.serviceUrl = "https://www.kaltura.com/";
+      var client = new KalturaClient(config);
+      client.session.start(function(success, ks) {
+        if (!success || (ks.code && ks.message)) {
+          console.log('Error starting session', success, ks);
+          $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
+        } else {
+          client.setKs(ks);
+        }
+        // Note: this is meant only as a sample.
+        // You should NEVER generate sessions on the client,
+        // as this exposes your Admin Secret to users.
+        // Instead, generate a session on the server and pass the
+        // KS to the client.
+      }, "8d6cb692ab0f41bfa6bde373204c4b40",
+      "lucybot@example.com",
+      KalturaSessionType.ADMIN,
+      1760921)
+    </script>
+    
+    <script type="text/javascript">
+      var listMetadataProfile = function(request, callback) {
+        filter = new KalturaMetadataProfileFilter();
+
+        pager = new KalturaFilterPager();
+
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.metadataProfile.listAction(function(success, results) {
+            if (!success || (results && results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+              callback(results)
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results.objects)
+            }
+          },
+          filter,
+          pager);
+        }
+        getResults();
+      };
+      var deleteMetadataProfile = function(request, callback) {
+        var id = request.id;
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.metadataProfile.deleteAction(function(success, results) {
+            if (!success || (results && results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+              callback(results)
+            } else {
+              console.log('Kaltura Result', results);
+              callback(results)
+            }
+          },
+          id);
+        }
+        getResults();
+      };
+    </script>
+  </head>
+  <body>
+    <script id="KalturaMetadataProfileListResponse-template" type="text/x-underscore-template" style="display: none">
+      <% result.forEach(function(profile, index) { %>
+        <div class="row">
+          <div class="col-xs-8">
+            <%
+              print(metadataProfileShowView({result: profile}));
+            %>
+
+          </div>
+          <div class="col-xs-4 text-center">
+            <h2>
+              <a class="btn btn-danger"
+               data-action="deleteMetadataProfile"
+               data-view="metadataProfileDeletedView"
+               data-answers="{id: <%= profile.id %>}">
+               Delete
+            </a>
+
+            </h2>
+          </div>
+        </div>
+      <% }); %>
+    </script>
+    <script type="text/javascript">
+      var KalturaMetadataProfileListResponseView = _.template($('#KalturaMetadataProfileListResponse-template').text());
+    </script>
+
+    <script id="metadataProfileShow-template" type="text/x-underscore-template" style="display: none">
+      <% if(result.message && result.code) { %>
+              <h1><%= result.message %></h1>
+      	<% } else { %>
+      	    <h2>Metadata Profile Object <%= result.name %></h2>
+      	    <p><b>System Name:</b> <%= result.systemName %></p>
+      	    <p>XSD:
+      	    <pre>
+      	    <%- result.xsd %>
+      	    </pre>
+      	    </p>
+      <% } %>
+    </script>
+    <script type="text/javascript">
+      var metadataProfileShowView = _.template($('#metadataProfileShow-template').text());
+    </script>
+
+    <script id="metadataProfileDeleted-template" type="text/x-underscore-template" style="display: none">
+      <div class="info info-success">Deleted</div>
+    </script>
+    <script type="text/javascript">
+      var metadataProfileDeletedView = _.template($('#metadataProfileDeleted-template').text());
+    </script>
+
+    <div id="ErrorMessage" class="alert alert-danger" style="display: none"></div>
+    <div class="container" style="margin-top:40px">
+    </div>
+    <script type="text/javascript">
+      listMetadataProfile({
+      }, function(result) {
+        $('.container').html(KalturaMetadataProfileListResponseView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
+      })
+    </script>
+  </body>
+</html>
