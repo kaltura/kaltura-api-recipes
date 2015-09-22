@@ -1,0 +1,19 @@
+<lucy for="profile" in ="result">
+  <div class="row">
+    <div class="col-xs-8">
+      <lucy include="metadataShow" resultvar="profile" indent="6">
+      </lucy>
+    </div>
+    <div class="col-xs-4 text-center">
+      <h2>
+        <lucy button="Delete"
+              indent="6"
+              type="danger"
+              action="deleteMetadata"
+              view="metadataDeleted"
+              inputvars="{id: profile.id}">
+        </lucy>
+      </h2>
+    </div>
+  </div>
+</lucy>
