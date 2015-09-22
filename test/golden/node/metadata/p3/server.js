@@ -28,33 +28,33 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
-app.post('/listMetadataProfile', function(req, res) {
-  filter = new Kaltura.objects.KalturaMetadataProfileFilter();
+app.post('/listMetadata', function(req, res) {
+  filter = new Kaltura.objects.KalturaMetadataFilter();
 
   pager = new Kaltura.objects.KalturaFilterPager();
 
 
-  client.metadataProfile.listAction(function(results) {
+  client.metadata.listAction(function(results) {
     if (results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaMetadataProfileListResponse', {request: req.body, result: results})
+      res.render('KalturaMetadataListResponse', {request: req.body, result: results})
     } else {
-      res.render('KalturaMetadataProfileListResponse', {request: req.body, result: results.objects})
+      res.render('KalturaMetadataListResponse', {request: req.body, result: results.objects})
     }
   },
   filter,
   pager);
 });
 
-app.post('/deleteMetadataProfile', function(req, res) {
+app.post('/deleteMetadata', function(req, res) {
   var id = req.body.id;
 
-  client.metadataProfile.deleteAction(function(results) {
+  client.metadata.deleteAction(function(results) {
     if (results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('metadataProfileDeleted', {request: req.body, result: results})
+      res.render('metadataDeleted', {request: req.body, result: results})
     } else {
-      res.render('metadataProfileDeleted', {request: req.body, result: results})
+      res.render('metadataDeleted', {request: req.body, result: results})
     }
   },
   id);

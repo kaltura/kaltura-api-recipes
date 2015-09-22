@@ -15,23 +15,23 @@ class MainController < ApplicationController
       1760921)
 
 
-  def listMetadataProfile
-    filter = KalturaMetadataProfileFilter.new();
+  def listMetadata
+    filter = KalturaMetadataFilter.new();
 
     pager = KalturaFilterPager.new();
 
 
-    results = @@client.metadata_profile_service.list(
+    results = @@client.metadata_service.list(
         filter,
         pager)
-    render :template => "main/_kaltura_metadata_profile_list_response", :locals => {:result => results.objects}
+    render :template => "main/_kaltura_metadata_list_response", :locals => {:result => results.objects}
   end
 
-  def deleteMetadataProfile
+  def deleteMetadata
     id = request[:id];
 
-    results = @@client.metadata_profile_service.delete(
+    results = @@client.metadata_service.delete(
         id)
-    render :template => "main/_metadata_profile_deleted", :locals => {:result => results}
+    render :template => "main/_metadata_deleted", :locals => {:result => results}
   end
 end

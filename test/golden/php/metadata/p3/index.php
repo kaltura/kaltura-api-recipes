@@ -12,11 +12,11 @@
   </head>
   <body>
     <div class="container" style="margin-top:40px">
-      <div class="KalturaMetadataProfileListResponse"></div>
+      <div class="KalturaMetadataListResponse"></div>
       <script>
-        var element = $('.KalturaMetadataProfileListResponse').last();
+        var element = $('.KalturaMetadataListResponse').last();
         element[0].loadData = function() {
-          $('.KalturaMetadataProfileListResponse').last().load('listMetadataProfile.php');
+          $('.KalturaMetadataListResponse').last().load('listMetadata.php');
         }
         element[0].loadData();
       </script>
