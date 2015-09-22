@@ -98,7 +98,7 @@
       <% } %>
       <% result.forEach(function(cuePoint, index) { %>
         <p>
-          <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
+        <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
         </p>
       <% }); %>
       <%
@@ -123,18 +123,14 @@
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
           </div>
           <script>
-            kWidget.thumbEmbed({
-              "targetId": "kaltura_player_<%= result.id %>",
-              "wid": "_<%= result.partnerId %>",
-              "uiconf_id": {
-                {
-                  answers.uiConf
-                }
-              },
-              "flashvars": {},
-              "cache_st": 1437326770,
-              "entry_id": "<%= result.id %>"
-            });
+          kWidget.thumbEmbed({
+            "targetId": "kaltura_player_<%= result.id %>",
+            "wid": "_<%= result.partnerId %>",
+            "uiconf_id": 30633631,
+            "flashvars": {},
+            "cache_st": 1437326770,
+            "entry_id": "<%= result.id %>"
+          });
           <% print("</"+"script>"); %>
         </div>
       </div>
@@ -179,9 +175,7 @@
           cuePoint.startTime = $('input[name="startTime"]').val();
           cuePoint.entryId = "1_318vzqcr";
           client.cuePoint.add(function(success, cuePoint) {
-            $('.container').html(CuePointAddedView({
-              result: cuePoint
-            }));
+            $('.container').html(CuePointAddedView({result: cuePoint}));
           }, cuePoint);
           return false;
         })

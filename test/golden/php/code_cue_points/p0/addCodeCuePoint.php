@@ -23,11 +23,7 @@ $result = (object) $result;
 ?>
 <div id="CuePoints">
   <table class="table">
-    <tr>
-      <td>Code</td>
-      <td>Start Time</td>
-      <td>End Time</td>
-    </tr>
+    <tr><td>Code</td><td>Start Time</td><td>End Time</td></tr>
   </table>
 </div>
 <hr></hr>
@@ -44,7 +40,7 @@ $result = (object) $result;
 
 <script>
   jsCallbackReady = function(playerId) {
-    $('#' + playerId)[0].addJsListener("cuePointReached", "writeLog");
+    $('#' + playerId)[0].addJsListener( "cuePointReached", "writeLog" );
     window['writeLog'] = function(result) {
       var cuePoint = result.cuePoint
       $('table').append(
@@ -55,5 +51,6 @@ $result = (object) $result;
     }
   }
 </script>
+
 <?php
 ?>

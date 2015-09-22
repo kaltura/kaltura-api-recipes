@@ -119,18 +119,14 @@
           <div id="kaltura_player_<%= result.id %>" style="width: 560px; height: 395px;">
           </div>
           <script>
-            kWidget.thumbEmbed({
-              "targetId": "kaltura_player_<%= result.id %>",
-              "wid": "_<%= result.partnerId %>",
-              "uiconf_id": {
-                {
-                  answers.uiConf
-                }
-              },
-              "flashvars": {},
-              "cache_st": 1437326770,
-              "entry_id": "<%= result.id %>"
-            });
+          kWidget.thumbEmbed({
+            "targetId": "kaltura_player_<%= result.id %>",
+            "wid": "_<%= result.partnerId %>",
+            "uiconf_id": 30633631,
+            "flashvars": {},
+            "cache_st": 1437326770,
+            "entry_id": "<%= result.id %>"
+          });
           <% print("</"+"script>"); %>
         </div>
       </div>
@@ -144,7 +140,7 @@
         var setupUpload = function() {
           if (!client.ks) return setTimeout(setupUpload, 100);
           file = $('input[name="fileData"]').fileupload({
-            apiURL: 'https://www.kaltura.com/api_v3/',
+            apiURL:'https://www.kaltura.com/api_v3/',
             url: 'https://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',
             ks: client.ks,
             singleFileUploads: true,
@@ -155,9 +151,7 @@
             },
             done: function(e, data) {
               $('#Uploading').hide();
-              $('#UploadDone').html(CaptionUploadDoneView({
-                result: data.result
-              }));
+              $('#UploadDone').html(CaptionUploadDoneView({result: data.result}));
             },
           });
         };
@@ -167,7 +161,7 @@
       <h1>Upload Captions</h1>
       <hr></hr>
       <div id="Uploading" class="alert alert-info hidden">
-        <p>Uploading </p>
+        <p>Uploading  </p>
         <i class="fa fa-spin fa-refresh"></i>
       </div>
       <label>Caption File (SRT)</label>

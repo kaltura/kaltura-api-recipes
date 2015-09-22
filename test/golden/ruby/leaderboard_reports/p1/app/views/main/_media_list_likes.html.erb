@@ -1,16 +1,13 @@
 <table class="table">
   <tr>
-    <td></td>
-    <td>Name</td>
-    <td>Rank</td>
-    <td>Votes</td>
-  </tr>
+    <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
   
-  <% result.each_index do | index | video = result.fetch(index) %>
-    <tr>
-      <td><%= index %></td>
-      <td><%= video.name %></td>
-      <td><%= video.rank %></td>
-      <td><%= video.votes %></td>
-    </tr>
-  <% end %></table>
+<% result.each_index do | index | video = result.fetch(index) %>
+  <tr>
+    <td><%= index %></td>
+    <td><%= video.name %></td>
+    <td><%= video.rank %></td>
+    <td><%= video.votes %></td>
+  </tr>
+<% end %>
+</table>

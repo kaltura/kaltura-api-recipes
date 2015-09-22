@@ -35,12 +35,8 @@ try {
   $result = (object) $result;
 ?>
 <table class="table">
-  <tr id="Header">
-    <td><?php echo $result->header ?></td>
-  </tr>
-  <tr id="Data">
-    <td><?php echo $result->data ?></td>
-  </tr>
+  <tr id="Header"><td><?php echo $result->header ?></td></tr>
+  <tr id="Data"><td><?php echo $result->data ?></td></tr>
 </table>
 <script>
   var getRow = function(csv) {
@@ -55,6 +51,7 @@ try {
     $('table').append(getRow(row));
   })
 </script>
+
 <?php
 
 } catch (Exception $e) {
