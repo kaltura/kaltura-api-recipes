@@ -35,7 +35,7 @@ class MainController < ApplicationController
     metadataProfileId = nil;
     objectType = KalturaMetadataObjectType::ENTRY;
     objectId = nil;
-    xmlData = nil;
+    xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
     results = @@client.metadata_service.add(
         metadataProfileId,

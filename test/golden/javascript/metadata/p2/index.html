@@ -74,7 +74,7 @@
         var metadataProfileId = null;
         var objectType = KalturaMetadataObjectType.ENTRY;
         var objectId = null;
-        var xmlData = null;
+        var xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);

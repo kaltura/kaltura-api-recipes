@@ -1,7 +1,11 @@
 <div id="ErrorMessage" class="alert alert-danger" style="display: none">
 </div>
+<% if result.message && result.code %>
+        <h1><%= result.message %></h1>
+<% end %>
 <% if result.partner_id %>
   <h1>Logged In!</h1>
-  <p>Email: <%= result.email %></p>
   <p>Partner ID: <%= result.partner_id %></p>
+  <p>Screen Name: <%= result.screen_name %></p>
+  <p>Name: <%= result.full_name %></p>
 <% end %>

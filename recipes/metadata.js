@@ -2,12 +2,12 @@ var FS = require('fs');
 module.exports = {
   "name": "metadata",
   "title": "Working with metadata",
-  "icon": "exclamation",
+  "icon": "tag",
   "description": "Learn to work with metadata.",
   "control_sets": [
     {
       "page": 0,
-      "title": "Create metadata profile",
+      "title": "Create a metadata profile",
       "affects": "addMetadataProfile",
       "tip": ".",
       "disableAutorefresh": true,
@@ -53,7 +53,7 @@ module.exports = {
     }, 
     {
       "page": 1,
-      "title": "Add value",
+      "title": "Add metadata to an entry",
       "affects": "addMetadata",
       "tip": ".",
       "disableAutorefresh": true,
@@ -65,7 +65,7 @@ module.exports = {
           "name": "objectId"
         },
         {
-          "default": "",
+	  "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>",
           "type": "text",
           "label": "XML",
           "name": "xmlData"
@@ -93,6 +93,8 @@ module.exports = {
     },
     {
       "page": 2,
+      "title": "Delete metadata profiles",
+      "tip": "Browse existing profiles in the frame below and click 'Delete' to remove them.",
       "inputs": [],
     }],
 
