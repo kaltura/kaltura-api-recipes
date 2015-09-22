@@ -95,6 +95,36 @@ module.exports = {
         }]
     }, {
         "page": 3,
+        "title": "Delete metadata",
+        "tip": "Browse existing ids in the frame below and click 'Delete' to remove them.",
+        "disableAutorefresh": true,
+        "inputs": [{
+            "default": "",
+            "type": "text",
+            "label": "entryId",
+            "name": "objectIdEqual"
+        }, {
+            "type": "select-chosen",
+            "name": "metadataProfileIdEqual",
+            "label": "Metadata Profile",
+            "dynamicChoices": {
+                "service": "metadataProfile",
+                "action": "list",
+                "map": {
+                    "value": "id",
+                    "label": "name"
+                }
+            },
+	"arguments": [{
+	    "class": "KalturaMetadataFilter",
+	    "parameters": {
+		"metadataProfileIdEqual": {"answer": "metadataProfileIdEqual"},
+		"objectIdEqual": {"answer": "objectIdEqual"}
+	    }    
+        }]
+        }]
+    }, {
+        "page": 4,
         "title": "Delete metadata profiles",
         "tip": "Browse existing profiles in the frame below and click 'Delete' to remove them.",
         "inputs": [],
@@ -137,6 +167,23 @@ module.exports = {
           "view": "metadataShow",
           "data": {
               "action": "updateMetadata"
+          }
+        }
+    }, {
+        "views": ["KalturaMetadataListResponse", "metadataShow", "metadataDeleted"],
+        "actions": [{
+          "service": "metadata",
+          "action": "listAction",
+          "view": "KalturaMetadataListResponse"
+        }, {
+          "service": "metadata",
+          "action": "deleteAction",
+          "view": "metadataDeleted"
+        }],
+        "start": {
+          "view": "KalturaMetadataListResponse",
+          "data": {
+              "action": "listMetadata"
           }
         }
     }, {
