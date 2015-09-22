@@ -106,24 +106,24 @@
   }],
   "pages": [
     {
-      "view": "KalturaReportTable",
-      "data": {
-        "action": "getTableReport"
+      "views": ["KalturaReportTable"],
+      "actions": [{"service": "report", "action": "getTable", "view": "KalturaReportTable"}],
+      "start":  {
+        "view": "KalturaReportTable",
+        "data": {
+          "action": "getTableReport"
+        }
       }
     }, {
-      "view": "MediaListLikes",
-      "data": {
-        "action": "listMedia"
+      "views": ["MediaListLikes"],
+      "actions": [{"service": "media", "action": "listAction", "view": "MediaListLikes"}],
+      "start": {
+        "view": "MediaListLikes",
+        "data": {
+          "action": "listMedia"
+        }
       }
     }
-  ],
-  "views": [
-    "KalturaReportTable",
-    "MediaListLikes"
-  ],
-  "actions": [
-    {"service": "media", "action": "listAction", "view": "MediaListLikes"},
-    {"service": "report", "action": "getTable", "view": "KalturaReportTable"}
   ]
 }
 

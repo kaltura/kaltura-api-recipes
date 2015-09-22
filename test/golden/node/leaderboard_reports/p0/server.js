@@ -28,26 +28,6 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
-app.post('/listMedia', function(req, res) {
-  filter = new Kaltura.objects.KalturaMediaEntryFilter();
-  filter.totalRankGreaterThanOrEqual = 1;
-  filter.orderBy = "-rank";
-
-  pager = new Kaltura.objects.KalturaFilterPager();
-
-
-  client.media.listAction(function(results) {
-    if (results.code && results.message) {
-      console.log('Kaltura Error', results);
-      res.render('MediaListLikes', {request: req.body, result: results})
-    } else {
-      res.render('MediaListLikes', {request: req.body, result: results.objects})
-    }
-  },
-  filter,
-  pager);
-});
-
 app.post('/getTableReport', function(req, res) {
   reportInputFilter = new Kaltura.objects.KalturaReportInputFilter();
   reportInputFilter.fromDay = "20150615";

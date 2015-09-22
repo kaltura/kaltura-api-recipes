@@ -48,30 +48,4 @@ app.post('/listMedia', function(req, res) {
   pager);
 });
 
-app.post('/getTableReport', function(req, res) {
-  reportInputFilter = new Kaltura.objects.KalturaReportInputFilter();
-  reportInputFilter.fromDay = "20150615";
-  reportInputFilter.toDay = "20150715";
-
-  pager = new Kaltura.objects.KalturaFilterPager();
-
-  var reportType = Kaltura.enums.KalturaReportType.USER_TOP_CONTENT;
-  var order = "count_plays";
-  var objectIds = null;
-
-  client.report.getTable(function(results) {
-    if (results.code && results.message) {
-      console.log('Kaltura Error', results);
-      res.render('KalturaReportTable', {request: req.body, result: results})
-    } else {
-      res.render('KalturaReportTable', {request: req.body, result: results})
-    }
-  },
-  reportType,
-  reportInputFilter,
-  pager,
-  order,
-  objectIds);
-});
-
 app.listen(process.env.PORT || 3333);
