@@ -18,12 +18,8 @@ $id = $_POST["id"];
 try {
   $result = $client->metadataProfile->deleteAction(
     $id);
-  $result = (object) $result;
-?>
-<div class="info info-success">Deleted</div>
-
-<?php
-
+  $result = (object)$result;
+  require 'metadataProfileDeleted.php';
 } catch (Exception $e) {
   echo $e->getMessage();
 }
