@@ -40,9 +40,9 @@ app.post('/getTableReport', function(req, res) {
   var objectIds = null;
 
   client.report.getTable(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaReportTable', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaReportTable', {request: req.body, result: results})
     }

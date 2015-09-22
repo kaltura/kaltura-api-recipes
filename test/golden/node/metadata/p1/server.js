@@ -35,9 +35,9 @@ app.post('/addMetadata', function(req, res) {
   var xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
   client.metadata.add(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('metadataShow', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('metadataShow', {request: req.body, result: results})
     }

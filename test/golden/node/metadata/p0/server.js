@@ -38,9 +38,9 @@ app.post('/addMetadataProfile', function(req, res) {
   var viewsData = null;
 
   client.metadataProfile.add(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('metadataProfileShow', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('metadataProfileShow', {request: req.body, result: results})
     }

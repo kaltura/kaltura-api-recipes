@@ -35,9 +35,9 @@ app.post('/listMetadata', function(req, res) {
 
 
   client.metadata.listAction(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaMetadataListResponse', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaMetadataListResponse', {request: req.body, result: results.objects})
     }
@@ -50,9 +50,9 @@ app.post('/deleteMetadata', function(req, res) {
   var id = req.body.id;
 
   client.metadata.deleteAction(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('metadataDeleted', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('metadataDeleted', {request: req.body, result: results})
     }

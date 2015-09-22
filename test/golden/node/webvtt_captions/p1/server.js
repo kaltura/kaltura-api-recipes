@@ -35,9 +35,9 @@ app.post('/listCaptionAsset', function(req, res) {
 
 
   client.captionAsset.listAction(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaCaptionAssetListResponse', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaCaptionAssetListResponse', {request: req.body, result: results.objects})
     }
@@ -50,9 +50,9 @@ app.post('/getCaptionAsset', function(req, res) {
   var captionAssetId = null;
 
   client.captionAsset.get(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaCaptionAsset', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaCaptionAsset', {request: req.body, result: results})
     }

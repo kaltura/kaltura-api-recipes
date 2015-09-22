@@ -34,9 +34,9 @@ app.post('/updateMetadata', function(req, res) {
   var version = null;
 
   client.metadata.update(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('metadataShow', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('metadataShow', {request: req.body, result: results})
     }
