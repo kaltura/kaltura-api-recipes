@@ -32,7 +32,7 @@ var <%- param.name %> = <%- param.enum.name %>.<%- valueName %>;
 var getResults = function() {
   if (!client.ks) return setTimeout(getResults, 100);
   client.<%- service %>.<%- action %>(function(success, results) {
-    if (!success || (results.code && results.message)) {
+    if (!success || (results && results.code && results.message)) {
       console.log('Kaltura Error', success, results);
 <%- '<\%- Lucy.returnCode("results", 6) %\>' %>
     } else {
