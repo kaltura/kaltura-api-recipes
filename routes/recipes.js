@@ -86,12 +86,10 @@ var buildRecipe = function(req, res, callback) {
   var language = req.body.language;
   var buildParams = {answers: req.body.answers, actions: {}, views: {}};
   var pageToBuild = recipe.pages[req.body.page || 0];
+  if (!pageToBuild) throw new Error("Page " + (req.body.page || 0) + " not found for recipe " + req.params.recipe);
   buildParams.main = pageToBuild.start || pageToBuild;
   var actions = (pageToBuild.actions || []).concat(recipe.actions || []);
   var views = (pageToBuild.views || []).concat(recipe.views || []);
-  buildParams.main = recipe.pages[req.body.page || 0];
-  if (buildParams.main.start) buildParams.main = buildParams.main.start;
-  if (!buildParams.main) throw new Error("Page " + (req.body.page || 0) + " not found for recipe " + req.params.recipe);
   buildParams.language = language;
   if (language === 'ruby') buildParams.dependencies = ['kaltura-client'];
   actions.forEach(function(action) {

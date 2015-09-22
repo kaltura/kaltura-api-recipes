@@ -292,24 +292,22 @@ The below json file should be placed under the recipes dir
             "title": "Filtering Results"
         }
     ],
-    "pages": [
-        {
+    "pages": [{
+        "views": [
+          "KalturaSimpleEntry"
+        ],
+        "actions": [{
+            "service": "media",
+            "action": "get",
+            "view": "KalturaSimpleEntry"
+        }],
+        "start": {
             "view": "KalturaSimpleEntry",
             "data": {
                 "action": "getMedia"
             }
         }
-    ],
-    "views": [
-        "KalturaSimpleEntry"
-    ],
-    "actions": [
-        {
-            "service": "media",
-            "action": "get",
-            "view": "KalturaSimpleEntry"
-        }
-    ]
+    }]
 }
 ```
 
