@@ -153,7 +153,8 @@
 
     <script id="KalturaEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
       <% if(result.message && result.code) { %>
-              <h1><%= result.message %></h1><% } else { %>
+              <h1><%= result.message %></h1>
+      	<% } else { %>
       		<h3><%= result.id %> - <%= result.name %></h3>
       		<p>System Name: <%= result.systemName %></p>
       		<p>Type: <%= result.type %></p>
