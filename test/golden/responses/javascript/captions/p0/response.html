@@ -51,7 +51,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.media.get(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -76,7 +76,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.captionAssetItem.search(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {

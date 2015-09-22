@@ -30,38 +30,4 @@ class MainController < ApplicationController
         viewsData)
     render :template => "main/_metadata_profile_show", :locals => {:result => results}
   end
-
-  def addMetadata
-    metadataProfileId = nil;
-    objectType = KalturaMetadataObjectType::ENTRY;
-    objectId = nil;
-    xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
-
-    results = @@client.metadata_service.add(
-        metadataProfileId,
-        objectType,
-        objectId,
-        xmlData)
-    render :template => "main/_metadata_show", :locals => {:result => results}
-  end
-
-  def deleteMetadataProfile
-    id = request[:id];
-
-    results = @@client.metadata_profile_service.delete(
-        id)
-    render :template => "main/_metadata_profile_deleted", :locals => {:result => results}
-  end
-
-  def listMetadataProfile
-    filter = KalturaMetadataProfileFilter.new();
-
-    pager = KalturaFilterPager.new();
-
-
-    results = @@client.metadata_profile_service.list(
-        filter,
-        pager)
-    render :template => "main/_kaltura_metadata_profile_list_response", :locals => {:result => results.objects}
-  end
 end
