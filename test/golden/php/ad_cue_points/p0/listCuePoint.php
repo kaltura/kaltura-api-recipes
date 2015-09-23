@@ -32,7 +32,7 @@ try {
 <?php } ?>
 <?php foreach($result as $index=>$cuePoint) { ?>
   <p>
-  <?php echo $cuePoint->cuePointType ?> starting at <?php echo $cuePoint->startTime ?> milliseconds
+    <?php echo $cuePoint->cuePointType ?> starting at <?php echo $cuePoint->startTime ?> milliseconds
   </p>
 <?php } ?>
 <form id="AddAdCuePointForm">
@@ -50,7 +50,6 @@ try {
 </form>
 <hr></hr>
 <div id="CuePointAdded"></div>
-
 <script>
   $('#AddAdCuePointForm').submit(function() {
     var data = new FormData(document.getElementById('AddAdCuePointForm'));
@@ -68,9 +67,7 @@ try {
     return false;
   })
 </script>
-
 <hr></hr>
-
 <?php
 
 } catch (Exception $e) {

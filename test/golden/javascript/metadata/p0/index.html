@@ -58,11 +58,8 @@
           client.metadataProfile.add(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           metadataProfile,
           xsdData,
@@ -75,15 +72,16 @@
   <body>
     <script id="metadataProfileShow-template" type="text/x-underscore-template" style="display: none">
       <% if(result.message && result.code) { %>
-              <h1><%= result.message %></h1>
-      	<% } else { %>
-      	    <h2>Metadata Profile Object <%= result.name %></h2>
-      	    <p><b>System Name:</b> <%= result.systemName %></p>
-      	    <p>XSD:
-      	    <pre>
-      	    <%- result.xsd %>
-      	    </pre>
-      	    </p>
+        <h1><%= result.message %></h1>
+      <% } else { %>
+        <h2>Metadata Profile Object <%= result.name %></h2>
+        <p>
+          <b>System Name:</b> <%= result.systemName %></p>
+        <p>XSD:
+          <pre>
+            <%- result.xsd %>
+          </pre>
+        </p>
       <% } %>
     </script>
     <script type="text/javascript">

@@ -60,11 +60,8 @@
           client.report.getTable(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           reportType,
           reportInputFilter,
@@ -79,8 +76,12 @@
   <body>
     <script id="KalturaReportTable-template" type="text/x-underscore-template" style="display: none">
       <table class="table">
-        <tr id="Header"><td><%= result.header %></td></tr>
-        <tr id="Data"><td><%= result.data %></td></tr>
+        <tr id="Header">
+          <td><%= result.header %></td>
+        </tr>
+        <tr id="Data">
+          <td><%= result.data %></td>
+        </tr>
       </table>
       <script>
         var getRow = function(csv) {

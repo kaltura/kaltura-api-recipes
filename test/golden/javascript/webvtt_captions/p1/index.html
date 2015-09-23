@@ -74,11 +74,8 @@
           client.captionAsset.get(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           captionAssetId);
         }
@@ -107,12 +104,12 @@
       <div id="ErrorMessage" class="alert alert-danger" style="display: none">
       </div>
       <% if(result.message && result.code) { %>
-          <h1><%= result.message %></h1>
-      	<% } else { %>
-      		  <h1>Caption Asset info:</h1>
-      		  <p>Caption Asset ID: <%= result.id %></p>
-      		  <p>Language: <%= result.language %></p>
-      		  <p>Size: <%= result.size %></p>
+        <h1><%= result.message %></h1>
+      <% } else { %>
+        <h1>Caption Asset info:</h1>
+        <p>Caption Asset ID: <%= result.id %></p>
+        <p>Language: <%= result.language %></p>
+        <p>Size: <%= result.size %></p>
       <% } %>
     </script>
     <script type="text/javascript">

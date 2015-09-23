@@ -49,6 +49,5 @@ $result = (object) $result;
     </script>
   </div>
 </div>
-
 <?php
 ?>

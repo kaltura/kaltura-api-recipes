@@ -45,7 +45,6 @@ try {
     </script>
   </div>
 </div>
-
 <?php
 
 } catch (Exception $e) {

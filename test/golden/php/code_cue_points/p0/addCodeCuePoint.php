@@ -23,7 +23,11 @@ $result = (object) $result;
 ?>
 <div id="CuePoints">
   <table class="table">
-    <tr><td>Code</td><td>Start Time</td><td>End Time</td></tr>
+    <tr>
+      <td>Code</td>
+      <td>Start Time</td>
+      <td>End Time</td>
+    </tr>
   </table>
 </div>
 <hr></hr>
@@ -51,6 +55,5 @@ $result = (object) $result;
     }
   }
 </script>
-
 <?php
 ?>

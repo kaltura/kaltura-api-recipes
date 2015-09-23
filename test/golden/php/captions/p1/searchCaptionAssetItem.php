@@ -36,12 +36,13 @@ try {
       <img src="<?php echo $caption->entry->thumbnailUrl ?>"></img>
     </div>
     <div class="col-xs-7 col-xs-offset-1">
-      <p><i><?php echo $caption->content ?></i></p>
+      <p>
+        <i><?php echo $caption->content ?></i>
+      </p>
     </div>
   </div>
   <hr></hr>
 <?php } ?>
-
 <?php
 
 } catch (Exception $e) {

@@ -27,8 +27,6 @@
 </form>
 <hr></hr>
 <div id="CodeCuePointAdded"></div>
-
-
 <script>
   $('#AddCodeCuePointForm').submit(function() {
     var data = new FormData(document.getElementById('AddCodeCuePointForm'));
@@ -46,5 +44,4 @@
     return false;
   })
 </script>
-
 <hr></hr>

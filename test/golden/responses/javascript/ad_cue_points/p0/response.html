@@ -76,11 +76,8 @@
           client.media.get(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           entryId,
           version);
@@ -98,7 +95,7 @@
       <% } %>
       <% result.forEach(function(cuePoint, index) { %>
         <p>
-        <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
+          <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
         </p>
       <% }); %>
       <%

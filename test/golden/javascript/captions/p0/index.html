@@ -53,11 +53,8 @@
           client.media.get(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           entryId,
           version);
@@ -161,7 +158,7 @@
       <h1>Upload Captions</h1>
       <hr></hr>
       <div id="Uploading" class="alert alert-info hidden">
-        <p>Uploading  </p>
+        <p>Uploading </p>
         <i class="fa fa-spin fa-refresh"></i>
       </div>
       <label>Caption File (SRT)</label>
@@ -210,7 +207,9 @@
             <img src="<%= caption.entry.thumbnailUrl %>"></img>
           </div>
           <div class="col-xs-7 col-xs-offset-1">
-            <p><i><%= caption.content %></i></p>
+            <p>
+              <i><%= caption.content %></i>
+            </p>
           </div>
         </div>
         <hr></hr>

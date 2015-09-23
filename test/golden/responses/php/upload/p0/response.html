@@ -38,7 +38,6 @@
           return false;
         })
       </script>
-
     </div>
     <script>
       $(".container").on('click', "a[data-action]", function(event) {

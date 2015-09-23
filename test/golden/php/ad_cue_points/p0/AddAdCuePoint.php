@@ -13,7 +13,6 @@
 </form>
 <hr></hr>
 <div id="CuePointAdded"></div>
-
 <script>
   $('#AddAdCuePointForm').submit(function() {
     var data = new FormData(document.getElementById('AddAdCuePointForm'));

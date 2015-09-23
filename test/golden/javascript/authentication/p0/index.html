@@ -52,11 +52,8 @@
           client.user.get(function(success, results) {
             if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           userId);
         }
@@ -69,7 +66,7 @@
       <div id="ErrorMessage" class="alert alert-danger" style="display: none">
       </div>
       <% if(result.message && result.code) { %>
-              <h1><%= result.message %></h1>
+        <h1><%= result.message %></h1>
       <% } %>
       <% if(result.partnerId) { %>
         <h1>Logged In!</h1>
