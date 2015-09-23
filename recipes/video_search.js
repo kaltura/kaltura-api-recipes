@@ -12,6 +12,11 @@ module.exports = {
           "label": "Query",
           "name": "freeText"
         },
+       {
+        "type": "datetime",
+        "name": "createdAtGreaterThanOrEqual",
+        "label": "From Date"
+       },
         {
           "name": "advancedSearch",
           "hidden": true,
@@ -44,6 +49,12 @@ module.exports = {
           ]
         }
       ],
+	"arguments": [{
+	    "class": "KalturaMediaEntryFilter",
+	    "parameters": {
+		"createdAtGreaterThanOrEqual": {"answer": "createdAtGreaterThanOrEqual"}
+	    }    
+	}],   
       "affects": "listMedia",
       "tip": "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show.",
       "title": "Filtering Results"

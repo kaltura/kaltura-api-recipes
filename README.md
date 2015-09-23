@@ -128,7 +128,7 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
         {
           "name": "The programmatic name of the input. Should match propery names in Kaltura's API schema where applicable",
           "default": "The default value to use (optional)",
-          "type": "text|number|radio|select|select-chosen",
+          "type": "text|number|radio|select|select-chosen|datetime",
           "label": "A human-readable label for the input (optional, will use 'name' by default)",
           "hidden": "If true, hides this input from the user. Only valid if 'default' is set",
           "choices": "An array of options. Only valid for type = radio|select|select-chosen",
