@@ -15,6 +15,10 @@ app.controller('Recipe', function($scope) {
     }
   });
 
+  $scope.openRecipe = function(name) {
+    window.location.href = '/recipes/' + name;
+  }
+
   $scope.getStepTitle = function(idx) {
     var title = 'Step ' + (idx + 1) + '. ';
     if (idx === -1) return title + 'Choose Language';

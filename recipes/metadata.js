@@ -4,6 +4,7 @@ module.exports = {
     "title": "Working with metadata",
     "icon": "exclamation",
     "description": "Learn to work with metadata.",
+    "related_recipes": ["video_search"],
     "recipe_steps": [{
         "page": 0,
         "title": "Create metadata profile",

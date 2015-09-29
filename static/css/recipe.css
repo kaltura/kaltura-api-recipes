@@ -74,3 +74,11 @@ h2.message-primary {
 #Feedback .fa-star {
   color: #F7CA18;
 }
+
+.related-recipe {
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px;
+}

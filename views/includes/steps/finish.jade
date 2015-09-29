@@ -1,8 +1,6 @@
 #Finish.control-set(ng-show="recipeStepIdx === recipe.recipe_steps.length")
-  h3 {{ recipe.finish.title || 'Finished!' }}
-  div(marked='recipe.finish.tip || "You\'re all done!"')
-  hr
   #Feedback(ng-controller="Feedback")
+    h3 Feedback
     .form-group
       label How would you rate this recipe?
       p.stars(ng-mouseout="feedback.hoverRating = feedback.rating")
@@ -18,4 +16,14 @@
     .alert.alert-success(ng-show="alert.success") {{ alert.success }}
     .form-group
       a.btn.btn-sm.btn-success(ng-click="sendFeedback()") Submit
-
+  .related-recipes(ng-if="recipe.related_recipes && recipe.related_recipes.length")
+    hr
+    h3 Related Recipes
+    .row(ng-repeat="related in recipe.related_recipes")
+      .col-xs-12
+        .related-recipe(ng-click="openRecipe(related.name)")
+          h4
+            i.fa(class="fa-{{ related.icon }}")
+            span &nbsp;&nbsp;
+            span {{ related.title }}
+          p {{ related.description }}
