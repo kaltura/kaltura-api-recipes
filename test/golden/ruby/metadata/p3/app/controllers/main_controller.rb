@@ -30,8 +30,7 @@ class MainController < ApplicationController
   def deleteMetadata
     id = request[:id];
 
-    results = @@client.metadata_service.delete(
-        id)
+    results = @@client.metadata_service.delete(id)
     render :template => "main/_metadata_deleted", :locals => {:result => results}
   end
 end

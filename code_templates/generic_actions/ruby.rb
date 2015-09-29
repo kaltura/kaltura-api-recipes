@@ -40,10 +40,17 @@
 <%     } -%>
 <% }); -%>
 
-results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteAction(action) %>(<%- parameters.length === 0 ? ')' : '' %>
+results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteAction(action) %>(<%- -%>
+<% if (parameters.length === 0) { -%>
+<%- ')' %>
+<% } else if (parameters.length === 1) { -%>
+<%- parameters[0].name + ')' %>
+<% } else { -%>
+
 <% parameters.forEach(function(param, index) { -%>
     <%- param.name %><%- index < parameters.length - 1 ? ',' : ')' %>
 <% }); -%>
+<% } -%>
 <% if (returns === 'list') { -%>
 <%- '<\%- Lucy.returnCode("results.objects") %\>' %>
 <% } else { -%>

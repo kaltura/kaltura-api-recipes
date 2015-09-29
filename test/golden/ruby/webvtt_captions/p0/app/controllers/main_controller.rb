@@ -30,8 +30,7 @@ class MainController < ApplicationController
   def getCaptionAsset
     captionAssetId = nil;
 
-    results = @@client.caption_asset_service.get(
-        captionAssetId)
+    results = @@client.caption_asset_service.get(captionAssetId)
     render :template => "main/_kaltura_caption_asset", :locals => {:result => results}
   end
 end
