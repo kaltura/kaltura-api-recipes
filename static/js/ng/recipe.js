@@ -290,7 +290,8 @@ app.controller('Demo', function($scope) {
       form.submit();
     }
   }
-  if (!$scope.recipe.recipe_steps[$scope.recipeStepIdx].disable_autorefresh) {
+  var step = $scope.recipe.recipe_steps[$scope.recipeStepIdx];
+  if (step && !step.disable_autorefresh) {
     $scope.refresh();
   }
 });
