@@ -4,6 +4,7 @@ var MS_IN_MONTH = 1000 * 60 * 60 * 24 * 30;
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
+  $scope.recipe.finish = $scope.recipe.finish || {};
   mixpanel.track('enter_recipe', {
     recipe: $scope.recipe.name
   });
@@ -34,29 +35,36 @@ app.controller('Recipe', function($scope) {
 
   $scope.recipeStepIdx = -1;
   $scope.setControlSet = function(recipeStepIdx) {
-    mixpanel.track('view_step', {
-      step: recipeStepIdx,
-      recipe: $scope.recipe.name,
-    })
     $scope.recipeStepIdx = recipeStepIdx;
-    if (recipeStepIdx >= 0) {
-      var curSet = $scope.recipe.recipe_steps[$scope.recipeStepIdx];
-      if (!curSet.inputs) return;
-      var answers = $('#Answers').scope().answers;
-      var setDefault = function(input) {
-        if (answers[input.name] === undefined && input.default) answers[input.name] = input.default;
-      }
-      curSet.inputs.forEach(function(input) {
-        if (input.type === 'group') {
-          input.inputs.forEach(setDefault)
-        } else {
-          setDefault(input)
-        }
+    if (recipeStepIdx === $scope.recipe.recipe_steps.length) {
+      mixpanel.track('recipe_finish', {
+        recipe: $scope.recipe.name
       });
-      var affected = $scope.recipe.recipe_steps[recipeStepIdx].code_snippet;
-      angular.element('#Code').scope().setActiveComponent(affected);
-      $scope.onAnswerChanged();
+    } else {
+      mixpanel.track('view_step', {
+        step: recipeStepIdx,
+        recipe: $scope.recipe.name,
+      })
     }
+    if (recipeStepIdx === -1 || recipeStepIdx === $scope.recipe.recipe_steps.length) {
+      return;
+    }
+    var curSet = $scope.recipe.recipe_steps[$scope.recipeStepIdx];
+    if (!curSet.inputs) return;
+    var answers = $('#Answers').scope().answers;
+    var setDefault = function(input) {
+      if (answers[input.name] === undefined && input.default) answers[input.name] = input.default;
+    }
+    curSet.inputs.forEach(function(input) {
+      if (input.type === 'group') {
+        input.inputs.forEach(setDefault)
+      } else {
+        setDefault(input)
+      }
+    });
+    var affected = $scope.recipe.recipe_steps[recipeStepIdx].code_snippet;
+    angular.element('#Code').scope().setActiveComponent(affected);
+    $scope.onAnswerChanged();
   }
 
   $scope.start = function() {
@@ -67,10 +75,7 @@ app.controller('Recipe', function($scope) {
     angular.element('#Code').scope().refresh();
   }
 
-  $scope.finish = function() {
-    mixpanel.track('recipe_finish', {
-      recipe: $scope.recipe.name
-    });
+  $scope.backToCookbook = function() {
     window.location.href = '/';
   }
 });
@@ -129,6 +134,7 @@ var storeCredentials = function(creds) {
 }
 
 app.controller('Answers', function($scope) {
+
   $scope.answers = {};
   var credentialsChanged = function() {
     if ($scope.answers.partnerId && $scope.answers.secret) {
@@ -287,3 +293,35 @@ app.controller('Demo', function($scope) {
     $scope.refresh();
   }
 });
+
+app.controller('Feedback', function($scope) {
+  $scope.feedback = {
+    rating: -1,
+    hoverRating: -1,
+  }
+  $scope.alert = {};
+  $scope.rateRecipe = function(rating) {
+    $scope.feedback.rating = rating;
+    mixpanel.track('rate_recipe', {
+      recipe: $scope.recipe.name,
+      rating: rating,
+    })
+  }
+  $scope.sendFeedback = function() {
+    $scope.alert = {};
+    mixpanel.track('feedback', {
+      recipe: $scope.recipe.name,
+      feedback: $scope.feedback.text,
+    });
+    if (!$scope.feedback.text) {
+      $scope.alert.danger = 'Please enter some text above.';
+    } else {
+      $scope.feedback.text = '';
+      $scope.alert.success = 'Thanks!';
+      setTimeout(function() {
+        $scope.alert.success = '';
+        $scope.$apply();
+      }, 2000);
+    }
+  }
+})

@@ -33,7 +33,24 @@ block body
             ul.dropdown-menu
               li(role="presentation",ng-repeat="language in languages")
                 a(role='menuitem',ng-click='setLanguage(language)') {{ language.label }}
-        .control-set(ng-if="recipeStepIdx >= 0")
+        #Finish.control-set(ng-if="recipeStepIdx === recipe.recipe_steps.length")
+          h3 {{ recipe.finish.title || 'Finished!' }}
+          div(marked='recipe.finish.tip || "You\'re all done!"')
+          hr
+          #Feedback(ng-controller="Feedback")
+            label How would you rate this recipe?
+            p.stars(ng-mouseout="feedback.hoverRating = feedback.rating")
+              span(ng-repeat="starNum in [0, 1, 2, 3, 4]")
+                i.fa(ng-class="{'fa-star': starNum <= feedback.hoverRating, \
+                                'fa-star-o': starNum > feedback.hoverRating}"
+                     ng-mouseover="feedback.hoverRating = starNum"
+                     ng-click="rateRecipe(starNum)")
+            label What did you like? What should we change?
+            textarea.form-control(ng-model="feedback.text")
+            .alert.alert-danger(ng-show="alert.danger") {{ alert.danger }}
+            .alert.alert-success(ng-show="alert.success") {{ alert.success }}
+            a.btn.btn-sm.btn-success(ng-click="sendFeedback()") Submit
+        .control-set(ng-if="recipe.recipe_steps[recipeStepIdx]" ng-cloak)
           h3.header-no-top.text-regular {{ recipe.recipe_steps[recipeStepIdx].title }}
           p(marked="recipe.recipe_steps[recipeStepIdx].tip")
           form(name="inputForm" id="InputForm")
@@ -53,20 +70,46 @@ block body
           a.btn.btn-success.btn-spaced.btn-width-sm(
               ng-if="recipe.recipe_steps[recipeStepIdx].disableAutorefresh",
               ng-click="refreshDemo()") Send Request
-          a.btn.btn-info.btn-spaced.btn-width-sm(
-              ng-if='recipeStepIdx + 1 !== recipe.recipe_steps.length',
-              ng-click='setControlSet(recipeStepIdx + 1)') Next
-          a.btn.btn-info.btn-spaced.btn-width-sm(
-              ng-if='recipeStepIdx + 1 === recipe.recipe_steps.length',
-              ng-click="finish()") Finish
-        .text-center
-          ul.pagination(ng-if="ready")
-            li(ng-class="{ active: recipeStepIdx === -1}")
-              a(ng-click="setControlSet(-1)") 0
-            li(ng-class="{ active: recipeStepIdx === $index }"
-               ng-repeat="recipeStep in recipe.recipe_steps")
-              a(ng-click="setControlSet($index)") {{ $index + 1 }}
-
+        .step-navigation(ng-show="ready")
+          hr
+          .row
+            .col-xs-6
+              label Jump to:
+              br
+              .dropdown
+                button.btn.btn-info.width-full(type='button',data-toggle='dropdown')
+                  span {{ recipeStepIdx + 1 }}.&nbsp;
+                  span(ng-if="recipeStepIdx === -1") Choose Language
+                  span(ng-if="recipe.recipe_steps[recipeStepIdx]") {{ recipe.recipe_steps[recipeStepIdx].title || 'Untitled'}}
+                  span(ng-if="recipeStepIdx === recipe.recipe_steps.length") Finish
+                  span &nbsp;
+                  span.caret
+                ul.dropdown-menu
+                  li(role="presentation")
+                    a(role='menuitem' ng-click="setControlSet(-1)")
+                      span 0.&nbsp;
+                      span Choose Language
+                  li(role="presentation",ng-repeat="step in recipe.recipe_steps")
+                    a(role='menuitem',ng-click='setControlSet($index)')
+                      span {{ $index + 1 }}.&nbsp;
+                      span {{ step.title }}
+                  li(role="presentation")
+                    a(role='menuitem' ng-click="setControlSet(recipe.recipe_steps.length)")
+                      span {{ recipe.recipe_steps.length + 1 }}.&nbsp;
+                      span Finish
+            .col-xs-6
+              label Next step:
+              br
+              a.btn.btn-success.width-full(
+                  ng-click="backToCookbook()"
+                  ng-show="recipeStepIdx === recipe.recipe_steps.length") Back to Cookbook
+              a.btn.btn-success.width-full(
+                  ng-click="setControlSet(recipeStepIdx + 1)"
+                  ng-show="recipeStepIdx < recipe.recipe_steps.length")
+                span {{ recipeStepIdx + 2 }}.&nbsp;
+                span(ng-if="recipe.recipe_steps[recipeStepIdx + 1]")
+                  span {{ recipe.recipe_steps[recipeStepIdx + 1].title || 'Untitled' }}
+                span(ng-if="recipeStepIdx + 1 === recipe.recipe_steps.length") Finish
       #Code.col-xs-12.col-md-6.col-no-bottom(ng-controller="Code",ng-hide="!ready")
         .row
           .btn-group.col-xs-4.col-no-right.col-no-bottom(role='group')
@@ -89,7 +132,7 @@ block body
             a.btn.btn-default.btn-code-toolbar.width-full.pin-left.pin-bottom(ng-click="download()")
               i.fa.fa-download
               span.hidden-xs &nbsp;Download Zip
-         .row(ng-if="ready")
+        .row(ng-if="ready")
           .col-xs-12
             .hljs-div.pin-top(hljs source='getActiveCode()' language="{{ getHLJSLanguage() }}")
     .alert.alert-danger(ng-if="globalError")
