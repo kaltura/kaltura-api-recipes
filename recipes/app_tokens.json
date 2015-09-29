@@ -2,7 +2,7 @@
   "name": "app_tokens",
   "title": "App Tokens",
   "description": "Learn how to create, view, and delete App Tokens",
-  "needsAdmin": true,
+  "needs_admin": true,
   "recipe_steps": [
     {
       "title": "Getting your App Tokens",

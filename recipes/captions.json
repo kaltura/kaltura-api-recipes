@@ -18,7 +18,7 @@
           "type": "select-chosen",
           "label": "Media Entry",
           "name": "entryId",
-          "dynamicChoices": {
+          "dynamic_choices": {
             "service": "media",
             "action": "list",
             "map": {

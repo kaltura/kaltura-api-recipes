@@ -9,7 +9,7 @@ module.exports = {
         "title": "Create metadata profile",
         "code_snippet": "addMetadataProfile",
         "tip": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
-        "disableAutorefresh": true,
+        "disable_autorefresh": true,
         "inputs": [{
             "default": "",
             "type": "text",
@@ -47,7 +47,7 @@ module.exports = {
         "title": "Add metadata to an entry",
         "code_snippet": "addMetadata",
 	"tip": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
-        "disableAutorefresh": true,
+        "disable_autorefresh": true,
         "inputs": [{
             "default": "",
             "type": "text",
@@ -67,7 +67,7 @@ module.exports = {
             "type": "select-chosen",
             "name": "metadataProfileId",
             "label": "Metadata Profile",
-            "dynamicChoices": {
+            "dynamic_choices": {
                 "service": "metadataProfile",
                 "action": "list",
                 "map": {
@@ -81,7 +81,7 @@ module.exports = {
         "title": "Update entry metadata",
         "code_snippet": "updateMetadata",
         "tip": ".",
-        "disableAutorefresh": true,
+        "disable_autorefresh": true,
         "inputs": [{
             "default": "",
             "type": "text",
@@ -97,7 +97,7 @@ module.exports = {
         "page": 3,
         "title": "Delete metadata",
         "tip": "Browse existing ids in the frame below and click 'Delete' to remove them.",
-        "disableAutorefresh": true,
+        "disable_autorefresh": true,
         "inputs": [{
             "default": "",
             "type": "text",
@@ -107,7 +107,7 @@ module.exports = {
             "type": "select-chosen",
             "name": "metadataProfileIdEqual",
             "label": "Metadata Profile",
-            "dynamicChoices": {
+            "dynamic_choices": {
                 "service": "metadataProfile",
                 "action": "list",
                 "map": {

@@ -43,7 +43,7 @@
         "name": "id",
         "label": "Template to Clone",
         "type": "select-chosen",
-        "dynamicChoices": {
+        "dynamic_choices": {
           "service": "eventNotificationTemplate",
           "action": "listTemplates",
           "arguments": [{

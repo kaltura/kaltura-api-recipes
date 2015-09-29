@@ -18,7 +18,7 @@ app.controller('Recipe', function($scope) {
   var changeTimeout = null;
   var refreshAll = function() {
     angular.element('#Code').scope().refresh();
-    if (!$scope.recipe.recipe_steps[$scope.recipeStepIdx].disableAutorefresh) angular.element('#Demo').scope().refresh();
+    if (!$scope.recipe.recipe_steps[$scope.recipeStepIdx].disable_autorefresh) angular.element('#Demo').scope().refresh();
   }
 
   $scope.refreshDemo = function() {
@@ -283,7 +283,7 @@ app.controller('Demo', function($scope) {
       form.submit();
     }
   }
-  if (!$scope.recipe.recipe_steps[$scope.recipeStepIdx].disableAutorefresh) {
+  if (!$scope.recipe.recipe_steps[$scope.recipeStepIdx].disable_autorefresh) {
     $scope.refresh();
   }
 });

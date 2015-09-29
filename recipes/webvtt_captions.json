@@ -17,7 +17,7 @@
       "type": "select-chosen",
       "name": "captionAssetId",
       "label": "Language",
-    "dynamicChoices": {
+    "dynamic_choices": {
 	"service": "captionAsset",
 	"action": "listAction",
 	    "map": {

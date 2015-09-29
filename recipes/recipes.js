@@ -27,7 +27,7 @@ files.forEach(function(filename) {
     console.log('Error parsing recipe ' + name);
     throw e;
   }
-  var auth = Recipes[name].needsAdmin ? AuthStep.admin : AuthStep.sessionSelect;
+  var auth = Recipes[name].needs_admin ? AuthStep.admin : AuthStep.sessionSelect;
   Recipes[name].recipe_steps.unshift(auth);
   Recipes[name].defaults = Recipes[name].defaults || {};
   Recipes[name].defaults.serviceURL =

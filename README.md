@@ -114,15 +114,15 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   "title": "the title of the recipe",
   "icon": "the name of a fontawesome icon. Can be any one of those listed in static/bower/fontawesome/scss/_icons.scss",
   "description": "A short description of the recipe",
-  "needsAdmin": "Set to true if this recipe requires an ADMIN session type",
+  "needs_admin": "Set to true if this recipe requires an ADMIN session type",
   "recipe_steps": "this is an array of steps for the recipe, structured as below",
   "recipe_steps": [
     {
       "title": "A title for this step",
       "page": "The index of the Single Page App to show below the recipe (see array 'pages' below)",
       "tip": "The body of text for this recipe. Markdown is supported here so you can [create links](www.google.com) or call out ```snippetsOf.code()```",
-      "affects": "The name of a view or action pertinent to this step. This controls what snippet of sample code is displayed to the user",
-      "disableAutorefresh": "When set to true, the demo only gets refreshed when you hit 'SendRequest' after filling out the necessary fields. Default is false.",
+      "code_snippet": "The name of a view or action pertinent to this step. This controls what snippet of sample code is displayed to the user",
+      "disable_autorefresh": "When set to true, the demo only gets refreshed when you hit 'SendRequest' after filling out the necessary fields. Default is false.",
       "inputs": "An array of HTML inputs to display to the user. Fields entered here can be used in your recipes or embedded in the sample code",
       "inputs": [
         {
@@ -136,8 +136,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
             "value": "The value assigned to this field for this choice",
             "label": "A human-readable label for this choice"
           }],
-          "dynamicChoices": "Similar to choices, but will use an API call to fill out the list. The API call must return an array",
-          "dynamicChoices": {
+          "dynamic_choices": "Similar to choices, but will use an API call to fill out the list. The API call must return an array",
+          "dynamic_choices": {
             "service": "A Kaltura service",
             "action": "An action within that service",
             "map": "Sets value and label from the fields returned by the API",
@@ -150,8 +150,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
               "class": "A Kaltura class, e.g. KalturaMediaEntryFilter",
               "parameters": "A set of fields to set. Can be constants or user inputs from previous control_steps",
               "parameters": {
-                "fieldName, e.g. orderBy": "value, e.g. +createdAt",
-                "fieldName": {"answers": "answerName"}
+                "field_name, e.g. orderBy": "value, e.g. +createdAt",
+                "field_name": {"answers": "answerName"}
               }
             }]
           }

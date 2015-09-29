@@ -62,7 +62,7 @@ module.exports = {
     {
       "inputs": [
         {
-          "dynamicChoices": {
+          "dynamic_choices": {
             "service": "uiConf",
             "action": "list",
             "arguments": [{

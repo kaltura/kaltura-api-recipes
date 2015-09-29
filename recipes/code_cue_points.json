@@ -18,7 +18,7 @@
         {
           "type": "select-chosen",
           "name": "uiConf",
-          "dynamicChoices": {
+          "dynamic_choices": {
             "service": "uiConf",
             "action": "list",
             "arguments": [{
@@ -38,7 +38,7 @@
           "type": "select-chosen",
           "label": "Media Entry",
           "name": "entryIdEqual",
-          "dynamicChoices": {
+          "dynamic_choices": {
             "service": "media",
             "action": "list",
             "map": {

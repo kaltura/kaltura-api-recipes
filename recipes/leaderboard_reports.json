@@ -2,7 +2,7 @@
   "name": "leaderboard_reports",
   "title": "Leaderboard Reports",
   "icon": "users",
-  "needsAdmin": true,
+  "needs_admin": true,
   "description": "Learn how to use the API to find your most watched videos and most valuable users",
   "recipe_steps": [{
     "title": "Finding Your Most Viewed Videos",
