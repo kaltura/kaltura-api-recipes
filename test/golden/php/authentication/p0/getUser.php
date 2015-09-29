@@ -16,8 +16,7 @@ $client->setKS($ks);
 $userId = USER_ID;
 
 try {
-  $result = $client->user->get(
-    $userId);
+  $result = $client->user->get($userId);
   $result = (object) $result;
 ?>
 <div id="ErrorMessage" class="alert alert-danger" style="display: none">

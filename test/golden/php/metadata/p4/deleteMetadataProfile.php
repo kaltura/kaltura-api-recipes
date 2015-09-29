@@ -16,8 +16,7 @@ $client->setKS($ks);
 $id = $_POST["id"];
 
 try {
-  $result = $client->metadataProfile->deleteAction(
-    $id);
+  $result = $client->metadataProfile->deleteAction($id);
   $result = (object) $result;
 ?>
 <div class="info info-success">Deleted</div>

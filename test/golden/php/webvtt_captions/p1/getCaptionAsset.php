@@ -16,8 +16,7 @@ $client->setKS($ks);
 $captionAssetId = null;
 
 try {
-  $result = $client->captionAsset->get(
-    $captionAssetId);
+  $result = $client->captionAsset->get($captionAssetId);
   $result = (object) $result;
 ?>
 <div id="ErrorMessage" class="alert alert-danger" style="display: none">
