@@ -19,7 +19,7 @@ block body
       span &nbsp;Back to Recipe List
     .row.console-row
       #Answers.col-xs-12.col-md-6.col-no-bottom(ng-controller="Answers")
-        #Language.control-set(ng-controller="Language",ng-hide="controlSetIdx >= 0")
+        #Language.control-set(ng-controller="Language",ng-hide="recipeStepIdx >= 0")
           h3.header-no-top.text-regular {{ recipe.title }}
           p {{ recipe.description }}
           if recipe.video
@@ -33,11 +33,11 @@ block body
             ul.dropdown-menu
               li(role="presentation",ng-repeat="language in languages")
                 a(role='menuitem',ng-click='setLanguage(language)') {{ language.label }}
-        .control-set(ng-if="controlSetIdx >= 0")
-          h3.header-no-top.text-regular {{ recipe.recipe_steps[controlSetIdx].title }}
-          p(marked="recipe.recipe_steps[controlSetIdx].tip")
+        .control-set(ng-if="recipeStepIdx >= 0")
+          h3.header-no-top.text-regular {{ recipe.recipe_steps[recipeStepIdx].title }}
+          p(marked="recipe.recipe_steps[recipeStepIdx].tip")
           form(name="inputForm" id="InputForm")
-            .control-input.form-group(ng-repeat="input in recipe.recipe_steps[controlSetIdx].inputs")
+            .control-input.form-group(ng-repeat="input in recipe.recipe_steps[recipeStepIdx].inputs")
               div(ng-if="input.type === 'group'")
                 .panel.panel-default
                   .panel-heading
@@ -51,20 +51,20 @@ block body
                         include ./includes/input.jade
               include ./includes/input.jade
           a.btn.btn-success.btn-spaced.btn-width-sm(
-              ng-if="recipe.recipe_steps[controlSetIdx].disableAutorefresh",
+              ng-if="recipe.recipe_steps[recipeStepIdx].disableAutorefresh",
               ng-click="refreshDemo()") Send Request
           a.btn.btn-info.btn-spaced.btn-width-sm(
-              ng-if='controlSetIdx + 1 !== recipe.recipe_steps.length',
-              ng-click='setControlSet(controlSetIdx + 1)') Next
+              ng-if='recipeStepIdx + 1 !== recipe.recipe_steps.length',
+              ng-click='setControlSet(recipeStepIdx + 1)') Next
           a.btn.btn-info.btn-spaced.btn-width-sm(
-              ng-if='controlSetIdx + 1 === recipe.recipe_steps.length',
+              ng-if='recipeStepIdx + 1 === recipe.recipe_steps.length',
               ng-click="finish()") Finish
         .text-center
           ul.pagination(ng-if="ready")
-            li(ng-class="{ active: controlSetIdx === -1}")
+            li(ng-class="{ active: recipeStepIdx === -1}")
               a(ng-click="setControlSet(-1)") 0
-            li(ng-class="{ active: controlSetIdx === $index }"
-               ng-repeat="controlSet in recipe.recipe_steps")
+            li(ng-class="{ active: recipeStepIdx === $index }"
+               ng-repeat="recipeStep in recipe.recipe_steps")
               a(ng-click="setControlSet($index)") {{ $index + 1 }}
 
       #Code.col-xs-12.col-md-6.col-no-bottom(ng-controller="Code",ng-hide="!ready")
@@ -94,7 +94,7 @@ block body
             .hljs-div.pin-top(hljs source='getActiveCode()' language="{{ getHLJSLanguage() }}")
     .alert.alert-danger(ng-if="globalError")
       p {{ globalError }}
-    #Demo.row.demo-row(ng-controller="Demo", ng-if="ready", ng-show="recipe.recipe_steps[controlSetIdx].page !== -1")
+    #Demo.row.demo-row(ng-controller="Demo", ng-if="ready", ng-show="recipe.recipe_steps[recipeStepIdx].page !== -1")
       .col-xs-12
         hr
         h3
