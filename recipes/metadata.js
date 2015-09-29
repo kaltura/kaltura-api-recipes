@@ -7,7 +7,7 @@ module.exports = {
     "recipe_steps": [{
         "page": 0,
         "title": "Create metadata profile",
-        "affects": "addMetadataProfile",
+        "code_snippet": "addMetadataProfile",
         "tip": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
         "disableAutorefresh": true,
         "inputs": [{
@@ -45,7 +45,7 @@ module.exports = {
     }, {
         "page": 1,
         "title": "Add metadata to an entry",
-        "affects": "addMetadata",
+        "code_snippet": "addMetadata",
 	"tip": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
         "disableAutorefresh": true,
         "inputs": [{
@@ -79,7 +79,7 @@ module.exports = {
     }, {
         "page": 2,
         "title": "Update entry metadata",
-        "affects": "updateMetadata",
+        "code_snippet": "updateMetadata",
         "tip": ".",
         "disableAutorefresh": true,
         "inputs": [{

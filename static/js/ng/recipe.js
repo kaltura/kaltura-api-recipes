@@ -30,7 +30,7 @@ app.controller('Recipe', function($scope) {
     changeTimeout = setTimeout(refreshAll, 1000);
   }
 
-  $scope.activeComponent = $scope.recipe.recipe_steps[0].affects;
+  $scope.activeComponent = $scope.recipe.recipe_steps[0].code_snippet;
 
   $scope.recipeStepIdx = -1;
   $scope.setControlSet = function(recipeStepIdx) {
@@ -53,7 +53,7 @@ app.controller('Recipe', function($scope) {
           setDefault(input)
         }
       });
-      var affected = $scope.recipe.recipe_steps[recipeStepIdx].affects;
+      var affected = $scope.recipe.recipe_steps[recipeStepIdx].code_snippet;
       angular.element('#Code').scope().setActiveComponent(affected);
       $scope.onAnswerChanged();
     }

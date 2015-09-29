@@ -55,7 +55,7 @@ module.exports = {
 		"createdAtGreaterThanOrEqual": {"answer": "createdAtGreaterThanOrEqual"}
 	    }    
 	}],   
-      "affects": "listMedia",
+      "code_snippet": "listMedia",
       "tip": "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show.",
       "title": "Filtering Results"
     },
@@ -83,7 +83,7 @@ module.exports = {
           "required": true
         }
       ],
-      "affects": "KalturaMediaEntry",
+      "code_snippet": "KalturaMediaEntry",
       "tip": "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id.",
       "title": "Video Player"
     }

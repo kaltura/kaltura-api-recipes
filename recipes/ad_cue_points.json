@@ -8,7 +8,7 @@
     {
       "title": "Select a Media Entry",
       "tip": "Choose a video from your library to add cue points to.\n\nYou'll also need to select a uiConf that has cue point tracking enabled. To enable cue point tracking, [visit the KMC](http://kmc.kaltura.com/index.php/kmc/kmc4#studio|universal_studio), click the Monetization ($) tab, and check \"Track cue points\" under the Vast tab\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
-      "affects": "listCuePoint",
+      "code_snippet": "listCuePoint",
       "inputs": [
         {
           "type": "select-chosen",
@@ -46,7 +46,7 @@
     }, {
       "title": "Adding a Cue Point",
       "tip": "You can use the form below to add cue points to your video.",
-      "affects": "AddAdCuePoint",
+      "code_snippet": "AddAdCuePoint",
       "inputs": []
     }
   ],

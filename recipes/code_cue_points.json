@@ -7,7 +7,7 @@
     {
       "title": "Select a Media Entry",
       "tip": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
-      "affects": "listCuePoint",
+      "code_snippet": "listCuePoint",
       "inputs": [
         {
           "name": "cuePointTypeEqual",
@@ -51,7 +51,7 @@
     }, {
       "title": "Adding a Cue Point",
       "tip": "You can use the form below to add cue points to your video.",
-      "affects": "AddCodeCuePoint",
+      "code_snippet": "AddCodeCuePoint",
       "inputs": []
     }
   ],

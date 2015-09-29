@@ -4,7 +4,7 @@
   "icon": "cc",
   "description": "Learn how to serve a WebVTT caption",
   "recipe_steps": [{
-    "affects": "listCaptionAsset",
+    "code_snippet": "listCaptionAsset",
     "inputs": [{
                     "default": "",
                     "type": "text",
@@ -12,7 +12,7 @@
                     "name": "entryIdEqual"
     }]
   }, {
-    "affects": "getCaptionAsset",
+    "code_snippet": "getCaptionAsset",
     "inputs": [{
       "type": "select-chosen",
       "name": "captionAssetId",
