@@ -1,0 +1,33 @@
+.step-navigation(ng-show="ready")
+  .row
+    .col-xs-12.form-group
+      .btn-group.width-full
+        a.btn.btn-default.chevron-button(
+            ng-click="setControlSet(recipeStepIdx - 1)"
+            ng-disabled="!ready || recipeStepIdx === -1")
+          i.fa.fa-chevron-left
+        .btn-group.step-dropdown
+          button.btn.btn-default.width-full.text-left(type='button',data-toggle='dropdown')
+            span {{ recipeStepIdx + 1 }}.&nbsp;
+            span(ng-if="recipeStepIdx === -1") Choose Language
+            span(ng-if="recipe.recipe_steps[recipeStepIdx]") {{ recipe.recipe_steps[recipeStepIdx].title || 'Untitled'}}
+            span(ng-if="recipeStepIdx === recipe.recipe_steps.length") Finish
+            span &nbsp;
+            span.caret
+          ul.dropdown-menu
+            li(role="presentation")
+              a(role='menuitem' ng-click="setControlSet(-1)")
+                span 0.&nbsp;
+                span Choose Language
+            li(role="presentation",ng-repeat="step in recipe.recipe_steps")
+              a(role='menuitem',ng-click='setControlSet($index)')
+                span {{ $index + 1 }}.&nbsp;
+                span {{ step.title }}
+            li(role="presentation")
+              a(role='menuitem' ng-click="setControlSet(recipe.recipe_steps.length)")
+                span {{ recipe.recipe_steps.length + 1 }}.&nbsp;
+                span Finish
+        a.btn.btn-default.chevron-button(
+            ng-click="setControlSet(recipeStepIdx + 1)"
+            ng-disabled="!ready || recipeStepIdx === recipe.recipe_steps.length")
+          i.fa.fa-chevron-right

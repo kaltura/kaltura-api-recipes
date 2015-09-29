@@ -9,6 +9,7 @@ App.use('/', Express.static(__dirname + '/static'));
 
 App.use('/', require('./routes/pages.js'));
 App.use('/recipes', require('./routes/recipes.js'));
+App.use('/languages', require('./routes/languages.js'));
 
 if (process.env.LUCYBOT_DEV) {
 	console.log('----DEVELOPMENT ENVIRONMENT----');

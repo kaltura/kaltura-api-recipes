@@ -4,10 +4,11 @@ var MS_IN_MONTH = 1000 * 60 * 60 * 24 * 30;
 app.controller('Recipe', function($scope) {
   $scope.provider = PROVIDER = 'kaltura';
   $scope.recipe = RECIPE;
-  $scope.recipe.finish = $scope.recipe.finish || {};
   mixpanel.track('enter_recipe', {
     recipe: $scope.recipe.name
   });
+  
+  $scope.recipe.finish = $scope.recipe.finish || {};
   $scope.recipe.recipe_steps.forEach(function(set) {
     if (Array.isArray(set.tip)) {
       set.tip = set.tip.join('\n\n');
@@ -15,6 +16,14 @@ app.controller('Recipe', function($scope) {
   })
 
   $scope.ready = false;
+
+  $scope.setLanguage = function(language) {
+    mixpanel.track('set_language', {
+      language: language
+    })
+    $scope.language = language;
+    $scope.ready = true;
+  }
 
   var changeTimeout = null;
   var refreshAll = function() {
@@ -67,37 +76,18 @@ app.controller('Recipe', function($scope) {
     $scope.onAnswerChanged();
   }
 
-  $scope.start = function() {
-    if (!$scope.ready) {
-      $scope.ready = true;
-      $scope.setControlSet(0);
-    }
-    angular.element('#Code').scope().refresh();
-  }
-
   $scope.backToCookbook = function() {
     window.location.href = '/';
   }
 });
 
 app.controller('Language', function($scope) {
-  $scope.languages = [{
-    id: 'javascript', label: 'JavaScript'
-  }, {
-    id: 'php', label: 'PHP'
-  }, {
-    id: 'node', label: 'NodeJS'
-  }, {
-    id: 'ruby', label: 'Ruby'
-  }];
-
-  $scope.setLanguage = function(language) {
-    mixpanel.track('set_language', {
-      language: language
-    })
-    $scope.language = language;
-    $scope.start();
-  }
+  $scope.languages = [];
+  $.getJSON('/languages', function(langs) {
+    console.log('langs', langs);
+    $scope.languages = langs;
+    $scope.$apply();
+  })
 });
 
 var USE_COOKIES = true;
@@ -201,7 +191,7 @@ app.controller('Code', function($scope) {
       var filename = $scope.files[$scope.activeFileIdx].filename;
       if (filename.indexOf('.html') !== -1) return 'html'
     }
-    var ret = $('#Language').scope().language.id;
+    var ret = $scope.language.id;
     return ret === 'node' ? 'javascript' : ret;
   }
 
@@ -210,7 +200,7 @@ app.controller('Code', function($scope) {
     var page = curSet.page || 0;
     if (page === -1) page = 0;
     var data = {
-      language: $('#Language').scope().language.id,
+      language: $scope.language.id,
       answers: $('#Answers').scope().answers,
       page: page,
     }
@@ -312,16 +302,13 @@ app.controller('Feedback', function($scope) {
     mixpanel.track('feedback', {
       recipe: $scope.recipe.name,
       feedback: $scope.feedback.text,
+      rating: $scope.feedback.rating,
     });
-    if (!$scope.feedback.text) {
-      $scope.alert.danger = 'Please enter some text above.';
-    } else {
-      $scope.feedback.text = '';
-      $scope.alert.success = 'Thanks!';
-      setTimeout(function() {
-        $scope.alert.success = '';
-        $scope.$apply();
-      }, 2000);
-    }
+    $scope.feedback.text = '';
+    $scope.alert.success = 'Thanks!';
+    setTimeout(function() {
+      $scope.alert.success = '';
+      $scope.$apply();
+    }, 2000);
   }
 })
