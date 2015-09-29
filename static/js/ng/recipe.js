@@ -13,7 +13,15 @@ app.controller('Recipe', function($scope) {
     if (Array.isArray(set.tip)) {
       set.tip = set.tip.join('\n\n');
     }
-  })
+  });
+
+  $scope.getStepTitle = function(idx) {
+    var title = 'Step ' + (idx + 1) + '. ';
+    if (idx === -1) return title + 'Choose Language';
+    if (idx === $scope.recipe.recipe_steps.length) return title + 'Finish';
+    title += $scope.recipe.recipe_steps[idx].title || 'Untitled';
+    return title;
+  }
 
   $scope.ready = false;
 
@@ -23,6 +31,7 @@ app.controller('Recipe', function($scope) {
     })
     $scope.language = language;
     $scope.ready = true;
+    $('#Code').scope().refresh();
   }
 
   var changeTimeout = null;
@@ -40,7 +49,7 @@ app.controller('Recipe', function($scope) {
     changeTimeout = setTimeout(refreshAll, 1000);
   }
 
-  $scope.activeComponent = $scope.recipe.recipe_steps[0].code_snippet;
+  $scope.snippetName = $scope.recipe.recipe_steps[0].code_snippet;
 
   $scope.recipeStepIdx = -1;
   $scope.setControlSet = function(recipeStepIdx) {
@@ -71,8 +80,8 @@ app.controller('Recipe', function($scope) {
         setDefault(input)
       }
     });
-    var affected = $scope.recipe.recipe_steps[recipeStepIdx].code_snippet;
-    angular.element('#Code').scope().setActiveComponent(affected);
+    var snippetName = $scope.recipe.recipe_steps[recipeStepIdx].code_snippet;
+    angular.element('#Code').scope().setSnippetName(snippetName);
     $scope.onAnswerChanged();
   }
 
@@ -84,7 +93,6 @@ app.controller('Recipe', function($scope) {
 app.controller('Language', function($scope) {
   $scope.languages = [];
   $.getJSON('/languages', function(langs) {
-    console.log('langs', langs);
     $scope.languages = langs;
     $scope.$apply();
   })
@@ -186,18 +194,9 @@ app.controller('Code', function($scope) {
   $scope.expanded = false;
   $scope.files = [];
 
-  $scope.getHLJSLanguage = function() {
-    if ($scope.activeFileIdx >= 0) {
-      var filename = $scope.files[$scope.activeFileIdx].filename;
-      if (filename.indexOf('.html') !== -1) return 'html'
-    }
-    var ret = $scope.language.id;
-    return ret === 'node' ? 'javascript' : ret;
-  }
-
   $scope.refresh = function() {
     var curSet = $scope.recipe.recipe_steps[$scope.recipeStepIdx];
-    var page = curSet.page || 0;
+    var page = curSet ? curSet.page || 0 : 0;
     if (page === -1) page = 0;
     var data = {
       language: $scope.language.id,
@@ -212,52 +211,64 @@ app.controller('Code', function($scope) {
       contentType: 'application/json'
     }).success(function(files) {
       $scope.files = files.filter(function(f) {return !f.hidden && !f.directory});
-      $scope.setActiveComponent($scope.activeComponent);
+      $scope.setSnippetName($scope.snippetName || (curSet ? curSet.code_snippet : undefined));
       $scope.$apply();
     }).fail(function(err) {
       console.log('fail', err);
     });
   }
 
-  $scope.setFile = function(fileIdx) {
-    $scope.activeFileIdx = fileIdx;
+  $scope.setFile = function(file) {
+    $scope.activeFile = file;
   }
 
-  $scope.setActiveComponent = function(component) {
-    $scope.activeComponent = component;
+  $scope.setSnippetName = function(snippetName) {
+    $scope.snippetName = snippetName;
     for (var i = 0; i < $scope.files.length; ++i) {
       var f = $scope.files[i];
-      if (f.snippets && f.snippets[component]) {
-        $scope.setFile(i);
+      if (f.snippets && f.snippets[snippetName]) {
+        $scope.setFile(f);
         return;
       }
     }
-    $scope.setFile($scope.activeFileIdx);
   }
 
   $scope.toggleExpand = function() {
     $scope.expanded = !$scope.expanded;
   }
 
-  $scope.getActiveCode = function() {
-    var file = $scope.files[$scope.activeFileIdx];
+  var setCodeSnippet = function(changed, oldVal, newVal) {
+    var file = $scope.activeFile;
     if (!file) {
-      return 'No code yet...';
-    }
-    if ($scope.expanded || !file.snippets) {
-      return file.contents;
-    }
-    var snippet = file.snippets[$scope.activeComponent];
-    if (snippet) {
-      return snippet;
-    }
-    var snipKeys = Object.keys(file.snippets);
-    if (snipKeys.length === 1 && file.snippets[snipKeys[0]]) {
-      return file.snippets[snipKeys[0]];
+      $scope.codeSnippet = 'No code yet...';
+    } else if ($scope.expanded || !file.snippets) {
+      $scope.codeSnippet = file.contents;
     } else {
-      return file.contents;
+      var snippet = file.snippets[$scope.snippetName];
+      if (snippet) {
+        $scope.codeSnippet = snippet;
+      } else {
+        $scope.codeSnippet = file.contents;
+      }
     }
   }
+  var setHLJSLanguage = function() {
+    if (!$scope.language) return '';
+    if ($scope.activeFile) {
+      var isHTML = $scope.activeFile.filename.indexOf('.html') !== -1 && $scope.codeSnippet.match(/<\w+.*>/);
+      if (isHTML) {
+        $scope.hljsLanguage = 'html';
+        return;
+      }
+    }
+    var ret = $scope.language.id;
+    $scope.hljsLanguage = ret === 'node' ? 'javascript' : ret;
+  }
+
+  $scope.$watch('snippetName', setCodeSnippet);
+  $scope.$watch('activeFile', setCodeSnippet);
+  $scope.$watch('expanded', setCodeSnippet);
+  $scope.$watch('codeSnippet', setHLJSLanguage);
 });
 
 app.controller('Demo', function($scope) {
