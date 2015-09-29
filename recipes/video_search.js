@@ -3,7 +3,7 @@ module.exports = {
   "title": "Video Search",
   "icon": "search",
   "description": "Learn how to search through your video library using Kaltura's API",
-  "control_sets": [
+  "recipe_steps": [
     {
       "inputs": [
         {

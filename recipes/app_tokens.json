@@ -3,7 +3,7 @@
   "title": "App Tokens",
   "description": "Learn how to create, view, and delete App Tokens",
   "needsAdmin": true,
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Getting your App Tokens",
       "tip": "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens.",

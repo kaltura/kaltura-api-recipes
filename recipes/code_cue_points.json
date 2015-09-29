@@ -3,7 +3,7 @@
   "title": "Cue Points",
   "icon": "columns",
   "description": "Learn how to create cue points and listen for them during playback",
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Select a Media Entry",
       "tip": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",

@@ -4,7 +4,7 @@
   "icon": "image",
   "video": "https://cdnapisec.kaltura.com/html5/html5lib/v2.31/mwEmbedFrame.php/p/811441/uiconf_id/29963831/entry_id/0_co4cdmxv?wid=_811441&iframeembed=true&playerId=kaltura_player_1437495263&entry_id=0_co4cdmxv&flashvars[streamerType]=auto",
   "description": "Create a gallery page with rotating dynamic thumbnails.",
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Getting custom thumbnails",
       "tip": "You can use the thumbnail API to embed thumbnail images in your webpage. Simply set\n\n```<img src=\"http://cdn.kaltura.com/p/your_partner_id/thumbnail/entry_id/your_videos_entry_id\">```",

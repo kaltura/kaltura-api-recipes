@@ -7,7 +7,7 @@ app.controller('Recipe', function($scope) {
   mixpanel.track('enter_recipe', {
     recipe: $scope.recipe.name
   });
-  $scope.recipe.control_sets.forEach(function(set) {
+  $scope.recipe.recipe_steps.forEach(function(set) {
     if (Array.isArray(set.tip)) {
       set.tip = set.tip.join('\n\n');
     }
@@ -18,7 +18,7 @@ app.controller('Recipe', function($scope) {
   var changeTimeout = null;
   var refreshAll = function() {
     angular.element('#Code').scope().refresh();
-    if (!$scope.recipe.control_sets[$scope.controlSetIdx].disableAutorefresh) angular.element('#Demo').scope().refresh();
+    if (!$scope.recipe.recipe_steps[$scope.controlSetIdx].disableAutorefresh) angular.element('#Demo').scope().refresh();
   }
 
   $scope.refreshDemo = function() {
@@ -30,7 +30,7 @@ app.controller('Recipe', function($scope) {
     changeTimeout = setTimeout(refreshAll, 1000);
   }
 
-  $scope.activeComponent = $scope.recipe.control_sets[0].affects;
+  $scope.activeComponent = $scope.recipe.recipe_steps[0].affects;
 
   $scope.controlSetIdx = -1;
   $scope.setControlSet = function(controlSetIdx) {
@@ -40,7 +40,7 @@ app.controller('Recipe', function($scope) {
     })
     $scope.controlSetIdx = controlSetIdx;
     if (controlSetIdx >= 0) {
-      var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+      var curSet = $scope.recipe.recipe_steps[$scope.controlSetIdx];
       if (!curSet.inputs) return;
       var answers = $('#Answers').scope().answers;
       var setDefault = function(input) {
@@ -53,7 +53,7 @@ app.controller('Recipe', function($scope) {
           setDefault(input)
         }
       });
-      var affected = $scope.recipe.control_sets[controlSetIdx].affects;
+      var affected = $scope.recipe.recipe_steps[controlSetIdx].affects;
       angular.element('#Code').scope().setActiveComponent(affected);
       $scope.onAnswerChanged();
     }
@@ -200,7 +200,7 @@ app.controller('Code', function($scope) {
   }
 
   $scope.refresh = function() {
-    var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+    var curSet = $scope.recipe.recipe_steps[$scope.controlSetIdx];
     var page = curSet.page || 0;
     if (page === -1) page = 0;
     var data = {
@@ -266,7 +266,7 @@ app.controller('Code', function($scope) {
 
 app.controller('Demo', function($scope) {
   $scope.refresh = function() {
-    var curSet = $scope.recipe.control_sets[$scope.controlSetIdx];
+    var curSet = $scope.recipe.recipe_steps[$scope.controlSetIdx];
     if (curSet.page === -1) {
       $('.demo-frame').attr('src', '');
     } else {
@@ -283,7 +283,7 @@ app.controller('Demo', function($scope) {
       form.submit();
     }
   }
-  if (!$scope.recipe.control_sets[$scope.controlSetIdx].disableAutorefresh) {
+  if (!$scope.recipe.recipe_steps[$scope.controlSetIdx].disableAutorefresh) {
     $scope.refresh();
   }
 });

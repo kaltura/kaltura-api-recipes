@@ -3,7 +3,7 @@
   "title": "Authentication",
   "icon": "lock",
   "description": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Checking the KS",
       "tip": "You can validate your Kaltura session by calling ```user.get``` without a User ID, which will return the details of the user associated with the current session",

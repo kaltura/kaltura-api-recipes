@@ -115,8 +115,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   "icon": "the name of a fontawesome icon. Can be any one of those listed in static/bower/fontawesome/scss/_icons.scss",
   "description": "A short description of the recipe",
   "needsAdmin": "Set to true if this recipe requires an ADMIN session type",
-  "control_sets": "this is an array of steps for the recipe, structured as below",
-  "control_sets": [
+  "recipe_steps": "this is an array of steps for the recipe, structured as below",
+  "recipe_steps": [
     {
       "title": "A title for this step",
       "page": "The index of the Single Page App to show below the recipe (see array 'pages' below)",
@@ -277,7 +277,7 @@ The below json file should be placed under the recipes dir
     "title": "Entry Lookup",
     "icon": "search",
     "description": "Learn how to get a specific entry ID using Kaltura's API",
-    "control_sets": [
+    "recipe_steps": [
         {
             "inputs": [
                 {

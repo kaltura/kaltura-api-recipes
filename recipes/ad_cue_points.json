@@ -4,7 +4,7 @@
   "icon": "money",
   "description": "Learn how to place advertisements at specific points in your videos",
   "video": "https://cdnapisec.kaltura.com/html5/html5lib/v2.32/mwEmbedFrame.php/p/811441/uiconf_id/29963831/entry_id/0_nx01ybm0?wid=_811441&iframeembed=true&playerId=kplayer&entry_id=0_nx01ybm0&flashvars[streamerType]=auto",
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Select a Media Entry",
       "tip": "Choose a video from your library to add cue points to.\n\nYou'll also need to select a uiConf that has cue point tracking enabled. To enable cue point tracking, [visit the KMC](http://kmc.kaltura.com/index.php/kmc/kmc4#studio|universal_studio), click the Monetization ($) tab, and check \"Track cue points\" under the Vast tab\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",

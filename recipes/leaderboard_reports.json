@@ -4,7 +4,7 @@
   "icon": "users",
   "needsAdmin": true,
   "description": "Learn how to use the API to find your most watched videos and most valuable users",
-  "control_sets": [{
+  "recipe_steps": [{
     "title": "Finding Your Most Viewed Videos",
     "tip": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
     "affects": "getTableReport",

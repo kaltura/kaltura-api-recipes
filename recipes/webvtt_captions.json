@@ -3,7 +3,7 @@
   "title": "Serve WebVTT Captions",
   "icon": "cc",
   "description": "Learn how to serve a WebVTT caption",
-  "control_sets": [{
+  "recipe_steps": [{
     "affects": "listCaptionAsset",
     "inputs": [{
                     "default": "",

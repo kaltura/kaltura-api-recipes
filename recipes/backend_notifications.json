@@ -3,7 +3,7 @@
   "title": "Backend and E-mail Notifications",
   "icon": "exclamation",
   "description": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
-  "control_sets": [
+  "recipe_steps": [
     {
       "page": 1,
       "title": "Checking Permissions",
