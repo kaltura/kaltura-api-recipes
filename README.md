@@ -1,9 +1,27 @@
 # LucyBot recipes for the Kaltura API
 
 ## Installation
-Note that you will need access to the lucy-codegen ssh key to install.
+Note that you will need access to two deploy keys: lucy_codegen, and lucy_recipes.
+Assuming these keys are in your ~/.ssh folder, you should all the following lines
+to ~/.ssh/config:
+
 ```bash
-ssh-add /path/to/lucy-codegen/ssh-key
+Host lucy-codegen
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/lucy_codegen
+    StrictHostKeyChecking no
+Host lucy-recipes
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/lucy_recipes
+    StrictHostKeyChecking no
+```
+
+Then you can clone and install.
+
+```bash
+eval "$(ssh-agent -s)"
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 npm install
 ```
