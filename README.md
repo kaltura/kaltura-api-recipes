@@ -1,7 +1,7 @@
 # LucyBot recipes for the Kaltura API
 
 ## Installation
-Note that you will need access to two deploy keys: lucy_codegen, and lucy_recipes.
+Note that you will need access to two deploy keys: kaltura_lucy_codegen, and kaltura_lucy_recipes.
 Assuming these keys are in your ~/.ssh folder, you should all the following lines
 to ~/.ssh/config:
 
@@ -9,12 +9,12 @@ to ~/.ssh/config:
 Host lucy-codegen
     User git
     HostName github.com
-    IdentityFile ~/.ssh/lucy_codegen
+    IdentityFile ~/.ssh/kaltura_lucy_codegen
     StrictHostKeyChecking no
 Host lucy-recipes
     User git
     HostName github.com
-    IdentityFile ~/.ssh/lucy_recipes
+    IdentityFile ~/.ssh/kaltura_lucy_recipes
     StrictHostKeyChecking no
 ```
 
