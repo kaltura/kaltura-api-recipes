@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/bobby-brennan/kaltura-recipes",
   "dependencies": {
-    "lucy-recipes": "git+ssh://git@github.com/bobby-brennan/lucy-recipes.git",
+    "lucy-recipes": "git@lucy-recipes:bobby-brennan/lucy-recipes.git",
     "async": "^1.2.1",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
