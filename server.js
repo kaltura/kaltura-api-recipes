@@ -10,7 +10,6 @@ App.get('/', function(req, res) {
 require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes', router);
   App.use('/', require('./routes/pages.js'));
-  App.use('/languages', require('./routes/languages.js'));
 
   if (process.env.LUCYBOT_DEV) {
       console.log('----DEVELOPMENT ENVIRONMENT----');
