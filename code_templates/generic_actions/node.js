@@ -2,7 +2,9 @@
 <%- param.name %> = new Kaltura.objects.<%- param.class %>();
 <%   param.fields.forEach(function(field) { -%>
 <%- '<\% if (Lucy.answer("' + field.name + '") !== null) { -%\>' %>
-<%     if (!field.enum) { -%>
+<%     if (field.type.indexOf('Kaltura') === 0) { -%>
+<%- param.name %>.<%- field.name %> = new Kaltura.objects.<%- '<\%- Lucy.answer("' + field.name + '") %\>' %>();
+<%     } else if (!field.enum) { -%>
 <%- param.name %>.<%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
 <%     } else { -%>
 <%       for (valueName in field.enum.values) { -%>
@@ -28,9 +30,9 @@ var <%- param.name %> = Kaltura.enums.<%- param.enum.name %>.<%- valueName %>;
 <% }); -%>
 
 client.<%- service %>.<%- action %>(function(results) {
-  if (results.code && results.message) {
+  if (results && results.code && results.message) {
     console.log('Kaltura Error', results);
-    <%- '<\%- Lucy.returnCode("results", 4) %\>' %>
+    res.send(results.message);
   } else {
 <% if (returns === 'list') { -%>
     <%- '<\%- Lucy.returnCode("results.objects", 4) %\>' %>

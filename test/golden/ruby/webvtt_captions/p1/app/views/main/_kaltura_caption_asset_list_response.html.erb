@@ -1,0 +1,7 @@
+<h1>Assets</h1>
+<hr></hr>
+<% result.each_index do | index | asset = result.fetch(index) %>
+  <% if index < 5 %>
+    <%= render "kaltura_caption_asset.html.erb", :result => asset %>
+  <% end %>
+<% end %>

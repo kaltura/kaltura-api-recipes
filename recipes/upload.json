@@ -3,7 +3,7 @@
   "title": "Upload a Video",
   "icon": "upload",
   "description": "Learn how to upload a video to your video library",
-  "control_sets": [
+  "recipe_steps": [
     {
       "title": "Uploading a Video",
       "tip": [
@@ -11,7 +11,7 @@
         "Select which type of media you'd like to upload, then use the page below to upload a video, image, or audio file. If you don't have a video file handy, you can [download a sample](/this-is-my-jam.mp4)",
         "You can read more about media uploads [here](http://knowledge.kaltura.com/faq/create-new-kaltura-entry-and-upload-video-file-using-kaltura-api)"
       ],
-      "affects": "UploadForm",
+      "code_snippet": "UploadForm",
       "inputs": [{
         "name": "mediaType",
         "label": "Media Type",
@@ -26,7 +26,7 @@
     }, {
       "title": "Creating a Media Entry",
       "tip": "Once the file has been uploaded, use the baseEntry service to create a Media Entry from it.\n\nIt may take some time to convert your video, so you can use ```media.get``` to poll for its status.",
-      "affects": "CreateMediaEntry",
+      "code_snippet": "CreateMediaEntry",
       "inputs": []
     }
   ],

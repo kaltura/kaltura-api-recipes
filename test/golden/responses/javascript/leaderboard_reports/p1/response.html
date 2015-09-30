@@ -55,7 +55,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.media.listAction(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -68,76 +68,26 @@
         }
         getResults();
       };
-      var getTableReport = function(request, callback) {
-        reportInputFilter = new KalturaReportInputFilter();
-        reportInputFilter.fromDay = "20150615";
-        reportInputFilter.toDay = "20150715";
-
-        pager = new KalturaFilterPager();
-
-        var reportType = KalturaReportType.USER_TOP_CONTENT;
-        var order = "count_plays";
-        var objectIds = null;
-
-        var getResults = function() {
-          if (!client.ks) return setTimeout(getResults, 100);
-          client.report.getTable(function(success, results) {
-            if (!success || (results.code && results.message)) {
-              console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
-            }
-          },
-          reportType,
-          reportInputFilter,
-          pager,
-          order,
-          objectIds);
-        }
-        getResults();
-      };
     </script>
   </head>
   <body>
-    <script id="KalturaReportTable-template" type="text/x-underscore-template" style="display: none">
-      <table class="table">
-        <tr id="Header"><td><%= result.header %></td></tr>
-        <tr id="Data"><td><%= result.data %></td></tr>
-      </table>
-      <script>
-        var getRow = function(csv) {
-          return '<tr><td>' + csv.replace(/,/g, '</td><td>') + '</td></tr>';
-        }
-        var headers = $('#Header td').text();
-        var data = $('#Data td').text();
-        var rows = data.split(';');
-        $('table').html('');
-        $('table').append(getRow(headers));
-        rows.forEach(function(row) {
-          $('table').append(getRow(row));
-        })
-      <% print("</"+"script>"); %>
-    </script>
-    <script type="text/javascript">
-      var KalturaReportTableView = _.template($('#KalturaReportTable-template').text());
-    </script>
-
     <script id="MediaListLikes-template" type="text/x-underscore-template" style="display: none">
       <table class="table">
         <tr>
-          <td></td><td>Name</td><td>Rank</td><td>Votes</td></tr>
-        
-      <% result.forEach(function(video, index) { %>
-        <tr>
-          <td><%= index + 1 %></td>
-          <td><%= video.name %></td>
-          <td><%= video.rank %></td>
-          <td><%= video.votes %></td>
+          <td></td>
+          <td>Name</td>
+          <td>Rank</td>
+          <td>Votes</td>
         </tr>
-      <% }); %>
-      </table>
+        
+        <% result.forEach(function(video, index) { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= video.name %></td>
+            <td><%= video.rank %></td>
+            <td><%= video.votes %></td>
+          </tr>
+        <% }); %></table>
     </script>
     <script type="text/javascript">
       var MediaListLikesView = _.template($('#MediaListLikes-template').text());
@@ -150,6 +100,17 @@
       listMedia({
       }, function(result) {
         $('.container').html(MediaListLikesView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
       })
     </script>
   </body>

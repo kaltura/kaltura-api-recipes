@@ -7,8 +7,11 @@ footer {
   margin-top: 0px !important;
 }
 
-.recipe-btn {
-  font-size: 18px;
+.btn.text-left {
+  text-align: left;
+}
+.btn.text-right {
+  text-align: right;
 }
 
 .text-pink {
@@ -33,17 +36,17 @@ h2.message-primary {
   margin-top: 0px;
 }
 
+.step-navigation .chevron-button {
+  width: 5%;
+}
+
+.step-navigation .step-dropdown {
+  width: 90%;
+}
+
 .btn.btn-code-toolbar .fa,
 .btn.btn-code-toolbar {
   font-size: 16px;
-}
-
-.row.console-row {
-  padding: 15px;
-}
-
-.control-set {
-  padding: 15px;
 }
 
 .demo-frame {
@@ -58,4 +61,24 @@ h2.message-primary {
   margin-bottom: 0px;
   max-height: 512px;
   overflow: scroll;
+}
+
+#Feedback .stars {
+  font-size: 20px;
+}
+
+#Feedback .stars .fa {
+  cursor: pointer;
+}
+
+#Feedback .fa-star {
+  color: #F7CA18;
+}
+
+.related-recipe {
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px;
 }

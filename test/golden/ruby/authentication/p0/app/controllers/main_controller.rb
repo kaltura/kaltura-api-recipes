@@ -18,8 +18,7 @@ class MainController < ApplicationController
   def getUser
     userId = "lucybot@example.com";
 
-    results = @@client.user_service.get(
-        userId)
+    results = @@client.user_service.get(userId)
     render :template => "main/_kaltura_user", :locals => {:result => results}
   end
 end

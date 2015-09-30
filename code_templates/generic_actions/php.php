@@ -2,7 +2,9 @@
 $<%- param.name %> = new <%- param.class %>();
 <%   param.fields.forEach(function(field) { -%>
 <%- '<\% if (Lucy.answer("' + field.name + '") !== null) { -%\>' %>
-<%     if (!field.enum) { -%>
+<%     if (field.type.indexOf('Kaltura') === 0) { -%>
+$<%- param.name %>-><%- field.name %> = new <%- '<\%- Lucy.answer("' + field.name + '") %\>' %>();
+<%     } else if (!field.enum) { -%>
 $<%- param.name %>-><%- field.name %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
 <%     } else { -%>
 <%       for (valueName in field.enum.values) { -%>
@@ -30,19 +32,22 @@ $<%- param.name %> = <%- param.enum.name %>::<%- valueName %>;
 <% }); -%>
 
 try {
-  $result = $client-><%- service %>-><%- action %>(<%- parameters.length === 0 ? ');' : '' %>
+  $result = $client-><%- service %>-><%- action %>(<%- -%>
+<% if (parameters.length === 0) { -%>
+<%- ');' %>
+<% } else if (parameters.length === 1) { -%>
+$<%- parameters[0].name %>);
+<% } else { -%>
+
 <% parameters.forEach(function(param, index) { -%>
     $<%- param.name %><%- index < parameters.length -1 ? ', ' : ');' %>
 <% }); -%>
+<% } -%>
 <% if (returns === 'list') { -%>
 <%- '<\%- Lucy.returnCode("$result->objects", 2) %\>' %>
 <% } else { -%>
 <%- '<\%- Lucy.returnCode("$result", 2) %\>' %>
 <% } -%>
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-<%- '<\%- Lucy.returnCode("$result", 2) %\>' %>
+  echo $e->getMessage();
 }

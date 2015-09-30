@@ -15,20 +15,6 @@ class MainController < ApplicationController
       1760921)
 
 
-  def listMedia
-    filter = KalturaMediaEntryFilter.new();
-    filter.total_rank_greater_than_or_equal = 1;
-    filter.order_by = "-rank";
-
-    pager = KalturaFilterPager.new();
-
-
-    results = @@client.media_service.list(
-        filter,
-        pager)
-    render :template => "main/_media_list_likes", :locals => {:result => results.objects}
-  end
-
   def getTableReport
     reportInputFilter = KalturaReportInputFilter.new();
     reportInputFilter.from_day = "20150615";

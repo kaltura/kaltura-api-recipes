@@ -47,6 +47,7 @@
       var listMedia = function(request, callback) {
         filter = new KalturaMediaEntryFilter();
         filter.orderBy = "-createdAt";
+        filter.advancedSearch = new KalturaMetadataSearchItem();
 
         pager = new KalturaFilterPager();
 
@@ -54,7 +55,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.media.listAction(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -121,6 +122,17 @@
       listMedia({
       }, function(result) {
         $('.container').html(KalturaMediaListResponseView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
       })
     </script>
   </body>

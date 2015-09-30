@@ -5,7 +5,7 @@
 <% } %>
 <% result.forEach(function(cuePoint, index) { %>
   <p>
-  <%= cuePoint.cuePointType %> starting at <%= cuePoint.startTime %> milliseconds
+    <%- cuePoint.cuePointType %> starting at <%- cuePoint.startTime %> milliseconds
   </p>
 <% }); %>
 <% include AddAdCuePoint -%>

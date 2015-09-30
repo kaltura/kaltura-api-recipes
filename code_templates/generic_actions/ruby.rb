@@ -13,7 +13,9 @@
 <%- param.name %> = <%- param.class %>.new();
 <%   param.fields.forEach(function(field) { -%>
 <%- '<\% if (Lucy.answer("' + field.name + '") !== null) { -%\>' %>
-<%     if (!field.enum) { -%>
+<%     if (field.type.indexOf('Kaltura') === 0) { -%>
+<%- param.name %>.<%- rewriteVariable(field.name) %> = <%- '<\%- Lucy.answer("' + field.name + '") %\>' %>.new();
+<%     } else if (!field.enum) { -%>
 <%- param.name %>.<%- rewriteVariable(field.name) %> = <%- '<\%- Lucy.code.variable("answers.' + field.name + '") %\>' %>;
 <%     } else { -%>
 <%       for (valueName in field.enum.values) { -%>
@@ -38,10 +40,17 @@
 <%     } -%>
 <% }); -%>
 
-results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteAction(action) %>(<%- parameters.length === 0 ? ')' : '' %>
+results = @@client.<%- rewriteVariable(service) %>_service.<%- rewriteAction(action) %>(<%- -%>
+<% if (parameters.length === 0) { -%>
+<%- ')' %>
+<% } else if (parameters.length === 1) { -%>
+<%- parameters[0].name + ')' %>
+<% } else { -%>
+
 <% parameters.forEach(function(param, index) { -%>
     <%- param.name %><%- index < parameters.length - 1 ? ',' : ')' %>
 <% }); -%>
+<% } -%>
 <% if (returns === 'list') { -%>
 <%- '<\%- Lucy.returnCode("results.objects") %\>' %>
 <% } else { -%>

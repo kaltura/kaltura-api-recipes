@@ -1,0 +1,33 @@
+.step-navigation
+  .row
+    .col-xs-12.form-group
+      .btn-group.width-full
+        button.btn.btn-default.chevron-button(
+            ng-click="setControlSet(recipeStepIdx - 1)"
+            ng-disabled="!ready || recipeStepIdx === -1")
+          i.fa.fa-chevron-left
+        .btn-group.step-dropdown
+          button.btn.btn-default.width-full(
+              type='button'
+              data-toggle='dropdown'
+              ng-disabled="!ready")
+            span.pull-left.text-left
+              span {{ getStepTitle(recipeStepIdx) }}
+              span &nbsp;
+            span.pull-right.text-right
+              span.caret
+            .clearfix
+          ul.dropdown-menu
+            li(role="presentation")
+              a(role='menuitem' ng-click="setControlSet(-1)")
+                span {{ getStepTitle(-1) }}
+            li(role="presentation",ng-repeat="step in recipe.recipe_steps")
+              a(role='menuitem',ng-click='setControlSet($index)')
+                span {{ getStepTitle($index) }}
+            li(role="presentation")
+              a(role='menuitem' ng-click="setControlSet(recipe.recipe_steps.length)")
+                span {{ getStepTitle(recipe.recipe_steps.length) }}
+        button.btn.btn-default.chevron-button(
+            ng-click="setControlSet(recipeStepIdx + 1)"
+            ng-disabled="!ready || recipeStepIdx === recipe.recipe_steps.length")
+          i.fa.fa-chevron-right
