@@ -6,13 +6,11 @@ var XMLParser = require('xml2js').parseString;
 
 var RecipeServer = require('lucy-recipes');
 
-var Recipes = require('../recipes/recipes.js');
-
 var CodeTemplates = require('../code_templates/code-templates.js');
 var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
-var ACTION_FIELDS = ['list', 'clone'];
+var ACTION_FIELDS = ['list', 'clone', 'delete'];
 
 var camelToUnderscore = function(camel) {
   return camel.replace(/(\w+\.)(.*)/g, function(whole, variable, member) {

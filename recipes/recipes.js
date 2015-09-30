@@ -34,9 +34,13 @@ files.forEach(function(filename) {
   recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
   recipe.actions = recipe.actions || [];
-  recipe.actions.forEach(function(action) {
+  var fixAction = function(action) {
     action.action = action.action.replace(/Action$/, '');
     if (action.service) action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+  };
+  recipe.actions.forEach(fixAction);
+  recipe.pages.forEach(function(page) {
+    if (page.actions) page.actions.forEach(fixAction);
   })
 });
 
