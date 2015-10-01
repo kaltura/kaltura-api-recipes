@@ -11,7 +11,9 @@
 
 <script>
   var config = new KalturaConfiguration(<%- Lucy.answer('partnerId') %>);
+<% if (Lucy.answer('serviceURL')) { -%>
   config.serviceUrl = <%- Lucy.code.variable('answers.serviceURL') %>;
+<% } -%>
   var client = new KalturaClient(config);
   client.session.start(function(success, ks) {
     if (!success || (ks.code && ks.message)) {

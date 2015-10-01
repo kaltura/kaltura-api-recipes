@@ -67,6 +67,24 @@
         }
         getResults();
       };
+      var addCuePoint = function(request, callback) {
+        cuePoint = new KalturaCuePoint();
+        cuePoint.entryId = request.entryId;
+        cuePoint.userId = "lucybot@example.com";
+
+
+        var getResults = function() {
+          if (!client.ks) return setTimeout(getResults, 100);
+          client.cuePoint.add(function(success, results) {
+            if (!success || (results && results.code && results.message)) {
+              console.log('Kaltura Error', success, results);
+            }
+            callback(results)
+          },
+          cuePoint);
+        }
+        getResults();
+      };
       var getMedia = function(request, callback) {
         var entryId = request.entryId;
         var version = null;
