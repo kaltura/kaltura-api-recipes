@@ -2,19 +2,18 @@
 
 ## Installation
 Note that you will need access to two deploy keys: kaltura_lucy_codegen, and kaltura_lucy_recipes.
-Assuming these keys are in your ~/.ssh folder, you should all the following lines
-to ~/.ssh/config:
+Once you have the keys,add the following lines to ~/.ssh/config:
 
 ```bash
 Host lucy-codegen
     User git
     HostName github.com
-    IdentityFile ~/.ssh/kaltura_lucy_codegen
+    IdentityFile /path/to/kaltura_lucy_codegen
     StrictHostKeyChecking no
 Host lucy-recipes
     User git
     HostName github.com
-    IdentityFile ~/.ssh/kaltura_lucy_recipes
+    IdentityFile /path/to/kaltura_lucy_recipes
     StrictHostKeyChecking no
 ```
 
