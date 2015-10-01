@@ -3,11 +3,11 @@
   "title": "Backend and E-mail Notifications",
   "icon": "exclamation",
   "description": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
-  "control_sets": [
+  "recipe_steps": [
     {
       "page": 1,
       "title": "Checking Permissions",
-      "affects": "listPermission",
+      "code_snippet": "listPermission",
       "tip": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
       "inputs": [{
         "name": "nameEqual",
@@ -17,7 +17,7 @@
       }]
     }, {
       "title": "Notification Template Types",
-      "affects": "listTemplatesEventNotificationTemplate",
+      "code_snippet": "listTemplatesEventNotificationTemplate",
       "tip": [
         "Notification Templates can be used to send you an e-mail or call a particular URL under certain conditions, e.g. when a new video is uploaded.",
         "There are two main types of templates:\n* E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n* HTTP templates, which will cause a particular URL to be called with data for the notification event. You can [read more here](https://github.com/kaltura/server/blob/master/plugins/event_notification/providers/http/README.md) about setting up your server to handle HTTP Notifications.",
@@ -38,12 +38,12 @@
         "In order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```",
         "Choose a template to clone."
       ],
-      "affects": "listTemplatesEventNotificationTemplate",
+      "code_snippet": "listTemplatesEventNotificationTemplate",
       "inputs": [{
         "name": "id",
         "label": "Template to Clone",
         "type": "select-chosen",
-        "dynamicChoices": {
+        "dynamic_choices": {
           "service": "eventNotificationTemplate",
           "action": "listTemplates",
           "arguments": [{
@@ -62,17 +62,17 @@
       "page": 2,
       "title": "Cloning the Template",
       "tip": "Use the form below to fill in some additional details for your template and create it",
-      "affects": "cloneEventNotificationTemplate",
+      "code_snippet": "cloneEventNotificationTemplate",
       "inputs": []
     }, {
       "page": 3,
       "title": "Viewing your Notification Templates",
       "tip": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
-      "affects": "listEventNotificationTemplate",
+      "code_snippet": "listEventNotificationTemplate",
       "inputs": []
     }, {
       "page": -1,
-      "affects": "HandleHTTPNotifications",
+      "code_snippet": "HandleHTTPNotifications",
       "title": "Handling HTTP Notifications",
       "tip": [
         "If you create an HTTP Notification, you'll need to set up your server to handle incoming notifications",

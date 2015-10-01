@@ -28,24 +28,4 @@ class MainController < ApplicationController
         pager)
     render :template => "main/_media_list_likes", :locals => {:result => results.objects}
   end
-
-  def getTableReport
-    reportInputFilter = KalturaReportInputFilter.new();
-    reportInputFilter.from_day = "20150615";
-    reportInputFilter.to_day = "20150715";
-
-    pager = KalturaFilterPager.new();
-
-    reportType = KalturaReportType::USER_TOP_CONTENT;
-    order = "count_plays";
-    objectIds = nil;
-
-    results = @@client.report_service.get_table(
-        reportType,
-        reportInputFilter,
-        pager,
-        order,
-        objectIds)
-    render :template => "main/_kaltura_report_table", :locals => {:result => results}
-  end
 end

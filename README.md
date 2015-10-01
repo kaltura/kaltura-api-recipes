@@ -1,9 +1,26 @@
 # LucyBot recipes for the Kaltura API
 
 ## Installation
-Note that you will need access to the lucy-codegen ssh key to install.
+Note that you will need access to two deploy keys: kaltura_lucy_codegen, and kaltura_lucy_recipes.
+Once you have the keys,add the following lines to ~/.ssh/config:
+
 ```bash
-ssh-add /path/to/lucy-codegen/ssh-key
+Host lucy-codegen
+    User git
+    HostName github.com
+    IdentityFile /path/to/kaltura_lucy_codegen
+    StrictHostKeyChecking no
+Host lucy-recipes
+    User git
+    HostName github.com
+    IdentityFile /path/to/kaltura_lucy_recipes
+    StrictHostKeyChecking no
+```
+
+Then you can clone and install.
+
+```bash
+eval "$(ssh-agent -s)"
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 npm install
 ```
@@ -114,20 +131,21 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
   "title": "the title of the recipe",
   "icon": "the name of a fontawesome icon. Can be any one of those listed in static/bower/fontawesome/scss/_icons.scss",
   "description": "A short description of the recipe",
-  
-  "control_sets": "this is an array of steps for the recipe, structured as below",
-  "control_sets": [
+  "needs_admin": "Set to true if this recipe requires an ADMIN session type",
+  "recipe_steps": "this is an array of steps for the recipe, structured as below",
+  "recipe_steps": [
     {
       "title": "A title for this step",
       "page": "The index of the Single Page App to show below the recipe (see array 'pages' below)",
       "tip": "The body of text for this recipe. Markdown is supported here so you can [create links](www.google.com) or call out ```snippetsOf.code()```",
-      "affects": "The name of a view or action pertinent to this step. This controls what snippet of sample code is displayed to the user",
+      "code_snippet": "The name of a view or action pertinent to this step. This controls what snippet of sample code is displayed to the user",
+      "disable_autorefresh": "When set to true, the demo only gets refreshed when you hit 'SendRequest' after filling out the necessary fields. Default is false.",
       "inputs": "An array of HTML inputs to display to the user. Fields entered here can be used in your recipes or embedded in the sample code",
       "inputs": [
         {
           "name": "The programmatic name of the input. Should match propery names in Kaltura's API schema where applicable",
           "default": "The default value to use (optional)",
-          "type": "text|number|radio|select|select-chosen",
+          "type": "text|number|radio|select|select-chosen|datetime",
           "label": "A human-readable label for the input (optional, will use 'name' by default)",
           "hidden": "If true, hides this input from the user. Only valid if 'default' is set",
           "choices": "An array of options. Only valid for type = radio|select|select-chosen",
@@ -135,8 +153,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
             "value": "The value assigned to this field for this choice",
             "label": "A human-readable label for this choice"
           }],
-          "dynamicChoices": "Similar to choices, but will use an API call to fill out the list. The API call must return an array",
-          "dynamicChoices": {
+          "dynamic_choices": "Similar to choices, but will use an API call to fill out the list. The API call must return an array",
+          "dynamic_choices": {
             "service": "A Kaltura service",
             "action": "An action within that service",
             "map": "Sets value and label from the fields returned by the API",
@@ -149,8 +167,8 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
               "class": "A Kaltura class, e.g. KalturaMediaEntryFilter",
               "parameters": "A set of fields to set. Can be constants or user inputs from previous control_steps",
               "parameters": {
-                "fieldName, e.g. orderBy": "value, e.g. +createdAt",
-                "fieldName": {"answers": "answerName"}
+                "field_name, e.g. orderBy": "value, e.g. +createdAt",
+                "field_name": {"answers": "answerName"}
               }
             }]
           }
@@ -159,28 +177,50 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
       
     }
   ],
-  "pages": "An array of single page apps to generate along side this recipe.",
-  "pages": [
-    {
-      "view": "The name of the main view for this recipe, e.g. KalturaMediaListResponse. The view file should reside under code_templates/views/html",
-      "data": {
-        "action": "The action that supplies the data for the initial load of this page"
-      }
+  "pages": "An array of single page apps to generate as part of this recipe. These apps are shown below the recipe instructions and sample code.",
+  "pages": [{
+    "views": "An array of views that are used in this page. This should contain the view in 'start' below, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
+    "views": [
+      "myView"
+    ],
+    "actions": "An array of actions that are used in this page.",
+    "actions": [{
+      "service": "(optional) The name of a Kaltura service. This allows the action to be auto-generated by the templates in the generic_actions/ directory",
+      "action": "The name of the action. Should be the name of a Kaltura action if service is specified",
+      "view": "A view for displaying this action's output, e.g. KalturaMediaListResponse for media.list"
+    }],
+    "start": "The view/action used to start the app",
+    "start": {
+        "view": "The name of the main view for this recipe, e.g. KalturaMediaListResponse. The view file should reside under code_templates/views/html",
+        "data": {
+          "action": "The action that supplies the data for the initial load of this page"
+        }
     }
-  ],
-  "views": "An array of views that are used in this recipe. This should contain any views listed in 'pages' above, along with any views they <lucy include> (e.g. KalturaMediaListResponse includes the KalturaMediaEntry view)",
-  "views": [
-    "myView"
-  ],
-  "actions": "An array of actions that are used in this recipe.",
-  "actions": [{
-    "service": "(optional) The name of a Kaltura service. This allows the action to be auto-generated by the templates in the generic_actions/ directory",
-    "action": "The name of the action. Should be the name of a Kaltura action if service is specified",
-    "view": "A view for displaying this action's output, e.g. KalturaMediaListResponse for media.list"
   }]
 }
 ```
 
+## Reading file contents within a recipe
+See recipes/metadata.js for example.
+        {
+          "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
+          "type": "text",
+          "label": "XSD data",
+          "name": "xsdData",
+          "hidden": true
+        }
+
+This will set the xsdData field to the value read from data/metadata_profile_sample.xsd.
+In order to enable that, the recipe needs to be a JS file instead of JSON and include the import of the fs module, like so:
+```
+var FS = require('fs');
+```
+The actual JSON recipe then needs to be assigned to module.exports, like so:
+```
+module.exports = {
+	"json recipe": "goes in here"
+}
+```
 ## Adding a new View
 
 Views are snippets of HTML for displaying responses from the API. Any valid HTML can be used here, including ```<script>``` and ```<style>``` tags.
@@ -189,12 +229,27 @@ LucyBot also provides some helper tags:
 * Use ```{{ variable.name }}``` to print the value of a given variable
 * Use ```<lucy for="thing" in="array">``` to iterate over an array
 * Use ```<lucy if="condition">``` to add conditionals
+* Use ```<lucy else>``` inside ```<lucy if>``` to add ```else``` blocks
 * Use ```<lucy if="result.message && result.code">``` to check for errors and print error messages
 * Use ```<lucy include="ViewName">``` to include other views
 
 You have access to two global variables inside of your views:
 * ```result``` which is the API's response (but can be overriden via ```<lucy include>```)
 * ```answers``` which contains the user's responses from inside the recipe
+
+For example, the following is a valid view:
+```html
+<h1>Results</h1>
+<lucy for="item" in="result">
+  <lucy if="item.title == 'foobar'">
+    This is a foobar
+    <lucy else>
+      Unknown title: {{ item.title }}
+    </lucy>
+  </lucy>
+</lucy>
+```
+
 
 ```<lucy include>``` can operate in two different ways:
 
@@ -221,6 +276,13 @@ If, for example, KalturaMediaListResponse was just an array of entryIds, we coul
 </lucy>
 ```
 
+## Displaying an XML in the view
+Using 3 '{' will cause the XML to display as a string instead of being parsed, like so:
+```
+{{{ result.xsd }}}
+```
+For example, see the metadata recipe's view under: code_templates/views/html/metadataShow.html
+
 ## Step by step example for adding a new recipe
 The sample recipe will accept an entry ID as input and output the entry's name, ID, descrption and number of plays.
 
@@ -232,7 +294,7 @@ The below json file should be placed under the recipes dir
     "title": "Entry Lookup",
     "icon": "search",
     "description": "Learn how to get a specific entry ID using Kaltura's API",
-    "control_sets": [
+    "recipe_steps": [
         {
             "inputs": [
                 {
@@ -247,24 +309,22 @@ The below json file should be placed under the recipes dir
             "title": "Filtering Results"
         }
     ],
-    "pages": [
-        {
+    "pages": [{
+        "views": [
+          "KalturaSimpleEntry"
+        ],
+        "actions": [{
+            "service": "media",
+            "action": "get",
+            "view": "KalturaSimpleEntry"
+        }],
+        "start": {
             "view": "KalturaSimpleEntry",
             "data": {
                 "action": "getMedia"
             }
         }
-    ],
-    "views": [
-        "KalturaSimpleEntry"
-    ],
-    "actions": [
-        {
-            "service": "media",
-            "action": "get",
-            "view": "KalturaSimpleEntry"
-        }
-    ]
+    }]
 }
 ```
 
@@ -285,6 +345,18 @@ The recipe uses the KalturaSimpleEntry view to display the results. The view fil
 
 ```
 After restarting the node, the new recipe should appear on the index page.
+
+Once the recipe works correctly, one needs to generate proper tests for it by setting:
+```
+export WRITE_GOLDEN=true
+```
+and running:
+```
+npm test
+```
+And then commiting them.
+
+## Selecting an icon for the recipe
 
 ```
 "icon": "search"

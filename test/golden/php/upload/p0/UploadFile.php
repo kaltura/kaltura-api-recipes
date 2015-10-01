@@ -21,6 +21,23 @@ $resume = null;
 $finalChunk = null;
 $resumeAt = null;
 $result = $client->uploadToken->upload($tok, $_FILES["fileData"]["name"], $resume, $finalChunk, $resumeAt);
-$result = (object)$result;
-require 'UploadDone.php';
+$result = (object) $result;
+?>
+<script>
+  $('#UploadStatus').text('Uploaded file <?php echo $result->fileName ?>. Creating entry...');
+</script>
+
+<div class="KalturaMediaEntry"></div>
+<script>
+  var element = $('.KalturaMediaEntry').last();
+  element[0].loadData = function() {
+    $('.KalturaMediaEntry').last().load('CreateMediaEntry.php', {
+       name: <?php echo json_encode($result->fileName) ?>,
+       uploadTokenId: <?php echo json_encode($result->id) ?>,
+    });
+  }
+  element[0].loadData();
+</script>
+
+<?php
 ?>

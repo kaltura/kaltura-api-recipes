@@ -53,7 +53,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.eventNotificationTemplate.listTemplates(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -98,7 +98,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.eventNotificationTemplate.listAction(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -121,7 +121,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.permission.listAction(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -152,19 +152,23 @@
     </script>
 
     <script id="KalturaEventNotificationTemplate-template" type="text/x-underscore-template" style="display: none">
-      <h3><%= result.id %> - <%= result.name %></h3>
-      <p>System Name: <%= result.systemName %></p>
-      <p>Type: <%= result.type %></p>
-      <% if(result.type == 'httpNotification.Http') { %>
-        <p>URL: <%= result.url %></p>
+      <% if(result.message && result.code) { %>
+        <h1><%= result.message %></h1>
+      <% } else { %>
+        <h3><%= result.id %> - <%= result.name %></h3>
+        <p>System Name: <%= result.systemName %></p>
+        <p>Type: <%= result.type %></p>
+        <% if(result.type == 'httpNotification.Http') { %>
+          <p>URL: <%= result.url %></p>
+        <% } %>
+        <% if(result.type == 'emailNotification.Email') { %>
+          <p>Subject: <%= result.subject %></p>
+          <div style="font-size: 12px">
+            <%= result.body %>
+          </div>
+        <% } %>
+        <hr></hr>
       <% } %>
-      <% if(result.type == 'emailNotification.Email') { %>
-        <p>Subject: <%= result.subject %></p>
-        <div style="font-size: 12px">
-          <%= result.body %>
-        </div>
-      <% } %>
-      <hr></hr>
     </script>
     <script type="text/javascript">
       var KalturaEventNotificationTemplateView = _.template($('#KalturaEventNotificationTemplate-template').text());
@@ -260,6 +264,17 @@
       listTemplatesEventNotificationTemplate({
       }, function(result) {
         $('.container').html(KalturaEventNotificationTemplateListResponseView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
       })
     </script>
   </body>

@@ -6,7 +6,7 @@ var authBase = {
     "You can find your info in the [Kaltura Management Console](http:\/\/kmc.kaltura.com\/index.php\/kmc\/kmc4#account|integration)",
     "If you don't have a Kaltura account, you can [sign up for free](http://corp.kaltura.com/free-trial)"
   ],
-  "affects": "setup",
+  "code_snippet": "setup",
   "inputs": [
     {
       "type": "number",

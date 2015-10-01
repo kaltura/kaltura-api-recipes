@@ -16,16 +16,22 @@ $client->setKS($ks);
 $captionAssetId = null;
 
 try {
-  $result = $client->captionAsset->get(
-    $captionAssetId);
-  $result = (object)$result;
-  require 'KalturaCaptionAsset.php';
+  $result = $client->captionAsset->get($captionAssetId);
+  $result = (object) $result;
+?>
+<div id="ErrorMessage" class="alert alert-danger" style="display: none">
+</div>
+<?php if($result->message && $result->code) { ?>
+  <h1><?php echo $result->message ?></h1>
+<?php } else { ?>
+  <h1>Caption Asset info:</h1>
+  <p>Caption Asset ID: <?php echo $result->id ?></p>
+  <p>Language: <?php echo $result->language ?></p>
+  <p>Size: <?php echo $result->size ?></p>
+<?php } ?>
+<?php
+
 } catch (Exception $e) {
-  $result = array(
-    code => $e->getCode(),
-    message => $e->getMessage()
-  );
-  $result = (object)$result;
-  require 'KalturaCaptionAsset.php';
+  echo $e->getMessage();
 }
 ?>

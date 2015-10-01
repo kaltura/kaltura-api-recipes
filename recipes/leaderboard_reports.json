@@ -2,12 +2,12 @@
   "name": "leaderboard_reports",
   "title": "Leaderboard Reports",
   "icon": "users",
-  "needsAdmin": true,
+  "needs_admin": true,
   "description": "Learn how to use the API to find your most watched videos and most valuable users",
-  "control_sets": [{
+  "recipe_steps": [{
     "title": "Finding Your Most Viewed Videos",
     "tip": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
-    "affects": "getTableReport",
+    "code_snippet": "getTableReport",
     "inputs": [{
       "type": "select",
       "name": "reportType",
@@ -46,7 +46,7 @@
   }, {
     "title": "Finding Your Top Contributors",
     "tip": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
-    "affects": "getTableReport",
+    "code_snippet": "getTableReport",
     "inputs": [{
       "type": "select",
       "name": "reportType",
@@ -82,7 +82,7 @@
   }, {
     "page": 1,
     "title": "Ranking Videos by Votes/Likes",
-    "affects": "listMedia",
+    "code_snippet": "listMedia",
     "tip": [
       "Both ‘Votes' and 'Likes' use the same fields in the DB. For a reliable voting experience, you should chose between ‘like' experience where users would click a ‘Like’ button or a 5-points voting scale, where users would be presented an option to cast a vote between 1 to 5.",
       "You can use ```media.list``` to see which videos are getting the most likes or votes. For each result, ```entry.rank``` will show the average rating for the entry, while ```entry.votes``` will show the total number of votes/likes. Use ```KalturaMediaEntryFilter``` to refine and sort your search",
@@ -106,24 +106,24 @@
   }],
   "pages": [
     {
-      "view": "KalturaReportTable",
-      "data": {
-        "action": "getTableReport"
+      "views": ["KalturaReportTable"],
+      "actions": [{"service": "report", "action": "getTable", "view": "KalturaReportTable"}],
+      "start":  {
+        "view": "KalturaReportTable",
+        "data": {
+          "action": "getTableReport"
+        }
       }
     }, {
-      "view": "MediaListLikes",
-      "data": {
-        "action": "listMedia"
+      "views": ["MediaListLikes"],
+      "actions": [{"service": "media", "action": "listAction", "view": "MediaListLikes"}],
+      "start": {
+        "view": "MediaListLikes",
+        "data": {
+          "action": "listMedia"
+        }
       }
     }
-  ],
-  "views": [
-    "KalturaReportTable",
-    "MediaListLikes"
-  ],
-  "actions": [
-    {"service": "media", "action": "listAction", "view": "MediaListLikes"},
-    {"service": "report", "action": "getTable", "view": "KalturaReportTable"}
   ]
 }
 

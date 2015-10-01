@@ -1,0 +1,11 @@
+<div id="ErrorMessage" class="alert alert-danger" style="display: none">
+</div>
+<lucy if="result.message && result.code">
+        <h1>{{result.message}}</h1>
+</lucy>
+<lucy if="result.partnerId">
+  <h1>Logged In!</h1>
+  <p>Partner ID: {{ result.partnerId }}</p>
+  <p>Screen Name: {{ result.screenName }}</p>
+  <p>Name: {{ result.fullName }}</p>
+</lucy>

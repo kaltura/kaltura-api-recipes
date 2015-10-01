@@ -37,9 +37,9 @@ app.post('/listMedia', function(req, res) {
 
 
   client.media.listAction(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaMediaListResponse', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaMediaListResponse', {request: req.body, result: results.objects})
     }

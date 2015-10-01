@@ -1,0 +1,12 @@
+<lucy if="result.message && result.code">
+        <h1>{{result.message}}</h1>
+	<lucy else>
+	    <h2>Metadata Profile Object {{ result.name }}</h2>
+	    <p><b>System Name:</b> {{ result.systemName }}</p>
+	    <p>XSD:
+	    <pre>
+	    {{{ result.xsd }}}
+	    </pre>
+	    </p>
+    </lucy>
+</lucy>

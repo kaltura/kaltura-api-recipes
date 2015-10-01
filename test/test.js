@@ -57,6 +57,10 @@ var ANSWERS = process.env.KALTURA_ANSWERS_FILE ?
         upload: {
           uiConf: 30633631,
         },
+        metadata: {
+          name: 'foo',
+          systemName: 'bar'
+        }
       }
 
 var LANGUAGES = ['php', 'javascript', 'node', 'ruby'];
@@ -100,7 +104,7 @@ for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
   ANSWERS[recipeName] = ANSWERS[recipeName] || {};
   ANSWERS[recipeName].libraryDirectory = '../../lib/';
-  recipe.control_sets.forEach(function(set) {
+  recipe.recipe_steps.forEach(function(set) {
     var inputs = set.inputs || [];
     inputs.forEach(function(input) {
       if (input.default && !ANSWERS[recipeName][input.name]) {
@@ -112,8 +116,8 @@ for (recipeName in Recipes) {
 
 describe('sample code', function() {
   before(function(done) {
-    Server.listen(PORT);
-    done();
+    this.timeout(4000);
+    Server.listen(PORT, done);
   });
 
   Object.keys(Recipes).forEach(function(recipe) {

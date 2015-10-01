@@ -32,9 +32,9 @@ app.post('/getUser', function(req, res) {
   var userId = "lucybot@example.com";
 
   client.user.get(function(results) {
-    if (results.code && results.message) {
+    if (results && results.code && results.message) {
       console.log('Kaltura Error', results);
-      res.render('KalturaUser', {request: req.body, result: results})
+      res.send(results.message);
     } else {
       res.render('KalturaUser', {request: req.body, result: results})
     }

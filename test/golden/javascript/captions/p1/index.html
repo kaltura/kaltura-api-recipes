@@ -51,13 +51,10 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.media.get(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
-              callback(results)
-            } else {
-              console.log('Kaltura Result', results);
-              callback(results)
             }
+            callback(results)
           },
           entryId,
           version);
@@ -76,7 +73,7 @@
         var getResults = function() {
           if (!client.ks) return setTimeout(getResults, 100);
           client.captionAssetItem.search(function(success, results) {
-            if (!success || (results.code && results.message)) {
+            if (!success || (results && results.code && results.message)) {
               console.log('Kaltura Error', success, results);
               callback(results)
             } else {
@@ -161,7 +158,7 @@
       <h1>Upload Captions</h1>
       <hr></hr>
       <div id="Uploading" class="alert alert-info hidden">
-        <p>Uploading  </p>
+        <p>Uploading </p>
         <i class="fa fa-spin fa-refresh"></i>
       </div>
       <label>Caption File (SRT)</label>
@@ -210,7 +207,9 @@
             <img src="<%= caption.entry.thumbnailUrl %>"></img>
           </div>
           <div class="col-xs-7 col-xs-offset-1">
-            <p><i><%= caption.content %></i></p>
+            <p>
+              <i><%= caption.content %></i>
+            </p>
           </div>
         </div>
         <hr></hr>
@@ -227,6 +226,17 @@
       searchCaptionAssetItem({
       }, function(result) {
         $('.container').html(CaptionSearchView({result: result}));
+      })
+    </script>
+    <script>
+      $(".container").on('click', "a[data-action]", function(event) {
+        var el = $(event.target);
+        var action = window[el.attr('data-action')];
+        var view = window[el.attr('data-view')];
+        eval('var answers = ' + el.attr('data-answers'));
+        action(answers, function(result) {
+          el.parent().html(view({result: result}));
+        })
       })
     </script>
   </body>

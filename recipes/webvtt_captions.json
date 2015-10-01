@@ -3,8 +3,8 @@
   "title": "Serve WebVTT Captions",
   "icon": "cc",
   "description": "Learn how to serve a WebVTT caption",
-  "control_sets": [{
-    "affects": "listCaptionAsset",
+  "recipe_steps": [{
+    "code_snippet": "listCaptionAsset",
     "inputs": [{
                     "default": "",
                     "type": "text",
@@ -12,12 +12,12 @@
                     "name": "entryIdEqual"
     }]
   }, {
-    "affects": "getCaptionAsset",
+    "code_snippet": "getCaptionAsset",
     "inputs": [{
       "type": "select-chosen",
       "name": "captionAssetId",
       "label": "Language",
-    "dynamicChoices": {
+    "dynamic_choices": {
 	"service": "captionAsset",
 	"action": "listAction",
 	    "map": {
