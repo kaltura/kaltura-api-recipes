@@ -4,7 +4,7 @@ window.credentialsChanged = function(creds) {
   if (!creds.partnerId || !creds.secret) return;
   console.log('starting', creds)
   var config = new KalturaConfiguration(creds.partnerId);
-  //config.serviceUrl = "https://www.kaltura.com/";
+  config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
   KC.session.start(function(success, ks) {
     console.log('started', success, ks);
