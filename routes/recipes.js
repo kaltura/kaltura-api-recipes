@@ -127,6 +127,8 @@ var setup = function(callback) {
         '/js/dynamic-choices.js',
         '/js/answer-defaults.js',
       ],
+      development: process.env.DEVELOPMENT,
+      enableEditor: process.env.DEVELOPMENT,
     }
 
     var server = new RecipeServer(recipeParams);
