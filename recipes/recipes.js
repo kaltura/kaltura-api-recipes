@@ -44,14 +44,6 @@ files.forEach(function(filename) {
   })
 });
 
-var xsdData = FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8');
-
-Recipes.metadata.recipe_steps.forEach(function(step) {
-  step.inputs.forEach(function(input) {
-    if (input.name === 'xsdData') input.default = xsdData;
-  })
-})
-
 for (name in Recipes) {
   var recipe = Recipes[name];
   recipe.related_recipes = (recipe.related_recipes || []).map(function(relatedName) {
