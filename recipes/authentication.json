@@ -23,7 +23,10 @@
     "KalturaUser"
   ],
   "actions": [
-    {"service": "user", "action": "get", "view": "KalturaUser"}
+    {
+      "service": "user",
+      "action": "get",
+      "view": "KalturaUser"
+    }
   ]
 }
-

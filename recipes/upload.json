@@ -12,18 +12,30 @@
         "You can read more about media uploads [here](http://knowledge.kaltura.com/faq/create-new-kaltura-entry-and-upload-video-file-using-kaltura-api)"
       ],
       "code_snippet": "UploadForm",
-      "inputs": [{
-        "name": "mediaType",
-        "label": "Media Type",
-        "type": "select",
-        "default": 1,
-        "choices": [
-          {"label": "Video", "value": 1},
-          {"label": "Image", "value": 2},
-          {"label": "Audio", "value": 5}
-        ]
-      }]
-    }, {
+      "inputs": [
+        {
+          "name": "mediaType",
+          "label": "Media Type",
+          "type": "select",
+          "default": 1,
+          "choices": [
+            {
+              "label": "Video",
+              "value": 1
+            },
+            {
+              "label": "Image",
+              "value": 2
+            },
+            {
+              "label": "Audio",
+              "value": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Creating a Media Entry",
       "tip": "Once the file has been uploaded, use the baseEntry service to create a Media Entry from it.\n\nIt may take some time to convert your video, so you can use ```media.get``` to poll for its status.",
       "code_snippet": "CreateMediaEntry",
@@ -41,8 +53,13 @@
     "KalturaMediaEntry"
   ],
   "actions": [
-    {"action": "CreateMediaEntry", "view": "KalturaMediaEntry"},
-    {"action": "UploadFile", "view": "UploadDone"}
+    {
+      "action": "CreateMediaEntry",
+      "view": "KalturaMediaEntry"
+    },
+    {
+      "action": "UploadFile",
+      "view": "UploadDone"
+    }
   ]
 }
-

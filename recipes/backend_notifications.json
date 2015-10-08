@@ -9,13 +9,16 @@
       "title": "Checking Permissions",
       "code_snippet": "listPermission",
       "tip": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
-      "inputs": [{
-        "name": "nameEqual",
-        "type": "text",
-        "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
-        "hidden": true
-      }]
-    }, {
+      "inputs": [
+        {
+          "name": "nameEqual",
+          "type": "text",
+          "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
+          "hidden": true
+        }
+      ]
+    },
+    {
       "title": "Notification Template Types",
       "code_snippet": "listTemplatesEventNotificationTemplate",
       "tip": [
@@ -23,54 +26,72 @@
         "There are two main types of templates:\n* E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n* HTTP templates, which will cause a particular URL to be called with data for the notification event. You can [read more here](https://github.com/kaltura/server/blob/master/plugins/event_notification/providers/http/README.md) about setting up your server to handle HTTP Notifications.",
         "Which type would you like to create?"
       ],
-      "inputs": [{
-        "name": "typeEqual",
-        "label": "Template Type",
-        "type": "select",
-        "choices": [
-          {"label": "E-mail Template", "value": "emailNotification.Email"},
-          {"label": "HTTP Template", "value": "httpNotification.Http"}
-        ]
-      }]
-    }, {
+      "inputs": [
+        {
+          "name": "typeEqual",
+          "label": "Template Type",
+          "type": "select",
+          "choices": [
+            {
+              "label": "E-mail Template",
+              "value": "emailNotification.Email"
+            },
+            {
+              "label": "HTTP Template",
+              "value": "httpNotification.Http"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Choosing a Template to Clone",
       "tip": [
         "In order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```",
         "Choose a template to clone."
       ],
       "code_snippet": "listTemplatesEventNotificationTemplate",
-      "inputs": [{
-        "name": "id",
-        "label": "Template to Clone",
-        "type": "select-chosen",
-        "dynamic_choices": {
-          "service": "eventNotificationTemplate",
-          "action": "listTemplates",
-          "arguments": [{
-            "class": "KalturaEventNotificationTemplateFilter",
-            "parameters": {
-              "typeEqual": {"answer": "typeEqual"}
+      "inputs": [
+        {
+          "name": "id",
+          "label": "Template to Clone",
+          "type": "select-chosen",
+          "dynamic_choices": {
+            "service": "eventNotificationTemplate",
+            "action": "listTemplates",
+            "arguments": [
+              {
+                "class": "KalturaEventNotificationTemplateFilter",
+                "parameters": {
+                  "typeEqual": {
+                    "answer": "typeEqual"
+                  }
+                }
+              }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
             }
-          }],
-          "map": {
-            "value": "id",
-            "label": "name"
           }
         }
-      }]
-    }, {
+      ]
+    },
+    {
       "page": 2,
       "title": "Cloning the Template",
       "tip": "Use the form below to fill in some additional details for your template and create it",
       "code_snippet": "cloneEventNotificationTemplate",
       "inputs": []
-    }, {
+    },
+    {
       "page": 3,
       "title": "Viewing your Notification Templates",
       "tip": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
       "code_snippet": "listEventNotificationTemplate",
       "inputs": []
-    }, {
+    },
+    {
       "page": -1,
       "code_snippet": "HandleHTTPNotifications",
       "title": "Handling HTTP Notifications",
@@ -81,27 +102,32 @@
       "inputs": []
     }
   ],
-  "pages": [{
-    "view": "KalturaEventNotificationTemplateListResponse",
-    "data": {
-      "action": "listTemplatesEventNotificationTemplate"
+  "pages": [
+    {
+      "view": "KalturaEventNotificationTemplateListResponse",
+      "data": {
+        "action": "listTemplatesEventNotificationTemplate"
+      }
+    },
+    {
+      "view": "KalturaPermissionListResponse",
+      "data": {
+        "action": "listPermission"
+      }
+    },
+    {
+      "view": "CloneEventNotificationTemplate",
+      "data": {
+        "action": "listTemplatesEventNotificationTemplate"
+      }
+    },
+    {
+      "view": "KalturaEventNotificationTemplateListResponse",
+      "data": {
+        "action": "listEventNotificationTemplate"
+      }
     }
-  }, {
-    "view": "KalturaPermissionListResponse",
-    "data": {
-      "action": "listPermission"
-    }
-  }, {
-    "view": "CloneEventNotificationTemplate",
-    "data" : {
-      "action": "listTemplatesEventNotificationTemplate"
-    }
-  }, {
-    "view": "KalturaEventNotificationTemplateListResponse",
-    "data": {
-      "action": "listEventNotificationTemplate"
-    }
-  }],
+  ],
   "views": [
     "KalturaEventNotificationTemplateListResponse",
     "KalturaEventNotificationTemplate",
@@ -111,11 +137,28 @@
     "KalturaPermission"
   ],
   "actions": [
-    {"action": "HandleHTTPNotifications", "forceServer": true},
-    {"service": "eventNotificationTemplate", "action": "listTemplates", "view": "KalturaEventNotificationTemplateListResponse"},
-    {"action": "cloneEventNotificationTemplate", "view": "KalturaEventNotificationTemplate"},
-    {"service": "eventNotificationTemplate", "action": "listAction", "view": "KalturaEventNotificationTemplateListResponse"},
-    {"service": "permission", "action": "listAction", "view": "KalturaPermissionListResponse"}
+    {
+      "action": "HandleHTTPNotifications",
+      "forceServer": true
+    },
+    {
+      "service": "eventNotificationTemplate",
+      "action": "listTemplates",
+      "view": "KalturaEventNotificationTemplateListResponse"
+    },
+    {
+      "action": "cloneEventNotificationTemplate",
+      "view": "KalturaEventNotificationTemplate"
+    },
+    {
+      "service": "eventNotificationTemplate",
+      "action": "listAction",
+      "view": "KalturaEventNotificationTemplateListResponse"
+    },
+    {
+      "service": "permission",
+      "action": "listAction",
+      "view": "KalturaPermissionListResponse"
+    }
   ]
 }
-

@@ -16,13 +16,18 @@
           "dynamic_choices": {
             "service": "uiConf",
             "action": "list",
-            "arguments": [{
-              "class": "KalturaUiConfFilter",
-              "parameters": {
-                "orderBy": "-updatedAt",
-                "objTypeEqual": {"enum": "KalturaUiConfObjType", "value": "PLAYER"}
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeEqual": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER"
+                  }
+                }
               }
-            }],
+            ],
             "map": {
               "value": "id",
               "label": "name"
@@ -43,7 +48,8 @@
           }
         }
       ]
-    }, {
+    },
+    {
       "title": "Adding a Cue Point",
       "tip": "You can use the form below to add cue points to your video.",
       "code_snippet": "AddAdCuePoint",
@@ -66,9 +72,18 @@
     "CuePointAdded"
   ],
   "actions": [
-    {"service": "cuePoint", "action": "listAction", "view": "KalturaCuePointListResponse"},
-    {"action": "addCuePoint"},
-    {"service": "media", "action": "get", "view": "KalturaMediaEntry"}
+    {
+      "service": "cuePoint",
+      "action": "listAction",
+      "view": "KalturaCuePointListResponse"
+    },
+    {
+      "action": "addCuePoint"
+    },
+    {
+      "service": "media",
+      "action": "get",
+      "view": "KalturaMediaEntry"
+    }
   ]
 }
-
