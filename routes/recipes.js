@@ -3,6 +3,7 @@ var EJS = require('ejs');
 var FS = require('fs');
 var Path = require('path');
 var XMLParser = require('xml2js').parseString;
+var Recipes = require('../recipes/recipes.js');
 
 var RecipeServer = require('lucy-recipes');
 
@@ -104,7 +105,8 @@ var setup = function(callback) {
       actions: actions,
       views: views,
       staticFiles: CodeTemplates.static,
-      recipes: require('../recipes/recipes.js'),
+      recipes: Recipes.recipes,
+      save: Recipes.save,
       dependencies: {
         ruby: ['kaltura-client']
       },
