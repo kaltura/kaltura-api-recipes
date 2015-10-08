@@ -25,25 +25,29 @@
               "value": "id",
               "label": "name"
             }
-          } 
+          }
         }
       ]
-    }, {
+    },
+    {
       "title": "Attaching the Caption File",
-      "tip": "Once you've uploaded the file, you'll need to attach it to the video using ```captionAsset.add``` and ```captionAsset.setContent```", 
+      "tip": "Once you've uploaded the file, you'll need to attach it to the video using ```captionAsset.add``` and ```captionAsset.setContent```",
       "code_snippet": "attachCaptions",
       "inputs": []
-    }, {
+    },
+    {
       "title": "Searching through Captions",
       "tip": "You can use ```captionAssetItem.search``` to search for scenes within your videos.",
       "page": 1,
       "code_snippet": "searchCaptionAssetItem",
-      "inputs": [{
-        "type": "text",
-        "label": "Query",
-        "default": "support",
-        "name": "contentLike"
-      }]
+      "inputs": [
+        {
+          "type": "text",
+          "label": "Query",
+          "default": "support",
+          "name": "contentLike"
+        }
+      ]
     }
   ],
   "pages": [
@@ -65,9 +69,19 @@
     "CaptionSearch"
   ],
   "actions": [
-    {"service": "media", "action": "get", "view": "KalturaMediaEntry"},
-    {"service": "captionAssetItem", "action": "search", "view": "CaptionSearch"},
-    {"action": "attachCaptions", "view": "CaptionsAttached"}
+    {
+      "service": "media",
+      "action": "get",
+      "view": "KalturaMediaEntry"
+    },
+    {
+      "service": "captionAssetItem",
+      "action": "search",
+      "view": "CaptionSearch"
+    },
+    {
+      "action": "attachCaptions",
+      "view": "CaptionsAttached"
+    }
   ]
 }
-
