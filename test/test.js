@@ -98,7 +98,7 @@ var buildCode = function(recipe, data, done) {
   });
 }
 
-var Recipes = require('../recipes/recipes.js');
+var Recipes = require('../recipes/recipes.js').recipes;
 
 for (recipeName in Recipes) {
   var recipe = Recipes[recipeName];
