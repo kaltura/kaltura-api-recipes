@@ -340,7 +340,4 @@ And then commiting them.
 ```
 "icon": "search"
 ```
-controls which icon will be displayed. Available options are here:
-```
-static/bower/fontawesome/scss/_icons.scss
-```
+controls which icon will be displayed. Any FontAwesome icon can be used. You can view all the available icons on the [FontAwesome website](http://fortawesome.github.io/Font-Awesome/icons/)
