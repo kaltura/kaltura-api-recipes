@@ -200,27 +200,6 @@ Recipes are controlled by the JSON files under ```recipes/```. To add a new reci
 }
 ```
 
-## Reading file contents within a recipe
-See recipes/metadata.js for example.
-        {
-          "default": FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8'),
-          "type": "text",
-          "label": "XSD data",
-          "name": "xsdData",
-          "hidden": true
-        }
-
-This will set the xsdData field to the value read from data/metadata_profile_sample.xsd.
-In order to enable that, the recipe needs to be a JS file instead of JSON and include the import of the fs module, like so:
-```
-var FS = require('fs');
-```
-The actual JSON recipe then needs to be assigned to module.exports, like so:
-```
-module.exports = {
-	"json recipe": "goes in here"
-}
-```
 ## Adding a new View
 
 Views are snippets of HTML for displaying responses from the API. Any valid HTML can be used here, including ```<script>``` and ```<style>``` tags.
