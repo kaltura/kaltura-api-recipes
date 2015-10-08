@@ -126,6 +126,7 @@ var setup = function(callback) {
         '/js/kc-setup.js',
         '/js/dynamic-choices.js',
         '/js/answer-defaults.js',
+        '/js/download-info.js',
       ],
       development: process.env.DEVELOPMENT,
       enableEditor: process.env.DEVELOPMENT,
