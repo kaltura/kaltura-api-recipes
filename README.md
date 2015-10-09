@@ -26,17 +26,25 @@ npm install
 ```
 
 ## Startup
-To use in development mode, run
+To use in development mode, export
 ```bash
 export KALTURA_RECIPES_PORT=3000
 export LUCYBOT_DEV=true
 node server.js
 ```
 
-To use in production, run
+To use in production, export
 ```bash
 export KALTURA_RECIPES_PORT=443
 sudo node server.js
+```
+
+To allow recipe editing from the web I/F, export:
+```
+USE_BASIC_AUTH=true
+LUCYBOT_USERNAME=root
+LUCYBOT_PASSWD=somepasswd
+DEVELOPMENT=true
 ```
 
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
