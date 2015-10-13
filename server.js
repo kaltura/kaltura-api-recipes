@@ -3,7 +3,12 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
+var Recipes = require('./recipes/recipes.js');
+
 var App = Express();
+App.set('views', __dirname + '/views')
+App.set('view engine', 'jade');
+App.engine('jade', require('jade').__express);
 
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
   App.use(require('./routes/basic-auth.js'));
@@ -12,7 +17,7 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
 App.use('/', Express.static(__dirname + '/static'));
 
 App.get('/', function(req, res) {
-  res.redirect('/recipes');
+  res.render('home', {recipes: Recipes.recipes});
 })
 
 require('./routes/recipes.js').getRouter(function(router) {

@@ -1,0 +1,41 @@
+mixin modal(id, title, submit)
+  .modal.fade(id=id, ng-controller=id, tabindex="-1")
+    .modal-dialog
+      form.modal-content(ng-submit="submit()")
+        .modal-header
+          button(type="button"
+                 class="close"
+                 data-dismiss="modal"
+                 aria-label="Close")
+            span(aria-hidden="true") &times;
+          .modal-title
+            h3 #{title}
+        .modal-body
+          .form-group(ng-repeat="input in inputs")
+            label(ng-bind="input.label")
+            input.form-control(
+                ng-if="input.type === 'text' || input.type === 'number' || input.type === 'password'"
+                type="{{ input.type }}"
+                ng-model="responses[input.model]")
+            textarea.form-control(
+                ng-if="input.type === 'textarea'"
+                ng-model="responses[input.model]")
+            div(ng-if="input.type === 'radio'"
+                ng-repeat="option in input.options")
+              input(type="radio" ng-model="responses[input.model]" name="{{ input.model }}")
+              span &nbsp;&nbsp;
+              span {{ option }}
+            select.form-control(
+                ng-if="input.type === 'select'"
+                ng-model="responses[input.model]"
+                ng-options="o for o in input.options track by o")
+          if block
+            block
+        .modal-footer
+          .text-left
+            .alert.alert-success(ng-if="alert.success") {{ alert.success }}
+            .alert.alert-warning(ng-if="alert.warning") {{ alert.warning }}
+            .alert.alert-danger(ng-if="alert.danger") {{ alert.danger }}
+          button.btn.btn-success(ng-if="!alert.success" type="submit")
+            span(ng-if="!loading") #{submit}
+            i.fa.fa-spin.fa-refresh(ng-if="loading")

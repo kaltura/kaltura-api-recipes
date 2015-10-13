@@ -1,7 +1,19 @@
 body {
   background-color: #f7f7f7;
-  padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.login-bar {
+  margin-bottom: 30px;
+  background-color: #eee;
+}
+
+.login-bar h3 {
+  margin-top: 10px;
+}
+
+.login-bar .pull-right {
+  margin-right: -15px;
 }
 
 .recipe-link {
