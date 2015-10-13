@@ -3,6 +3,7 @@ static/bower/
 static/test.html
 
 test/golden/ruby/**/development.log
+test/golden/ruby/**/.keep
 test/golden/ruby/*/*/*.lock
 test/golden/ruby/*/*/log/
 test/golden/ruby/*/*/tmp/
