@@ -48,5 +48,12 @@ Router.post('/signup', function(req, res) {
 });
 
 Router.post('/login', function(req, res) {
-  res.send('not impl');
+  var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
+  var client = new kc.KalturaClient(kaltura_conf);
+  var type = ktypes.KalturaSessionType.ADMIN;
+  client.partner.getSecrets(function(secrets) {
+    if (!secrets) return res.status(500).end();
+    if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
+    res.json(secrets);
+  }, req.body.partnerId, req.body.email, req.body.password)
 })
