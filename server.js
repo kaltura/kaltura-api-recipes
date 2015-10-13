@@ -16,6 +16,8 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
 
 App.use('/', Express.static(__dirname + '/static'));
 
+App.use('/auth', require('./routes/partner-auth.js'));
+
 App.get('/', function(req, res) {
   res.render('home', {recipes: Recipes.recipes});
 })

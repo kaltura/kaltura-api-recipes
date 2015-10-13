@@ -1,7 +1,7 @@
 mixin modal(id, title, submit)
   .modal.fade(id=id, ng-controller=id, tabindex="-1")
     .modal-dialog
-      form.modal-content(ng-submit="submit()")
+      form.modal-content(ng-submit="submit()" name="form")
         .modal-header
           button(type="button"
                  class="close"
@@ -14,8 +14,10 @@ mixin modal(id, title, submit)
           .form-group(ng-repeat="input in inputs")
             label(ng-bind="input.label")
             input.form-control(
-                ng-if="input.type === 'text' || input.type === 'number' || input.type === 'password'"
+                ng-if="input.type === 'text' || input.type === 'number' || input.type === 'password' || input.type === 'email'"
+                name="input.model"
                 type="{{ input.type }}"
+                ng-required="input.required"
                 ng-model="responses[input.model]")
             textarea.form-control(
                 ng-if="input.type === 'textarea'"
@@ -28,7 +30,7 @@ mixin modal(id, title, submit)
             select.form-control(
                 ng-if="input.type === 'select'"
                 ng-model="responses[input.model]"
-                ng-options="o for o in input.options track by o")
+                ng-options="o.value as o.label for o in input.options")
           if block
             block
         .modal-footer
@@ -36,6 +38,6 @@ mixin modal(id, title, submit)
             .alert.alert-success(ng-if="alert.success") {{ alert.success }}
             .alert.alert-warning(ng-if="alert.warning") {{ alert.warning }}
             .alert.alert-danger(ng-if="alert.danger") {{ alert.danger }}
-          button.btn.btn-success(ng-if="!alert.success" type="submit")
+          button.btn.btn-success(ng-if="!alert.success" type="submit" ng-disabled="loading") 
             span(ng-if="!loading") #{submit}
             i.fa.fa-spin.fa-refresh(ng-if="loading")

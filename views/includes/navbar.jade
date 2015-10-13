@@ -1,9 +1,9 @@
 .pull-left
   h3 Kaltura VPaaS Recipes
 .pull-right
-  div(ng-if="user")
-    a.btn.btn-lg.btn-link Sign Out
-  div(ng-if="!user")
+  div(ng-if="user.userId")
+    a.btn.btn-lg.btn-link(ng-click="setUser({})") Sign Out
+  div(ng-if="!user.userId")
     a#SignupButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Signup") Sign Up
     a#LoginButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Login") Log In
 .clearfix

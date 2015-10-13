@@ -19,8 +19,8 @@ html
     script(src="/js/ng/home.js")
 
   body(ng-app="App")
-    include ./includes/auth-modals.jade
-    .login-bar
+    .login-bar(ng-controller="LoginBar")
+      include ./includes/auth-modals.jade
       .container
         include ./includes/navbar.jade
     
@@ -33,7 +33,7 @@ html
         .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col(
               ng-repeat="recipe in matchingRecipes"
               ng-if="!recipe.broken")
-          a.recipe-link(href="{{recipe.name}}")
+          a.recipe-link(href="/recipes/{{recipe.name}}")
           .recipe-item
             h3.recipe-title {{recipe.title}}
             p.recipe-icon.fa(ng-class="'fa-' + (recipe.icon || 'plug')")
