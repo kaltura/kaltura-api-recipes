@@ -8,6 +8,8 @@ var Mkdirp = require('mkdirp');
 var Rmdir = require('rimraf')
 var Expect = require('chai').expect;
 
+var IGNORED_FILES = ['.keep'];
+
 var Languages = require('lucy-codegen').languages;
 
 var Server = require('./server.js');
@@ -89,7 +91,12 @@ var buildCode = function(recipe, data, done) {
         FS.writeFileSync(Path.join(baseDir, file.filename), file.contents);
       });
     } else {
-      files.filter(function(f) {return !f.directory}).forEach(function(file) {
+      files.filter(function(f) {
+        if (f.directory) return false;
+        var basename = Path.basename(f.filename);
+        if (IGNORED_FILES.indexOf(basename) !== -1) return false;
+        return true;
+      }).forEach(function(file) {
         var golden = FS.readFileSync(Path.join(baseDir, file.filename), 'utf8')
         Expect(file.contents).to.equal(golden)
       })
