@@ -1,7 +1,7 @@
 var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
-App.controller('LoginBar', function($scope) {
+App.controller('Body', function($scope) {
   $scope.user = {};
   $scope.setUser = function(creds) {
     $scope.user = creds;
@@ -18,6 +18,14 @@ App.controller('LoginBar', function($scope) {
   if (credCookie) {
     var stored = credCookie.substring(STORAGE_KEY.length + 1);
     $scope.user = JSON.parse(stored);
+  }
+
+  $scope.openRecipe = function(name) {
+    if ($scope.user.userId) {
+      window.location.href = '/recipes/' + name;
+    } else {
+      $('#Signup').modal('show');
+    }
   }
 })
 
