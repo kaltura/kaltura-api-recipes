@@ -12,6 +12,17 @@ var config = {
 
 Router.use(require('body-parser').json());
 
+Router.post('/login', function(req, res) {
+  var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
+  var client = new kc.KalturaClient(kaltura_conf);
+  var type = ktypes.KalturaSessionType.ADMIN;
+  client.partner.getSecrets(function(secrets) {
+    if (!secrets) return res.status(500).end();
+    if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
+    res.json(secrets);
+  }, req.body.partnerId, req.body.email, req.body.password)
+})
+
 var COPY_FIELDS = [
   'firstName', 'lastName', 'country', 'state',
 ];
@@ -19,6 +30,7 @@ var MAP_FIELDS = [
   {from: 'company', to: 'description'},
   {from: 'email', to: 'adminEmail'},
 ]
+
 Router.post('/signup', function(req, res) {
   var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
   kaltura_conf.serviceUrl = config.service_url;
@@ -48,14 +60,3 @@ Router.post('/signup', function(req, res) {
     }, partner, cms_password, template_partner_id, silent);
   }, config.admin_secret, config.user_id, type, config.partner_id, expiry, privileges);
 });
-
-Router.post('/login', function(req, res) {
-  var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
-  var client = new kc.KalturaClient(kaltura_conf);
-  var type = ktypes.KalturaSessionType.ADMIN;
-  client.partner.getSecrets(function(secrets) {
-    if (!secrets) return res.status(500).end();
-    if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
-    res.json(secrets);
-  }, req.body.partnerId, req.body.email, req.body.password)
-})
