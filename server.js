@@ -23,7 +23,7 @@ App.get('/', function(req, res) {
 })
 
 require('./routes/recipes.js').getRouter(function(router) {
-  App.use('/recipes', router);
+  App.use('/recipes_embed', router);
   App.use('/', require('./routes/pages.js'));
 
   if (process.env.LUCYBOT_DEV) {

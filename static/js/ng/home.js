@@ -38,6 +38,7 @@ App.controller('Login', function($scope) {
   ];
 
   $scope.submit = function() {
+    console.log('logging in...');
     $scope.alert = {};
     $scope.loading = true;
     mixpanel.track('login_submit', {
@@ -91,16 +92,20 @@ App.controller('Signup', function($scope) {
     {label: 'Company', model: 'company', type: 'text', required: true},
     {label: 'E-mail', model:'email', type:'email', required: true},
     {label: 'Country', model:'country', type: 'select', options: COUNTRIES, required: true},
+    {label: 'State', model: 'state', type: 'select', hidden: true},
     {label: 'How are you planning to use Kaltura?', model: 'useage', type: 'textarea'},
     {label: 'Would you like a Kaltura expert to help architect/design a solution with you?',
      model: 'help', type: 'radio', options: ['Yes', 'No']}
   ];
 
   $scope.$watch('responses.country', function() {
-    if ($scope.responses.country === 'US') {
-      $scope.inputs.splice(5, 0, {
-        label: 'State', model: 'state', type: 'select', options: STATES
-      })
+    var states = STATES[$scope.responses.country];
+    if (states) {
+      $scope.inputs[5].hidden = false;
+      $scope.inputs[5].options = states;
+    } else {
+      $scope.responses.state = null;
+      $scope.inputs[5].hidden = true;
     }
   });
 

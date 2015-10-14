@@ -3,17 +3,12 @@ body {
   padding-bottom: 30px;
 }
 
+a {
+  cursor: pointer;
+}
+
 .login-bar {
   margin-bottom: 30px;
-  background-color: #eee;
-}
-
-.login-bar h3 {
-  margin-top: 10px;
-}
-
-.login-bar .pull-right {
-  margin-right: -15px;
 }
 
 .recipe-link {

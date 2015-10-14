@@ -1,0 +1,12 @@
+.login-bar {
+  background-color: #eee;
+}
+
+.login-bar h3 {
+  margin-top: 10px;
+}
+
+.login-bar .pull-right {
+  margin-right: -15px;
+}
+

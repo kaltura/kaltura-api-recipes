@@ -11,7 +11,7 @@ mixin modal(id, title, submit)
           .modal-title
             h3 #{title}
         .modal-body
-          .form-group(ng-repeat="input in inputs")
+          .form-group(ng-repeat="input in inputs" ng-show="!input.hidden")
             label(ng-bind="input.label")
             input.form-control(
                 ng-if="input.type === 'text' || input.type === 'number' || input.type === 'password' || input.type === 'email'"

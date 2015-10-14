@@ -7,6 +7,7 @@ var config = {
   partner_id: 102,
   admin_secret: '92ed864443d6cfadee508167016ea309',
   user_id: null,
+  service_url: process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/',
 }
 
 Router.use(require('body-parser').json());
@@ -20,6 +21,7 @@ var MAP_FIELDS = [
 ]
 Router.post('/signup', function(req, res) {
   var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
+  kaltura_conf.serviceUrl = config.service_url;
   var client = new kc.KalturaClient(kaltura_conf);
   var type = ktypes.KalturaSessionType.ADMIN;
 
