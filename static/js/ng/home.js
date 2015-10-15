@@ -93,7 +93,7 @@ App.controller('Signup', function($scope) {
     {label: 'E-mail', model:'email', type:'email', required: true},
     {label: 'Country', model:'country', type: 'select', options: COUNTRIES, required: true},
     {label: 'State', model: 'state', type: 'select', hidden: true},
-    {label: 'How are you planning to use Kaltura?', model: 'useage', type: 'textarea'},
+    {label: 'How are you planning to use Kaltura?', model: 'usage', type: 'textarea'},
     {label: 'Would you like a Kaltura expert to help architect/design a solution with you?',
      model: 'help', type: 'radio', options: ['Yes', 'No']}
   ];

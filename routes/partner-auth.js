@@ -1,5 +1,7 @@
 var Router = module.exports = require('express').Router();
 
+var Request = require('request');
+
 var kc = require('../lib/KalturaClient');
 var ktypes = require('../lib/KalturaTypes');
 var vo = require ('../lib/KalturaVO.js');
@@ -59,4 +61,13 @@ Router.post('/signup', function(req, res) {
       res.json(results);
     }, partner, cms_password, template_partner_id, silent);
   }, config.admin_secret, config.user_id, type, config.partner_id, expiry, privileges);
+  if (process.env.SSO_SYNC_URL) {
+    delete req.body.usage;
+    req.body.nonce = 'kalt012!';
+    Request.post(process.env.SSO_SYNC_URL, {
+      json: req.body
+    }, function(err, response, body) {
+      if (err) throw err;
+    })
+  }
 });

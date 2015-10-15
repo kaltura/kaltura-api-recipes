@@ -17,19 +17,19 @@
   },
   "homepage": "https://github.com/bobby-brennan/kaltura-recipes",
   "dependencies": {
-    "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
-    "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
     "async": "^1.2.1",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "ejs": "^2.3.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
+    "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
+    "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
+    "request": "^2.65.0",
     "xml2js": "^0.4.9"
   },
   "devDependencies": {
     "rimraf": "~2.4.2",
-    "request": "~2.60.0",
     "mkdirp": "~0.5.1",
     "mocha": "~2.2.5",
     "chai": "~3.2.0",
