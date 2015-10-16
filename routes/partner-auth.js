@@ -1,6 +1,9 @@
 var Router = module.exports = require('express').Router();
 
+var Crypto = require('crypto');
 var Request = require('request');
+
+var SSO_SECRET = 'kalt012!';
 
 var kc = require('../lib/KalturaClient');
 var ktypes = require('../lib/KalturaTypes');
@@ -33,6 +36,11 @@ var MAP_FIELDS = [
   {from: 'email', to: 'adminEmail'},
 ]
 
+Router.post('/shatest', function(req, res) {
+  console.log('req.body', req.body);
+  res.end();
+})
+
 Router.post('/signup', function(req, res) {
   var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
   kaltura_conf.serviceUrl = config.service_url;
@@ -61,13 +69,23 @@ Router.post('/signup', function(req, res) {
       res.json(results);
     }, partner, cms_password, template_partner_id, silent);
   }, config.admin_secret, config.user_id, type, config.partner_id, expiry, privileges);
+
   if (process.env.SSO_SYNC_URL) {
     delete req.body.usage;
-    req.body.nonce = 'kalt012!';
-    Request.post(process.env.SSO_SYNC_URL, {
-      json: req.body
-    }, function(err, response, body) {
+    Crypto.randomBytes(48, function(err, buf) {
       if (err) throw err;
+      var salt = buf.toString('hex');
+      var now = (new Date()).getTime();
+      var maxTime = now + 180 * 1000;
+      var shasum = Crypto.createHash('sha1');
+      shasum.update(salt + SSO_SECRET + maxTime);
+      var sha1 = shasum.digest('hex');
+      req.body.nonce = [salt, maxTime, sha1].join(',');
+      Request.post(process.env.SSO_SYNC_URL, {
+        json: req.body
+      }, function(err, response, body) {
+        if (err) throw err;
+      })
     })
   }
 });
