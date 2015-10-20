@@ -3,6 +3,10 @@
   background-color: #eee;
 }
 
+.navbar a {
+  text-align: left;
+}
+
 .navbar .navbar-brand {
   padding: 4px;
   padding-left: 15px;
