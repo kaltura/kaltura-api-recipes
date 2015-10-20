@@ -20,6 +20,9 @@ html
   
   body(ng-app="App")
     div(ng-controller="Body")
+      mixin container
+        .container-fluid
+          block
       include ./includes/navbar.jade
     .iframe-container
       iframe(src="#{iframeURL}")

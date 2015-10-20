@@ -22,6 +22,9 @@ html
 
   body(ng-app="App")
     div(ng-controller="Body")
+      mixin container
+        .container
+          block
       include ./includes/navbar.jade
 
       .container(ng-controller="Recipes")

@@ -3,7 +3,7 @@ var Router = module.exports = require('express').Router();
 var Crypto = require('crypto');
 var Request = require('request');
 
-var SSO_SECRET = 'kalt012!';
+var SSO_SECRET = process.env.KALTURA_SSO_SECRET || 'kalt012!';
 
 var kc = require('../lib/KalturaClient');
 var ktypes = require('../lib/KalturaTypes');
