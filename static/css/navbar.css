@@ -8,5 +8,8 @@
 
 .login-bar .pull-right {
   margin-right: -15px;
+  position: relative;
+  top: 50%;
+  transform: translateY(30%);
 }
 
