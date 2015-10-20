@@ -7,10 +7,6 @@ a {
   cursor: pointer;
 }
 
-.login-bar {
-  margin-bottom: 30px;
-}
-
 .recipe-link {
   position: absolute;
   top: 0;

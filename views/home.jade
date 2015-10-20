@@ -22,10 +22,7 @@ html
 
   body(ng-app="App")
     div(ng-controller="Body")
-      .login-bar
-        include ./includes/auth-modals.jade
-        .container
-          include ./includes/navbar.jade
+      include ./includes/navbar.jade
 
       .container(ng-controller="Recipes")
         .row
