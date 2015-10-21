@@ -84,7 +84,7 @@ Router.post('/signup', function(req, res) {
       Request.post(process.env.SSO_SYNC_URL, {
         json: req.body
       }, function(err, response, body) {
-        if (err) throw err;
+        if (err) console.log(err);
       })
     })
   }
