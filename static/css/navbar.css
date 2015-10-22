@@ -1,0 +1,18 @@
+.navbar {
+  border-radius: 0px;
+  background-color: #eee;
+}
+
+.navbar a {
+  text-align: left;
+}
+
+.navbar .navbar-brand {
+  padding: 4px;
+  padding-left: 15px;
+}
+
+.navbar img {
+  max-height: 100%;
+}
+

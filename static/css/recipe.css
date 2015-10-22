@@ -1,84 +1,14 @@
-@font-face {
-  font-family: "Glyphicons Halflings";
-  src: url(/bower/bootstrap/fonts/glyphicons-halflings-regular.woff);
+iframe {
+  border: none;
+  padding-bottom: 46px;
 }
 
-footer {
-  margin-top: 0px !important;
-}
-
-.btn.text-left {
-  text-align: left;
-}
-.btn.text-right {
-  text-align: right;
-}
-
-.text-pink {
-  color: #be69a6;
-}
-
-.text-black {
-  color: #333333;
-}
-
-span.help-block {
-  margin-left: 5px;
-  font-style: italic;
-}
-
-.logo-ask {
-  max-width: 180px;
-  float: right;
-}
-
-h2.message-primary {
-  margin-top: 0px;
-}
-
-.step-navigation .chevron-button {
-  width: 5%;
-}
-
-.step-navigation .step-dropdown {
-  width: 90%;
-}
-
-.btn.btn-code-toolbar .fa,
-.btn.btn-code-toolbar {
-  font-size: 16px;
-}
-
-.demo-frame {
+html, body, iframe, .iframe-container, #Body {
   width: 100%;
   height: 100%;
-  min-height: 600px;
-  border: 15px solid #333;
-  border-top: 24px solid #333;
+  overflow: hidden;
 }
 
-.hljs-div pre {
-  margin-bottom: 0px;
-  max-height: 512px;
-  overflow: scroll;
-}
-
-#Feedback .stars {
-  font-size: 20px;
-}
-
-#Feedback .stars .fa {
-  cursor: pointer;
-}
-
-#Feedback .fa-star {
-  color: #F7CA18;
-}
-
-.related-recipe {
-  border: 1px solid #333;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  padding: 10px;
+body {
+  position: relative;
 }

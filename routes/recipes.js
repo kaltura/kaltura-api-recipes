@@ -113,7 +113,7 @@ var setup = function(callback) {
       languageOptions: {
         ruby: {hashMethod: 'getter'}
       },
-      rootDir: '/recipes',
+      rootDir: '/recipes_embed',
       galleryTitle: 'Kaltura VPaaS Interactive Code Cookbook',
       recipeTitle: 'Kaltura VPaaS Cookbook: {{ recipe }} Recipe',
       jsIncludes: [
