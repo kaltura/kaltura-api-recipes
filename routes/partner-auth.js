@@ -1,6 +1,5 @@
 var Router = module.exports = require('express').Router();
 
-var Crypto = require('crypto');
 var Request = require('request');
 var jwt = require('jsonwebtoken');
 
@@ -61,7 +60,7 @@ Router.post('/signup', function(req, res) {
     partner.name = req.body.firstName + ' ' + req.body.lastName;
     partner.appearInSearch = null;
     partner.partnerPackage = 100;
-    var cms_password = jwt.sign({ lucybot: process.env.KALRTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET);
+    var cms_password = jwt.sign({ lucybot: process.env.KALTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET);
     var template_partner_id = null;
     var silent = null;
     client.partner.register(function(results) {
@@ -71,7 +70,7 @@ Router.post('/signup', function(req, res) {
     }, partner, cms_password, template_partner_id, silent);
   }, config.admin_secret, config.user_id, type, config.partner_id, expiry, privileges);
 
-  if (process.env.SSO_SYNC_URL && process.env.KALTURA_SSO_SECRET) {
+  if (process.env.SSO_SYNC_URL && process.env.KALTURA_SSO_SECRET && process.env.KALTURA_SSO_PAYLOAD) {
     delete req.body.usage;
     var requestify = require('requestify');
 
@@ -83,7 +82,7 @@ Router.post('/signup', function(req, res) {
 	    state: req.body.state,
 	    contactme: req.body.help,
 	    system: 'Code_Recipes',
-	    token: jwt.sign({ lucybot: process.env.KALRTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET) 
+	    token: jwt.sign({ lucybot: process.env.KALTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET) 
     })
     .then(function(response) {
     //Get the response body (JSON parsed or jQuery object for XMLs)
