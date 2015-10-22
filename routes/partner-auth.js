@@ -2,8 +2,9 @@ var Router = module.exports = require('express').Router();
 
 var Crypto = require('crypto');
 var Request = require('request');
+var jwt = require('jsonwebtoken');
 
-var SSO_SECRET = process.env.KALTURA_SSO_SECRET || 'kalt012!';
+//var SSO_SECRET = process.env.KALTURA_SSO_SECRET || 'kalt012!';
 
 var kc = require('../lib/KalturaClient');
 var ktypes = require('../lib/KalturaTypes');
@@ -60,7 +61,7 @@ Router.post('/signup', function(req, res) {
     partner.name = req.body.firstName + ' ' + req.body.lastName;
     partner.appearInSearch = null;
     partner.partnerPackage = 100;
-    var cms_password = 'testit';
+    var cms_password = jwt.sign({ lucybot: process.env.KALRTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET);
     var template_partner_id = null;
     var silent = null;
     client.partner.register(function(results) {
@@ -70,22 +71,23 @@ Router.post('/signup', function(req, res) {
     }, partner, cms_password, template_partner_id, silent);
   }, config.admin_secret, config.user_id, type, config.partner_id, expiry, privileges);
 
-  if (process.env.SSO_SYNC_URL) {
+  if (process.env.SSO_SYNC_URL && process.env.KALTURA_SSO_SECRET) {
     delete req.body.usage;
-    Crypto.randomBytes(48, function(err, buf) {
-      if (err) throw err;
-      var salt = buf.toString('hex');
-      var now = (new Date()).getTime();
-      var maxTime = now + 180 * 1000;
-      var shasum = Crypto.createHash('sha1');
-      shasum.update(salt + SSO_SECRET + maxTime);
-      var sha1 = shasum.digest('hex');
-      req.body.nonce = [salt, maxTime, sha1].join(',');
-      Request.post(process.env.SSO_SYNC_URL, {
-        json: req.body
-      }, function(err, response, body) {
-        if (err) console.log(err);
-      })
+    var requestify = require('requestify');
+
+    requestify.post(process.env.SSO_SYNC_URL, {
+	    name: req.body.firstName + ' ' + req.body.lastName,
+	    company: req.body.company,
+	    email: req.body.email,
+	    country: req.body.country,
+	    state: req.body.state,
+	    contactme: req.body.help,
+	    system: 'Code_Recipes',
+	    token: jwt.sign({ lucybot: process.env.KALRTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET) 
     })
+    .then(function(response) {
+    //Get the response body (JSON parsed or jQuery object for XMLs)
+	response.getBody();
+    });
   }
 });
