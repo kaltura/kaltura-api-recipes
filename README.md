@@ -36,7 +36,10 @@ node server.js
 To use in production, export
 ```bash
 export KALTURA_RECIPES_PORT=443
-sudo node server.js
+export KALTURA_SSO_SECRET=""
+export SSO_SYNC_URL=""
+export KALTURA_SSO_PAYLOAD=""
+sudo -E node server.js
 ```
 
 To allow recipe editing from the web I/F, export:
