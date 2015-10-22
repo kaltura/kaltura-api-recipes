@@ -15,6 +15,7 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
 }
 
 App.use('/', Express.static(__dirname + '/static'));
+App.use('/img', Express.static(__dirname + '/img'));
 
 App.use('/auth', require('./routes/partner-auth.js'));
 
