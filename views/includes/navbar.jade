@@ -1,0 +1,13 @@
+include ./auth-modals.jade
+nav.navbar.navbar-default
+  +container
+    .navbar-header
+      a.navbar-brand(href="/")
+        img(src="http://uploads.webflow.com/561bdec5a10e88401184e9a4/561beb71a10e88401184ec29_Kaltura%20Dev%20Logo%20HiDPI.png")
+    ul.nav.navbar-nav.navbar-right
+      li(ng-if="user.userId")
+        a.btn.btn-lg.btn-link(ng-click="setUser({})") Sign Out
+      li(ng-if="!user.userId")
+        a#SignupButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Signup") Sign Up
+      li(ng-if="!user.userId")
+        a#LoginButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Login") Log In

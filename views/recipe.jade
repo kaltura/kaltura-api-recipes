@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(content='IE=edge', http-equiv='X-UA-Compatible')
+    meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
+
+    link(rel='stylesheet' href='/css/styles.css')
+    link(rel='stylesheet' href='/css/navbar.css')
+    link(rel='stylesheet' href='/css/recipe.css')
+    title=title
+
+    script(src="/bower/jquery/dist/jquery.min.js")
+    script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/bower/angular/angular.min.js")
+    script(src="/js/mixpanel.js")
+    script(src="/js/ng/locations.js")
+    script(src="/js/ng/app.js")
+    script(src="/js/ng/home.js")
+  
+  body(ng-app="App")
+    div(ng-controller="Body")
+      mixin container
+        .container-fluid
+          block
+      include ./includes/navbar.jade
+    .iframe-container
+      iframe(src="#{iframeURL}")
