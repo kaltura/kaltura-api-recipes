@@ -38,7 +38,6 @@ App.controller('Login', function($scope) {
   ];
 
   $scope.submit = function() {
-    console.log('logging in...');
     $scope.alert = {};
     $scope.loading = true;
     mixpanel.track('login_submit', {
@@ -52,6 +51,11 @@ App.controller('Login', function($scope) {
       headers: {'Content-Type': 'application/json'},
     })
     .done(function(response) {
+      mixpanel.identify($scope.responses.email);
+      mixpanel.people.set({
+        '$email': $scope.responses.email,
+        partnerId: $scope.responses.partnerId,
+      })
       mixpanel.track('login_success', {
         partnerId: $scope.responses.partnerId,
         email: $scope.responses.email,
@@ -120,6 +124,15 @@ App.controller('Signup', function($scope) {
       headers: {'Content-Type': 'application/json'},
     })
     .done(function(response) {
+      mixpanel.identify($scope.responses.email);
+      mixpanel.people.set({
+        '$email': $scope.responses.email,
+        partnerId: response.id,
+      })
+      mixpanel.track('signup_success', {
+        partnerId: response.id,
+        email: $scope.responses.email,
+      })
       var creds = {
         partnerId: response.id,
         userId: response.adminUserId,
