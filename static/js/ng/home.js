@@ -128,6 +128,11 @@ App.controller('Signup', function($scope) {
       mixpanel.people.set({
         '$email': $scope.responses.email,
         partnerId: response.id,
+        country: $scope.responses.country,
+        state: $scope.responses.state,
+        company: $scope.responses.company,
+        firstName: $scope.responses.firstName,
+        lastName: $scope.responses.lastName,
       })
       mixpanel.track('signup_success', {
         partnerId: response.id,
