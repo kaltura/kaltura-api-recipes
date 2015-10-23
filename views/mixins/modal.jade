@@ -24,9 +24,9 @@ mixin modal(id, title, submit)
                 ng-model="responses[input.model]")
             div(ng-if="input.type === 'radio'"
                 ng-repeat="option in input.options")
-              input(type="radio" ng-model="responses[input.model]" name="{{ input.model }}")
+              input(type="radio" ng-model="responses[input.model]" name="{{ input.model }}" ng-value="option.value")
               span &nbsp;&nbsp;
-              span {{ option }}
+              span {{ option.label }}
             select.form-control(
                 ng-if="input.type === 'select'"
                 ng-model="responses[input.model]"

@@ -95,7 +95,7 @@ App.controller('Signup', function($scope) {
     {label: 'State', model: 'state', type: 'select', hidden: true},
     {label: 'How are you planning to use Kaltura?', model: 'usage', type: 'textarea'},
     {label: 'Would you like a Kaltura expert to help architect/design a solution with you?',
-     model: 'help', type: 'radio', options: ['Yes', 'No']}
+     model: 'help', type: 'radio', options: [{label: 'Yes', value: true}, {label: 'No', value: false}]}
   ];
 
   $scope.$watch('responses.country', function() {
