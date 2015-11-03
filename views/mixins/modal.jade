@@ -36,6 +36,7 @@ mixin modal(id, title, submit)
         .modal-footer
           .text-left
             .alert.alert-success(ng-if="alert.success") {{ alert.success }}
+            .alert.alert-info(ng-if="alert.info") {{ alert.info }}
             .alert.alert-warning(ng-if="alert.warning") {{ alert.warning }}
             .alert.alert-danger(ng-if="alert.danger") {{ alert.danger }}
           button.btn.btn-success(ng-if="!alert.success" type="submit" ng-disabled="loading") 

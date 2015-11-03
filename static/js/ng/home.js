@@ -31,15 +31,62 @@ App.controller('Body', function($scope) {
 
 App.controller('Login', function($scope) {
   $scope.responses = {};
-  $scope.inputs = [
+  $scope.loginInputs = [
     {label: 'E-mail', model:"email", type:"email", required: true},
-    {label: 'Partner ID', model: "partnerId", type: "number", required: true},
     {label: 'Password', model:"password", type:"password", required: true},
   ];
+
+  $scope.partnerInputs = [
+    {label: 'Partner ID', model: "partnerId", type: "select", required: true},
+  ]
+
+  $scope.inputs = $scope.loginInputs;
 
   $scope.submit = function() {
     $scope.alert = {};
     $scope.loading = true;
+    if ($scope.inputs === $scope.loginInputs) {
+      $scope.login();
+    } else {
+      $scope.selectPartner();
+    }
+  }
+
+  $scope.selectPartner = function() {
+    $.ajax({
+      url: '/auth/selectPartner',
+      method: 'POST',
+      data: JSON.stringify($scope.responses),
+      headers: {'Content-Type': 'application/json'},
+    })
+    .done(function(data) {
+      var creds = {
+        secret: data.adminSecret,
+        userId: $scope.responses.email,
+        partnerId: $scope.responses.partnerId,
+      }
+      $scope.setUser(creds);
+      $scope.alert = {success: "You're ready to go!"};
+      setTimeout(function() {
+        $scope.alert = {};
+        $('#Login').modal('hide');
+      }, 1500);
+    })
+    .fail(function(xhr) {
+      mixpanel.track('login_error', {
+        partnerId: $scope.responses.partnerId,
+        email: $scope.responses.email,
+        error: xhr.responseText,
+      })
+      $scope.alert = {danger: "Error logging in: " + xhr.responseText}
+    })
+    .always(function() {
+      $scope.$apply()
+      $scope.loading = false;
+    })
+  }
+
+  $scope.login = function() {
     mixpanel.track('login_submit', {
       partnerId: $scope.responses.partnerId,
       email: $scope.responses.email,
@@ -60,17 +107,12 @@ App.controller('Login', function($scope) {
         partnerId: $scope.responses.partnerId,
         email: $scope.responses.email,
       })
-      var creds = {
-        partnerId: response.id,
-        secret: response.adminSecret,
-        userId: $scope.responses.email,
-      }
-      $scope.setUser(creds);
-      $scope.alert = {success: "You're ready to go!"};
-      setTimeout(function() {
-        $scope.alert = {};
-        $('#Login').modal('hide');
-      }, 1500);
+      $scope.responses.adminSecret = response.adminSecret;
+      $scope.alert = {info: "Please select a Partner ID"};
+      $scope.partnerInputs[0].options = response.map(function(partner) {
+        return {label: partner.adminEmail + ' (' + partner.id + ')', value: partner.id}
+      })
+      $scope.inputs = $scope.partnerInputs;
     })
     .fail(function(xhr) {
       mixpanel.track('login_error', {

@@ -17,7 +17,7 @@ var config = {
 
 Router.use(require('body-parser').json());
 
-Router.post('/login', function(req, res) {
+Router.post('/selectPartner', function(req, res) {
   var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
   var client = new kc.KalturaClient(kaltura_conf);
   var type = ktypes.KalturaSessionType.ADMIN;
@@ -26,6 +26,19 @@ Router.post('/login', function(req, res) {
     if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
     res.json(secrets);
   }, req.body.partnerId, req.body.email, req.body.password)
+})
+
+Router.post('/login', function(req, res) {
+  var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
+  var client = new kc.KalturaClient(kaltura_conf);
+  var type = ktypes.KalturaSessionType.ADMIN;
+  client.user.loginByLoginId(function(ks) {
+    if (!ks) return res.send("Error logging in");
+    client.setKs(ks);
+    client.partner.listPartnersForUser(function(partners) {
+      res.json(partners.objects);
+    })
+  }, req.body.email, req.body.password)
 })
 
 var COPY_FIELDS = [
