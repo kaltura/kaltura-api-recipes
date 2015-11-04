@@ -20,12 +20,17 @@ Router.use(require('body-parser').json());
 Router.post('/selectPartner', function(req, res) {
   var kaltura_conf = new kc.KalturaConfiguration(req.body.partnerId);
   var client = new kc.KalturaClient(kaltura_conf);
+  client.user.loginByLoginId(function(ks){
+    if (!ks) return res.send("Error logging in");
+    client.setKs(ks);
   var type = ktypes.KalturaSessionType.ADMIN;
   client.partner.getSecrets(function(secrets) {
     if (!secrets) return res.status(500).end();
     if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
     res.json(secrets);
-  }, req.body.partnerId, req.body.email, req.body.password)
+  }, req.body.partnerId, req.body.email, req.body.password);
+
+})
 })
 
 Router.post('/login', function(req, res) {
