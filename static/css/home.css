@@ -7,6 +7,10 @@ a {
   cursor: pointer;
 }
 
+.chosen-container {
+  width: 100% !important;
+}
+
 .recipe-link {
   position: absolute;
   top: 0;

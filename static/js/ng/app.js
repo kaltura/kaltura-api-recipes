@@ -1,4 +1,4 @@
-var App = angular.module('App', []);
+var App = angular.module('App', ['localytics.directives']);
 App.controller('Recipes', function($scope) {
   $scope.recipes = $scope.matchingRecipes = RECIPES;
   $scope.$watch('query', function(q) {

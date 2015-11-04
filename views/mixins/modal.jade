@@ -27,7 +27,7 @@ mixin modal(id, title, submit)
               input(type="radio" ng-model="responses[input.model]" name="{{ input.model }}" ng-value="option.value")
               span &nbsp;&nbsp;
               span {{ option.label }}
-            select.form-control(
+            select.form-control(chosen
                 ng-if="input.type === 'select'"
                 ng-model="responses[input.model]"
                 ng-options="o.value as o.label for o in input.options")

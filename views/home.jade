@@ -8,11 +8,14 @@ html
     link(rel='stylesheet' href='/css/styles.css')
     link(rel='stylesheet' href='/css/home.css')
     link(rel='stylesheet' href='/css/navbar.css')
+    link(rel='stylesheet' href='/bower/chosen/chosen.min.css')
     title=title
 
     script(src="/bower/jquery/dist/jquery.min.js")
     script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
     script(src="/bower/angular/angular.min.js")
+    script(src="/bower/chosen/chosen.jquery.min.js")
+    script(src="/bower/angular-chosen-localytics/chosen.js")
     script.
       var RECIPES = !{JSON.stringify(Object.keys(recipes).map(function(k) {return recipes[k]}))};
     script(src="/js/mixpanel.js")
