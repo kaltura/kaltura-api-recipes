@@ -4,6 +4,8 @@ html
     meta(charset='utf-8')
     meta(content='IE=edge', http-equiv='X-UA-Compatible')
     meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
+    meta(name="description" content="#{recipe.description}")
+    meta(name="keywords" content="#{(recipe.keywords || []).join(',')}")
 
     link(rel='stylesheet' href='/css/styles.css')
     link(rel='stylesheet' href='/css/navbar.css')
@@ -13,6 +15,8 @@ html
     script(src="/bower/jquery/dist/jquery.min.js")
     script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
     script(src="/bower/angular/angular.min.js")
+    script(src="/bower/chosen/chosen.jquery.min.js")
+    script(src="/bower/angular-chosen-localytics/chosen.js")
     script(src="/js/mixpanel.js")
     script(src="/js/ng/locations.js")
     script(src="/js/ng/app.js")

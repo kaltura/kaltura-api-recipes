@@ -23,12 +23,13 @@
     "ejs": "^2.3.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^5.4.0",
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
     "request": "^2.65.0",
-    "xml2js": "^0.4.9",
-    "jsonwebtoken": "^5.4.0",
-    "requestify": "^0.1.17"
+    "requestify": "^0.1.17",
+    "sitemap": "^1.4.1",
+    "xml2js": "^0.4.9"
   },
   "devDependencies": {
     "rimraf": "~2.4.2",

@@ -19,8 +19,21 @@ App.use('/img', Express.static(__dirname + '/img'));
 
 App.use('/auth', require('./routes/partner-auth.js'));
 
-App.get('/', function(req, res) {
-  res.render('home', {recipes: Recipes.recipes});
+var sitemapUrls = Object.keys(Recipes.recipes).map(function(r) {
+  return {url: '/recipes/' + r, priority: .3}
+});
+sitemapUrls.push({url: '/', priority: .9})
+var sitemap = require('sitemap').createSitemap({
+  hostname: 'https://developer.kaltura.org',
+  cacheTime: 1000 * 60 * 10, // ten minutes
+  urls: sitemapUrls,
+});
+App.use('/sitemap.xml', function(req, res) {
+  sitemap.toXML(function(err, xml) {
+    if (err) return res.status(500).send(err);
+    res.header('Content-Type', 'application/xml');
+    res.send( xml );
+  })
 })
 
 require('./routes/recipes.js').getRouter(function(router) {
