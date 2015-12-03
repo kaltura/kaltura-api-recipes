@@ -1,35 +1,31 @@
 <?php
-  require_once('../../lib/KalturaClient.php');
-  require_once('Credentials.php');
+require_once('../../lib/KalturaClient.php');
+require_once('Credentials.php');
 
-  $config = new KalturaConfiguration(PARTNER_ID);
-  $config->serviceUrl = "https://www.kaltura.com/";
-  $client = new KalturaClient($config);
-  $ks = $client->session->start(
-    SECRET,
-    USER_ID,
-    SESSION_TYPE,
-    PARTNER_ID,
-    null, null);
-  $client->setKS($ks);
+$config = new KalturaConfiguration(PARTNER_ID);
+$config->serviceUrl = "https://www.kaltura.com/";
+$client = new KalturaClient($config);
+$ks = $client->session->start(
+  SECRET,
+  USER_ID,
+  SESSION_TYPE,
+  PARTNER_ID,
+  null, null);
+$client->setKS($ks);
 
-  $id = null;
+$id = null;
 
-  $xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
+$xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
-  $version = null;
+$version = null;
 
-  try {
-    $result = $client->metadata->update(
-      $id, 
-      $xmlData, 
-      $version);
-    $result = (object) $result;
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }
+try {
+  $result = $client->metadata->update(
+    $id, 
+    $xmlData, 
+    $version);
+  $result = (object) $result;
 ?>
-
 <?php if($result->message && $result->code) { ?>
   <h1><?php echo $result->message ?></h1>
 <?php } else { ?>
@@ -42,3 +38,9 @@
     </pre>
   </p>
 <?php } ?>
+<?php
+
+} catch (Exception $e) {
+  echo $e->getMessage();
+}
+?>

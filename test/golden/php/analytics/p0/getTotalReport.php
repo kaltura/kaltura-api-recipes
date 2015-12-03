@@ -1,37 +1,33 @@
 <?php
-  require_once('../../lib/KalturaClient.php');
-  require_once('Credentials.php');
+require_once('../../lib/KalturaClient.php');
+require_once('Credentials.php');
 
-  $config = new KalturaConfiguration(PARTNER_ID);
-  $config->serviceUrl = "https://www.kaltura.com/";
-  $client = new KalturaClient($config);
-  $ks = $client->session->start(
-    SECRET,
-    USER_ID,
-    SESSION_TYPE,
-    PARTNER_ID,
-    null, null);
-  $client->setKS($ks);
+$config = new KalturaConfiguration(PARTNER_ID);
+$config->serviceUrl = "https://www.kaltura.com/";
+$client = new KalturaClient($config);
+$ks = $client->session->start(
+  SECRET,
+  USER_ID,
+  SESSION_TYPE,
+  PARTNER_ID,
+  null, null);
+$client->setKS($ks);
 
-  $reportInputFilter = new KalturaReportInputFilter();
-  $reportInputFilter->fromDay = "2015-07-01";
-  $reportInputFilter->toDay = "2015-07-10";
+$reportInputFilter = new KalturaReportInputFilter();
+$reportInputFilter->fromDay = "2015-07-01";
+$reportInputFilter->toDay = "2015-07-10";
 
-  $reportType = KalturaReportType::TOP_CONTRIBUTORS;
+$reportType = KalturaReportType::TOP_CONTRIBUTORS;
 
-  $objectIds = null;
+$objectIds = null;
 
-  try {
-    $result = $client->report->getTotal(
-      $reportType, 
-      $reportInputFilter, 
-      $objectIds);
-    $result = (object) $result;
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }
+try {
+  $result = $client->report->getTotal(
+    $reportType, 
+    $reportInputFilter, 
+    $objectIds);
+  $result = (object) $result;
 ?>
-
 <table class="table">
   <tr id="Header">
     <td><?php echo $result->header ?></td>
@@ -46,3 +42,9 @@
   cur = $('#Data').html()
   $('#Data').html(cur.replace(/,/g, '</td><td>'));
 </script>
+<?php
+
+} catch (Exception $e) {
+  echo $e->getMessage();
+}
+?>
