@@ -1,33 +1,29 @@
 <?php
-  require_once('../../lib/KalturaClient.php');
-  require_once('Credentials.php');
+require_once('../../lib/KalturaClient.php');
+require_once('Credentials.php');
 
-  $config = new KalturaConfiguration(PARTNER_ID);
-  $config->serviceUrl = "https://www.kaltura.com/";
-  $client = new KalturaClient($config);
-  $ks = $client->session->start(
-    SECRET,
-    USER_ID,
-    SESSION_TYPE,
-    PARTNER_ID,
-    null, null);
-  $client->setKS($ks);
+$config = new KalturaConfiguration(PARTNER_ID);
+$config->serviceUrl = "https://www.kaltura.com/";
+$client = new KalturaClient($config);
+$ks = $client->session->start(
+  SECRET,
+  USER_ID,
+  SESSION_TYPE,
+  PARTNER_ID,
+  null, null);
+$client->setKS($ks);
 
-  $filter = new KalturaMetadataProfileFilter();
+$filter = new KalturaMetadataProfileFilter();
 
-  $pager = new KalturaFilterPager();
+$pager = new KalturaFilterPager();
 
 
-  try {
-    $result = $client->metadataProfile->listAction(
-      $filter, 
-      $pager);
-    $result = (object) $result->objects;
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }
+try {
+  $result = $client->metadataProfile->listAction(
+    $filter, 
+    $pager);
+  $result = (object) $result->objects;
 ?>
-
 <?php foreach($result as $index=>$profile) { ?>
   <div class="row">
     <div class="col-xs-8">
@@ -57,3 +53,9 @@
     </div>
   </div>
 <?php } ?>
+<?php
+
+} catch (Exception $e) {
+  echo $e->getMessage();
+}
+?>
