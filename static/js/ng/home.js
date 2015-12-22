@@ -110,7 +110,7 @@ App.controller('Login', function($scope) {
       $scope.responses.adminSecret = response.adminSecret;
       $scope.alert = {info: "Please select a Partner ID"};
       $scope.partnerInputs[0].options = response.map(function(partner) {
-        return {label: partner.adminEmail + ' (' + partner.id + ')', value: partner.id}
+        return {label: partner.name + ' (' + partner.id + ')', value: partner.id}
       })
       $scope.inputs = $scope.partnerInputs;
     })
