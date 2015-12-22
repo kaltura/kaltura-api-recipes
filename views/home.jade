@@ -38,7 +38,7 @@ html
               input.form-control(type="text" ng-model="query" placeholder="Search")
         .row
           .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col(
-                ng-repeat="recipe in matchingRecipes"
+                ng-repeat="recipe in recipes | filter: query"
                 ng-if="!recipe.broken")
             a.recipe-link(ng-click="openRecipe(recipe.name)")
             .recipe-item
