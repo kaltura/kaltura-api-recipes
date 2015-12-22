@@ -38,10 +38,19 @@ html
               input.form-control(type="text" ng-model="query" placeholder="Search")
         .row
           .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col(
-                ng-repeat="recipe in recipes | filter: query"
+                ng-repeat="recipe in matchingRecipes = (recipes | filter: query)"
                 ng-if="!recipe.broken")
             a.recipe-link(ng-click="openRecipe(recipe.name)")
             .recipe-item
               h3.recipe-title {{recipe.title}}
               p.recipe-icon.fa(ng-class="'fa-' + (recipe.icon || 'plug')")
               p.recipe-description.text-left {{recipe.description}}
+          .col-xs-12(ng-show="!matchingRecipes.lenth" ng-controller="Suggestion")
+            h4 Sorry, no recipes found
+            .alert.alert-success(ng-show="success") Thanks for your feedback!
+            form(ng-submit="sendSuggestion()")
+              .form-group
+                label What are we missing?
+                textarea.form-control(ng-model="suggestion")
+              .form-group
+                button.btn.btn-success(type="submit") Submit
