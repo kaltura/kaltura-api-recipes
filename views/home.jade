@@ -45,12 +45,12 @@ html
               h3.recipe-title {{recipe.title}}
               p.recipe-icon.fa(ng-class="'fa-' + (recipe.icon || 'plug')")
               p.recipe-description.text-left {{recipe.description}}
-          .col-xs-12(ng-show="!matchingRecipes.lenth" ng-controller="Suggestion")
-            h4 Sorry, no recipes found
+          .col-xs-12(ng-controller="Suggestion")
+            h4 Can't find what you're looking for?
             .alert.alert-success(ng-show="success") Thanks for your feedback!
             form(ng-submit="sendSuggestion()")
               .form-group
-                label What are we missing?
+                label Tell us what we're missing!
                 textarea.form-control(ng-model="suggestion")
               .form-group
                 button.btn.btn-success(type="submit") Submit
