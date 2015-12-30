@@ -108,7 +108,7 @@ App.controller('Login', function($scope) {
         email: $scope.responses.email,
       })
       $scope.responses.adminSecret = response.adminSecret;
-      $scope.alert = {info: "Please select a Partner ID"};
+      $scope.alert = {info: "Choose the Kaltura account you'd like to use"};
       $scope.partnerInputs[0].options = response.map(function(partner) {
         return {label: partner.name + ' (' + partner.id + ')', value: partner.id}
       })
