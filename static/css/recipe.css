@@ -11,4 +11,5 @@ html, body, iframe, .iframe-container, #Body {
 
 body {
   position: relative;
+  padding-bottom: 50px;
 }
