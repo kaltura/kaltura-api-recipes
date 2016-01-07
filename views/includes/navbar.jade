@@ -5,7 +5,8 @@ nav.navbar.navbar-default
       a.navbar-brand(href="/")
         img(src="/img/kaltura_dev.png")
     ul.nav.navbar-nav.navbar-right
-      li(ng-if="user.userId")
-        a.btn.btn-lg.btn-default(ng-click="setUser({})") Sign Out
+      li.signed-in(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
+        span Signed in as {{user.userId}} 
+          a(href="javascript:;" ng-click="setUser({})") [sign out]
       li(ng-if="!user.userId")
         a#LoginButton.btn.btn-default(data-toggle="modal" data-target="#Login") Sign In
