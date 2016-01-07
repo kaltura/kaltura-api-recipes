@@ -6,8 +6,6 @@ nav.navbar.navbar-default
         img(src="/img/kaltura_dev.png")
     ul.nav.navbar-nav.navbar-right
       li(ng-if="user.userId")
-        a.btn.btn-lg.btn-link(ng-click="setUser({})") Sign Out
+        a.btn.btn-lg.btn-default(ng-click="setUser({})") Sign Out
       li(ng-if="!user.userId")
-        a#SignupButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Signup") Sign Up
-      li(ng-if="!user.userId")
-        a#LoginButton.btn.btn-lg.btn-link(data-toggle="modal" data-target="#Login") Log In
+        a#LoginButton.btn.btn-default(data-toggle="modal" data-target="#Login") Sign In

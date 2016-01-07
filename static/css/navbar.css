@@ -1,10 +1,16 @@
 .navbar {
   border-radius: 0px;
   background-color: #fff;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .navbar a {
   text-align: left;
+}
+
+.navbar ul {
+  margin-right: 0;
 }
 
 .navbar .navbar-brand {
