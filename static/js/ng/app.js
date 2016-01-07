@@ -19,7 +19,6 @@ App.controller('Recipes', function($scope) {
   }).filter(function(k) {return k});
 
   $scope.recipeFilter = function(recipe) {
-    console.log('rf')
     if (!$scope.filterOptions.active) return true;
     if (!recipe.keywords || !recipe.keywords[0]) return false;
     var keyword = recipe.keywords[0].toLowerCase();
