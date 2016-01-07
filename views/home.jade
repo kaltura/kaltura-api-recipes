@@ -80,19 +80,18 @@ html
                     .heading-title.col-xs-10.text-right.text-uppercase
                       span(ng-bind="recipe.title")
                 .panel-body.text-right
-                  .info-button(data-toggle="tooltip" data-placement="right" title="{{recipe.description}}")
-                    p
-                      i.fa.fa-2x.fa-info-circle
+                  p
+                    i.fa.fa-2x.fa-info-circle(data-toggle="tooltip" data-placement="left" title="{{recipe.tip}}")
                   p(ng-bind="recipe.description")
                   p.keywords
                     .keyword-badge(ng-repeat="keyword in recipe.keywords" ng-bind="keyword")
-
+          .row.suggestion-bar
             .col-xs-12(ng-controller="Suggestion")
-              h4 Can't find what you're looking for?
+              h4.text-black Can't find what you're looking for?
               .alert.alert-success(ng-show="success") Thanks for your feedback!
               form(ng-submit="sendSuggestion()")
                 .form-group
-                  label Tell us what we're missing!
+                  span.text-primary Let us know what we're missing.
                   textarea.form-control(ng-model="suggestion")
                 .form-group
-                  button.btn.btn-success(type="submit") Submit
+                  button.btn.btn-sm.btn-primary(type="submit") Submit

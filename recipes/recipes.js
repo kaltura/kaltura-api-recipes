@@ -3,6 +3,7 @@ var Recipes = RecipeManager.recipes = {};
 
 var FS = require('fs');
 var Path = require('path');
+var RemoveMarkdown = require('remove-markdown');
 
 var AuthStep = require('./includes/auth.js');
 
@@ -54,6 +55,9 @@ RecipeManager.setRecipeDefaults = function(recipe) {
       })
     })
   }
+  recipe.tip = recipe.recipe_steps[1].tip || '';
+  if (Array.isArray(recipe.tip)) recipe.tip = recipe.tip.join('\n\n');
+  recipe.tip = RemoveMarkdown(recipe.tip);
 }
 
 RecipeManager.addRelatedRecipes = function(recipe) {
