@@ -26,6 +26,7 @@
     "jsonwebtoken": "^5.4.0",
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
+    "remove-markdown": "0.0.6",
     "request": "^2.65.0",
     "requestify": "^0.1.17",
     "sitemap": "^1.4.1",

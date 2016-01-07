@@ -14,6 +14,7 @@ a {
 .search-bar {
   padding-top: 30px;
   padding-bottom: 30px;
+  margin-bottom: 80px;
 }
 
 .search-bar input {
@@ -84,21 +85,20 @@ a {
   z-index: 100;
 }
 
-.recipe-item {
-  border: 1px solid #333;
-  border-radius: 4px;
-  height: 280px;
-  padding: 10px;
-  margin-bottom: 30px;
-  background-color: #fff;
+.suggestion-bar {
+  margin-top: 30px;
 }
 
-.recipe-title {
-  height: 54px;
+.suggestion-bar h4 {
+  color: #000;
 }
 
-.recipe-icon {
-  font-size: 48px;
+.suggestion-bar textarea {
   margin-top: 20px;
-  margin-bottom: 40px;
+  border: none;
+  height: 150px;
+}
+
+.suggestion-bar .btn {
+  width: 100px;
 }
