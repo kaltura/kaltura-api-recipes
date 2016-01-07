@@ -13,6 +13,10 @@
   margin-right: 0;
 }
 
+li.signed-in {
+  line-height: 45px;
+}
+
 .navbar .navbar-brand {
   padding: 4px;
   padding-left: 15px;

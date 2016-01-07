@@ -68,7 +68,7 @@ html
                         a(ng-click="filterOptions.active = opt" ng-bind="opt")
         .container
           .row
-            .col-xs-12.col-sm-6.col-lg-4.text-center(
+            .col-xs-12.col-sm-6.col-lg-4.text-center.recipe-col(
                   ng-repeat="recipe in matchingRecipes = (recipes | filter: query | filter: recipeFilter | orderBy: recipeSort)"
                   ng-if="!recipe.broken")
               .panel.panel-warning

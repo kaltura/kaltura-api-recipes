@@ -68,6 +68,10 @@ a {
   width: 100% !important;
 }
 
+.recipe-col {
+  margin-bottom: 30px;
+}
+
 .panel {
   border: none;
 }
