@@ -1,16 +1,19 @@
 doctype html
 html
   head
+    title=title
+
     meta(charset='utf-8')
     meta(content='IE=edge', http-equiv='X-UA-Compatible')
     meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
     meta(name="description" content="Code Recipes for using the Kaltura VPaaS")
 
+    link(rel='stylesheet' href='/bower/fontawesome/css/font-awesome.min.css')
+    link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/styles.css')
     link(rel='stylesheet' href='/css/home.css')
     link(rel='stylesheet' href='/css/navbar.css')
     link(rel='stylesheet' href='/bower/chosen/chosen.min.css')
-    title=title
 
     script(src="/bower/jquery/dist/jquery.min.js")
     script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
@@ -32,19 +35,55 @@ html
       include ./includes/navbar.jade
 
       div(ng-controller="Recipes")
-        .form-group.search-bar
+        .form-group.bg-primary.search-bar
           .container
-            input.form-control(type="text" ng-model="query" placeholder="Search")
+            .row
+              .col-xs-12.col-sm-9
+                .input-group
+                  input.form-control(type="text" ng-model="query" placeholder="Search")
+                  span.input-group-addon
+                    i.fa.fa-search.bg-white
+              .hidden-xs.col-sm-3
+                .btn-toolbar.pull-right
+                  .btn-group
+                    .btn.btn-primary.dropdown-toggle(data-toggle="dropdown") Sort
+                      span(ng-show="sortOptions.active") : {{sortOptions.active}}
+                      i.fa.fa-right.fa-caret-down
+                    ul.dropdown-menu
+                      li
+                        a(ng-click="sortOptions.active = null") Default
+                      li(ng-repeat="opt in sortOptions")
+                        a(ng-click="sortOptions.active = opt" ng-bind="opt")
+                  .btn-group
+                    .btn.btn-primary.dropdown-toggle(data-toggle="dropdown") Filter
+                      span(ng-show="filterOptions.active") : {{filterOptions.active}}
+                      i.fa.fa-right.fa-caret-down
+                    ul.dropdown-menu
+                      li
+                        a(ng-click="filterOptions.active = null") None
+                      li(ng-repeat="opt in filterOptions")
+                        a(ng-click="filterOptions.active = opt" ng-bind="opt")
         .container
           .row
-            .col-xs-12.col-sm-6.col-md-4.text-center.recipe-col(
-                  ng-repeat="recipe in matchingRecipes = (recipes | filter: query)"
+            .col-xs-12.col-sm-6.col-lg-4.text-center(
+                  ng-repeat="recipe in matchingRecipes = (recipes | filter: query | filter: recipeFilter | orderBy: recipeSort)"
                   ng-if="!recipe.broken")
-              a.recipe-link(ng-click="openRecipe(recipe.name)")
-              .recipe-item
-                h3.recipe-title {{recipe.title}}
-                p.recipe-icon.fa(ng-class="'fa-' + (recipe.icon || 'plug')")
-                p.recipe-description.text-left {{recipe.description}}
+              .panel.panel-warning
+                .panel-heading
+                  a.recipe-link(ng-click="openRecipe(recipe.name)")
+                  .row
+                    .heading-icon.col-xs-2.text-left
+                      i.fa.fa-left(ng-class="'fa-' + (recipe.icon || 'plug')")
+                    .heading-title.col-xs-10.text-right.text-uppercase
+                      span(ng-bind="recipe.title")
+                .panel-body.text-right
+                  .info-button(data-toggle="tooltip" data-placement="right" title="{{recipe.description}}")
+                    p
+                      i.fa.fa-2x.fa-info-circle
+                  p(ng-bind="recipe.description")
+                  p.keywords
+                    .keyword-badge(ng-repeat="keyword in recipe.keywords" ng-bind="keyword")
+
             .col-xs-12(ng-controller="Suggestion")
               h4 Can't find what you're looking for?
               .alert.alert-success(ng-show="success") Thanks for your feedback!

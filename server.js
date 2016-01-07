@@ -19,6 +19,16 @@ App.use('/img', Express.static(__dirname + '/img'));
 
 App.use('/auth', require('./routes/partner-auth.js'));
 
+if (process.env.DEVELOPMENT) {
+  App.use('/strapping', require('strapping')({
+    basePath: '/strapping',
+    output: {
+      styles: __dirname + '/static/css/bootstrap.css',
+      settings: __dirname + '/static/css/config.json',
+    }
+  }))
+}
+
 var sitemapUrls = Object.keys(Recipes.recipes).map(function(r) {
   return {url: '/recipes/' + r, priority: .3}
 });
