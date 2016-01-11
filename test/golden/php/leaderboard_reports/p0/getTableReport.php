@@ -1,39 +1,43 @@
 <?php
-require_once('../../lib/KalturaClient.php');
-require_once('Credentials.php');
+  require_once('../../lib/KalturaClient.php');
+  require_once('Credentials.php');
 
-$config = new KalturaConfiguration(PARTNER_ID);
-$config->serviceUrl = "https://www.kaltura.com/";
-$client = new KalturaClient($config);
-$ks = $client->session->start(
-  SECRET,
-  USER_ID,
-  SESSION_TYPE,
-  PARTNER_ID,
-  null, null);
-$client->setKS($ks);
+  $config = new KalturaConfiguration(PARTNER_ID);
+  $config->serviceUrl = "http://jessex";
+  $client = new KalturaClient($config);
+  $ks = $client->session->start(
+    SECRET,
+    USER_ID,
+    SESSION_TYPE,
+    PARTNER_ID,
+    null, null);
+  $client->setKS($ks);
 
-$reportInputFilter = new KalturaReportInputFilter();
-$reportInputFilter->fromDay = "20150615";
-$reportInputFilter->toDay = "20150715";
+  $reportInputFilter = new KalturaReportInputFilter();
+  $reportInputFilter->fromDay = "20150615";
+  $reportInputFilter->toDay = "20150715";
 
-$pager = new KalturaFilterPager();
+  $pager = new KalturaFilterPager();
 
-$reportType = KalturaReportType::USER_TOP_CONTENT;
+  $reportType = KalturaReportType::USER_TOP_CONTENT;
 
-$order = "count_plays";
+  $order = "count_plays";
 
-$objectIds = null;
+  $objectIds = null;
 
-try {
-  $result = $client->report->getTable(
-    $reportType, 
-    $reportInputFilter, 
-    $pager, 
-    $order, 
-    $objectIds);
-  $result = (object) $result;
+  try {
+    $result = $client->report->getTable(
+      $reportType, 
+      $reportInputFilter, 
+      $pager, 
+      $order, 
+      $objectIds);
+    $result = (object) $result;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
 ?>
+
 <table class="table">
   <tr id="Header">
     <td><?php echo $result->header ?></td>
@@ -55,9 +59,3 @@ try {
     $('table').append(getRow(row));
   })
 </script>
-<?php
-
-} catch (Exception $e) {
-  echo $e->getMessage();
-}
-?>

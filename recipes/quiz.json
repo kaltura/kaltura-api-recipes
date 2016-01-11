@@ -1,0 +1,95 @@
+{
+  "name": "quiz",
+  "title": "Quiz",
+  "icon": "columns",
+  "description": "Learn how to create a quiz and display it during playback",
+  "recipe_steps": [
+    {
+      "title": "Select a Media Entry",
+      "tip": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "code_snippet": "listCuePoint",
+      "inputs": [
+        {
+          "name": "cuePointTypeEqual",
+          "type": "text",
+          "default": "quiz.QUIZ_QUESTION",
+          "hidden": true
+        },
+        {
+          "type": "select-chosen",
+          "name": "uiConf",
+          "dynamic_choices": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeEqual": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER"
+                  }
+                }
+              }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        },
+        {
+          "type": "select-chosen",
+          "label": "Media Entry",
+          "name": "entryIdEqual",
+          "dynamic_choices": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Adding a Quiz question [Cue Point]",
+      "tip": "You can use the form below to add a question to your video.",
+      "code_snippet": "AddQuesionCuePoint",
+      "inputs": []
+    }
+  ],
+  "pages": [
+    {
+      "view": "QuestionCuePointListResponse",
+      "data": {
+        "action": "listCuePoint"
+      }
+    }
+  ],
+  "views": [
+    "QuestionCuePointListResponse",
+    "KalturaMediaEntry",
+    "AddQuestionCuePointForm",
+    "AddQuestionCuePoint",
+    "QuestionCuePointAdded"
+  ],
+  "actions": [
+    {
+      "service": "cuePoint",
+      "action": "listAction",
+      "view": "QuestionCuePointListResponse"
+    },
+    {
+      "action": "addQuestionCuePoint",
+      "view": "QuestionCuePointAdded"
+    },
+    {
+      "service": "media",
+      "action": "get",
+      "view": "KalturaMediaEntry"
+    }
+  ]
+}

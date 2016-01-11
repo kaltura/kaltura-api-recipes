@@ -1,29 +1,33 @@
 <?php
-require_once('../../lib/KalturaClient.php');
-require_once('Credentials.php');
+  require_once('../../lib/KalturaClient.php');
+  require_once('Credentials.php');
 
-$config = new KalturaConfiguration(PARTNER_ID);
-$config->serviceUrl = "https://www.kaltura.com/";
-$client = new KalturaClient($config);
-$ks = $client->session->start(
-  SECRET,
-  USER_ID,
-  SESSION_TYPE,
-  PARTNER_ID,
-  null, null);
-$client->setKS($ks);
+  $config = new KalturaConfiguration(PARTNER_ID);
+  $config->serviceUrl = "http://jessex";
+  $client = new KalturaClient($config);
+  $ks = $client->session->start(
+    SECRET,
+    USER_ID,
+    SESSION_TYPE,
+    PARTNER_ID,
+    null, null);
+  $client->setKS($ks);
 
-$filter = new KalturaMediaEntryFilter();
+  $filter = new KalturaMediaEntryFilter();
 
-$pager = new KalturaFilterPager();
+  $pager = new KalturaFilterPager();
 
 
-try {
-  $result = $client->media->listAction(
-    $filter, 
-    $pager);
-  $result = (object) $result->objects;
+  try {
+    $result = $client->media->listAction(
+      $filter, 
+      $pager);
+    $result = (object) $result->objects;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
 ?>
+
 <script src="/js/kaltura_thumb_rotator.js"></script>
 <style>
   .player-col {
@@ -34,7 +38,7 @@ try {
 <div class="row">
   <div class="player-col col-xs-8 col-xs-offset-2 text-center">
     <div id="kaltura_player" style="width: 420px; height: 300px; margin: auto;">
-      <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/30633631/partner_id/1760921?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300">
+      <script src="https://cdnapisec.kaltura.com/p/102/sp/10200/embedIframeJs/uiconf_id/30633631/partner_id/102?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300">
       </script>
     </div>
     <p class="small">Click on a thumbnail to choose a video</p>
@@ -58,9 +62,3 @@ try {
     <hr></hr>
   <?php } ?>
 <?php } ?>
-<?php
-
-} catch (Exception $e) {
-  echo $e->getMessage();
-}
-?>

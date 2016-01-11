@@ -1,0 +1,15 @@
+<lucy include="AddCodeCuePointForm"></lucy>
+<script>
+  $('#AddCodeCuePointForm').submit(function() {
+    var cuePoint = new KalturaCodeCuePoint();
+    cuePoint.cuePointType = KalturaCuePointType.CODE;
+    cuePoint.entryId = "<%- Lucy.answer('entryIdEqual') %>";
+    cuePoint.code = $('input[name="code"]').val();
+    cuePoint.description = $('input[name="description"]').val();
+    cuePoint.startTime = $('input[name="startTime"]').val();
+    client.cuePoint.add(function(success, cuePoint) {
+      $('.container').html(CodeCuePointAddedView({result: cuePoint}));
+    }, cuePoint);
+    return false;
+  })
+</script>

@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var busboy = require('busboy');
 var request = require('request');
 var Kaltura = require('./../../lib/KalturaClient.js');
-var config = new Kaltura.KalturaConfiguration(1760921);
-config.serviceUrl = "https://www.kaltura.com/";
+var config = new Kaltura.KalturaConfiguration(102);
+config.serviceUrl = "http://jessex";
 var client = new Kaltura.KalturaClient(config);
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
@@ -12,10 +12,10 @@ client.session.start(function(ks) {
   } else {
     client.setKs(ks);
   }
-}, "8d6cb692ab0f41bfa6bde373204c4b40",
+}, "e472b44321fe63f669d825479b21cdb2",
 "lucybot@example.com",
-Kaltura.enums.KalturaSessionType.ADMIN,
-1760921)
+Kaltura.enums.KalturaSessionType.USER,
+102)
 
 var app = express();
 app.use('/', express.static(__dirname + '/www'));

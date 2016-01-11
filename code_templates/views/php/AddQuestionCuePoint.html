@@ -1,0 +1,18 @@
+<lucy include="AddQuestionCuePointForm"></lucy>
+<script>
+  $('#AddQuestionCuePointForm').submit(function() {
+    var data = new FormData(document.getElementById('AddQuestionCuePointForm'));
+     $.ajax({
+       url: '/addQuestionCuePoint.php',
+       type: 'POST',
+       data: data,
+       contentType: false,
+       cache: false,
+       processData: false,
+       success: function (data, textStatus, jqXHR) {
+         $('.container').html(data);
+       }
+     });
+    return false;
+  })
+</script>

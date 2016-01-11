@@ -1,28 +1,32 @@
 <?php
-require_once('../../lib/KalturaClient.php');
-require_once('Credentials.php');
+  require_once('../../lib/KalturaClient.php');
+  require_once('Credentials.php');
 
-$config = new KalturaConfiguration(PARTNER_ID);
-$config->serviceUrl = "https://www.kaltura.com/";
-$client = new KalturaClient($config);
-$ks = $client->session->start(
-  SECRET,
-  USER_ID,
-  SESSION_TYPE,
-  PARTNER_ID,
-  null, null);
-$client->setKS($ks);
+  $config = new KalturaConfiguration(PARTNER_ID);
+  $config->serviceUrl = "http://jessex";
+  $client = new KalturaClient($config);
+  $ks = $client->session->start(
+    SECRET,
+    USER_ID,
+    SESSION_TYPE,
+    PARTNER_ID,
+    null, null);
+  $client->setKS($ks);
 
-$entryId = $_POST["entryId"];
+  $entryId = $_POST["entryId"];
 
-$version = null;
+  $version = null;
 
-try {
-  $result = $client->media->get(
-    $entryId, 
-    $version);
-  $result = (object) $result;
+  try {
+    $result = $client->media->get(
+      $entryId, 
+      $version);
+    $result = (object) $result;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
 ?>
+
 <div class="row" style="margin-bottom: 10px">
   <div class="col-xs-12 col-md-5">
     <h2><?php echo $result->name ?></h2>
@@ -45,9 +49,3 @@ try {
     </script>
   </div>
 </div>
-<?php
-
-} catch (Exception $e) {
-  echo $e->getMessage();
-}
-?>

@@ -1,0 +1,18 @@
+<lucy include="AddCodeCuePointForm"></lucy>
+<script>
+  $('#AddCodeCuePointForm').submit(function() {
+    var data = $(this).serialize();
+    $.ajax({
+      url: '/addCodeCuePoint',
+      type: 'POST',
+      data: data,
+      contentType: 'application/x-www-form-urlencoded',
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        $('.container').html(data);
+      }
+    });
+    return false;
+  })
+</script>

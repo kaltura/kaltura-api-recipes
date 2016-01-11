@@ -22,8 +22,8 @@
     <script src="/js/jquery.fileupload-kaltura.js"></script>
 
     <script>
-      var config = new KalturaConfiguration(1760921);
-      config.serviceUrl = "https://www.kaltura.com/";
+      var config = new KalturaConfiguration(102);
+      config.serviceUrl = "http://jessex";
       var client = new KalturaClient(config);
       client.session.start(function(success, ks) {
         if (!success || (ks.code && ks.message)) {
@@ -37,12 +37,12 @@
         // as this exposes your Admin Secret to users.
         // Instead, generate a session on the server and pass the
         // KS to the client.
-      }, "8d6cb692ab0f41bfa6bde373204c4b40",
+      }, "e472b44321fe63f669d825479b21cdb2",
       "lucybot@example.com",
-      KalturaSessionType.ADMIN,
-      1760921)
+      KalturaSessionType.USER,
+      102)
     </script>
-    <script src="https://cdnapisec.kaltura.com/p/1760921/sp/176092100/embedIframeJs/uiconf_id/30633631/partner_id/1760921"></script>
+    <script src="https://cdnapisec.kaltura.com/p/102/sp/10200/embedIframeJs/uiconf_id/30633631/partner_id/102"></script>
     <script type="text/javascript">
       var CreateMediaEntry = function(request, callback) {
         entry = new KalturaMediaEntry();
@@ -82,8 +82,8 @@
         var setupUpload = function() {
           if (!client.ks) return setTimeout(setupUpload, 100);
           file = $('input[name="fileData"]').fileupload({
-            apiURL:'https://www.kaltura.com/api_v3/',
-            url: 'https://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',
+            apiURL:'http://jessexapi_v3/',
+            url: 'http://jessexapi_v3/?service=uploadToken&action=upload&format=1',
             ks: client.ks,
             singleFileUploads: true,
             dataType: 'json',

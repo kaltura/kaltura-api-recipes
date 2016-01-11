@@ -1,33 +1,37 @@
 <?php
-require_once('../../lib/KalturaClient.php');
-require_once('Credentials.php');
+  require_once('../../lib/KalturaClient.php');
+  require_once('Credentials.php');
 
-$config = new KalturaConfiguration(PARTNER_ID);
-$config->serviceUrl = "https://www.kaltura.com/";
-$client = new KalturaClient($config);
-$ks = $client->session->start(
-  SECRET,
-  USER_ID,
-  SESSION_TYPE,
-  PARTNER_ID,
-  null, null);
-$client->setKS($ks);
+  $config = new KalturaConfiguration(PARTNER_ID);
+  $config->serviceUrl = "http://jessex";
+  $client = new KalturaClient($config);
+  $ks = $client->session->start(
+    SECRET,
+    USER_ID,
+    SESSION_TYPE,
+    PARTNER_ID,
+    null, null);
+  $client->setKS($ks);
 
-$metadataProfileId = null;
-$objectType = KalturaMetadataObjectType::ENTRY;
+  $metadataProfileId = null;
+  $objectType = KalturaMetadataObjectType::ENTRY;
 
-$objectId = null;
+  $objectId = null;
 
-$xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
+  $xmlData = "<metadata><Somefield>LINUX RULES</Somefield></metadata>";
 
-try {
-  $result = $client->metadata->add(
-    $metadataProfileId, 
-    $objectType, 
-    $objectId, 
-    $xmlData);
-  $result = (object) $result;
+  try {
+    $result = $client->metadata->add(
+      $metadataProfileId, 
+      $objectType, 
+      $objectId, 
+      $xmlData);
+    $result = (object) $result;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
 ?>
+
 <?php if($result->message && $result->code) { ?>
   <h1><?php echo $result->message ?></h1>
 <?php } else { ?>
@@ -40,9 +44,3 @@ try {
     </pre>
   </p>
 <?php } ?>
-<?php
-
-} catch (Exception $e) {
-  echo $e->getMessage();
-}
-?>
