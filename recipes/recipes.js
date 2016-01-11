@@ -9,7 +9,7 @@ var AuthStep = require('./includes/auth.js');
 var files = FS.readdirSync(__dirname);
 var thisFile = Path.basename(__filename);
 
-var BLACKLIST = ['app_tokens', 'live_broadcast'];
+var BLACKLIST = ['live_broadcast'];
 var XSD_DATA = FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8');
 
 RecipeManager.save = function(recipeName, newRecipe, callback) {
