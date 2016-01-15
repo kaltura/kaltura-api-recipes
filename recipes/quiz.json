@@ -26,10 +26,11 @@
                 "class": "KalturaUiConfFilter",
                 "parameters": {
                   "orderBy": "-updatedAt",
-                  "objTypeEqual": {
+                  "objTypeIn": {
                     "enum": "KalturaUiConfObjType",
-                    "value": "PLAYER"
-                  }
+                    "value": "PLAYER,PLAYER_V3"
+                  },
+		  "tagsMultiLikeOr": "quiz_player"
                 }
               }
             ],

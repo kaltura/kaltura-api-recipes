@@ -1,9 +1,9 @@
-<lucy include="AddCodeCuePointForm"></lucy>
+<lucy include="AddQuestionCuePointForm"></lucy>
 <script>
-  $('#AddCodeCuePointForm').submit(function() {
+  $('#AddQuestionCuePointForm').submit(function() {
     var data = $(this).serialize();
     $.ajax({
-      url: '/addCodeCuePoint',
+      url: '/addQuestionCuePoint',
       type: 'POST',
       data: data,
       contentType: 'application/x-www-form-urlencoded',
