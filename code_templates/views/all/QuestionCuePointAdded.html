@@ -1,6 +1,6 @@
 <div id="CuePoints">
   <table class="table">
-    <tr><td>Code</td><td>Start Time</td><td>End Time</td></tr>
+    <tr><td>Question</td><td>Start Time</td><td>End Time</td></tr>
   </table>
 </div>
 <hr>
@@ -11,9 +11,8 @@
     window['writeLog'] = function(result) {
       var cuePoint = result.cuePoint
       $('table').append(
-        '<tr><td>' + cuePoint.code +
-        '</td><td>' + cuePoint.startTime +
-        '</td><td>' + cuePoint.endTime + '</td></tr>'
+        '<tr><td>' + cuePoint.question +
+        '</td><td>' + cuePoint.startTime 
       );
     }
   }
