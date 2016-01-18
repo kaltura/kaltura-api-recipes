@@ -3,8 +3,7 @@
   $('#AddQuestionCuePointForm').submit(function() {
 var entryId = "<%- Lucy.answer('entryIdEqual') %>";
 var quiz = new KalturaQuiz();
-console.log(quiz);
-/*var attsAr = [];
+var attsAr = [];
 attsAr.push({'key' : WelcomeMessage , 'value' : 'blah'});
 attsAr.push({'key' : inVideoTip , 'value' : true});
 attsAr.push({'key' : canSkip , 'value' : true});
@@ -19,6 +18,6 @@ cuePoint.entryId = entryId;
     client.cuePoint.add(function(success, cuePoint) {
       $('.container').html(QuestionCuePointAddedView({result: cuePoint}));
     }, cuePoint);
-    return false;*/
+    return false;
   })
 </script>
