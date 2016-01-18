@@ -1,15 +1,24 @@
 <lucy include="AddQuestionCuePointForm"></lucy>
 <script>
   $('#AddQuestionCuePointForm').submit(function() {
-    var cuePoint = new KalturaQuestionCuePoint();
-    cuePoint.cuePointType = KalturaCuePointType.CODE;
-    cuePoint.entryId = "<%- Lucy.answer('entryIdEqual') %>";
-    cuePoint.code = $('input[name="code"]').val();
-    cuePoint.description = $('input[name="description"]').val();
-    cuePoint.startTime = $('input[name="startTime"]').val();
+var entryId = "<%- Lucy.answer('entryIdEqual') %>";
+var quiz = new KalturaQuiz();
+console.log(quiz);
+/*var attsAr = [];
+attsAr.push({'key' : WelcomeMessage , 'value' : 'blah'});
+attsAr.push({'key' : inVideoTip , 'value' : true});
+attsAr.push({'key' : canSkip , 'value' : true});
+quiz.uiAttributes = attsAr;
+client.quiz.add(function(result) {
+},entryId,quiz);
+
+var cuePoint = new Kaltura.objects.KalturaQuestionCuePoint();
+cuePoint.quesion = req.body.question;
+cuePoint.startTime = req.body.startTime;
+cuePoint.entryId = entryId;
     client.cuePoint.add(function(success, cuePoint) {
       $('.container').html(QuestionCuePointAddedView({result: cuePoint}));
     }, cuePoint);
-    return false;
+    return false;*/
   })
 </script>

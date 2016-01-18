@@ -1,5 +1,6 @@
 console.log('here I am');
 var quiz = new KalturaQuiz();
+console.log(quiz);
 var attsAr = [];
 attsAr.push({'key' : WelcomeMessage , 'value' : 'blah'});
 attsAr.push({'key' : inVideoTip , 'value' : true});
