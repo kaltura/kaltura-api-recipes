@@ -10,6 +10,12 @@ Router.get('/recipes', function(req, res) {
 });
 
 Router.get('/recipes/:recipe', function(req, res) {
-  if (!RecipeManager.recipes[req.params.recipe]) return res.status(404).send("Sorry, that recipe doesn't exist");
-  res.render('recipe', {iframeURL: '/recipes_embed/' + req.params.recipe, recipe: RecipeManager.recipes[req.params.recipe]});
+  var recipe = RecipeManager.recipes[req.params.recipe];
+  if (!recipe) return res.status(404).send("Sorry, that recipe doesn't exist");
+
+  res.render('recipe', {
+    iframeURL: '/recipes_embed/' + req.params.recipe,
+    recipe: recipe,
+    title: "Kaltura VPaaS Cookbook: " + recipe.title + " Recipe",
+  });
 })
