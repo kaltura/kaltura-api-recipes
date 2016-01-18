@@ -33,7 +33,7 @@ function KalturaClient(config){
 	this.init(config);
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
-KalturaClient.prototype.apiVersion = "3.2.0";
+KalturaClient.prototype.apiVersion = "3.3.0";
 /**
  * Manage access control profiles
  *	 
@@ -120,12 +120,6 @@ KalturaClient.prototype.deliveryProfile = null;
  */
 KalturaClient.prototype.document = null;
 /**
- * Edge Server service
- *	 
- * @param KalturaEdgeServerService
- */
-KalturaClient.prototype.edgeServer = null;
-/**
  * EmailIngestionProfile service lets you manage email ingestion profile records
  *	 
  * @param KalturaEmailIngestionProfileService
@@ -197,12 +191,6 @@ KalturaClient.prototype.liveStream = null;
  */
 KalturaClient.prototype.mediaInfo = null;
 /**
- * Manage media servers
- *	 
- * @param KalturaMediaServerService
- */
-KalturaClient.prototype.mediaServer = null;
-/**
  * Media service lets you upload and manage media files (images / videos & audio)
  *	 
  * @param KalturaMediaService
@@ -271,6 +259,12 @@ KalturaClient.prototype.schema = null;
  * @param KalturaSearchService
  */
 KalturaClient.prototype.search = null;
+/**
+ * Server Node service
+ *	 
+ * @param KalturaServerNodeService
+ */
+KalturaClient.prototype.serverNode = null;
 /**
  * Session service
  *	 
@@ -552,6 +546,12 @@ KalturaClient.prototype.externalMedia = null;
  */
 KalturaClient.prototype.scheduledTaskProfile = null;
 /**
+ * Integration service lets you dispatch integration tasks
+ *	 
+ * @param KalturaIntegrationService
+ */
+KalturaClient.prototype.integration = null;
+/**
  * The client constructor.
  * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).
  */
@@ -573,7 +573,6 @@ KalturaClient.prototype.init = function(config){
 	this.data = new KalturaDataService(this);
 	this.deliveryProfile = new KalturaDeliveryProfileService(this);
 	this.document = new KalturaDocumentService(this);
-	this.edgeServer = new KalturaEdgeServerService(this);
 	this.EmailIngestionProfile = new KalturaEmailIngestionProfileService(this);
 	this.fileAsset = new KalturaFileAssetService(this);
 	this.flavorAsset = new KalturaFlavorAssetService(this);
@@ -586,7 +585,6 @@ KalturaClient.prototype.init = function(config){
 	this.liveStats = new KalturaLiveStatsService(this);
 	this.liveStream = new KalturaLiveStreamService(this);
 	this.mediaInfo = new KalturaMediaInfoService(this);
-	this.mediaServer = new KalturaMediaServerService(this);
 	this.media = new KalturaMediaService(this);
 	this.mixing = new KalturaMixingService(this);
 	this.notification = new KalturaNotificationService(this);
@@ -598,6 +596,7 @@ KalturaClient.prototype.init = function(config){
 	this.responseProfile = new KalturaResponseProfileService(this);
 	this.schema = new KalturaSchemaService(this);
 	this.search = new KalturaSearchService(this);
+	this.serverNode = new KalturaServerNodeService(this);
 	this.session = new KalturaSessionService(this);
 	this.stats = new KalturaStatsService(this);
 	this.storageProfile = new KalturaStorageProfileService(this);
@@ -645,4 +644,5 @@ KalturaClient.prototype.init = function(config){
 	this.eventNotificationTemplate = new KalturaEventNotificationTemplateService(this);
 	this.externalMedia = new KalturaExternalMediaService(this);
 	this.scheduledTaskProfile = new KalturaScheduledTaskProfileService(this);
+	this.integration = new KalturaIntegrationService(this);
 }
