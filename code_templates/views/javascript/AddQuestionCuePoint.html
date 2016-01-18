@@ -4,12 +4,18 @@
 var entryId = "<%- Lucy.answer('entryIdEqual') %>";
 var quiz = new KalturaQuiz();
 var attsAr = [];
-attsAr.push({'key' : WelcomeMessage , 'value' : 'blah'});
-attsAr.push({'key' : inVideoTip , 'value' : true});
-attsAr.push({'key' : canSkip , 'value' : true});
+attsAr.push({'key' : 'WelcomeMessage' , 'value' : 'blah'});
+attsAr.push({'key' : 'inVideoTip' , 'value' : true});
+attsAr.push({'key' : 'canSkip' , 'value' : true});
 quiz.uiAttributes = attsAr;
+console.log(quiz.uiAttributes);
 client.quiz.add(function(result) {
 },entryId,quiz);
+//console.log(quiz);
+return false;
+  })
+/*var attsAr = [];
+>>>>>>> 889e82bcf45629df97fa35ab48a6a95ed3af1a85
 
 var cuePoint = new Kaltura.objects.KalturaQuestionCuePoint();
 cuePoint.quesion = req.body.question;
@@ -19,5 +25,5 @@ cuePoint.entryId = entryId;
       $('.container').html(QuestionCuePointAddedView({result: cuePoint}));
     }, cuePoint);
     return false;
-  })
+  })*/
 </script>
