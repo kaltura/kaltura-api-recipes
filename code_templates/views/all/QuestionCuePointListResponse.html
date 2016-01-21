@@ -4,8 +4,8 @@
   <i>No question cue points found</i>
 </lucy>
 <lucy for="cuePoint" in="result">
-  <p>{{ cuePoint.startTime }}ms - {{ cuePoint.endTime }}ms</p>
-  <p>{{ cuePoint.question }}</p>
+  <p>Question: {{ cuePoint.question }}</p>
+  <p>Time: {{ cuePoint.startTime }}ms - {{ cuePoint.endTime }}ms</p>
 </lucy>
 <lucy include="AddQuestionCuePoint"></lucy>
 <hr>

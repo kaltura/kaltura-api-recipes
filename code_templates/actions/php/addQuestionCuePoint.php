@@ -1,4 +1,3 @@
-error_log("about to call add() with entryId\n",3,'/tmp/quiz');
 // check whether this entry already has quiz object
 $filter = new KalturaQuizFilter();
 $filter->entryIdEqual = $entryId;
