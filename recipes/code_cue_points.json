@@ -28,7 +28,7 @@
                   "orderBy": "-updatedAt",
                   "objTypeEqual": {
                     "enum": "KalturaUiConfObjType",
-                    "value": "PLAYER"
+		    "value": "PLAYER,PLAYER_V3"
                   }
                 }
               }
