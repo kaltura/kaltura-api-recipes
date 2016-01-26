@@ -19,3 +19,7 @@ body,
   background-color: #fff;
   border: none;
 }
+
+.recipe-title {
+  display: none;
+}

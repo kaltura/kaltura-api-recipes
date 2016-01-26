@@ -42,7 +42,7 @@ html
             .row
               .col-xs-12.col-sm-9
                 .input-group
-                  input.form-control(type="text" ng-model="query" placeholder="Search")
+                  input.form-control(type="text" ng-model="query" placeholder="Search for code recipes")
                   span.input-group-addon
                     i.fa.fa-search.bg-white
               .hidden-xs.col-sm-3
@@ -90,7 +90,7 @@ html
               .alert.alert-success(ng-show="success") Thanks for your feedback!
               form(ng-submit="sendSuggestion()")
                 .form-group
-                  span.text-primary Let us know what we're missing.
+                  span Let us know what we're missing.
                   textarea.form-control(ng-model="suggestion")
                 .form-group
                   button.btn.btn-sm.btn-primary(type="submit") Submit

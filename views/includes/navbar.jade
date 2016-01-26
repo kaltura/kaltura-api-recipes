@@ -4,6 +4,9 @@ nav.navbar.navbar-default
     .navbar-header
       a.navbar-brand(href="/")
         img(src="/img/kaltura_dev.png")
+      if typeof recipe !== 'undefined'
+        a.navbar-brand.recipe-navbar-title(href="#")
+          span(href="#")= recipe.title
     ul.nav.navbar-nav.navbar-right
       li.signed-in(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
         span Signed in as {{user.userId}} 
