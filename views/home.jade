@@ -71,14 +71,14 @@ html
                   ng-repeat="recipe in matchingRecipes = (recipes | filter: query | filter: recipeFilter | orderBy: recipeSort)"
                   ng-if="!recipe.broken")
               .panel.panel-warning
+                a.recipe-link(ng-click="openRecipe(recipe.name)")
                 .panel-heading
-                  a.recipe-link(ng-click="openRecipe(recipe.name)")
                   .row
                     .heading-icon.col-xs-2.text-left
                       i.fa.fa-left(ng-class="'fa-' + (recipe.icon || 'plug')")
                     .heading-title.col-xs-10.text-right.text-uppercase
                       span(ng-bind="recipe.title")
-                .panel-body.text-right
+                .panel-body.text-left
                   p
                     i.fa.fa-2x.fa-info-circle(data-toggle="tooltip" data-placement="left" title="{{recipe.tip}}")
                   p(ng-bind="recipe.description")
