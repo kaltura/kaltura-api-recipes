@@ -1,7 +1,7 @@
 require 'kaltura'
 include Kaltura
 
-config = KalturaConfiguration.new(<%- Lucy.answer('partnerId') %>)
+config = KalturaConfiguration.new()
 config.service_url = <%- Lucy.code.variable('answers.serviceURL') %>
 @@client = KalturaClient.new(config);
 @@client.ks = @@client.session_service.start(
@@ -9,3 +9,4 @@ config.service_url = <%- Lucy.code.variable('answers.serviceURL') %>
     <%- Lucy.variable("answers.userId") %>,
     <%- Lucy.answer('sessionType') === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
     <%- Lucy.variable('answers.partnerId') %>)
+$sessionID = @@client.ks

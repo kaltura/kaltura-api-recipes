@@ -20,6 +20,7 @@
       console.log('Error starting session', success, ks);
       $('#ErrorMessage').text(ks.message || 'Unknown Error').show();
     } else {
+      window.ks = ks;
       client.setKs(ks);
     }
     // Note: this is meant only as a sample.

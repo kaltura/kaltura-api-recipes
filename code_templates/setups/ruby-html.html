@@ -1,0 +1,8 @@
+<% if (Lucy.answer('uiConf')) { -%>
+<script src="https://cdnapisec.kaltura.com/p/<%- Lucy.answer('partnerId') %>/sp/<%- Lucy.answer('partnerId') %>00/embedIframeJs/uiconf_id/<%- Lucy.answer('uiConf') %>/partner_id/<%- Lucy.answer('partnerId') %>"></script>
+<% } -%>
+<script>
+  window.ks = <%- '"<\%= $sessionID %\>"' %>;
+</script>
+
+

@@ -93,7 +93,7 @@ var setup = function(callback) {
     views.setup = {};
     for (lang in CodeTemplates.setups) {
       actions.setup[lang] = CodeTemplates.setups[lang];
-      views.setup[lang] = CodeTemplates.setups['html'];
+      views.setup[lang] = CodeTemplates.setups[lang + '-html'] || CodeTemplates.setups['html'];
     }
 
     for (view in views) {

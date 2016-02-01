@@ -11,3 +11,5 @@ $ks = $client->session->start(
   PARTNER_ID,
   null, null);
 $client->setKS($ks);
+
+echo "<script>window.ks = '" . $ks . "'</script>";
