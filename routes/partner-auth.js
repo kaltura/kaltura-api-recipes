@@ -78,7 +78,7 @@ Router.post('/signup', function(req, res) {
     partner.name = req.body.firstName + ' ' + req.body.lastName;
     partner.appearInSearch = null;
     partner.partnerPackage = 100;
-    if (process.env.LUCYBOT_DEV){
+    if (process.env.LUCYBOT_NO_SSO){
       var cms_password = 'testit';
     }else{
       var cms_password = jwt.sign({ lucybot: process.env.KALTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET);
