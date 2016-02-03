@@ -78,10 +78,10 @@ Router.post('/signup', function(req, res) {
     partner.name = req.body.firstName + ' ' + req.body.lastName;
     partner.appearInSearch = null;
     partner.partnerPackage = 100;
-    if (process.env.LUCYBOT_NO_SSO){
-      var cms_password = 'testit';
-    }else{
+    if (process.env.KALTURA_SSO_SECRET && process.env.KALTURA_SSO_PAYLOAD) {
       var cms_password = jwt.sign({ lucybot: process.env.KALTURA_SSO_PAYLOAD }, process.env.KALTURA_SSO_SECRET);
+    }else{
+      var cms_password = 'testit';
     }
     var template_partner_id = null;
     var silent = null;
