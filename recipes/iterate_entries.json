@@ -1,0 +1,32 @@
+{
+  "name": "iterate_entries",
+  "title": "Iterate over all entries",
+  "icon": "image",
+  "description": "How to list all entries for a given partner",
+  "recipe_steps": [
+    {
+      "title": "Getting a list of entries",
+      "tip": "Iterating over all entries is achieved by calling media.list() passing along a pager with an index and size",
+      "code_snippet": "IterateEntries",
+      "inputs": []
+    }
+  ],
+  "pages": [
+    {
+      "view": "IterateEntries",
+      "data": {
+        "action": "listMedia"
+      }
+    }
+  ],
+  "views": [
+    "IterateEntries"
+  ],
+  "actions": [
+    {
+      "service": "media",
+      "action": "listAction",
+      "view": "IterateEntries"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<script>
+function loadPage(page_number) {
+  $.ajax({
+    url: '/listMediaPage',
+    type: 'POST',
+    data: {page_index: page_number},
+    success: function(data) {
+      $('#MediaList').html(data);
+    }
+  })
+}
+</script>
+<div id="MediaList">
+  <lucy include="KalturaMediaListResponse"></lucy>
+</div>
+<div class="btn-group">
+  <a class="btn btn-default" href="#" onclick="loadPage(3)">
+</div>
