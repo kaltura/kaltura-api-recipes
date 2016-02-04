@@ -1,0 +1,70 @@
+{
+  "name": "player_uiconf",
+  "title": "Player UI conf",
+  "icon": "columns",
+  "description": "Learn how to get and update player configuration",
+  "recipe_steps": [
+    {
+      "title": "Select a player",
+      "tip": "Choose a player to view its configuration",
+      "code_snippet": "listUiConf",
+      "inputs": [
+        {
+          "type": "select-chosen",
+          "name": "uiConf",
+          "dynamic_choices": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeIn": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER,PLAYER_V3"
+                  }
+                }
+              }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Updating the UI conf",
+      "tip": "You can use the form below to add, change or remove functionality from your player.",
+      "code_snippet": "ModifyUIconf",
+      "inputs": []
+    }
+  ],
+  "pages": [
+    {
+      "view": "UIConfResponse",
+      "data": {
+        "action": "listCuePoint"
+      }
+    }
+  ],
+  "views": [
+    "UIConfResponse",
+    "ModifyUIconfForm",
+    "ModifyUIconf",
+    "UIConfUpdated"
+  ],
+  "actions": [
+    {
+      "service": "uiConf",
+      "action": "listAction",
+      "view": "UIConfResponse"
+    },
+    {
+      "action": "ModifyUIconf",
+      "view": "UIConfUpdated"
+    }
+  ]
+}

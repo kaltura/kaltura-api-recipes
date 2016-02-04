@@ -1,0 +1,10 @@
+<h1>Player UI Conf</h1>
+<hr>
+<lucy if="result.length === 0">
+  <i>No UI conf found</i>
+</lucy>
+<lucy for="uiconf" in="result">
+  <p>ID: {{ uiconf.id }}</p>
+</lucy>
+<lucy include="ModifyUIconf"></lucy>
+<hr>
