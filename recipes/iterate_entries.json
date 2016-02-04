@@ -20,7 +20,8 @@
     }
   ],
   "views": [
-    "IterateEntries"
+    "IterateEntries",
+    "KalturaMediaListResponse"
   ],
   "actions": [
     {

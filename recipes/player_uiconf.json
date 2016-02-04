@@ -46,7 +46,7 @@
     {
       "view": "UIConfResponse",
       "data": {
-        "action": "listCuePoint"
+        "action": "getUiConf"
       }
     }
   ],
@@ -59,7 +59,7 @@
   "actions": [
     {
       "service": "uiConf",
-      "action": "listAction",
+      "action": "get",
       "view": "UIConfResponse"
     },
     {
