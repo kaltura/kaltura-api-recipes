@@ -3,8 +3,6 @@
 <lucy if="result.length === 0">
   <i>No UI conf found</i>
 </lucy>
-<lucy for="uiconf" in="result">
-  <p>ID: {{ uiconf.id }}</p>
-</lucy>
+  <p>ID: {{ result.id }}</p>
 <lucy include="ModifyUIconf"></lucy>
 <hr>

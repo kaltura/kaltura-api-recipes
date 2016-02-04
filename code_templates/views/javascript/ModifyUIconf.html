@@ -3,7 +3,7 @@
   $('#ModifyUIconfForm').submit(function() {
     var id = "<%- Lucy.answer('id') %>";
     var uiConf = new KalturaUiConf();
-    var uiConf.config = 'input[name="config"];
+    var uiConf.config = 'input[name="config"]';
     client.uiConf.update(function(success,uiConf) {
       $('.container').html(UIConfUpdatedView({result: uiConf}));
     }, id, uiConf);
