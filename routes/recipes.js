@@ -98,7 +98,7 @@ var setup = function(callback) {
 
     for (view in views) {
       if (view === 'setup') continue;
-      if (!views[view].ruby) views[view].ruby = fixRubyVariables(views[view].all);
+      if (!views[view].ruby && views[view].all) views[view].ruby = fixRubyVariables(views[view].all);
     }
 
     var recipeParams = {
