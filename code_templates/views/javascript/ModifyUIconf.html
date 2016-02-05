@@ -1,12 +1,13 @@
 <lucy include="ModifyUIconfForm"></lucy>
 <script>
+    console.log("here");
   $('#ModifyUIconfForm').submit(function() {
-    var id = "<%- Lucy.answer('id') %>";
+      var id = {{ answers.id }};
     var uiConf = new KalturaUiConf();
-    var uiConf.config = 'input[name="config"]';
+    var uiConf.config = $('input[name="config"]').val();
     client.uiConf.update(function(success,uiConf) {
       $('.container').html(UIConfUpdatedView({result: uiConf}));
     }, id, uiConf);
-return false;
+    return false;
   })
 </script>
