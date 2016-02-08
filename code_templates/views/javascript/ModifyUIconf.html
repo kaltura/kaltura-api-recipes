@@ -4,7 +4,9 @@
     console.log("here");
       var id = {{ answers.id }};
     var uiConf = new KalturaUiConf();
-    uiConf.config = $('input[name="config"]').val();
+    var config = $('input[name="config"]').val();
+    uiConf.config = config;
+    console.log(config);
     client.uiConf.update(function(success,uiConf) {
       $('.container').html(UIConfUpdatedView({result: uiConf}));
     }, id, uiConf);

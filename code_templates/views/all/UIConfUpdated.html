@@ -1,8 +1,11 @@
 
 <div id="UIconf">
-  <table class="table">
-      <tr><td>Config</td></tr>
-      <tr><td>{{{ result.config }}}</td></tr>
+<h2>Config Updated</h2>
+<lucy if="result.message && result.code">
+    <h1>{{result.message}}</h1>
+</lucy>
 
-  </table>
+<pre>
+{{{ result.config }}}
+</pre>
 </div>
