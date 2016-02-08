@@ -13,21 +13,21 @@
   ],
   "pages": [
     {
-      "view": "IterateEntries",
+      "view": "KalturaMediaListResponse",
       "data": {
         "action": "listMedia"
       }
     }
   ],
   "views": [
-    "IterateEntries",
-    "KalturaMediaListResponse"
+    "KalturaMediaListResponse",
+    "IterateEntries"
   ],
   "actions": [
     {
       "service": "media",
       "action": "listAction",
-      "view": "IterateEntries"
+      "view": "KalturaMediaListResponse"
     }
   ]
 }

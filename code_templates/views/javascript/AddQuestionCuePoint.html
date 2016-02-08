@@ -31,7 +31,6 @@
     optionalAnswers[0]={'key': 1, 'text': $('input[name="answer0"]').val(), 'isCorrect': 1};
 
     optionalAnswers[1]={'key': 2, 'text': $('input[name="answer1"]').val(), 'isCorrect': 0};
-    console.log(optionalAnswers);
     cuePoint.optionalAnswers = optionalAnswers;
     client.cuePoint.add(function(success, cuePoint) {
       $('.container').html(QuestionCuePointAddedView({result: cuePoint}));
