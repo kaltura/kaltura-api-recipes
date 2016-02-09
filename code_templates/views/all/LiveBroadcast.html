@@ -13,6 +13,7 @@
 <div id="krecordwrapper" style="width:320px;height:240px;">
 </div>
   <script>
+    var swfURL = "http://cdnapi.kaltura.com/krecord/ui_conf_id/{{ answers.uiConf }}";
     var broadcastURL = "{{ result.primaryBroadcastingUrl}}";
     var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));
     var streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));
@@ -45,12 +46,14 @@
     var params = {
       quality: 'high',
       bgcolor: '#000',
-      allowscriptaccess: 'sameDomain',
-      allowfulscreen: 'true',
+      allowscriptaccess: 'always',
+      allownetworking: 'all',
+      wmode: 'opaque',
+      movie: swfURL,
+      allowfullscreen: 'true',
     };
-    var swfURL = "http://cdnapi.kaltura.com/krecord/ui_conf_id/{{ answers.uiConf }}";
 
-    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '420', '10.0.0', '', flashVars, params, attributes)
+    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)
   </script>
 
 <div class="span5 offset1">
