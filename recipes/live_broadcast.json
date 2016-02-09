@@ -1,26 +1,30 @@
 {
   "name": "live_broadcast",
   "title": "Live Broadcast",
-  "broken": true,
+  "icon": "bullhorn",
   "description": "Learn how to create a new Live+ entry and broadcast a live stream.",
-  "recipe_steps": [],
-  "pages": [
-    {
-      "view": "KalturaLiveStreamListResponse",
-      "data": {
-        "action": "listLiveStream"
-      }
-    }
-  ],
+  "recipe_steps": [{
+    "title": "Get a conversion profile",
+    "tip": "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list`",
+    "code_snippet": "listConversionProfile",
+    "inputs": [{
+      "name": "nameEqual",
+      "default": "Passthrough",
+      "hidden": true
+    }, {
+      "name": "typeEqual",
+      "default": "2",
+      "hidden": true
+    }]
+  }],
+  "pages": [{
+    "view": "LiveBroadcast"
+  }],
   "views": [
-    "AddLiveStream",
-    "KalturaLiveStreamListResponse"
+    "LiveBroadcast"
   ],
-  "actions": [
-    {
-      "service": "liveStream",
-      "action": "listAction",
-      "view": "KalturaLiveStreamListResponse"
-    }
-  ]
+  "actions": [{
+    "service": "conversionProfile",
+    "action": "list"
+  }]
 }
