@@ -11,14 +11,7 @@
 -->
 
 <div id="krecordwrapper" style="width:320px;height:240px;">
-  <object type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" 
-          data="http://cdnapi.kaltura.com/krecord/ui_conf_id/<%- Lucy.answer('kRecordLiveUiConfId') %>" 
-          id="krecord" width="100%" height="100%">
-    <param name="allowScriptAccess" value="always" />
-    <param name="allowNetworking" value="all" />
-    <param name="wmode" value="opaque" />
-    <param name="movie" value="http://cdnapi.kaltura.com/krecord/ui_conf_id/{{ answers.uiConf }}" />
-  </object>
+</div>
   <script>
     var broadcastURL = "{{ result.primaryBroadcastingUrl}}";
     var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));
@@ -26,29 +19,39 @@
     var streamName = "{{ result.id._1 }}";
     streamApp = encodeURIComponent(streamApp);
     streamName = encodeURIComponent(streamName);
-    console.log('bcast', broadcastURL, streamHost, streamApp, streamName);
 
-    var flashVars = [
-      'debugmode=true',
-      'isLive=true',
-      'delegate=krecordHandler',
-      'rtmpHost=' + streamHost,
-      'localeUrl=http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',
-      'themeUrl=http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',
-      'fmsApp=' + streamApp,
-      'streamName=' + streamName,
-      'showUi=false',
-      'showPreviewTimer=false',
-      'autoPreview=false',
-      'disableGlobalClick=true',
-      'soundRate=44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',
-      'ks=' + window.ks,
-      'pid={{ answers.partnerId }}',
-    ];
-    var tag = '<param name="flashvars" value="' + flashVars.join('&') + '" />';
-    $('object').append(tag)
+    var flashVars = {
+      debugmode: 'true',
+      isLive: 'true',
+      delegate: 'krecordHandler',
+      rtmpHost: streamHost,
+      localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',
+      themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',
+      fmsApp: streamApp,
+      streamName: streamName,
+      showUi: 'false',
+      showPreviewTimer: 'false',
+      autoPreview: 'false',
+      disableGlobalClick: 'true',
+      soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',
+      ks: window.ks,
+      pid: '{{ answers.partnerId }}',
+    };
+    var attributes = {
+      id: 'krecord',
+      name: 'krecord',
+      align: 'middle',
+    };
+    var params = {
+      quality: 'high',
+      bgcolor: '#000',
+      allowscriptaccess: 'sameDomain',
+      allowfulscreen: 'true',
+    };
+    var swfURL = "http://cdnapi.kaltura.com/krecord/ui_conf_id/{{ answers.uiConf }}";
+
+    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '420', '10.0.0', '', flashVars, params, attributes)
   </script>
-</div>
 
 <div class="span5 offset1">
   <button id="btn_stream" style="display: none;" class="btn btn-primary btn-large" onclick="startStreaming()" >

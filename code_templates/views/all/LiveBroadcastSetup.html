@@ -200,13 +200,6 @@ var krecordHandler = new krecordLiveHandlerPrototype();
     checkStatus_isLive();
   }
 
-  <!--
-  ///*****************************
-  ///****
-  ///**** Step 4: Stop Broadcast from KRecord, Play leftover DVR and wait for VOD Recording entry to be ready
-  ///**** IMPORTANT: Note recordComplete event inside kreclive.js which removes the krecord flash widget from the DOM once the buffer has been emptied. Without this step, the recording will not be closed and processed.
-  ///*****************************
-  -->
   function stopStreaming() {
     krecordHandler.stopStreaming();
 
