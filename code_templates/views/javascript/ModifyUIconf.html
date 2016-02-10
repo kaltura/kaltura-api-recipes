@@ -6,7 +6,6 @@
     var uiConf = new KalturaUiConf();
     var config = $('[name="config"]').val();
     uiConf.config = config;
-    console.log(config);
     client.uiConf.update(function(success,uiConf) {
       $('.container').html(UIConfUpdatedView({result: uiConf}));
     }, id, uiConf);
