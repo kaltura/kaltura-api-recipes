@@ -9,7 +9,6 @@ var AuthStep = require('./includes/auth.js');
 var files = FS.readdirSync(__dirname);
 var thisFile = Path.basename(__filename);
 
-var BLACKLIST = ['live_broadcast'];
 var XSD_DATA = FS.readFileSync(__dirname + '/data/metadata_profile_sample.xsd', 'utf8');
 
 RecipeManager.save = function(recipeName, newRecipe, callback) {
@@ -75,7 +74,6 @@ files.forEach(function(filename) {
   if (FS.statSync(filename).isDirectory()) return;
   var ext = Path.extname(filename);
   var name = Path.basename(filename, ext);
-  if (BLACKLIST.indexOf(name) !== -1) return;
   try {
     if (ext === '.json') {
       Recipes[name] = JSON.parse(FS.readFileSync(filename, 'utf8'));

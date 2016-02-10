@@ -1,26 +1,95 @@
 {
   "name": "live_broadcast",
   "title": "Live Broadcast",
-  "broken": true,
+  "icon": "bullhorn",
   "description": "Learn how to create a new Live+ entry and broadcast a live stream.",
-  "recipe_steps": [],
-  "pages": [
-    {
-      "view": "KalturaLiveStreamListResponse",
-      "data": {
-        "action": "listLiveStream"
+  "recipe_steps": [{
+    "title": "Setup",
+    "tip": [
+      "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry.",
+      "You'll also need to choose a uiConf that supports kRecord."
+    ],
+    "code_snippet": "listConversionProfile",
+    "inputs": [{
+      "type": "select-chosen",
+      "name": "uiConf",
+      "dynamic_choices": {
+        "service": "uiConf",
+        "action": "list",
+        "arguments": [
+          {
+            "class": "KalturaUiConfFilter",
+            "parameters": {
+              "orderBy": "-updatedAt",
+              "objTypeEqual": {
+                "enum": "KalturaUiConfObjType",
+                "value": "KRECORD"
+              }
+            }
+          }
+        ],
+        "map": {
+          "value": "id",
+          "label": "name"
+        }
       }
+    }, {
+      "name": "nameEqual",
+      "default": "Passthrough",
+      "hidden": true
+    }, {
+      "name": "typeEqual",
+      "default": "2",
+      "hidden": true
+    }]
+  }, {
+    "title": "Creating a Live Stream Entry",
+    "tip": "Now we'll use the conversion profile ID to create a new liveStream entry using `liveStream.add()`",
+    "code_snippet": "addLiveStream",
+    "inputs": [{
+      "name": "name",
+      "type": "text",
+      "default": "Webcam Live Stream Test"
+    }, {
+      "name": "description",
+      "type": "text",
+      "default": "This is a test of Kaltura's Live Webcam streaming"
+    }, {
+      "name": "mediaType",
+      "default": 201,
+      "hidden": true
+    }, {
+      "name": "recordStatus",
+      "default": 1,
+      "hidden": true
+    }, {
+      "name": "dvrStatus",
+      "default": 1,
+      "hidden": true
+    }, {
+      "name": "sourceType",
+      "default": "32",
+      "hidden": true
+    }]
+  }],
+  "pages": [{
+    "view": "LiveBroadcastConversionProfile",
+    "data": {
+      "action": "listConversionProfile"
     }
-  ],
+  }],
   "views": [
-    "AddLiveStream",
-    "KalturaLiveStreamListResponse"
+    "LiveBroadcastConversionProfile",
+    "LiveBroadcastSetup",
+    "LiveBroadcast"
   ],
-  "actions": [
-    {
-      "service": "liveStream",
-      "action": "listAction",
-      "view": "KalturaLiveStreamListResponse"
-    }
-  ]
+  "actions": [{
+    "service": "conversionProfile",
+    "action": "list",
+    "view": "LiveBroadcastConversionProfile"
+  }, {
+    "service": "liveStream",
+    "action": "add",
+    "view": "LiveBroadcast"
+  }]
 }

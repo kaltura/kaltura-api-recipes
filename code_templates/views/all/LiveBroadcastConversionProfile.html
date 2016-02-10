@@ -1,0 +1,4 @@
+<h2>Conversion Profile {{ result[0].id }}</h2>
+<lucy if="answers.sourceType">
+  <lucy include="LiveBroadcast" action="addLiveStream" inputvars="{conversionProfileId: 'result[0].id'}"></lucy>
+</lucy>

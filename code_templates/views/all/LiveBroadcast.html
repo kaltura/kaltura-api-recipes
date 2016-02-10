@@ -1,0 +1,74 @@
+<div id="setupKRecord_msg">
+  <h2 id="krecord_msg">Starting the KRecord widget...</h2>
+</div>
+
+<!--
+///*****************************
+///****
+///**** Step 2: Embedding and Configuring the KRecord widget:
+///**** Pay special attention to the flashvars in the below embed, this is what configures the KRecord to properly do Live Stream instead of just recording.
+///*****************************
+-->
+
+<div id="krecordwrapper" style="width:320px;height:240px;">
+</div>
+  <script>
+    var swfURL = "http://cdnapi.kaltura.com/krecord/ui_conf_id/{{ answers.uiConf }}";
+    var broadcastURL = "{{ result.primaryBroadcastingUrl}}";
+    var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));
+    var streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));
+    var streamName = "{{ result.id._1 }}";
+    streamApp = encodeURIComponent(streamApp);
+    streamName = encodeURIComponent(streamName);
+
+    var flashVars = {
+      debugmode: 'true',
+      isLive: 'true',
+      delegate: 'krecordHandler',
+      rtmpHost: streamHost,
+      localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',
+      themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',
+      fmsApp: streamApp,
+      streamName: streamName,
+      showUi: 'false',
+      showPreviewTimer: 'false',
+      autoPreview: 'false',
+      disableGlobalClick: 'true',
+      soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',
+      ks: window.ks,
+      pid: '{{ answers.partnerId }}',
+    };
+    var attributes = {
+      id: 'krecord',
+      name: 'krecord',
+      align: 'middle',
+    };
+    var params = {
+      quality: 'high',
+      bgcolor: '#000',
+      allowscriptaccess: 'always',
+      allownetworking: 'all',
+      wmode: 'opaque',
+      movie: swfURL,
+      allowfullscreen: 'true',
+    };
+
+    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)
+  </script>
+
+<div class="span5 offset1">
+  <button id="btn_stream" style="display: none;" class="btn btn-primary btn-large" onclick="startStreaming()" >
+    Start Streaming
+  </button>
+  <button id="btn_stop" style="display: none;" class="btn btn-danger btn-large" onclick="stopStreaming()" >
+    Stop Streaming
+  </button>
+</div>
+
+<h2 id="playertype"></h2>
+<div id="kaltura_player" style="display: none; width: 560px; height: 395px;"></div>
+<div id="setupLiveStream_msg" style="display: none;">
+  <h2>Setting up your broadcast stream...</h2>
+  <p>Please wait for the live stream to begin. grab a coffee, it can take a few minutes...</p>
+</div>
+<lucy include="LiveBroadcastSetup"></lucy>
