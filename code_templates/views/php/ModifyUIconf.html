@@ -1,0 +1,18 @@
+<lucy include="ModifyUIconfForm"></lucy>
+<script>
+  $('#ModifyUIconfForm').submit(function() {
+    var data = new FormData(document.getElementById('ModifyUIconfForm'));
+     $.ajax({
+       url: '/ModifyUIconf.php',
+       type: 'POST',
+       data: data,
+       contentType: false,
+       cache: false,
+       processData: false,
+       success: function (data, textStatus, jqXHR) {
+         $('.container').html(data);
+       }
+     });
+    return false;
+  })
+</script>

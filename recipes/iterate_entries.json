@@ -21,6 +21,7 @@
   ],
   "views": [
     "KalturaMediaListResponse",
+    "KalturaMediaEntry",
     "IterateEntries"
   ],
   "actions": [
