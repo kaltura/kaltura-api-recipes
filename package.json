@@ -24,6 +24,7 @@
     "express": "^4.13.0",
     "jade": "^1.11.0",
     "jsonwebtoken": "^5.4.0",
+    "kaltura-codegen": "git+https://github.com/bobby-brennan/kaltura-codegen.git",
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
     "request": "^2.65.0",

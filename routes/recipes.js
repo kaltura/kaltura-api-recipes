@@ -7,7 +7,7 @@ var Recipes = require('../recipes/recipes.js');
 
 var RecipeServer = require('lucy-recipes');
 
-var CodeTemplates = require('../code_templates/code-templates.js');
+var CodeTemplates = require('kaltura-codegen');
 var Schema = require('../api-schema.js');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
