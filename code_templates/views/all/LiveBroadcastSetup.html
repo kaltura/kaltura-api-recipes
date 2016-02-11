@@ -139,18 +139,8 @@
 
 
 var krecordHandler = new krecordLiveHandlerPrototype();
-
-
-  <!--
-  ///*****************************
-  ///****
-  ///**** Step 3: Start Broadcast from KRecord, Wait for initial streaming and start Live Stream playback via player
-  ///****
-  ///*****************************
-  -->
-
+  var broadcastID = '{{ result.id }}';
   var statusCheckTimeout = 2000;
-
   var kdp = null;
 
   function startStreaming() {
@@ -162,7 +152,7 @@ var krecordHandler = new krecordLiveHandlerPrototype();
     var liveTestStart = new Date().getTime();
     var checkStatus_isLive = function() {
       new kWidget.api( { 'wid' : "_{{ answers.partnerId }}" })
-      .doRequest({'service':'liveStream', 'action': 'islive', 'id': '{{ result.id }}', 'protocol': 'auto',  "cache_st": Math.floor((Math.random() * 10000000) + 1) }, 
+      .doRequest({'service':'liveStream', 'action': 'islive', 'id': broadcastID, 'protocol': 'auto',  "cache_st": Math.floor((Math.random() * 10000000) + 1) }, 
         function( data ){
           if (data == false) {
             console.log( 'Live stream playback is not ready yet... ' + data );
@@ -186,7 +176,7 @@ var krecordHandler = new krecordLiveHandlerPrototype();
                 "externalInterfaceDisabled": false
               },
               "cache_st": 11,
-              "entry_id": "{{ result.id }}",
+              "entry_id": broadcastID,
               'readyCallback': function( playerId ){
                 console.log( "kWidget player ready: " + playerId );
                 kdp = $( '#' + playerId ).get(0);
@@ -205,7 +195,7 @@ var krecordHandler = new krecordLiveHandlerPrototype();
 
     kdp.sendNotification('doStop');
     new kWidget.api({ 'wid' : "_{{ answers.partnerId }}", })
-      .doRequest({'service':'liveStream', 'action': 'get', 'entryId': '{{ result.id }}'}, 
+      .doRequest({'service':'liveStream', 'action': 'get', 'entryId': broadcastID}, 
         function( data ){
           vodEntryId = data.recordedEntryId;
           playVODRecording();

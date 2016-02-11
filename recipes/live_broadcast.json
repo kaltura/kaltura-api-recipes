@@ -67,6 +67,10 @@
       "default": 1,
       "hidden": true
     }, {
+      "name": "dvrWindow",
+      "default": 60,
+      "hidden": true
+    }, {
       "name": "sourceType",
       "default": "32",
       "hidden": true
