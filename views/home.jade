@@ -3,31 +3,12 @@ html
   head
     title=title
 
-    meta(charset='utf-8')
-    meta(content='IE=edge', http-equiv='X-UA-Compatible')
-    meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
     meta(name="description" content="Code Recipes for using the Kaltura VPaaS")
-
-    link(rel='stylesheet' href='/bower/fontawesome/css/font-awesome.min.css')
-    link(rel='stylesheet' href='/css/bootstrap.css')
-    link(rel='stylesheet' href='/css/styles.css')
+    include ./includes/head
     link(rel='stylesheet' href='/css/home.css')
-    link(rel='stylesheet' href='/css/navbar.css')
-    link(rel='stylesheet' href='/bower/chosen/chosen.min.css')
-
-    script(src="/bower/jquery/dist/jquery.min.js")
-    script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
-    script(src="/bower/angular/angular.min.js")
-    script(src="/bower/chosen/chosen.jquery.min.js")
-    script(src="/bower/angular-chosen-localytics/chosen.js")
     script.
       var RECIPES = !{JSON.stringify(Object.keys(recipes).map(function(k) {return recipes[k]}))};
-    script(src="/js/mixpanel.js")
-    script(src="/js/ng/locations.js")
-    script(src="/js/ng/app.js")
     script(src="/js/ng/home.js")
-    script(src="/js/ng/cookie.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js")
 
   body(ng-app="App")
     div(ng-controller="Body")
