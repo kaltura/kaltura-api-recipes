@@ -55,6 +55,7 @@ var apiConsole = new LucyConsole({
   codegenPath: '/code/build/kc_request',
   basePath: '/console_embed',
   development: process.env.DEVELOPMENT || false,
+  credentialCookie: 'LUCYBOT_RECIPE_CREDS',
   embedParameters: {
     format: 1,
   },
