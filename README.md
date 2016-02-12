@@ -25,6 +25,22 @@ git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-rec
 npm install
 ```
 
+If you intend to add or update recipes and push them to the repo, you will also need to:
+```
+$ git clone https://github.com/kaltura/kaltura-api-codegen
+cd /path/to/local/clone/of/kaltura-api-codegen
+# npm link
+cd kaltura-recipes
+npm link kaltura-codegen
+```
+
+This will create:
+```
+/path/to/local/clone/of/kaltura-recipes/node_modules/kaltura-codegen -> /usr/local/lib/node_modules/kaltura-codegen
+/usr/local/lib/node_modules/kaltura-codegen -> /path/to/local/clone/of/kaltura-api-codegen/
+```
+
+
 ## Startup
 To use in development mode, export
 ```bash
@@ -119,10 +135,10 @@ You can also set this flag before starting the server to point the recipes at yo
 
 This repository contains tutorials - known as recipes - for working with Kaltura's API. The repository is structured as follows:
 * ```recipes/``` - a set of JSON objects, each corresponding to a single tutorial.
-* ```code_templates/``` - Kaltura-specific templates which are passed to the LucyBot code builders.
-* ```code_templates/views/``` - HTML templates for displaying the results of the API. Views starting with ```Kaltura``` correspond to specific objects in Kaltura's API schema; e.g. ```KalturaMediaEntry.html``` is the HTML for displaying a [KalturaMediaEntry](https://www.kaltura.com/api_v3/testmeDoc/index.php?object=KalturaMediaEntry). Note that files under ```code_templates/views/html/``` are used by default, but can be overriden for a specific language by placing a view with the same filename under ```code_templates/views/language_name``` (e.g. to use the jquery-fileupload library when working in javascript).
-* ```code_templates/actions/``` - Templates for making calls to the API in different languages. There is a subdirectory for each language.
-* ```code_templates/generic_actions/``` - There is one template in here for each supported language. These templates are special in that they don't produce working code; rather, they produce the templates that would normally be found in ```code_templates/actions/```. These templates use Kaltura's API Schema to automatically generate action templates.
+* ```node_modules/kaltura-codegen/code_templates/``` - Kaltura-specific templates which are passed to the LucyBot code builders.
+* ```node_modules/kaltura-codegen/code_templates/views/``` - HTML templates for displaying the results of the API. Views starting with ```Kaltura``` correspond to specific objects in Kaltura's API schema; e.g. ```KalturaMediaEntry.html``` is the HTML for displaying a [KalturaMediaEntry](https://www.kaltura.com/api_v3/testmeDoc/index.php?object=KalturaMediaEntry). Note that files under ```code_templates/views/html/``` are used by default, but can be overriden for a specific language by placing a view with the same filename under ```code_templates/views/language_name``` (e.g. to use the jquery-fileupload library when working in javascript).
+* ```node_modules/kaltura-codegen/code_templates/actions/``` - Templates for making calls to the API in different languages. There is a subdirectory for each language.
+* ```node_modules/kaltura-codegen/code_templates/generic_actions/``` - There is one template in here for each supported language. These templates are special in that they don't produce working code; rather, they produce the templates that would normally be found in ```code_templates/actions/```. These templates use Kaltura's API Schema to automatically generate action templates.
 
 Other directories control the webserver:
 * ```routes/``` contains a set of Express routers, which control what paths are served by the webserver
