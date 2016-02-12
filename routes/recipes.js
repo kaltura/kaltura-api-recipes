@@ -116,6 +116,10 @@ var setup = function(callback) {
       rootDir: '/recipes_embed',
       galleryTitle: 'Kaltura VPaaS Interactive Code Cookbook',
       recipeTitle: 'Kaltura VPaaS Cookbook: {{ recipe }} Recipe',
+      cssIncludes: [
+        '/css/bootstrap.css',
+        '/css/recipe-overrides.css',
+      ],
       jsIncludes: [
         '/js/ox.ajast.js',
         '/js/webtoolkit.md5.js',

@@ -1,0 +1,25 @@
+body,
+#Recipe {
+  background-color: #f2f2f2;
+}
+
+#Code .btn {
+  color: #363636;
+  background-color: #d6d6d6;
+  border-color: #d6d6d6;
+}
+
+#Code .btn.dropdown-toggle {
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+}
+
+#Code pre,
+#Code code {
+  background-color: #fff;
+  border: none;
+}
+
+.recipe-title {
+  display: none;
+}

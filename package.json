@@ -27,16 +27,18 @@
     "kaltura-codegen": "git+https://github.com/kaltura/kaltura-api-codegen.git",
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
+    "remove-markdown": "0.0.6",
     "request": "^2.65.0",
     "requestify": "^0.1.17",
     "sitemap": "^1.4.1",
     "xml2js": "^0.4.9"
   },
   "devDependencies": {
-    "rimraf": "~2.4.2",
+    "busboy": "~0.2.9",
+    "chai": "~3.2.0",
     "mkdirp": "~0.5.1",
     "mocha": "~2.2.5",
-    "chai": "~3.2.0",
-    "busboy": "~0.2.9"
+    "rimraf": "~2.4.2",
+    "strapping": "^1.5.2"
   }
 }

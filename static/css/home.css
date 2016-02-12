@@ -3,12 +3,82 @@ body {
   padding-bottom: 30px;
 }
 
+.pointer,
 a {
   cursor: pointer;
 }
 
+.navbar {
+  margin-bottom: 0px;
+}
+
+.search-bar {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 80px;
+}
+
+.search-bar input {
+  border: none;
+  box-shadow: none;
+}
+
+.search-bar .input-group-addon {
+  border: none;
+  background-color: #fff;
+  font-size: 20px;
+}
+
+.panel-body {
+  min-height: 200px;
+}
+
+.heading-icon {
+  font-size: 30px;
+  color: #AB7800;
+}
+.heading-icon,
+.heading-title {
+  line-height: 40px;
+}
+.heading-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.tooltip {
+  min-width: 200px;
+}
+
+.keywords {
+  margin-top: 32px;
+}
+
+.keyword-badge {
+  display: inline-block;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color: #c8c8c8;
+  background-color: #ededed;
+  font-size: 14px;
+}
+
 .chosen-container {
   width: 100% !important;
+}
+
+.recipe-col {
+  margin-bottom: 30px;
+}
+
+.panel {
+  border: none;
+}
+
+.panel-heading {
+  position: relative;
 }
 
 .recipe-link {
@@ -20,21 +90,20 @@ a {
   z-index: 100;
 }
 
-.recipe-item {
-  border: 1px solid #333;
-  border-radius: 4px;
-  height: 280px;
-  padding: 10px;
-  margin-bottom: 30px;
-  background-color: #fff;
+.suggestion-bar {
+  margin-top: 30px;
 }
 
-.recipe-title {
-  height: 54px;
+.suggestion-bar h4 {
+  color: #000;
 }
 
-.recipe-icon {
-  font-size: 48px;
+.suggestion-bar textarea {
   margin-top: 20px;
-  margin-bottom: 40px;
+  border: none;
+  height: 150px;
+}
+
+.suggestion-bar .btn {
+  width: 100px;
 }
