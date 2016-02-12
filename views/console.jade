@@ -4,14 +4,14 @@ html
     meta(charset='utf-8')
     meta(content='IE=edge', http-equiv='X-UA-Compatible')
     meta(content='width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no', name='viewport')
-    meta(name="description" content="#{recipe.description}")
-    meta(name="keywords" content="#{(recipe.keywords || []).join(',')}")
+    meta(name="description" content="Documentation and test console for the Kaltura Video Platform API")
+    meta(name="keywords" content="Kaltura, Video, VPaaS, API, API console, documentation")
 
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/navbar.css')
     link(rel='stylesheet' href='/css/embed.css')
     link(rel='stylesheet' href='/bower/chosen/chosen.min.css')
-    title=title
+    title Kaltura API Console
 
     script(src="/bower/jquery/dist/jquery.min.js")
     script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
@@ -30,4 +30,18 @@ html
           block
       include ./includes/navbar.jade
     .iframe-container
-      iframe(src="#{iframeURL}")
+      iframe(src="/console_embed")
+    script.
+      $(document).ready(function() {
+        $('iframe').load(function() {
+          var frame = $('iframe')[0].contentWindow;
+          console.log('cur', frame.location);
+          console.log('set', window.location.hash);
+          if (window.location.hash) {
+            frame.location.hash = window.location.hash;
+          }
+          setInterval(function() {
+            window.location.hash = frame.location.hash;
+          }, 1000)
+        })
+      })

@@ -3,6 +3,8 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
+var LucyConsole = require('lucy-console');
+var Swagger = require('./swagger.js');
 var Recipes = require('./recipes/recipes.js');
 
 var App = Express();
@@ -46,6 +48,25 @@ App.use('/sitemap.xml', function(req, res) {
   })
 })
 
+var apiConsole = new LucyConsole({
+  swagger: Swagger,
+  cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
+  disableAutorefresh: true,
+  codegenPath: '/code/build/kc_request',
+  basePath: '/console_embed',
+  development: process.env.DEVELOPMENT || false,
+  embedParameters: {
+    format: 1,
+  },
+})
+App.use('/console_embed', apiConsole.router);
+require('./codegen').initialize(function(router) {
+  App.use('/console_embed', router);
+})
+
+App.get('/swagger.json', function(req, res) {
+  res.json(Swagger);
+})
 require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes_embed', router);
   App.use('/', require('./routes/pages.js'));

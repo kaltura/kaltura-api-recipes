@@ -19,3 +19,7 @@ Router.get('/recipes/:recipe', function(req, res) {
     title: "Kaltura VPaaS Cookbook: " + recipe.title + " Recipe",
   });
 })
+
+Router.get('/console', function(req, res) {
+  res.render('console', {});
+})

@@ -1,0 +1,8 @@
+.left-col, .right-col,
+.sidebar, .docs-col {
+  top: 45px;
+}
+
+.navbar .api-title {
+  padding-left: 0;
+}
