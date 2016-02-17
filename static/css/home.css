@@ -29,10 +29,15 @@ a {
   font-size: 20px;
 }
 
+.panel {
+  background-color: #f7f7f7;
+}
+
 .panel-body {
   min-height: 200px;
+  background-color: #fff;
 }
-.panel-body.show-info {
+.panel-body.flipped {
   background-color: #5e5e5e;
   color: #fff;
 }
@@ -63,6 +68,7 @@ a {
 }
 
 .info-button {
+  z-index: 100;
   position: absolute;
   bottom: 30px;
   right: 30px;
@@ -108,6 +114,43 @@ a {
 .panel-heading {
   position: relative;
   border-bottom: 0px;
+}
+
+.panel-body {
+  /* Set the transition effects */
+  -webkit-transition: -webkit-transform 0.4s;
+  -moz-transition: -moz-transform 0.4s;
+  -o-transition: -o-transform 0.4s;
+  transition: transform 0.4s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.panel-body.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.panel-front,
+.panel-back {
+  display: block;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.panel-back {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
 }
 
 .recipe-link {
