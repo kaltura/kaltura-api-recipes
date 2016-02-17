@@ -32,6 +32,10 @@ a {
 .panel-body {
   min-height: 200px;
 }
+.panel-body.show-info {
+  background-color: #5e5e5e;
+  color: #fff;
+}
 
 .heading-icon {
   font-size: 30px;
@@ -56,6 +60,19 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   padding-left: 70px;
+}
+
+.info-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  color: #5e5e5e;
+}
+.info-button:hover {
+  color: #333;
+}
+.info-button i.fa-times {
+  color: #fff;
 }
 
 .tooltip {
@@ -90,6 +107,7 @@ a {
 
 .panel-heading {
   position: relative;
+  border-bottom: 0px;
 }
 
 .recipe-link {

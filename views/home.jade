@@ -52,18 +52,20 @@ html
                   ng-repeat="recipe in matchingRecipes = (recipes | filter: query | filter: recipeFilter | orderBy: recipeSort)"
                   ng-if="!recipe.broken")
               .panel.panel-warning
+                a.info-button(ng-click="showRecipeInfo = !showRecipeInfo")
+                  i.fa.fa-2x(ng-class="{'fa-info-circle': !showRecipeInfo, 'fa-times': showRecipeInfo}")
                 .panel-heading
                   a.recipe-link(ng-click="openRecipe(recipe.name)")
                   .heading-icon.text-center
                     i.fa.fa-left(ng-class="'fa-' + (recipe.icon || 'plug')")
                   .heading-title.text-uppercase.text-left
                     span(ng-bind="recipe.title")
-                .panel-body.pointer.text-left(ng-click="openRecipe(recipe.name)")
-                  p
-                    i.fa.fa-2x.fa-info-circle(data-toggle="tooltip" data-placement="left" title="{{recipe.tip}}")
-                  p(ng-bind="recipe.description")
-                  p.keywords
-                    .keyword-badge(ng-repeat="keyword in recipe.keywords" ng-bind="keyword")
+                .panel-body.pointer.text-left(ng-click="openRecipe(recipe.name)" ng-class="{'show-info': showRecipeInfo}")
+                  p(ng-bind="recipe.tip" ng-show="showRecipeInfo")
+                  p(ng-bind="recipe.description" ng-show="!showRecipeInfo")
+                  .row(ng-show="!showRecipeInfo")
+                    .col-xs-10
+                      .keyword-badge(ng-repeat="keyword in recipe.keywords" ng-bind="keyword")
           .row.suggestion-bar
             .col-xs-12(ng-controller="Suggestion")
               h4.text-black Can't find what you're looking for?
