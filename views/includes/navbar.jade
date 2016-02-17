@@ -8,8 +8,12 @@ nav.navbar.navbar-default
         a.navbar-brand.recipe-navbar-title(href="#")
           span(href="#")= recipe.title
     ul.nav.navbar-nav.navbar-right
-      li.signed-in(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
+      li
+        a(href="/console") API Console
+      li
+        a(href="/") Code Recipes
+      li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
         span Signed in as {{user.userId}} 
           a(href="javascript:;" ng-click="setUser({})") [sign out]
-      li(ng-if="!user.userId")
-        a#LoginButton.btn.btn-default(data-toggle="modal" data-target="#Login") Sign In
+      li.text-bold(ng-if="!user.userId")
+        a#LoginButton(data-toggle="modal" data-target="#Login") Sign In

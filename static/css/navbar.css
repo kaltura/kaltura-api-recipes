@@ -5,8 +5,17 @@
   padding-bottom: 12px;
 }
 
-.navbar a {
+.text-bold {
+  font-weight: bold;
+}
+
+li.signed-in {
+  padding-left: 15px;
+}
+
+.navbar-default .navbar-nav > li > a {
   text-align: left;
+  color: #333;
 }
 
 .navbar ul {
