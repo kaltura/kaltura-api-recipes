@@ -28,7 +28,7 @@ App.controller('Recipes', function($scope) {
     var sortOpt = $scope.sortOptions.active || 'Name';
     if (sortOpt === 'Name') return recipe.title;
     if (sortOpt === 'Description') return recipe.description;
-    if (sortOpt === 'Date Added') return recipe.dateAdded;
+    if (sortOpt === 'Date Added') return -recipe.dateAdded;
   }
 })
 
