@@ -36,6 +36,16 @@ a {
 .heading-icon {
   font-size: 30px;
   color: #AB7800;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  background-color: #e09d00;
+  padding-top: 10px;
+  padding-left: 6px;
+  text-align: center;
 }
 .heading-icon,
 .heading-title {
@@ -45,6 +55,7 @@ a {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  padding-left: 70px;
 }
 
 .tooltip {
