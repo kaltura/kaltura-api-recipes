@@ -9,9 +9,9 @@ nav.navbar.navbar-default
           span(href="#")= recipe.title
     ul.nav.navbar-nav.navbar-right
       li
-        a(href="/console") API Console
-      li
         a(href="/") Code Recipes
+      li
+        a(href="/console") API Console
       li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
         span Signed in as {{user.userId}} 
           a(href="javascript:;" ng-click="setUser({})") [sign out]
