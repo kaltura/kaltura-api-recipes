@@ -5,7 +5,10 @@ var Swagger = module.exports = require('./static/swagger.json');
 
 var README = FS.readFileSync(__dirname + '/static/README.md', 'utf8');
 README = require('markdown-sections')(README);
-Swagger.info['x-lucy/readme'] = README;
+Swagger.info['x-lucy/readme'] = README.map(function(section) {
+  var title = section.match(/# (.*)\n/)[1];
+  return {title: title, contents: section};
+});
 
 for (var name in Views) {
   var def = Swagger.definitions[name] = Swagger.definitions[name] || {};
