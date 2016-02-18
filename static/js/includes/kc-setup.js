@@ -2,12 +2,10 @@ window.KC = null;
 window.credentialFields = ['partnerId', 'userId', 'secret']
 window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
   if (!creds.partnerId || !creds.secret) return;
-  console.log('starting', creds)
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
   KC.session.start(function(success, ks) {
-    console.log('started', success, ks);
     if (!success || (ks.code && ks.message)) {
       mixpanel.track('kaltura_session_error', {
         code: ks.code,
