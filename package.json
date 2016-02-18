@@ -29,6 +29,7 @@
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-console": "git+https://github.com/lucybot/lucy-console.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
+    "markdown-sections": "^1.0.2",
     "remove-markdown": "0.0.6",
     "request": "^2.65.0",
     "requestify": "^0.1.17",

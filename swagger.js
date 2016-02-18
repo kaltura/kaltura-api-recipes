@@ -3,7 +3,9 @@ var Views = require('kaltura-codegen').views;
 
 var Swagger = module.exports = require('./static/swagger.json');
 
-Swagger.info['x-lucy/readme'] = FS.readFileSync(__dirname + '/static/README.md', 'utf8')
+var README = FS.readFileSync(__dirname + '/static/README.md', 'utf8');
+README = require('markdown-sections')(README);
+Swagger.info['x-lucy/readme'] = README;
 
 for (var name in Views) {
   var def = Swagger.definitions[name] = Swagger.definitions[name] || {};
