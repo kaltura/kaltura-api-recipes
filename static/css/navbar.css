@@ -13,6 +13,10 @@ li.signed-in {
   padding-left: 15px;
 }
 
+.navbar-default .navbar-nav > li.active > a {
+  background-color: #008096;
+}
+
 .navbar-default .navbar-nav > li > a {
   text-align: left;
   color: #333;
