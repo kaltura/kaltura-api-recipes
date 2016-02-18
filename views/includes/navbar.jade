@@ -8,9 +8,9 @@ nav.navbar.navbar-default
         a.navbar-brand.recipe-navbar-title(href="#")
           span(href="#")= recipe.title
     ul.nav.navbar-nav.navbar-right
-      li
+      li(ng-class="{active: pathname === '/' || pathname.indexOf('/recipes') === 0}")
         a(href="/") Code Recipes
-      li
+      li(ng-class="{active: pathname === '/console'}")
         a(href="/console") API Console
       li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
         span Signed in as {{user.userId}} 

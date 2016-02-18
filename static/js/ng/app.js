@@ -5,6 +5,7 @@ var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
 App.controller('Body', function($scope) {
   $scope.user = {};
+  $scope.pathname = window.location.pathname;
   $scope.setUser = function(creds) {
     $scope.user = creds;
     var now = new Date();
