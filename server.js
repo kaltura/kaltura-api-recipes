@@ -51,7 +51,17 @@ App.use('/sitemap.xml', function(req, res) {
 var apiConsole = new LucyConsole({
   swagger: Swagger,
   cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
-  jsIncludes: ['/js/includes/console.js'],
+  jsIncludes: [
+    '/js/kaltura/ox.ajast.js',
+    '/js/kaltura/webtoolkit.md5.js',
+    '/js/kaltura/KalturaClientBase.js',
+    '/js/kaltura/KalturaTypes.js',
+    '/js/kaltura/KalturaVO.js',
+    '/js/kaltura/KalturaServices.js',
+    '/js/kaltura/KalturaClient.js',
+    '/js/includes/kc-setup.js',
+    '/js/includes/console.js',
+  ],
   disableAutorefresh: true,
   codegenPath: '/code/build/kc_request',
   basePath: '/console_embed',

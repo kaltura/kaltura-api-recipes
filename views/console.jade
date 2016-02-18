@@ -24,8 +24,6 @@ html
       $(document).ready(function() {
         $('iframe').load(function() {
           var frame = $('iframe')[0].contentWindow;
-          console.log('cur', frame.location);
-          console.log('set', window.location.hash);
           if (window.location.hash) {
             frame.location.hash = window.location.hash;
           }
