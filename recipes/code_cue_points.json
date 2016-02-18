@@ -56,7 +56,7 @@
     },
     {
       "title": "Adding a Cue Point",
-      "tip": "You can use the form below to add cue points to your video.",
+      "tip": "Use the form in the **Live Demo** window below to add cue points to your video.",
       "code_snippet": "AddCodeCuePoint",
       "inputs": []
     }
