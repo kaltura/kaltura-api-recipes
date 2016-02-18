@@ -51,6 +51,7 @@ App.use('/sitemap.xml', function(req, res) {
 var apiConsole = new LucyConsole({
   swagger: Swagger,
   cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
+  jsIncludes: ['/js/includes/console.js'],
   disableAutorefresh: true,
   codegenPath: '/code/build/kc_request',
   basePath: '/console_embed',
