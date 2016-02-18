@@ -85,7 +85,9 @@ require('./routes/recipes.js').getRouter(function(router) {
 
   if (process.env.LUCYBOT_DEV) {
     console.log('----DEVELOPMENT ENVIRONMENT----');
-    App.listen(process.env.KALTURA_RECIPES_PORT || 3000);
+    var port = process.env.KALTURA_RECIPES_PORT || 3000;
+    console.log('listening on port ' + port);
+    App.listen(port);
   } else {
     var port = process.env.KALTURA_RECIPES_PORT || 443
     var sslOptions = {
