@@ -9,6 +9,10 @@ Swagger.info['x-lucy/readme'] = README.map(function(section) {
   var title = section.match(/# (.*)\n/)[1];
   return {title: title, contents: section};
 });
+Swagger.info['x-lucy/readme'].push({
+  title: 'Error Codes',
+  contents: FS.readFileSync(__dirname + '/static/errors.md', 'utf8'),
+})
 
 for (var name in Views) {
   var def = Swagger.definitions[name] = Swagger.definitions[name] || {};
