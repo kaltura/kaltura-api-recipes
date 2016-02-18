@@ -88,8 +88,7 @@ files.forEach(function(filename) {
     console.log('Error parsing recipe ' + name);
     throw e;
   }
-  if (Recipes[name].hidden) delete Recipes[name];
-  else RecipeManager.setRecipeDefaults(Recipes[name]);
+  RecipeManager.setRecipeDefaults(Recipes[name]);
 });
 
 for (name in Recipes) {

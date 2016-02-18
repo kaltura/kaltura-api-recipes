@@ -50,7 +50,7 @@ html
           .row
             .col-xs-12.col-sm-6.col-lg-4.text-center.recipe-col(
                   ng-repeat="recipe in matchingRecipes = (recipes | filter: query | filter: recipeFilter | orderBy: recipeSort)"
-                  ng-if="!recipe.broken")
+                  ng-if="!recipe.broken && !recipe.hidden")
               .panel.panel-warning
                 a.info-button(ng-click="showRecipeInfo = !showRecipeInfo")
                   i.fa.fa-2x(ng-class="{'fa-info-circle': !showRecipeInfo, 'fa-times': showRecipeInfo}")
