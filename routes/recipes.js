@@ -2,13 +2,12 @@ var Async = require('async');
 var EJS = require('ejs');
 var FS = require('fs');
 var Path = require('path');
-var XMLParser = require('xml2js').parseString;
 var Recipes = require('../recipes/recipes.js');
 
 var RecipeServer = require('lucy-recipes');
 
 var CodeTemplates = require('kaltura-codegen');
-var Schema = require('../api-schema.js');
+var Schema = require('kaltura-schema');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 var ACTION_FIELDS = ['list', 'clone', 'delete'];
