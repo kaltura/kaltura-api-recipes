@@ -2,7 +2,7 @@ var Async = require('async');
 var EJS = require('ejs');
 var FS = require('fs');
 var Path = require('path');
-var Recipes = require('../recipes/recipes.js');
+var RecipeManager = require('../recipes/recipes.js');
 
 var RecipeServer = require('lucy-recipes');
 
@@ -40,6 +40,7 @@ var fixRubyVariables = function(html) {
 
 var setup = function(callback) {
   Schema.initialize(function() {
+    var recipes = new RecipeManager(Schema);
     var actions = CodeTemplates.actions;
     var views = CodeTemplates.views;
     for (var service in Schema.services) {
@@ -104,8 +105,8 @@ var setup = function(callback) {
       actions: actions,
       views: views,
       staticFiles: CodeTemplates.static,
-      recipes: Recipes.recipes,
-      save: Recipes.save,
+      recipes: recipes.recipes,
+      save: recipes.save,
       dependencies: {
         ruby: ['kaltura-client']
       },

@@ -1,5 +1,5 @@
 var Router = module.exports = require('express').Router();
-var RecipeManager = require('../recipes/recipes.js');
+var RecipeManager = new (require('../recipes/recipes.js'))();
 
 Router.get('/', function(req, res) {
   res.render('home', {recipes: RecipeManager.recipes});
