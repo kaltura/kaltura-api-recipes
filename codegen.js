@@ -37,7 +37,7 @@ module.exports.initialize = function(cb) {
           paramObject.fields = [];
           var cls = Schema.classes[type];
           if (!cls) throw new Error('Type ' + type + ' not found in schema');
-          paramObject.abstract = cls.abstract;
+          paramObject.abstract = (cls.abstract || cls.subclasses) ? true : false;
           for (field in cls.properties) {
             if (BLACKLISTED_FIELDS.indexOf(field) !== -1) continue;
             var fieldType = cls.properties[field].type;
