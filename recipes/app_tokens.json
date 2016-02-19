@@ -1,6 +1,7 @@
 {
   "name": "app_tokens",
   "title": "App Tokens",
+  "broken": true,
   "description": "Learn how to create, view, and delete App Tokens",
   "needs_admin": true,
   "recipe_steps": [

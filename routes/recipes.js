@@ -108,7 +108,8 @@ var setup = function(callback) {
       recipes: recipes.recipes,
       save: recipes.save,
       dependencies: {
-        ruby: ['kaltura-client']
+        ruby: ['kaltura-client'],
+        node: ['kaltura'],
       },
       languageOptions: {
         ruby: {hashMethod: 'getter'}
