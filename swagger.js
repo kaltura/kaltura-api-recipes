@@ -32,3 +32,28 @@ for (var path in Swagger.paths) {
     }
   }
 }
+
+var Schema = require('kaltura-schema');
+Schema.initialize(function() {
+  var recipes = new (require('./recipes/recipes.js'))({schema: Schema});
+  var recipeLinks = {};
+  for (var name in recipes.recipes) {
+    var recipe = recipes.recipes[name];
+    var links = recipe.console_links || [];
+    links.forEach(function(link) {
+      recipeLinks[link] = recipeLinks[link] || [];
+      recipeLinks[link].push(name);
+    })
+  }
+  for (var path in recipeLinks) {
+    var op = Swagger.paths[path].get;
+    op.description = op.description || '';
+    if (op.description) op.description += '\n\n';
+    op.description += [
+      'You can learn more about this operation in the following recipes:',
+    ].concat(recipeLinks[path].map(function(recipeName) {
+      var recipe = recipes.recipes[recipeName];
+      return '* [' + recipe.title + '](/recipes/' + recipeName + ') - ' + recipe.description;
+    })).join('\n');
+  }
+})

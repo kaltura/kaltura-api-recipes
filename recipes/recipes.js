@@ -96,6 +96,9 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
           '` - [Documentation](' + docUrl + '), [Test Console](' + conUrl + ')';
     })).join('\n');
   }
+  recipe.console_links = consoleLinks.map(function(link) {
+    return '/service/' + link.service + '/action/' + link.action;
+  })
   recipe.pages.forEach(function(page) {
     if (page.actions) page.actions.forEach(fixAction);
   })
