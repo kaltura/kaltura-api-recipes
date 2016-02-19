@@ -1,4 +1,4 @@
-var RecipeManager = module.exports = function(opts) {
+var RecipeManager = module.exports = function(opts, callback) {
   var self = this;
   opts = opts || {};
   self.schema = opts.schema;
@@ -83,7 +83,7 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
   recipe.actions.forEach(fixAction);
   if (consoleLinks.length) {
     recipe.finish_text = [
-      '## Learn More',
+      '### Learn More',
       'You can learn more about the services and actions used in this recipe by visiting the [API Console](/console)',
       '',
     ].concat(consoleLinks.map(function(link) {

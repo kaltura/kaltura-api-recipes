@@ -63,26 +63,23 @@ App.get('/swagger.json', function(req, res) {
   res.json(Swagger);
 })
 
-var Schema = require('kaltura-schema');
-Schema.initialize(function() {
-  var recipes = new RecipeManager({schema: Schema});
-  var sitemapUrls = Object.keys(recipes.recipes).map(function(r) {
-    return {url: '/recipes/' + r, priority: .3}
-  });
-  sitemapUrls.push({url: '/', priority: .9})
-  var sitemap = require('sitemap').createSitemap({
-    hostname: 'https://developer.kaltura.org',
-    cacheTime: 1000 * 60 * 10, // ten minutes
-    urls: sitemapUrls,
-  });
-  App.use('/sitemap.xml', function(req, res) {
-    sitemap.toXML(function(err, xml) {
-      if (err) return res.status(500).send(err);
-      res.header('Content-Type', 'application/xml');
-      res.send( xml );
-    })
-  })
+var recipes = new RecipeManager();
+var sitemapUrls = Object.keys(recipes.recipes).map(function(r) {
+  return {url: '/recipes/' + r, priority: .3}
 });
+sitemapUrls.push({url: '/', priority: .9})
+var sitemap = require('sitemap').createSitemap({
+  hostname: 'https://developer.kaltura.org',
+  cacheTime: 1000 * 60 * 10, // ten minutes
+  urls: sitemapUrls,
+});
+App.use('/sitemap.xml', function(req, res) {
+  sitemap.toXML(function(err, xml) {
+    if (err) return res.status(500).send(err);
+    res.header('Content-Type', 'application/xml');
+    res.send( xml );
+  })
+})
 
 require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes_embed', router);
