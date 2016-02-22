@@ -1,7 +1,7 @@
 var FS = require('fs');
 var Views = require('kaltura-codegen').views;
 
-var Swagger = module.exports = require('./static/swagger.json');
+var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 
 var README = FS.readFileSync(__dirname + '/static/README.md', 'utf8');
 README = require('markdown-sections')(README);
