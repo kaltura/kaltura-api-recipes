@@ -27,8 +27,13 @@ html
           if (window.location.hash) {
             frame.location.hash = window.location.hash;
           }
+          var lastHash = frame.location.hash;
           setInterval(function() {
-            window.location.hash = frame.location.hash;
+            if (window.location.hash !== lastHash) {
+              lastHash = frame.location.hash = window.location.hash;
+            } else if (frame.location.hash !== lastHash) {
+              lastHash = window.location.hash = frame.location.hash;
+            }
           }, 1000)
         })
       })
