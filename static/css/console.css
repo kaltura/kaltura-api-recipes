@@ -1,8 +1,8 @@
-.left-col, .right-col,
-.sidebar, .docs-col {
-  top: 45px;
+@media (min-width: 768px) {
+  .left-col, .right-col, .sidebar, .docs-col {
+    top: 45px;
+  }
 }
-
 .navbar .api-title {
   margin-left: -15px;
 }
