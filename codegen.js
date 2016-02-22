@@ -38,17 +38,24 @@ module.exports.initialize = function(cb) {
           var cls = Schema.classes[type];
           if (!cls) throw new Error('Type ' + type + ' not found in schema');
           paramObject.abstract = (cls.abstract || cls.subclasses) ? true : false;
-          for (field in cls.properties) {
-            if (BLACKLISTED_FIELDS.indexOf(field) !== -1) continue;
-            var fieldType = cls.properties[field].type;
-            var enumType = cls.properties[field].enumType;
-            var field = {
-                name: field,
-                type: fieldType,
-            };
-            if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
-            paramObject.fields.push(field);
+          function addProps(props, objectType) {
+            for (var fieldName in props) {
+              if (BLACKLISTED_FIELDS.indexOf(fieldName) !== -1) continue;
+              var fieldType = props[fieldName].type;
+              var enumType = props[fieldName].enumType;
+              var field = {
+                  name: fieldName,
+                  type: fieldType,
+                  objectType: objectType,
+              };
+              if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
+              paramObject.fields.push(field);
+            }
           }
+          addProps(cls.properties);
+          (cls.subclasses || []).forEach(function(subcls) {
+            addProps(Schema.classes[subcls].properties, subcls);
+          })
         }
         renderParams[serviceSchema.id] = renderParams[serviceSchema.id] || {};
         renderParams[serviceSchema.id][action] = codeParams;
