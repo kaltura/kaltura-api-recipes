@@ -33,6 +33,7 @@ if (process.env.DEVELOPMENT) {
 
 var apiConsole = new LucyConsole({
   swagger: Swagger,
+  mixpanel: '/js/includes/mixpanel.js',
   cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
   jsIncludes: [
     '/js/kaltura/ox.ajast.js',
