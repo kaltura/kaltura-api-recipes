@@ -19,6 +19,7 @@ var RecipeManager = module.exports = function(opts, callback) {
       console.log('Error parsing recipe ' + name);
       throw e;
     }
+    self.recipes[name].name = name;
     self.setRecipeDefaults(self.recipes[name]);
   });
 
