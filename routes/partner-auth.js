@@ -23,14 +23,13 @@ Router.post('/selectPartner', function(req, res) {
   client.user.loginByLoginId(function(ks){
     if (!ks) return res.send("Error logging in");
     client.setKs(ks);
-  var type = ktypes.KalturaSessionType.ADMIN;
-  client.partner.getSecrets(function(secrets) {
-    if (!secrets) return res.status(500).end();
-    if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
-    res.json(secrets);
-  }, req.body.partnerId, req.body.email, req.body.password);
-
-})
+    var type = ktypes.KalturaSessionType.ADMIN;
+    client.partner.getSecrets(function(secrets) {
+      if (!secrets) return res.status(500).end();
+      if (secrets.code && secrets.message) return res.status(500).send(secrets.message);
+      res.json(secrets);
+    }, req.body.partnerId, req.body.email, req.body.password);
+  })
 })
 
 Router.post('/login', function(req, res) {
