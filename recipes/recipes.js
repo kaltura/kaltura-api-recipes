@@ -65,6 +65,7 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
   recipe.defaults = recipe.defaults || {};
   recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
+  recipe.defaults.recipeName = recipe.name;
   recipe.actions = recipe.actions || [];
   var consoleLinks = [];
   var fixAction = function(action) {
