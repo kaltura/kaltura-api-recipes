@@ -9,7 +9,7 @@
     "fontawesome": "~4.3.0",
     "angular-highlightjs": "~0.4.1",
     "angular-zeroclipboard": "~0.4.3",
-    "angular-marked": "~0.0.17",
+    "angular-marked": "^1.0.1",
     "jQuery-File-Upload": "https://github.com/kaltura/jQuery-File-Upload.git#~8.2.1",
     "angular-chosen-localytics": "~1.0.7",
     "jszip": "Stuk/jszip#~2.5.0",
@@ -20,6 +20,7 @@
     "jquery": "~2.1.4"
   },
   "resolutions": {
-    "angular": "~1.4.1"
+    "angular": "~1.4.1",
+    "angular-marked": "^1.0.1"
   }
 }

@@ -1,4 +1,4 @@
-var App = angular.module('App', ['localytics.directives']);
+var App = angular.module('App', ['localytics.directives', 'hc.marked']);
 
 var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
