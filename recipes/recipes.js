@@ -68,22 +68,35 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
   recipe.defaults.recipeName = recipe.name;
   recipe.actions = recipe.actions || [];
+  recipe.pages.forEach(function(p) {
+    if (p.actions) recipe.actions.push(p.actions);
+  })
   var consoleLinks = [];
-  var fixAction = function(action) {
-    action.action = action.action.replace(/Action$/, '');
-    if (action.service) {
-      if (self.schema && self.schema.services[action.service]) {
-        consoleLinks.push({
-          service: self.schema.services[action.service].id,
-          action: action.action,
-        })
-      }
-      action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
-      delete action.service;
+  var addActionLinks = function(action) {
+    if (action.service && self.schema && self.schema.services[action.service]) {
+      consoleLinks.push({
+        service: self.schema.services[action.service].id,
+        action: action.action,
+      })
     }
-  };
-  recipe.actions.forEach(fixAction);
+  }
+  recipe.actions = recipe.actions || [];
+  recipe.actions.forEach(function(action) {
+    if (action.action) action.action = action.action.replace(/Action$/, '');
+  });
+  recipe.actions.forEach(addActionLinks);
+  recipe.actions.forEach(function(action) {
+    if (action.service) {
+      action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
+    }
+  })
+  recipe.actions.forEach(function(a) {delete a.service})
+  recipe.tip = recipe.tip || '';
+  if (Array.isArray(recipe.tip)) recipe.tip = recipe.tip.join('\n\n');
   if (consoleLinks.length) {
+    recipe.tip += '\n\nThis recipe uses the following operations:\n' + consoleLinks.map(function(link) {
+      return '* ' + link.service + '.' + link.action;
+    }).join('\n');
     recipe.finish_text = [
       '### Learn More',
       'You can learn more about the services and actions used in this recipe by visiting the [API Console](/console)',
@@ -101,9 +114,6 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
   recipe.console_links = consoleLinks.map(function(link) {
     return '/service/' + link.service + '/action/' + link.action;
   })
-  recipe.pages.forEach(function(page) {
-    if (page.actions) page.actions.forEach(fixAction);
-  })
 
   if (recipe.name === 'metadata') {
     recipe.recipe_steps.forEach(function(step) {
@@ -112,9 +122,6 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
       })
     })
   }
-  recipe.tip = recipe.tip || recipe.recipe_steps[1].tip || '';
-  if (Array.isArray(recipe.tip)) recipe.tip = recipe.tip.join('\n\n');
-  recipe.tip = RemoveMarkdown(recipe.tip);
 }
 
 RecipeManager.prototype.addRelatedRecipes = function(recipe) {
