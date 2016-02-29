@@ -3,6 +3,7 @@
   "title": "Upload a Video",
   "icon": "upload",
   "description": "Learn how to upload a video to your video library",
+  "tip": "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input",
   "recipe_steps": [
     {
       "title": "Uploading a Video",
