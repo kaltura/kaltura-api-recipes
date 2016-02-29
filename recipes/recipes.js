@@ -112,7 +112,7 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
       })
     })
   }
-  recipe.tip = recipe.recipe_steps[1].tip || '';
+  recipe.tip = recipe.tip || recipe.recipe_steps[1].tip || '';
   if (Array.isArray(recipe.tip)) recipe.tip = recipe.tip.join('\n\n');
   recipe.tip = RemoveMarkdown(recipe.tip);
 }

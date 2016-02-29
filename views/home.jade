@@ -61,13 +61,13 @@ html
                   .heading-title.text-uppercase.text-left
                     span(ng-bind="recipe.title")
                 .panel-body.pointer.text-left(ng-click="openRecipe(recipe.name)" ng-class="{'flipped': showRecipeInfo}")
-                  .panel-back
-                    p(ng-bind="recipe.tip" ng-show="showRecipeInfo")
                   .panel-front
                     p(ng-bind="recipe.description" ng-show="!showRecipeInfo")
                     .row(ng-show="!showRecipeInfo")
                       .col-xs-10
                         .keyword-badge(ng-repeat="keyword in recipe.keywords" ng-bind="keyword")
+                  .panel-back
+                    p(ng-bind="recipe.tip" ng-show="showRecipeInfo")
           .row.suggestion-bar
             .col-xs-12(ng-controller="Suggestion")
               h4.text-black Can't find what you're looking for?
