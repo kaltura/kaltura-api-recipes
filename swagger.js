@@ -46,6 +46,7 @@ Schema.initialize(function() {
     })
   }
   for (var path in recipeLinks) {
+    if (!Swagger.paths[path]) throw new Error("No path " + path);
     var op = Swagger.paths[path].get;
     op.description = op.description || '';
     if (op.description) op.description += '\n\n';
