@@ -1,28 +1,14 @@
 # LucyBot recipes for the Kaltura API
 
+This repository drives the Kaltura Code Recipes and API Console available at [developer.kaltura.org](https://developer.kaltura.org).  It utilizes LucyBot's [code generation
+system](https://github.com/lucybot/lucy-codegen) and [automated API console](https://github.com/lucybot/lucy-console)
+
 ## Installation
-Note that you will need access to two deploy keys: kaltura_lucy_codegen, and kaltura_lucy_recipes.
-Once you have the keys,add the following lines to ~/.ssh/config:
 
 ```bash
-Host lucy-codegen
-    User git
-    HostName github.com
-    IdentityFile /path/to/kaltura_lucy_codegen
-    StrictHostKeyChecking no
-Host lucy-recipes
-    User git
-    HostName github.com
-    IdentityFile /path/to/kaltura_lucy_recipes
-    StrictHostKeyChecking no
-```
-
-Then you can clone and install.
-
-```bash
-eval "$(ssh-agent -s)"
 git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
 npm install
+node server.js
 ```
 
 If you intend to add or update recipes and push them to the repo, you will also need to:
