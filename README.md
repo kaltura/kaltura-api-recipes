@@ -3,14 +3,14 @@
 This repository drives the Kaltura Code Recipes and API Console available at [developer.kaltura.org](https://developer.kaltura.org).  The goal is to help educate developers and clients of the Kaltura API on it's wide range of functionality, as well as provide sample code for getting started quickly.
 
 This project utilizes LucyBot's [code generation
-system](https://github.com/lucybot/lucy-codegen) and [automated API console](https://github.com/lucybot/lucy-console)
+system](https://github.com/bobby-brennan/lucy-codegen) and [automated API console](https://github.com/lucybot/lucy-console)
 
 
 
 ## Installation
 
 ```bash
-git clone https://github.com/bobby-brennan/kaltura-recipes.git && cd kaltura-recipes
+git clone https://github.com/kaltura/kaltura-api-recipes.git && cd kaltura-api-recipes
 npm install
 ```
 
