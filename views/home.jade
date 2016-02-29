@@ -55,7 +55,8 @@ html
                 a.info-button(ng-click="showRecipeInfo = !showRecipeInfo")
                   i.fa.fa-2x(ng-class="{'fa-info-circle': !showRecipeInfo, 'fa-times': showRecipeInfo}")
                 .panel-heading
-                  a.recipe-link(ng-click="openRecipe(recipe.name)")
+                  a.recipe-link(ng-if="!user.userId" ng-click="openRecipe(recipe.name)")
+                  a.recipe-link(ng-if="user.userId" href="/recipes/{{recipe.name}}")
                   .heading-icon.text-center
                     i.fa.fa-left(ng-class="'fa-' + (recipe.icon || 'plug')")
                   .heading-title.text-uppercase.text-left
