@@ -67,9 +67,11 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
   recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
   recipe.defaults.recipeName = recipe.name;
+
   recipe.actions = recipe.actions || [];
+  var allActions = [].concat(recipe.actions);
   recipe.pages.forEach(function(p) {
-    if (p.actions) recipe.actions.push(p.actions);
+    if (p.actions) allActions = allActions.concat(p.actions);
   })
   var consoleLinks = [];
   var addActionLinks = function(action) {
@@ -80,17 +82,17 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
       })
     }
   }
-  recipe.actions = recipe.actions || [];
-  recipe.actions.forEach(function(action) {
+  allActions.forEach(function(action) {
     if (action.action) action.action = action.action.replace(/Action$/, '');
   });
-  recipe.actions.forEach(addActionLinks);
-  recipe.actions.forEach(function(action) {
+  allActions.forEach(addActionLinks);
+  allActions.forEach(function(action) {
     if (action.service) {
       action.action += action.service.charAt(0).toUpperCase() + action.service.substring(1);
     }
   })
-  recipe.actions.forEach(function(a) {delete a.service})
+  allActions.forEach(function(a) {delete a.service})
+
   recipe.tip = recipe.tip || '';
   if (Array.isArray(recipe.tip)) recipe.tip = recipe.tip.join('\n\n');
   if (consoleLinks.length) {
