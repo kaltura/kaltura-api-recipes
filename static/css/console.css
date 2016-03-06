@@ -6,3 +6,7 @@
 .navbar .api-title {
   margin-left: -15px;
 }
+
+.sidebar a {
+  color: #008096 !important;
+}
