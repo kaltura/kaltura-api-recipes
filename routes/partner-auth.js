@@ -39,9 +39,12 @@ Router.post('/login', function(req, res) {
   client.user.loginByLoginId(function(ks) {
     if (!ks) return res.send("Error logging in");
     client.setKs(ks);
+    var pager = new vo.KalturaFilterPager();
+    pager.pageSize = 500;
+    pager.pageIndex = 1;
     client.partner.listPartnersForUser(function(partners) {
       res.json(partners.objects);
-    })
+    },null,pager)
   }, req.body.email, req.body.password)
 })
 
