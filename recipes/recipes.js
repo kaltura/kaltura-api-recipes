@@ -105,8 +105,7 @@ RecipeManager.prototype.setRecipeDefaults = function(recipe) {
       '',
     ].concat(consoleLinks.map(function(link) {
       var url = '/service/' + link.service + '/action/' + link.action;
-      url = url.replace(/\//g, '%252F');
-      url = '/get/' + url;
+      url = '/GET' + url;
       var docUrl = '/console#/Documentation' + url;
       var conUrl = '/console#/Console' + url;
       return '* `' + link.service + '.' + link.action +
