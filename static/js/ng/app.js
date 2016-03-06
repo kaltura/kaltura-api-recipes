@@ -116,6 +116,7 @@ App.controller('Login', function($scope) {
         return {label: partner.name + ' (' + partner.id + ')', value: partner.id}
       })
       $scope.inputs = $scope.partnerInputs;
+      $scope.responses.partnerId = $scope.partnerInputs[0].options[0].value;
     })
     .fail(function(xhr) {
       mixpanel.track('login_error', {
