@@ -152,6 +152,9 @@ a {
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
   transform: rotateY( 180deg );
+
+  overflow-y: scroll;
+  height: 180px;
 }
 
 .recipe-link {
