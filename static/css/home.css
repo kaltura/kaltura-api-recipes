@@ -8,6 +8,10 @@ a {
   cursor: pointer;
 }
 
+.btn.text-left {
+  text-align: left;
+}
+
 .navbar {
   margin-bottom: 0px;
 }

@@ -27,10 +27,17 @@ mixin modal(id, title, submit)
               input(type="radio" ng-model="responses[input.model]" name="{{ input.model }}" ng-value="option.value")
               span &nbsp;&nbsp;
               span {{ option.label }}
-            select.form-control(chosen
-                ng-if="input.type === 'select'"
-                ng-model="responses[input.model]"
-                ng-options="o.value as o.label for o in input.options")
+            .dropdown(ng-if="input.type === 'select'")
+              a.btn.btn-link.form-control.dropdown-toggle.text-left(data-toggle="dropdown")
+                span(ng-bind="selectedOption")
+                i.fa.fa-right.fa-caret-down
+              ul.dropdown-menu
+                li
+                  .input-group
+                    span.input-group-addon.fa.fa-search
+                    input.form-control(type="text" ng-model="optionFilter")
+                li(ng-repeat="opt in input.options | filter: optionFilter")
+                  a(ng-click="responses[input.model] = opt.value; $parent.selectedOption = opt.label" ng-bind="opt.label")
           if block
             block
         .modal-footer

@@ -11,7 +11,6 @@
     "angular-zeroclipboard": "~0.4.3",
     "angular-marked": "^1.0.1",
     "jQuery-File-Upload": "https://github.com/kaltura/jQuery-File-Upload.git#~8.2.1",
-    "angular-chosen-localytics": "~1.0.7",
     "jszip": "Stuk/jszip#~2.5.0",
     "FileSaver": "*",
     "angular-bootstrap-datetimepicker": "~0.3.13",

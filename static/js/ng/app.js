@@ -1,4 +1,4 @@
-var App = angular.module('App', ['localytics.directives', 'hc.marked']);
+var App = angular.module('App', ['hc.marked']);
 
 var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
@@ -117,6 +117,7 @@ App.controller('Login', function($scope) {
       })
       $scope.inputs = $scope.partnerInputs;
       $scope.responses.partnerId = $scope.partnerInputs[0].options[0].value;
+      $scope.selectedOption = $scope.partnerInputs[0].options[0].label;
     })
     .fail(function(xhr) {
       mixpanel.track('login_error', {
