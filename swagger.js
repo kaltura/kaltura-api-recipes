@@ -12,6 +12,8 @@ Swagger.info['x-lucy/readme'].push({
   contents: FS.readFileSync(__dirname + '/static/errors.md', 'utf8'),
 })
 
+Swagger['x-lucy/viewSetup'] = FS.readFileSync(__dirname + '/node_modules/kaltura-codegen/code_templates/setups/html.html', 'utf8')
+
 for (var name in Views) {
   var def = Swagger.definitions[name] = Swagger.definitions[name] || {};
   var view = Views[name].all || '';
