@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Kaltura VPaaS Discussion - #{service}.#{action}
+    meta(name="description" content="Documentation and test console for the Kaltura Video Platform API")
+    meta(name="keywords" content="Kaltura, Video, VPaaS, API, API console, documentation")
+
+    include ./includes/head
+
+    link(rel='stylesheet' href='/css/discussion.css')
+
+  body(ng-app="App")
+    div(ng-controller="Body")
+      mixin container
+        .container-fluid
+          block
+      include ./includes/navbar.jade
+    .container-fluid
+      .row.operation-body
+        .col-xs-12.col-lg-10.col-lg-offset-1
+          h1 #{service}.#{action}
+          | !{description}
+          .btn-toolbar
+            a.btn.btn-primary(href="/console#Documentation/GET#{path}") Documentation
+            a.btn.btn-primary(href="/console#Console/GET#{path}") Test Console

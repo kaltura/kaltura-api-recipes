@@ -82,6 +82,8 @@ App.use('/sitemap.xml', function(req, res) {
   })
 })
 
+App.use('/discussion', require('./routes/discussion.js'))
+
 require('./routes/recipes.js').getRouter(function(router) {
   App.use('/recipes_embed', router);
   App.use('/', require('./routes/pages.js'));
