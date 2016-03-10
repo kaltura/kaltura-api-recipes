@@ -1,4 +1,5 @@
 var fs = require('fs');
+var _ = require('lodash');
 
 var recipes = module.exports = {};
 
@@ -22,6 +23,7 @@ fs.readdirSync(DIR).forEach(function(r) {
     var match = step.apiCall.path.match(/\/service\/(.*)\/action\/(.*)$/);
     opsUsed.push({service: match[1], action: match[2]});
   })
+  opsUsed = _.uniqWith(opsUsed, _.isEqual);
   if (opsUsed.length) {
     recipe.description = recipe.description || '';
     recipe.description += '\n\nThis recipe uses the following operations:\n' + opsUsed.map(function(op) {
