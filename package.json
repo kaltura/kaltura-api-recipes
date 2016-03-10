@@ -27,6 +27,7 @@
     "kaltura-codegen": "git+https://github.com/kaltura/kaltura-api-codegen.git",
     "kaltura-schema": "git+https://github.com/bobby-brennan/kaltura-schema.git",
     "kaltura-spec-converter": "git+https://github.com/bobby-brennan/kaltura-spec-converter.git",
+    "lodash": "^4.6.1",
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-console": "git+https://github.com/lucybot/lucy-console.git",
     "lucy-recipes": "git+ssh://git@lucy-recipes:bobby-brennan/lucy-recipes.git",
