@@ -57,7 +57,7 @@ var apiPortal = LucyPortal({
   embedParameters: {
     format: 1,
   },
-  directory: __dirname + '/recipes-v2',
+  recipes: require('./recipes-v2.js'),
 })
 
 App.get('/', function(req, res) {
