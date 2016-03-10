@@ -15,6 +15,7 @@
       ]
     },
     {
+      "title": "Get Caption Asset Details",
       "parameters": [
         {
           "type": "select-chosen",

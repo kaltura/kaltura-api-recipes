@@ -17,6 +17,7 @@
       ]
     },
     {
+      "title": "Get Caption Asset Details",
       "code_snippet": "getCaptionAsset",
       "inputs": [
         {
