@@ -35,8 +35,8 @@ if (process.env.DEVELOPMENT) {
 var apiPortal = LucyPortal({
   swagger: Swagger,
   mixpanel: '/js/includes/mixpanel.js',
+  bootstrap: '/css/bootstrap.css',
   cssIncludes: [
-    '/css/bootstrap.css',
     '/css/console.css',
     '/css/navbar.css',
   ],
