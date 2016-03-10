@@ -1,0 +1,15 @@
+{
+  "name": "authentication",
+  "summary": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
+  "description": "This recipe will guide you through the steps necessary to create a Kaltura Session (ks), a temporary authentication token that can provide either user-level or admin-level access to your Kaltura account.",
+  "icon": "lock",
+  "steps": [
+    {
+      "title": "Checking the KS",
+      "description": "You can validate your Kaltura session by calling ```user.get``` without a User ID, which will return the details of the user associated with the current session",
+      "apiCall": {
+        "parameters": []
+      }
+    }
+  ]
+}

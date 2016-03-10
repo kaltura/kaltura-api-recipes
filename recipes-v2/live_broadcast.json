@@ -1,0 +1,95 @@
+{
+  "name": "live_broadcast",
+  "summary": "Learn how to create a new Live+ entry and broadcast a live stream.",
+  "icon": "bullhorn",
+  "steps": [
+    {
+      "title": "Setup",
+      "description": [
+        "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry.",
+        "You'll also need to choose a uiConf that supports kRecord."
+      ],
+      "apiCall": {
+        "parameters": [
+          {
+            "type": "select-chosen",
+            "name": "uiConf",
+            "dynamic_choices": {
+              "service": "uiConf",
+              "action": "list",
+              "arguments": [
+                {
+                  "class": "KalturaUiConfFilter",
+                  "parameters": {
+                    "orderBy": "-updatedAt",
+                    "objTypeEqual": {
+                      "enum": "KalturaUiConfObjType",
+                      "value": "KRECORD"
+                    }
+                  }
+                }
+              ],
+              "map": {
+                "value": "id",
+                "label": "name"
+              }
+            }
+          },
+          {
+            "name": "nameEqual",
+            "default": "Passthrough",
+            "hidden": true
+          },
+          {
+            "name": "typeEqual",
+            "default": "2",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    {
+      "title": "Creating a Live Stream Entry",
+      "description": "Now we'll use the conversion profile ID to create a new liveStream entry using `liveStream.add()`",
+      "apiCall": {
+        "parameters": [
+          {
+            "name": "name",
+            "type": "text",
+            "default": "Webcam Live Stream Test"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "default": "This is a test of Kaltura's Live Webcam streaming"
+          },
+          {
+            "name": "mediaType",
+            "default": 201,
+            "hidden": true
+          },
+          {
+            "name": "recordStatus",
+            "default": 1,
+            "hidden": true
+          },
+          {
+            "name": "dvrStatus",
+            "default": 1,
+            "hidden": true
+          },
+          {
+            "name": "dvrWindow",
+            "default": 60,
+            "hidden": true
+          },
+          {
+            "name": "sourceType",
+            "default": "32",
+            "hidden": true
+          }
+        ]
+      }
+    }
+  ]
+}

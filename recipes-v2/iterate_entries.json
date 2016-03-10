@@ -1,0 +1,14 @@
+{
+  "name": "iterate_entries",
+  "summary": "How to list all entries for a given partner",
+  "icon": "image",
+  "steps": [
+    {
+      "title": "Getting a list of entries",
+      "description": "Iterating over all entries is achieved by calling media.list() passing along a pager with an index and size",
+      "apiCall": {
+        "parameters": []
+      }
+    }
+  ]
+}
