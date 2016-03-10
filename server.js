@@ -3,7 +3,7 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
-var LucyConsole = require('lucy-console');
+var LucyPortal = require('lucy-api-portal').PortalRouter;
 var Swagger = require('./swagger.js');
 var RecipeManager = require('./recipes/recipes.js');
 
@@ -11,6 +11,7 @@ var App = Express();
 App.set('views', __dirname + '/views')
 App.set('view engine', 'jade');
 App.engine('jade', require('jade').__express);
+App.use(require('body-parser').json());
 
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
   App.use(require('./routes/basic-auth.js'));
@@ -31,10 +32,14 @@ if (process.env.DEVELOPMENT) {
   }))
 }
 
-var apiConsole = new LucyConsole({
+var apiPortal = LucyPortal({
   swagger: Swagger,
   mixpanel: '/js/includes/mixpanel.js',
-  cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
+  cssIncludes: [
+    '/css/bootstrap.css',
+    '/css/console.css',
+    '/css/navbar.css',
+  ],
   jsIncludes: [
     '/js/kaltura/ox.ajast.js',
     '/js/kaltura/webtoolkit.md5.js',
@@ -47,17 +52,16 @@ var apiConsole = new LucyConsole({
     '/js/includes/console.js',
   ],
   disableAutorefresh: true,
-  codegenPath: '/code/build/kc_request',
-  basePath: '/console_embed',
   development: process.env.DEVELOPMENT || false,
   credentialCookie: 'LUCYBOT_RECIPE_CREDS',
   embedParameters: {
     format: 1,
   },
+  directory: __dirname + '/recipes-v2',
 })
-App.use('/console_embed', apiConsole.router);
 require('./codegen').initialize(function(router) {
-  App.use('/console_embed', router);
+  App.use(router);
+  App.use(apiPortal);
 })
 
 App.get('/swagger.json', function(req, res) {
@@ -84,31 +88,26 @@ App.use('/sitemap.xml', function(req, res) {
 
 App.use('/discussion', require('./routes/discussion.js'))
 
-require('./routes/recipes.js').getRouter(function(router) {
-  App.use('/recipes_embed', router);
-  App.use('/', require('./routes/pages.js'));
-
-  if (process.env.LUCYBOT_DEV) {
-    console.log('----DEVELOPMENT ENVIRONMENT----');
-    var port = process.env.KALTURA_RECIPES_PORT || 3000;
-    console.log('listening on port ' + port);
-    App.listen(port);
-  } else {
-    var port = process.env.KALTURA_RECIPES_PORT || 443
-    var sslOptions = {
-      key: fs.readFileSync('/etc/ssl/certs/kaltura.org.key'),
-      cert: fs.readFileSync('/etc/ssl/certs/kaltura.org.crt'),
-      ca: fs.readFileSync('/etc/ssl/certs/ca-kaltura.org.crt'),
-      requestCert: true,
-      rejectUnauthorized: false
-    };
-    var secureServer = https.createServer(sslOptions, App).listen(port, function(){
-      console.log("Secure Express server listening on port "+port);
-    });
-    // Redirect from http port 80 to https
-    http.createServer(function (req, res) {
-      res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-      res.end();
-    }).listen(80);
-  }
-});
+if (process.env.LUCYBOT_DEV) {
+  console.log('----DEVELOPMENT ENVIRONMENT----');
+  var port = process.env.KALTURA_RECIPES_PORT || 3000;
+  console.log('listening on port ' + port);
+  App.listen(port);
+} else {
+  var port = process.env.KALTURA_RECIPES_PORT || 443
+  var sslOptions = {
+    key: fs.readFileSync('/etc/ssl/certs/kaltura.org.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/kaltura.org.crt'),
+    ca: fs.readFileSync('/etc/ssl/certs/ca-kaltura.org.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+  };
+  var secureServer = https.createServer(sslOptions, App).listen(port, function(){
+    console.log("Secure Express server listening on port "+port);
+  });
+  // Redirect from http port 80 to https
+  http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+  }).listen(80);
+}
