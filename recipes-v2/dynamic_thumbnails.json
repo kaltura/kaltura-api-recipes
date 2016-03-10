@@ -6,16 +6,12 @@
     {
       "title": "Getting custom thumbnails",
       "description": "You can use the thumbnail API to embed thumbnail images in your webpage. Simply set\n\n```<img src=\"http://cdn.kaltura.com/p/your_partner_id/thumbnail/entry_id/your_videos_entry_id\">```",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     },
     {
       "title": "Creating rotating thumnail previews",
       "description": "You can use Kaltura's [Rotating Thumbnail script](http://knowledge.kaltura.com/sites/default/files/dl_resources/kalturaThumbRotator.zip) to create dynamic previews for your videos.\n\nTry mousing over the images below. This page uses ```KalturaThumbRotator.start(this)``` and ```KalturaThumbRotator.stop(this)``` inside the ```onmouseover``` and ```onmouseout``` events for each ```<img>``` tag",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

@@ -11,37 +11,33 @@
         "Select which type of media you'd like to upload, then use the page below to upload a video, image, or audio file. If you don't have a video file handy, you can [download a sample](/this-is-my-jam.mp4)",
         "You can read more about media uploads [here](http://knowledge.kaltura.com/faq/create-new-kaltura-entry-and-upload-video-file-using-kaltura-api)"
       ],
-      "apiCall": {
-        "parameters": [
-          {
-            "name": "mediaType",
-            "label": "Media Type",
-            "type": "select",
-            "default": 1,
-            "choices": [
-              {
-                "label": "Video",
-                "value": 1
-              },
-              {
-                "label": "Image",
-                "value": 2
-              },
-              {
-                "label": "Audio",
-                "value": 5
-              }
-            ]
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "name": "mediaType",
+          "label": "Media Type",
+          "type": "select",
+          "default": 1,
+          "enum": [
+            {
+              "label": "Video",
+              "value": 1
+            },
+            {
+              "label": "Image",
+              "value": 2
+            },
+            {
+              "label": "Audio",
+              "value": 5
+            }
+          ]
+        }
+      ]
     },
     {
       "title": "Creating a Media Entry",
       "description": "Once the file has been uploaded, use the baseEntry service to create a Media Entry from it.\n\nIt may take some time to convert your video, so you can use ```media.get``` to poll for its status.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

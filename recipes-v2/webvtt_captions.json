@@ -4,45 +4,41 @@
   "icon": "cc",
   "steps": [
     {
-      "apiCall": {
-        "parameters": [
-          {
-            "default": "",
-            "type": "text",
-            "label": "Entry ID",
-            "name": "entryIdEqual"
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "Entry ID",
+          "name": "entryIdEqual"
+        }
+      ]
     },
     {
-      "apiCall": {
-        "parameters": [
-          {
-            "type": "select-chosen",
-            "name": "captionAssetId",
-            "label": "Language",
-            "dynamic_choices": {
-              "service": "captionAsset",
-              "action": "listAction",
-              "map": {
-                "value": "id",
-                "label": "label"
-              },
-              "arguments": [
-                {
-                  "class": "KalturaCaptionAssetFilter",
-                  "parameters": {
-                    "entryIdEqual": {
-                      "answer": "entryIdEqual"
-                    }
+      "parameters": [
+        {
+          "type": "select-chosen",
+          "name": "captionAssetId",
+          "label": "Language",
+          "dynamicEnum": {
+            "service": "captionAsset",
+            "action": "listAction",
+            "map": {
+              "value": "id",
+              "label": "label"
+            },
+            "arguments": [
+              {
+                "class": "KalturaCaptionAssetFilter",
+                "parameters": {
+                  "entryIdEqual": {
+                    "answer": "entryIdEqual"
                   }
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   ]
 }

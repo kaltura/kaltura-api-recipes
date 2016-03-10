@@ -6,16 +6,14 @@
     {
       "title": "Checking Permissions",
       "description": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
-      "apiCall": {
-        "parameters": [
-          {
-            "name": "nameEqual",
-            "type": "text",
-            "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
-            "hidden": true
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "name": "nameEqual",
+          "type": "text",
+          "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
+          "hidden": true
+        }
+      ]
     },
     {
       "title": "Notification Template Types",
@@ -24,25 +22,23 @@
         "There are two main types of templates:\n* E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n* HTTP templates, which will cause a particular URL to be called with data for the notification event. You can [read more here](https://github.com/kaltura/server/blob/master/plugins/event_notification/providers/http/README.md) about setting up your server to handle HTTP Notifications.",
         "Which type would you like to create?"
       ],
-      "apiCall": {
-        "parameters": [
-          {
-            "name": "typeEqual",
-            "label": "Template Type",
-            "type": "select",
-            "choices": [
-              {
-                "label": "E-mail Template",
-                "value": "emailNotification.Email"
-              },
-              {
-                "label": "HTTP Template",
-                "value": "httpNotification.Http"
-              }
-            ]
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "name": "typeEqual",
+          "label": "Template Type",
+          "type": "select",
+          "enum": [
+            {
+              "label": "E-mail Template",
+              "value": "emailNotification.Email"
+            },
+            {
+              "label": "HTTP Template",
+              "value": "httpNotification.Http"
+            }
+          ]
+        }
+      ]
     },
     {
       "title": "Choosing a Template to Clone",
@@ -50,47 +46,41 @@
         "In order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```",
         "Choose a template to clone."
       ],
-      "apiCall": {
-        "parameters": [
-          {
-            "name": "id",
-            "label": "Template to Clone",
-            "type": "select-chosen",
-            "dynamic_choices": {
-              "service": "eventNotificationTemplate",
-              "action": "listTemplates",
-              "arguments": [
-                {
-                  "class": "KalturaEventNotificationTemplateFilter",
-                  "parameters": {
-                    "typeEqual": {
-                      "answer": "typeEqual"
-                    }
+      "parameters": [
+        {
+          "name": "id",
+          "label": "Template to Clone",
+          "type": "select-chosen",
+          "dynamicEnum": {
+            "service": "eventNotificationTemplate",
+            "action": "listTemplates",
+            "arguments": [
+              {
+                "class": "KalturaEventNotificationTemplateFilter",
+                "parameters": {
+                  "typeEqual": {
+                    "answer": "typeEqual"
                   }
                 }
-              ],
-              "map": {
-                "value": "id",
-                "label": "name"
               }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "title": "Cloning the Template",
       "description": "Use the form below to fill in some additional details for your template and create it",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     },
     {
       "title": "Viewing your Notification Templates",
       "description": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     },
     {
       "title": "Handling HTTP Notifications",
@@ -98,9 +88,7 @@
         "If you create an HTTP Notification, you'll need to set up your server to handle incoming notifications",
         "Use the ```KalturaHttpNotificationClientPlugin``` library to parse incoming requests at the URL you specified."
       ],
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

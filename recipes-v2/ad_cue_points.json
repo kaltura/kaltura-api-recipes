@@ -6,54 +6,50 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add cue points to.\n\nYou'll also need to select a uiConf that has cue point tracking enabled. To enable cue point tracking, [visit the KMC](http://kmc.kaltura.com/index.php/kmc/kmc4#studio|universal_studio), click the Monetization ($) tab, and check \"Track cue points\" under the Vast tab\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
-      "apiCall": {
-        "parameters": [
-          {
-            "type": "select-chosen",
-            "name": "uiConf",
-            "dynamic_choices": {
-              "service": "uiConf",
-              "action": "list",
-              "arguments": [
-                {
-                  "class": "KalturaUiConfFilter",
-                  "parameters": {
-                    "orderBy": "-updatedAt",
-                    "objTypeEqual": {
-                      "enum": "KalturaUiConfObjType",
-                      "value": "PLAYER,PLAYER_V3"
-                    }
+      "parameters": [
+        {
+          "type": "select-chosen",
+          "name": "uiConf",
+          "dynamicEnum": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeEqual": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER,PLAYER_V3"
                   }
                 }
-              ],
-              "map": {
-                "value": "id",
-                "label": "name"
               }
-            }
-          },
-          {
-            "type": "select-chosen",
-            "label": "Media Entry",
-            "name": "entryIdEqual",
-            "dynamic_choices": {
-              "service": "media",
-              "action": "list",
-              "map": {
-                "value": "id",
-                "label": "name"
-              }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        },
+        {
+          "type": "select-chosen",
+          "label": "Media Entry",
+          "name": "entryIdEqual",
+          "dynamicEnum": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        }
+      ]
     },
     {
       "title": "Adding a Cue Point",
       "description": "Use the form in the [Live Demo](#LiveDemo) window below to add cue points to your video.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

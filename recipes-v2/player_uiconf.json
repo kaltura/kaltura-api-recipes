@@ -6,41 +6,37 @@
     {
       "title": "Select a player",
       "description": "Choose a player to view its configuration",
-      "apiCall": {
-        "parameters": [
-          {
-            "type": "select-chosen",
-            "name": "id",
-            "dynamic_choices": {
-              "service": "uiConf",
-              "action": "list",
-              "arguments": [
-                {
-                  "class": "KalturaUiConfFilter",
-                  "parameters": {
-                    "orderBy": "-updatedAt",
-                    "objTypeIn": {
-                      "enum": "KalturaUiConfObjType",
-                      "value": "PLAYER,PLAYER_V3"
-                    }
+      "parameters": [
+        {
+          "type": "select-chosen",
+          "name": "id",
+          "dynamicEnum": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeIn": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER,PLAYER_V3"
                   }
                 }
-              ],
-              "map": {
-                "value": "id",
-                "label": "name"
               }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "title": "Updating the UI conf",
       "description": "You can use the form below to add, change or remove functionality from your player.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

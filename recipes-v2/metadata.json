@@ -9,153 +9,143 @@
     {
       "title": "Create metadata profile",
       "description": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
-      "apiCall": {
-        "parameters": [
-          {
-            "default": "",
-            "type": "text",
-            "label": "Profile Name",
-            "name": "name"
-          },
-          {
-            "default": "",
-            "type": "text",
-            "label": "System Profile Name",
-            "name": "systemName"
-          },
-          {
-            "default": "1",
-            "type": "text",
-            "name": "metadataObjectType",
-            "hidden": true
-          },
-          {
-            "default": "1",
-            "type": "text",
-            "name": "objectType",
-            "hidden": true
-          },
-          {
-            "default": "1",
-            "type": "text",
-            "name": "createMode",
-            "hidden": true
-          },
-          {
-            "default": "this will get overwritten in recipes.js",
-            "type": "text",
-            "label": "XSD data",
-            "name": "xsdData",
-            "hidden": true
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "Profile Name",
+          "name": "name"
+        },
+        {
+          "default": "",
+          "type": "text",
+          "label": "System Profile Name",
+          "name": "systemName"
+        },
+        {
+          "default": "1",
+          "type": "text",
+          "name": "metadataObjectType",
+          "hidden": true
+        },
+        {
+          "default": "1",
+          "type": "text",
+          "name": "objectType",
+          "hidden": true
+        },
+        {
+          "default": "1",
+          "type": "text",
+          "name": "createMode",
+          "hidden": true
+        },
+        {
+          "default": "this will get overwritten in recipes.js",
+          "type": "text",
+          "label": "XSD data",
+          "name": "xsdData",
+          "hidden": true
+        }
+      ]
     },
     {
       "title": "Add metadata to an entry",
       "description": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
-      "apiCall": {
-        "parameters": [
-          {
-            "default": "",
-            "type": "text",
-            "label": "entryId",
-            "name": "objectId"
-          },
-          {
-            "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>",
-            "type": "text",
-            "label": "XML",
-            "name": "xmlData"
-          },
-          {
-            "default": "1",
-            "type": "text",
-            "name": "objectType",
-            "hidden": true
-          },
-          {
-            "type": "select-chosen",
-            "name": "metadataProfileId",
-            "label": "Metadata Profile",
-            "dynamic_choices": {
-              "service": "metadataProfile",
-              "action": "list",
-              "map": {
-                "value": "id",
-                "label": "name"
-              }
+      "parameters": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "entryId",
+          "name": "objectId"
+        },
+        {
+          "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>",
+          "type": "text",
+          "label": "XML",
+          "name": "xmlData"
+        },
+        {
+          "default": "1",
+          "type": "text",
+          "name": "objectType",
+          "hidden": true
+        },
+        {
+          "type": "select-chosen",
+          "name": "metadataProfileId",
+          "label": "Metadata Profile",
+          "dynamicEnum": {
+            "service": "metadataProfile",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "title": "Update entry metadata",
       "description": ".",
-      "apiCall": {
-        "parameters": [
-          {
-            "default": "",
-            "type": "text",
-            "label": "Metadata ID",
-            "name": "id"
-          },
-          {
-            "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>",
-            "type": "text",
-            "label": "XML",
-            "name": "xmlData"
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "Metadata ID",
+          "name": "id"
+        },
+        {
+          "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>",
+          "type": "text",
+          "label": "XML",
+          "name": "xmlData"
+        }
+      ]
     },
     {
       "title": "Delete metadata",
       "description": "Browse existing ids in the frame below and click 'Delete' to remove them.",
-      "apiCall": {
-        "parameters": [
-          {
-            "default": "",
-            "type": "text",
-            "label": "entryId",
-            "name": "objectIdEqual"
-          },
-          {
-            "type": "select-chosen",
-            "name": "metadataProfileIdEqual",
-            "label": "Metadata Profile",
-            "dynamic_choices": {
-              "service": "metadataProfile",
-              "action": "list",
-              "map": {
-                "value": "id",
-                "label": "name"
-              }
-            },
-            "arguments": [
-              {
-                "class": "KalturaMetadataFilter",
-                "parameters": {
-                  "metadataProfileIdEqual": {
-                    "answer": "metadataProfileIdEqual"
-                  },
-                  "objectIdEqual": {
-                    "answer": "objectIdEqual"
-                  }
+      "parameters": [
+        {
+          "default": "",
+          "type": "text",
+          "label": "entryId",
+          "name": "objectIdEqual"
+        },
+        {
+          "type": "select-chosen",
+          "name": "metadataProfileIdEqual",
+          "label": "Metadata Profile",
+          "arguments": [
+            {
+              "class": "KalturaMetadataFilter",
+              "parameters": {
+                "metadataProfileIdEqual": {
+                  "answer": "metadataProfileIdEqual"
+                },
+                "objectIdEqual": {
+                  "answer": "objectIdEqual"
                 }
               }
-            ]
+            }
+          ],
+          "dynamicEnum": {
+            "service": "metadataProfile",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "title": "Delete metadata profiles",
       "description": "Browse existing profiles in the frame below and click 'Delete' to remove them.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

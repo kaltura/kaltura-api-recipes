@@ -6,49 +6,43 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add captions to. You can then use the page below to upload an SRT file to Kaltura. If you don't have an SRT file handy, you can [download a sample SRT file here](/sample_captions.srt)\n\nJavaScript clients can make use of the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload). Others should utilize the ```uploadToken``` service.",
-      "apiCall": {
-        "parameters": [
-          {
-            "type": "text",
-            "hidden": true,
-            "name": "uiConf"
-          },
-          {
-            "type": "select-chosen",
-            "label": "Media Entry",
-            "name": "entryId",
-            "dynamic_choices": {
-              "service": "media",
-              "action": "list",
-              "map": {
-                "value": "id",
-                "label": "name"
-              }
+      "parameters": [
+        {
+          "type": "text",
+          "hidden": true,
+          "name": "uiConf"
+        },
+        {
+          "type": "select-chosen",
+          "label": "Media Entry",
+          "name": "entryId",
+          "dynamicEnum": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "title": "Attaching the Caption File",
       "description": "Once you've uploaded the file, you'll need to attach it to the video using ```captionAsset.add``` and ```captionAsset.setContent```",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     },
     {
       "title": "Searching through Captions",
       "description": "You can use ```captionAssetItem.search``` to search for scenes within your videos.",
-      "apiCall": {
-        "parameters": [
-          {
-            "type": "text",
-            "label": "Query",
-            "default": "support",
-            "name": "contentLike"
-          }
-        ]
-      }
+      "parameters": [
+        {
+          "type": "text",
+          "label": "Query",
+          "default": "support",
+          "name": "contentLike"
+        }
+      ]
     }
   ]
 }

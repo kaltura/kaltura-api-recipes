@@ -6,9 +6,7 @@
     {
       "title": "Getting a list of entries",
       "description": "Iterating over all entries is achieved by calling media.list() passing along a pager with an index and size",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }

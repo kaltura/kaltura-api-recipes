@@ -6,61 +6,57 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
-      "apiCall": {
-        "parameters": [
-          {
-            "name": "cuePointTypeEqual",
-            "type": "text",
-            "default": "quiz.QUIZ_QUESTION",
-            "hidden": true
-          },
-          {
-            "type": "select-chosen",
-            "name": "uiConf",
-            "dynamic_choices": {
-              "service": "uiConf",
-              "action": "list",
-              "arguments": [
-                {
-                  "class": "KalturaUiConfFilter",
-                  "parameters": {
-                    "orderBy": "-updatedAt",
-                    "objTypeIn": {
-                      "enum": "KalturaUiConfObjType",
-                      "value": "PLAYER,PLAYER_V3"
-                    },
-                    "tagsMultiLikeOr": "quiz_player"
-                  }
+      "parameters": [
+        {
+          "name": "cuePointTypeEqual",
+          "type": "text",
+          "default": "quiz.QUIZ_QUESTION",
+          "hidden": true
+        },
+        {
+          "type": "select-chosen",
+          "name": "uiConf",
+          "dynamicEnum": {
+            "service": "uiConf",
+            "action": "list",
+            "arguments": [
+              {
+                "class": "KalturaUiConfFilter",
+                "parameters": {
+                  "orderBy": "-updatedAt",
+                  "objTypeIn": {
+                    "enum": "KalturaUiConfObjType",
+                    "value": "PLAYER,PLAYER_V3"
+                  },
+                  "tagsMultiLikeOr": "quiz_player"
                 }
-              ],
-              "map": {
-                "value": "id",
-                "label": "name"
               }
-            }
-          },
-          {
-            "type": "select-chosen",
-            "label": "Media Entry",
-            "name": "entryIdEqual",
-            "dynamic_choices": {
-              "service": "media",
-              "action": "list",
-              "map": {
-                "value": "id",
-                "label": "name"
-              }
+            ],
+            "map": {
+              "value": "id",
+              "label": "name"
             }
           }
-        ]
-      }
+        },
+        {
+          "type": "select-chosen",
+          "label": "Media Entry",
+          "name": "entryIdEqual",
+          "dynamicEnum": {
+            "service": "media",
+            "action": "list",
+            "map": {
+              "value": "id",
+              "label": "name"
+            }
+          }
+        }
+      ]
     },
     {
       "title": "Adding a Quiz question [Cue Point]",
       "description": "You can use the form below to add a question to your video.",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }
