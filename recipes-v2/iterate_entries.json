@@ -1,5 +1,6 @@
 {
   "name": "iterate_entries",
+  "title": "Iterate over all entries",
   "summary": "How to list all entries for a given partner",
   "icon": "image",
   "steps": [

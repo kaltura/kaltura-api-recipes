@@ -15,6 +15,7 @@ function convertRecipe(recipe) {
   var newRecipe = {};
 
   newRecipe.name = recipe.name;
+  newRecipe.title = recipe.title;
   newRecipe.summary = recipe.description;
   newRecipe.description = recipe.tip;
   newRecipe.relatedRecipes = recipe.related_recipes;

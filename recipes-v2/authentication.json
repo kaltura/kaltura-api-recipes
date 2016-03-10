@@ -1,5 +1,6 @@
 {
   "name": "authentication",
+  "title": "Authentication",
   "summary": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
   "description": "This recipe will guide you through the steps necessary to create a Kaltura Session (ks), a temporary authentication token that can provide either user-level or admin-level access to your Kaltura account.",
   "icon": "lock",

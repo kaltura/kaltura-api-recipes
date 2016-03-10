@@ -1,5 +1,6 @@
 {
   "name": "code_cue_points",
+  "title": "Cue Points",
   "summary": "Learn how to create cue points and listen for them during playback",
   "icon": "columns",
   "steps": [

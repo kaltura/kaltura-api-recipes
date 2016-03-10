@@ -1,5 +1,6 @@
 {
   "name": "player_uiconf",
+  "title": "Player UI conf",
   "summary": "Learn how to get and update player configuration",
   "icon": "columns",
   "steps": [
