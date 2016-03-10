@@ -43,7 +43,11 @@
           "default": "support",
           "name": "contentLike"
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/captionsearch_captionassetitem/action/search",
+        "method": "get"
+      }
     }
   ]
 }

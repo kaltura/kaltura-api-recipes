@@ -45,7 +45,11 @@
           "default": "2",
           "hidden": true
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/conversionprofile/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Creating a Live Stream Entry",
@@ -86,7 +90,11 @@
           "default": "32",
           "hidden": true
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/livestream/action/add",
+        "method": "get"
+      }
     }
   ]
 }

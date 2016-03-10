@@ -108,7 +108,11 @@
             }
           ]
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Video Player",

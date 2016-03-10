@@ -13,7 +13,11 @@
           "label": "Entry ID",
           "name": "entryIdEqual"
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Get Caption Asset Details",
@@ -41,7 +45,11 @@
             ]
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/get",
+        "method": "get"
+      }
     }
   ]
 }
