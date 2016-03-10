@@ -62,7 +62,7 @@ module.exports.initialize = function(cb) {
       }
     }
 
-    Router.post('/code/build/kc_request', function(req, res) {
+    Router.post('/code/build/request', function(req, res) {
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
