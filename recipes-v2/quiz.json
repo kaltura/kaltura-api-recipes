@@ -52,7 +52,11 @@
             }
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Adding a Quiz question [Cue Point]",

@@ -6,7 +6,11 @@
     {
       "title": "Getting your App Tokens",
       "description": "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens.",
-      "parameters": []
+      "parameters": [],
+      "apiCall": {
+        "path": "/service/apptoken/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Creating a new App Token",

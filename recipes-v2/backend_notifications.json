@@ -14,7 +14,11 @@
           "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
           "hidden": true
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/permission/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Notification Template Types",
@@ -39,7 +43,11 @@
             }
           ]
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+        "method": "get"
+      }
     },
     {
       "title": "Choosing a Template to Clone",
@@ -71,7 +79,11 @@
             }
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+        "method": "get"
+      }
     },
     {
       "title": "Cloning the Template",
@@ -81,7 +93,11 @@
     {
       "title": "Viewing your Notification Templates",
       "description": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
-      "parameters": []
+      "parameters": [],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Handling HTTP Notifications",

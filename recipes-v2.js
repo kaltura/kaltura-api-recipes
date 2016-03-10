@@ -23,6 +23,7 @@ fs.readdirSync(DIR).forEach(function(r) {
     opsUsed.push({service: match[1], action: match[2]});
   })
   if (opsUsed.length) {
+    recipe.description = recipe.description || '';
     recipe.description += '\n\nThis recipe uses the following operations:\n' + opsUsed.map(function(op) {
       return '* ' + op.service + '.' + op.action;
     }).join('\n');
