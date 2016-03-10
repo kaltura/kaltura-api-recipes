@@ -88,7 +88,11 @@
     {
       "title": "Cloning the Template",
       "description": "Use the form below to fill in some additional details for your template and create it",
-      "parameters": []
+      "parameters": [],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/clone",
+        "method": "get"
+      }
     },
     {
       "title": "Viewing your Notification Templates",
