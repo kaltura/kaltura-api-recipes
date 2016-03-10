@@ -41,14 +41,14 @@ function convertStep(step, actions) {
     var action = a.action.replace(/Action$/, '');
     var service = a.service;
     if (!service) {
-      var match = action.match(/^(get|list|add)(\w+)$/);
+      var match = action.match(/^(get|list|add|clone)(\w+)$/);
       if (!match) return console.log('no match for action', action)
       action = match[1];
-      service = match[2];
+      service = match[2].charAt(0).toLowerCase() + match[2].substring(1);
     }
     var comboName = action + service.charAt(0).toUpperCase() + service.substring(1);
     if (step.code_snippet === comboName) {
-      service = schema.services[a.service].id;
+      service = schema.services[service].id;
       newStep.apiCall = {
         path: '/service/' + service + '/action/' + action,
         method: 'get',
