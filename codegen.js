@@ -73,9 +73,7 @@ module.exports.initialize = function(cb) {
       tmpl = EJS.render(tmpl, codeParams);
       var answers = {};
       for (var key in req.body.request.query) {
-        var bracket = key.lastIndexOf('[');
-        var name = bracket === -1 ? key : key.substring(bracket + 1, key.lastIndexOf(']'));
-        answers[name] = {val: req.body.request.query[key]};
+        answers[key] = {val: req.body.request.query[key]};
       }
       var lucy = new Lucy(lang, answers);
       lucy.returnCode = function(val, tabs) {
