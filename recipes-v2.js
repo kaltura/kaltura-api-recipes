@@ -4,13 +4,13 @@ var recipes = module.exports = {};
 
 var DIR = __dirname + '/recipes-v2';
 
-var XSD_DATA = FS.readFileSync(DIR + '/extras/metadata_profile_sample.xsd', 'utf8');
+var XSD_DATA = fs.readFileSync(DIR + '/extras/metadata_profile_sample.xsd', 'utf8');
 
 fs.readdirSync(DIR).forEach(function(r) {
   var filename = DIR + '/' + r;
-  if (FS.statSync(filename).isDirectory()) return;
+  if (fs.statSync(filename).isDirectory()) return;
   var name = r.match(/^(.*)\./)[1];
-  recipes[name] = require(filename);
+  var recipe = recipes[name] = require(filename);
   recipe.defaults = recipe.defaults || {};
   recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
