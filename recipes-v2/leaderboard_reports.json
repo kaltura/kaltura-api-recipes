@@ -1,0 +1,149 @@
+{
+  "name": "leaderboard_reports",
+  "summary": "Learn how to use the API to find your most watched videos and most valuable users",
+  "icon": "users",
+  "steps": [
+    {
+      "title": "Finding Your Most Viewed Videos",
+      "description": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
+      "apiCall": {
+        "parameters": [
+          {
+            "type": "select",
+            "name": "reportType",
+            "label": "Report Type",
+            "default": "13",
+            "choices": [
+              {
+                "label": "USER_ENGAGEMENT",
+                "value": "11"
+              },
+              {
+                "label": "SPEFICIC_USER_ENGAGEMENT",
+                "value": "12"
+              },
+              {
+                "label": "USER_TOP_CONTENT",
+                "value": "13"
+              }
+            ]
+          },
+          {
+            "type": "select-chosen",
+            "name": "order",
+            "label": "Order By",
+            "default": "count_plays",
+            "hidden": true
+          },
+          {
+            "type": "text",
+            "name": "fromDay",
+            "label": "From Day",
+            "default": "20150615"
+          },
+          {
+            "type": "text",
+            "name": "toDay",
+            "label": "To Day",
+            "default": "20150715"
+          },
+          {
+            "type": "datetime",
+            "name": "fromDate",
+            "label": "From Date"
+          },
+          {
+            "type": "datetime",
+            "name": "toDate",
+            "label": "To Date"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Finding Your Top Contributors",
+      "description": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
+      "apiCall": {
+        "parameters": [
+          {
+            "type": "select",
+            "name": "reportType",
+            "label": "Report Type",
+            "default": "5",
+            "choices": [
+              {
+                "label": "TOP_CONTRIBUTORS",
+                "value": "5"
+              },
+              {
+                "label": "TOP_CREATORS",
+                "value": "20"
+              }
+            ]
+          },
+          {
+            "type": "select-chosen",
+            "name": "order",
+            "label": "Order By",
+            "default": "count_plays",
+            "hidden": true
+          },
+          {
+            "type": "text",
+            "name": "fromDay",
+            "label": "From Day"
+          },
+          {
+            "type": "text",
+            "name": "toDay",
+            "label": "To Day"
+          },
+          {
+            "type": "datetime",
+            "name": "fromDate",
+            "label": "From Date"
+          },
+          {
+            "type": "datetime",
+            "name": "toDate",
+            "label": "To Date"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Ranking Videos by Votes/Likes",
+      "description": [
+        "Both ‘Votes' and 'Likes' use the same fields in the DB. For a reliable voting experience, you should chose between ‘like' experience where users would click a ‘Like’ button or a 5-points voting scale, where users would be presented an option to cast a vote between 1 to 5.",
+        "You can use ```media.list``` to see which videos are getting the most likes or votes. For each result, ```entry.rank``` will show the average rating for the entry, while ```entry.votes``` will show the total number of votes/likes. Use ```KalturaMediaEntryFilter``` to refine and sort your search",
+        "* To restrict your search to videos that have at least one vote/like, set ```totalRankGreaterThanOrEqual=1```",
+        "* To see which videos have the highest average rating, set ```orderBy=KalturaMediaEntryOrderBy.RANK_DESC```.",
+        "* To see which videos have the most likes, set ```orderBy=KalturaMediaEntryOrderBy.TOTAL_RANK_DESC``` in the filter."
+      ],
+      "apiCall": {
+        "parameters": [
+          {
+            "name": "orderBy",
+            "type": "select",
+            "default": "-rank",
+            "choices": [
+              {
+                "label": "TOTAL_RANK_DESC",
+                "value": "-totalRank"
+              },
+              {
+                "label": "RANK_DESC",
+                "value": "-rank"
+              }
+            ]
+          },
+          {
+            "name": "totalRankGreaterThanOrEqual",
+            "type": "number",
+            "default": 1
+          }
+        ]
+      }
+    }
+  ]
+}

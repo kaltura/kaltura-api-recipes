@@ -1,0 +1,20 @@
+{
+  "name": "app_tokens",
+  "summary": "Learn how to create, view, and delete App Tokens",
+  "steps": [
+    {
+      "title": "Getting your App Tokens",
+      "description": "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens.",
+      "apiCall": {
+        "parameters": []
+      }
+    },
+    {
+      "title": "Creating a new App Token",
+      "description": "Create a new app token by calling ```appToken.add```.  You can choose whether the session should have ADMIN or USER level privileges, and you can specify how long the session should last.",
+      "apiCall": {
+        "parameters": []
+      }
+    }
+  ]
+}
