@@ -5,6 +5,7 @@
   "description": "Learn how to serve a WebVTT caption",
   "recipe_steps": [
     {
+      "title": "Get Caption Assets",
       "code_snippet": "listCaptionAsset",
       "inputs": [
         {

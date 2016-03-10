@@ -4,6 +4,7 @@
   "icon": "cc",
   "steps": [
     {
+      "title": "Get Caption Assets",
       "parameters": [
         {
           "default": "",
