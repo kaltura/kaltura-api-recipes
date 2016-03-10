@@ -31,7 +31,16 @@ function convertStep(step) {
 
   newStep.title = step.title;
   newStep.description = step.tip;
-  newStep.apiCall = {parameters: step.inputs};
+  newStep.parameters = step.inputs.map(convertInput);
 
   return newStep;
+}
+
+function convertInput(input) {
+  var newInput = JSON.parse(JSON.stringify(input));
+  delete newInput.choices;
+  delete newInput.dynamic_choices;
+  newInput.enum = input.choices;
+  newInput.dynamicEnum = input.dynamic_choices;
+  return newInput;
 }

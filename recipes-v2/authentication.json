@@ -7,9 +7,7 @@
     {
       "title": "Checking the KS",
       "description": "You can validate your Kaltura session by calling ```user.get``` without a User ID, which will return the details of the user associated with the current session",
-      "apiCall": {
-        "parameters": []
-      }
+      "parameters": []
     }
   ]
 }
