@@ -1,5 +1,6 @@
 {
   "name": "webvtt_captions",
+  "title": "Serve WebVTT Captions",
   "summary": "Learn how to serve a WebVTT caption",
   "icon": "cc",
   "steps": [

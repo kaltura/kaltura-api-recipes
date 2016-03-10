@@ -1,5 +1,6 @@
 {
   "name": "quiz",
+  "title": "Quiz",
   "summary": "Learn how to create a quiz and display it during playback",
   "icon": "columns",
   "steps": [

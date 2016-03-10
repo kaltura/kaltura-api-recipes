@@ -1,5 +1,6 @@
 {
   "name": "dynamic_thumbnails",
+  "title": "Dynamic Thumbnails",
   "summary": "Create a gallery page with rotating dynamic thumbnails.",
   "icon": "image",
   "steps": [

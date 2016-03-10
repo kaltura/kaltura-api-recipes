@@ -1,5 +1,6 @@
 {
   "name": "backend_notifications",
+  "title": "Backend and E-mail Notifications",
   "summary": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
   "icon": "exclamation",
   "steps": [

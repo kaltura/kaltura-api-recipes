@@ -1,5 +1,6 @@
 {
   "name": "leaderboard_reports",
+  "title": "Leaderboard Reports",
   "summary": "Learn how to use the API to find your most watched videos and most valuable users",
   "icon": "users",
   "steps": [
