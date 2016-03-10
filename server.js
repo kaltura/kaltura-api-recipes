@@ -59,6 +59,11 @@ var apiPortal = LucyPortal({
   },
   directory: __dirname + '/recipes-v2',
 })
+
+App.get('/', function(req, res) {
+  res.redirect('/recipes')
+})
+
 require('./codegen').initialize(function(router) {
   App.use(router);
   App.use(apiPortal);
