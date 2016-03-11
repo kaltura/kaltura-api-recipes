@@ -72,8 +72,8 @@ module.exports.initialize = function(cb) {
       req.body.request.query = req.body.request.query || {};
       tmpl = EJS.render(tmpl, codeParams);
       var answers = {};
-      for (var key in req.body.request.query) {
-        answers[key] = {val: req.body.request.query[key]};
+      for (var key in req.body.answers) {
+        answers[key] = {val: req.body.answers[key]};
       }
       var lucy = new Lucy(lang, answers);
       lucy.returnCode = function(val, tabs) {
