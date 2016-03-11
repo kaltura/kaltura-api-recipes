@@ -15,24 +15,19 @@
         {
           "name": "id",
           "dynamicEnum": {
-            "service": "uiConf",
-            "action": "list",
-            "arguments": [
+            "path": "/service/uiconf/action/list",
+            "parameters": [
               {
-                "class": "KalturaUiConfFilter",
-                "parameters": {
-                  "orderBy": "-updatedAt",
-                  "objTypeIn": {
-                    "enum": "KalturaUiConfObjType",
-                    "value": "PLAYER,PLAYER_V3"
-                  }
-                }
+                "name": "filter[orderBy]",
+                "value": "-updatedAt"
+              },
+              {
+                "name": "filter[objTypeIn]"
               }
             ],
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]

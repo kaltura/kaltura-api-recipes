@@ -20,37 +20,34 @@
         {
           "name": "uiConf",
           "dynamicEnum": {
-            "service": "uiConf",
-            "action": "list",
-            "arguments": [
+            "path": "/service/uiconf/action/list",
+            "parameters": [
               {
-                "class": "KalturaUiConfFilter",
-                "parameters": {
-                  "orderBy": "-updatedAt",
-                  "objTypeIn": {
-                    "enum": "KalturaUiConfObjType",
-                    "value": "PLAYER,PLAYER_V3"
-                  },
-                  "tagsMultiLikeOr": "quiz_player"
-                }
+                "name": "filter[orderBy]",
+                "value": "-updatedAt"
+              },
+              {
+                "name": "filter[objTypeIn]"
+              },
+              {
+                "name": "filter[tagsMultiLikeOr]",
+                "value": "quiz_player"
               }
             ],
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         },
         {
           "name": "filter[entryIdEqual]",
           "label": "Media Entry",
           "dynamicEnum": {
-            "service": "media",
-            "action": "list",
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "path": "/service/media/action/list",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]

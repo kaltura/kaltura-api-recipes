@@ -88,24 +88,20 @@
           "name": "uiConf",
           "label": "UI Configuration ID",
           "dynamicEnum": {
-            "service": "uiConf",
-            "action": "list",
-            "arguments": [
+            "path": "/service/uiconf/action/list",
+            "parameters": [
               {
-                "class": "KalturaUiConfFilter",
-                "parameters": {
-                  "orderBy": "-updatedAt",
-                  "objTypeEqual": {
-                    "enum": "KalturaUiConfObjType",
-                    "value": "PLAYER"
-                  }
-                }
+                "name": "filter[orderBy]",
+                "value": "-updatedAt"
+              },
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 1
               }
             ],
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]
