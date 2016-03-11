@@ -31,14 +31,12 @@
           "name": "typeEqual",
           "label": "Template Type",
           "enum": [
-            {
-              "label": "E-mail Template",
-              "value": "emailNotification.Email"
-            },
-            {
-              "label": "HTTP Template",
-              "value": "httpNotification.Http"
-            }
+            "emailNotification.Email",
+            "httpNotification.Http"
+          ],
+          "enumLabels": [
+            "E-mail Template",
+            "HTTP Template"
           ]
         }
       ],

@@ -31,78 +31,44 @@
           "label": "Order By",
           "default": "-createdAt",
           "enum": [
-            {
-              "label": "CREATED_AT_ASC",
-              "value": "+createdAt"
-            },
-            {
-              "label": "DURATION_ASC",
-              "value": "+duration"
-            },
-            {
-              "label": "LAST_PLAYED_AT_ASC",
-              "value": "+lastPlayedAt"
-            },
-            {
-              "label": "NAME_ASC",
-              "value": "+name"
-            },
-            {
-              "label": "PLAYS_ASC",
-              "value": "+plays"
-            },
-            {
-              "label": "RECENT_ASC",
-              "value": "+recent"
-            },
-            {
-              "label": "START_DATE_ASC",
-              "value": "+startDate"
-            },
-            {
-              "label": "UPDATED_AT_ASC",
-              "value": "+updatedAt"
-            },
-            {
-              "label": "VIEWS_ASC",
-              "value": "+views"
-            },
-            {
-              "label": "CREATED_AT_DESC",
-              "value": "-createdAt"
-            },
-            {
-              "label": "DURATION_DESC",
-              "value": "-duration"
-            },
-            {
-              "label": "LAST_PLAYED_AT_DESC",
-              "value": "-lastPlayedAt"
-            },
-            {
-              "label": "NAME_DESC",
-              "value": "-name"
-            },
-            {
-              "label": "PLAYS_DESC",
-              "value": "-plays"
-            },
-            {
-              "label": "RECENT_DESC",
-              "value": "-recent"
-            },
-            {
-              "label": "START_DATE_DESC",
-              "value": "-startDate"
-            },
-            {
-              "label": "UPDATED_AT_DESC",
-              "value": "-updatedAt"
-            },
-            {
-              "label": "VIEWS_DESC",
-              "value": "-views"
-            }
+            "+createdAt",
+            "+duration",
+            "+lastPlayedAt",
+            "+name",
+            "+plays",
+            "+recent",
+            "+startDate",
+            "+updatedAt",
+            "+views",
+            "-createdAt",
+            "-duration",
+            "-lastPlayedAt",
+            "-name",
+            "-plays",
+            "-recent",
+            "-startDate",
+            "-updatedAt",
+            "-views"
+          ],
+          "enumLabels": [
+            "CREATED_AT_ASC",
+            "DURATION_ASC",
+            "LAST_PLAYED_AT_ASC",
+            "NAME_ASC",
+            "PLAYS_ASC",
+            "RECENT_ASC",
+            "START_DATE_ASC",
+            "UPDATED_AT_ASC",
+            "VIEWS_ASC",
+            "CREATED_AT_DESC",
+            "DURATION_DESC",
+            "LAST_PLAYED_AT_DESC",
+            "NAME_DESC",
+            "PLAYS_DESC",
+            "RECENT_DESC",
+            "START_DATE_DESC",
+            "UPDATED_AT_DESC",
+            "VIEWS_DESC"
           ]
         }
       ],
