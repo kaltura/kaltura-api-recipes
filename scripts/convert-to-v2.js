@@ -49,7 +49,7 @@ function convertStep(step, recipe) {
     if (!service) {
       var match = action.match(/^(getTotal|getTable|listTemplates)(\w+)$/);
       if (!match) match = action.match(/^(get|list|add|clone)(\w+)$/);
-      if (!match) return console.log('no match for action', action)
+      if (!match) return;
       action = match[1];
       service = match[2].charAt(0).toLowerCase() + match[2].substring(1);
     }
@@ -62,7 +62,27 @@ function convertStep(step, recipe) {
       }
     }
   })
-  if (!newStep.apiCall) console.log('no api call', recipe.name, step.code_snippet);
+  if (!newStep.apiCall) {
+    var fileBase = __dirname + '/../node_modules/kaltura-codegen/code_templates';
+    var filesToCheck = [
+      {language: 'html',       file: fileBase + '/views/all/'  +       step.code_snippet + '.html'},
+      {language: 'node',       file: fileBase + '/views/node/' +       step.code_snippet + '.html'},
+      {language: 'ruby',       file: fileBase + '/views/ruby/' +       step.code_snippet + '.html'},
+      {language: 'php',        file: fileBase + '/views/php/'  +       step.code_snippet + '.html'},
+      {language: 'javascript', file: fileBase + '/views/javascript/' + step.code_snippet + '.html'},
+      {language: 'node',       file: fileBase + '/actions/node/' +       step.code_snippet + '.html'},
+      {language: 'ruby',       file: fileBase + '/actions/ruby/' +       step.code_snippet + '.rb'},
+      {language: 'php',        file: fileBase + '/actions/php/'  +       step.code_snippet + '.php'},
+      {language: 'javascript', file: fileBase + '/actions/javascript/' + step.code_snippet + '.js'},
+    ];
+    filesToCheck.forEach(function(f) {
+      if (fs.existsSync(f.file)) {
+        newStep.codeSnippet = newStep.codeSnippet || {};
+        newStep.codeSnippet[f.language] = fs.readFileSync(f.file, 'utf8');
+      }
+    })
+  }
+  if (!newStep.apiCall && !newStep.codeSnippet) console.log('no api call', recipe.name, step.code_snippet);
 
   return newStep;
 }
