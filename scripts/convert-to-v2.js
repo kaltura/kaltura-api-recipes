@@ -25,23 +25,30 @@ function convertRecipe(recipe) {
   newRecipe.icon = recipe.icon;
   newRecipe.tags = recipe.tags;
   newRecipe.keywords = recipe.keywords;
-  newRecipe.steps = recipe.recipe_steps.map(r => convertStep(r, recipe.actions));
+  newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
 
   return newRecipe;
 }
 
-function convertStep(step, actions) {
+function convertStep(step, recipe) {
   var newStep = {};
 
   newStep.title = step.title;
   newStep.description = step.tip;
   newStep.parameters = step.inputs.map(convertInput);
-
-  (actions || []).forEach(function(a) {
+  var actions = recipe.actions || [];
+  actions = actions.concat(step.actions || []);
+  var page = recipe.pages[step.page || 0];
+  if (page) {
+    actions.unshift(page.data);
+    actions = actions.concat(page.actions);
+  }
+  actions.filter(a => a && a.action).forEach(function(a) {
     var action = a.action.replace(/Action$/, '');
     var service = a.service;
     if (!service) {
-      var match = action.match(/^(get|list|add|clone)(\w+)$/);
+      var match = action.match(/^(getTotal|getTable|listTemplates)(\w+)$/);
+      if (!match) match = action.match(/^(get|list|add|clone)(\w+)$/);
       if (!match) return console.log('no match for action', action)
       action = match[1];
       service = match[2].charAt(0).toLowerCase() + match[2].substring(1);
@@ -55,15 +62,18 @@ function convertStep(step, actions) {
       }
     }
   })
+  if (!newStep.apiCall) console.log('no api call', recipe.name, step.code_snippet);
 
   return newStep;
 }
 
 function convertInput(input) {
-  var newInput = JSON.parse(JSON.stringify(input));
-  delete newInput.choices;
-  delete newInput.dynamic_choices;
-  newInput.enum = input.choices;
+  var newInput         = {};
+  newInput.name        = input.name;
+  newInput.label       = input.label;
+  newInput.default     = input.default;
+  newInput.hidden      = input.hidden;
+  newInput.enum        = input.choices;
   newInput.dynamicEnum = input.dynamic_choices;
   return newInput;
 }

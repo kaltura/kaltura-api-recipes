@@ -59,6 +59,10 @@
   "actions": [
     {
       "service": "uiConf",
+      "action": "list"
+    },
+    {
+      "service": "uiConf",
       "action": "get",
       "view": "UIConfResponse"
     },
