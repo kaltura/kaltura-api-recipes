@@ -28,7 +28,7 @@ function convertRecipe(recipe) {
   newRecipe.tags = recipe.tags;
   newRecipe.keywords = recipe.keywords;
   newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
-  if (newRecipe.name === 'authentication') newRecipe.steps.unshift(require('../recipes/includes/auth.js'));
+  if (newRecipe.name === 'authentication') newRecipe.steps.unshift(require('../recipes/includes/auth.js').sessionSelect);
   return newRecipe;
 }
 
