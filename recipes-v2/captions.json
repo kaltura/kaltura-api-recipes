@@ -22,12 +22,11 @@
           "name": "entryId",
           "label": "Media Entry",
           "dynamicEnum": {
-            "service": "media",
-            "action": "list",
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "path": "/service/media/action/list",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]

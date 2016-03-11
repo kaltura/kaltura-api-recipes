@@ -99,7 +99,38 @@ function convertInput(input, step, recipe) {
     newInput.enum        = input.choices.map(c => c.value);
     newInput.enumLabels  = input.choices.map(c => c.label);
   }
-  newInput.dynamicEnum = input.dynamic_choices;
+  if (input.dynamic_choices) {
+    var serviceName = input.dynamic_choices.service;
+    var actionName  = input.dynamic_choices.action.replace(/Action$/, '');
+    var service = schema.services[serviceName];
+    var action = service.actions[actionName];
+    var path = '/service/' + service.id + '/action/' + actionName;
+    var swaggerOp = swagger.paths[path].get;
+    newInput.dynamicEnum = {
+      path: path,
+      parameters: [],
+      array: 'objects',
+      label: input.dynamic_choices.map.label,
+      value: input.dynamic_choices.map.value,
+    };
+    (input.dynamic_choices.arguments || []).forEach(function(argument) {
+      var schemaParamName = Object.keys(action.parameters).filter(function(paramName) {
+        return action.parameters[paramName].type === argument.class;
+      })[0];
+      if (!schemaParamName) return console.log('no schem', argument.class, action.parameters)
+      Object.keys(argument.parameters).forEach(function(p) {
+        var val = argument.parameters[p];
+        if (val.enum) {
+          var enm = schema.enums[val.enum]
+          val = enm.values[val.value];
+        }
+        newInput.dynamicEnum.parameters.push({
+          name: schemaParamName + '[' + p + ']',
+          value: val,
+        })
+      })
+    })
+  }
 
   if (step.apiCall) {
     var regex = new RegExp('^.*\\[(' + newInput.name + ')\\]$');

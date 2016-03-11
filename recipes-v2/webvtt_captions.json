@@ -29,22 +29,11 @@
           "name": "captionAssetId",
           "label": "Language",
           "dynamicEnum": {
-            "service": "captionAsset",
-            "action": "listAction",
-            "map": {
-              "value": "id",
-              "label": "label"
-            },
-            "arguments": [
-              {
-                "class": "KalturaCaptionAssetFilter",
-                "parameters": {
-                  "entryIdEqual": {
-                    "answer": "entryIdEqual"
-                  }
-                }
-              }
-            ]
+            "path": "/service/caption_captionasset/action/list",
+            "parameters": [],
+            "array": "objects",
+            "label": "label",
+            "value": "id"
           }
         }
       ]

@@ -75,12 +75,11 @@
           "name": "metadataProfileId",
           "label": "Metadata Profile",
           "dynamicEnum": {
-            "service": "metadataProfile",
-            "action": "list",
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "path": "/service/metadata_metadataprofile/action/list",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]
@@ -118,12 +117,11 @@
           "name": "metadataProfileIdEqual",
           "label": "Metadata Profile",
           "dynamicEnum": {
-            "service": "metadataProfile",
-            "action": "list",
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "path": "/service/metadata_metadataprofile/action/list",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]

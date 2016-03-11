@@ -60,22 +60,18 @@
           "name": "id",
           "label": "Template to Clone",
           "dynamicEnum": {
-            "service": "eventNotificationTemplate",
-            "action": "listTemplates",
-            "arguments": [
+            "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+            "parameters": [
               {
-                "class": "KalturaEventNotificationTemplateFilter",
-                "parameters": {
-                  "typeEqual": {
-                    "answer": "typeEqual"
-                  }
+                "name": "filter[typeEqual]",
+                "value": {
+                  "answer": "typeEqual"
                 }
               }
             ],
-            "map": {
-              "value": "id",
-              "label": "name"
-            }
+            "array": "objects",
+            "label": "name",
+            "value": "id"
           }
         }
       ]
