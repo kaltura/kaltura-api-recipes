@@ -35,6 +35,7 @@ if (process.env.DEVELOPMENT) {
 var apiPortal = LucyPortal({
   swagger: Swagger,
   basePath: '/portal_embed',
+  linkBase: '/portal',
   mixpanel: '/js/includes/mixpanel.js',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
@@ -73,6 +74,9 @@ require('./codegen').initialize(function(router) {
   App.use('/portal_embed', apiPortal);
 })
 
+App.get('/portal/recipes/:recipe_name', function(req, res) {
+  res.render('embed', {page: '/recipes/' + req.params.recipe_name})
+})
 App.get('/portal/:page', function(req, res) {
   res.render('embed', {page: req.params.page})
 })
