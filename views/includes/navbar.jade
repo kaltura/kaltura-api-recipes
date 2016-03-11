@@ -14,7 +14,7 @@ nav.navbar.navbar-default
         a(href="/portal/documentation") Documentation
       li(ng-class="{active: pathname === '/portal/console'}")
         a(href="/portal/console") API Console
-      li(ng-class="{active: pathname.indexOf('/recipes') === 0}")
+      li(ng-class="{active: pathname.indexOf('/portal/recipes') === 0}")
         a(href="/portal/recipes") Code Recipes
       li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
         span
