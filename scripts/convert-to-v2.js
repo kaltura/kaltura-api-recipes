@@ -1,6 +1,8 @@
 var fs = require('fs');
 var schema = require('kaltura-schema');
 
+var swagger = require('../swagger.js');
+
 var V1_DIR = __dirname + '/../recipes';
 var V2_DIR = __dirname + '/../recipes-v2';
 
@@ -35,7 +37,6 @@ function convertStep(step, recipe) {
 
   newStep.title = step.title;
   newStep.description = step.tip;
-  newStep.parameters = step.inputs.map(convertInput);
   var actions = recipe.actions || [];
   actions = actions.concat(step.actions || []);
   var page = recipe.pages[step.page || 0];
@@ -83,11 +84,12 @@ function convertStep(step, recipe) {
     })
   }
   if (!newStep.apiCall && !newStep.codeSnippet) console.log('no api call', recipe.name, step.code_snippet);
+  newStep.parameters = step.inputs.map(i => convertInput(i, newStep, recipe));
 
   return newStep;
 }
 
-function convertInput(input) {
+function convertInput(input, step, recipe) {
   var newInput         = {};
   newInput.name        = input.name;
   newInput.label       = input.label;
@@ -98,5 +100,15 @@ function convertInput(input) {
     newInput.enumLabels  = input.choices.map(c => c.label);
   }
   newInput.dynamicEnum = input.dynamic_choices;
+
+  if (step.apiCall) {
+    var regex = new RegExp('^.*\\[(' + newInput.name + ')\\]$');
+    console.log('re');
+    var swaggerParam = swagger.paths[step.apiCall.path][step.apiCall.method].parameters
+            .forEach(function(p) {
+              var match = p.name.match(regex);
+              if (match) newInput.name = match[0];
+            })
+  }
   return newInput;
 }

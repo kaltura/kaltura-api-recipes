@@ -14,6 +14,10 @@
         "You must specify a date range for your report. There are two options:\n* ```filter.fromDay``` and ```filter.toDay```, which should be specified in YYYYMMDD format\n* ```filter.fromDate``` and ```filter.toDate```, which should be in epoch/unix format (i.e. the number of seconds since 1/1/1970)",
         "You should only specify one of the two options."
       ],
+      "apiCall": {
+        "path": "/service/report/action/getTotal",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "reportType",
@@ -21,30 +25,30 @@
           "hidden": true
         },
         {
-          "name": "fromDay",
+          "name": "reportInputFilter[fromDay]",
           "label": "From Day"
         },
         {
-          "name": "toDay",
+          "name": "reportInputFilter[toDay]",
           "label": "To Day"
         },
         {
-          "name": "fromDate",
+          "name": "reportInputFilter[fromDate]",
           "label": "From Date"
         },
         {
-          "name": "toDate",
+          "name": "reportInputFilter[toDate]",
           "label": "To Date"
         }
-      ],
-      "apiCall": {
-        "path": "/service/report/action/getTotal",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Getting other Report Types",
       "description": "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/alpha/lib/enums/ReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are",
+      "apiCall": {
+        "path": "/service/report/action/getTotal",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "reportType",
@@ -102,26 +106,22 @@
           ]
         },
         {
-          "name": "fromDay",
+          "name": "reportInputFilter[fromDay]",
           "label": "From Day"
         },
         {
-          "name": "toDay",
+          "name": "reportInputFilter[toDay]",
           "label": "To Day"
         },
         {
-          "name": "fromDate",
+          "name": "reportInputFilter[fromDate]",
           "label": "From Date"
         },
         {
-          "name": "toDate",
+          "name": "reportInputFilter[toDate]",
           "label": "To Date"
         }
-      ],
-      "apiCall": {
-        "path": "/service/report/action/getTotal",
-        "method": "get"
-      }
+      ]
     }
   ]
 }

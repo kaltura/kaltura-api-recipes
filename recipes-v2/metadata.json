@@ -10,19 +10,23 @@
     {
       "title": "Create metadata profile",
       "description": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
+      "apiCall": {
+        "path": "/service/metadata_metadataprofile/action/add",
+        "method": "get"
+      },
       "parameters": [
         {
-          "name": "name",
+          "name": "metadataProfile[name]",
           "label": "Profile Name",
           "default": ""
         },
         {
-          "name": "systemName",
+          "name": "metadataProfile[systemName]",
           "label": "System Profile Name",
           "default": ""
         },
         {
-          "name": "metadataObjectType",
+          "name": "metadataProfile[metadataObjectType]",
           "default": "1",
           "hidden": true
         },
@@ -32,7 +36,7 @@
           "hidden": true
         },
         {
-          "name": "createMode",
+          "name": "metadataProfile[createMode]",
           "default": "1",
           "hidden": true
         },
@@ -42,15 +46,15 @@
           "default": "this will get overwritten in recipes.js",
           "hidden": true
         }
-      ],
-      "apiCall": {
-        "path": "/service/metadata_metadataprofile/action/add",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Add metadata to an entry",
       "description": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/add",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "objectId",
@@ -79,15 +83,15 @@
             }
           }
         }
-      ],
-      "apiCall": {
-        "path": "/service/metadata_metadata/action/add",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Update entry metadata",
       "description": ".",
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/update",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "id",
@@ -99,11 +103,7 @@
           "label": "XML",
           "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>"
         }
-      ],
-      "apiCall": {
-        "path": "/service/metadata_metadata/action/update",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Delete metadata",

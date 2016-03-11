@@ -10,6 +10,10 @@
         "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry.",
         "You'll also need to choose a uiConf that supports kRecord."
       ],
+      "apiCall": {
+        "path": "/service/conversionprofile/action/list",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "uiConf",
@@ -35,24 +39,24 @@
           }
         },
         {
-          "name": "nameEqual",
+          "name": "filter[nameEqual]",
           "default": "Passthrough",
           "hidden": true
         },
         {
-          "name": "typeEqual",
+          "name": "filter[typeEqual]",
           "default": "2",
           "hidden": true
         }
-      ],
-      "apiCall": {
-        "path": "/service/conversionprofile/action/list",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Creating a Live Stream Entry",
       "description": "Now we'll use the conversion profile ID to create a new liveStream entry using `liveStream.add()`",
+      "apiCall": {
+        "path": "/service/livestream/action/add",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "name",
@@ -68,17 +72,17 @@
           "hidden": true
         },
         {
-          "name": "recordStatus",
+          "name": "liveStreamEntry[recordStatus]",
           "default": 1,
           "hidden": true
         },
         {
-          "name": "dvrStatus",
+          "name": "liveStreamEntry[dvrStatus]",
           "default": 1,
           "hidden": true
         },
         {
-          "name": "dvrWindow",
+          "name": "liveStreamEntry[dvrWindow]",
           "default": 60,
           "hidden": true
         },
@@ -87,11 +91,7 @@
           "default": "32",
           "hidden": true
         }
-      ],
-      "apiCall": {
-        "path": "/service/livestream/action/add",
-        "method": "get"
-      }
+      ]
     }
   ]
 }

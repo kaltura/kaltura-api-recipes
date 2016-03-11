@@ -7,6 +7,10 @@
     {
       "title": "Finding Your Most Viewed Videos",
       "description": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
+      "apiCall": {
+        "path": "/service/report/action/getTable",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "reportType",
@@ -30,32 +34,32 @@
           "hidden": true
         },
         {
-          "name": "fromDay",
+          "name": "reportInputFilter[fromDay]",
           "label": "From Day",
           "default": "20150615"
         },
         {
-          "name": "toDay",
+          "name": "reportInputFilter[toDay]",
           "label": "To Day",
           "default": "20150715"
         },
         {
-          "name": "fromDate",
+          "name": "reportInputFilter[fromDate]",
           "label": "From Date"
         },
         {
-          "name": "toDate",
+          "name": "reportInputFilter[toDate]",
           "label": "To Date"
         }
-      ],
-      "apiCall": {
-        "path": "/service/report/action/getTable",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Finding Your Top Contributors",
       "description": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
+      "apiCall": {
+        "path": "/service/report/action/getTable",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "reportType",
@@ -77,26 +81,22 @@
           "hidden": true
         },
         {
-          "name": "fromDay",
+          "name": "reportInputFilter[fromDay]",
           "label": "From Day"
         },
         {
-          "name": "toDay",
+          "name": "reportInputFilter[toDay]",
           "label": "To Day"
         },
         {
-          "name": "fromDate",
+          "name": "reportInputFilter[fromDate]",
           "label": "From Date"
         },
         {
-          "name": "toDate",
+          "name": "reportInputFilter[toDate]",
           "label": "To Date"
         }
-      ],
-      "apiCall": {
-        "path": "/service/report/action/getTable",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Ranking Videos by Votes/Likes",
@@ -107,9 +107,13 @@
         "* To see which videos have the highest average rating, set ```orderBy=KalturaMediaEntryOrderBy.RANK_DESC```.",
         "* To see which videos have the most likes, set ```orderBy=KalturaMediaEntryOrderBy.TOTAL_RANK_DESC``` in the filter."
       ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      },
       "parameters": [
         {
-          "name": "orderBy",
+          "name": "filter[advancedSearch][orderBy]",
           "default": "-rank",
           "enum": [
             "-totalRank",
@@ -121,14 +125,10 @@
           ]
         },
         {
-          "name": "totalRankGreaterThanOrEqual",
+          "name": "filter[totalRankGreaterThanOrEqual]",
           "default": 1
         }
-      ],
-      "apiCall": {
-        "path": "/service/media/action/list",
-        "method": "get"
-      }
+      ]
     }
   ]
 }

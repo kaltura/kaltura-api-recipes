@@ -7,9 +7,13 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/list",
+        "method": "get"
+      },
       "parameters": [
         {
-          "name": "cuePointTypeEqual",
+          "name": "filter[cuePointTypeEqual]",
           "default": "codeCuePoint.Code",
           "hidden": true
         },
@@ -37,7 +41,7 @@
           }
         },
         {
-          "name": "entryIdEqual",
+          "name": "filter[entryIdEqual]",
           "label": "Media Entry",
           "dynamicEnum": {
             "service": "media",
@@ -48,22 +52,18 @@
             }
           }
         }
-      ],
-      "apiCall": {
-        "path": "/service/cuepoint_cuepoint/action/list",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Adding a Cue Point",
       "description": "Use the form in the [Live Demo](#LiveDemo) window below to add cue points to your video.\n\n #### [`Add Cue Point`](#LiveDemo)",
-      "parameters": [],
       "codeSnippet": {
         "node": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCodeCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
         "ruby": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCodeCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
         "php": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = new FormData(document.getElementById('AddCodeCuePointForm'));\n     $.ajax({\n       url: '/addCodeCuePoint.php',\n       type: 'POST',\n       data: data,\n       contentType: false,\n       cache: false,\n       processData: false,\n       success: function (data, textStatus, jqXHR) {\n         $('.container').html(data);\n       }\n     });\n    return false;\n  })\n</script>\n",
         "javascript": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var cuePoint = new KalturaCodeCuePoint();\n    cuePoint.cuePointType = KalturaCuePointType.CODE;\n    cuePoint.entryId = \"<%- Lucy.answer('entryIdEqual') %>\";\n    cuePoint.code = $('input[name=\"code\"]').val();\n    cuePoint.description = $('input[name=\"description\"]').val();\n    cuePoint.startTime = $('input[name=\"startTime\"]').val();\n    client.cuePoint.add(function(success, cuePoint) {\n      $('.container').html(CodeCuePointAddedView({result: cuePoint}));\n    }, cuePoint);\n    return false;\n  })\n</script>\n"
-      }
+      },
+      "parameters": []
     }
   ]
 }
