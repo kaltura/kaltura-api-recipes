@@ -8,12 +8,18 @@ nav.navbar.navbar-default
         a.navbar-brand.recipe-navbar-title(href="#")
           span(href="#")= recipe.title
     ul.nav.navbar-nav.navbar-right
-      li(ng-class="{active: pathname === '/' || pathname.indexOf('/recipes') === 0}")
-        a(href="/") Code Recipes
-      li(ng-class="{active: pathname === '/console'}")
-        a(href="/console") API Console
+      li(ng-class="{active: pathname === '/portal/readme'}")
+        a(href="/portal/readme") Readme
+      li(ng-class="{active: pathname === '/portal/documentation'}")
+        a(href="/portal/documentation") Documentation
+      li(ng-class="{active: pathname === '/portal/console'}")
+        a(href="/portal/console") API Console
+      li(ng-class="{active: pathname.indexOf('/recipes') === 0}")
+        a(href="/portal/recipes") Code Recipes
       li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-        span Signed in as {{user.userId}} 
+        span
+          span(ng-bind="user.userId")
+          span &nbsp;
           a(href="javascript:;" ng-click="setUser({})") [sign out]
       li.text-bold(ng-if="!user.userId")
         a#LoginButton(data-toggle="modal" data-target="#Login") Sign In

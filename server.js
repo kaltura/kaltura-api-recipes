@@ -34,6 +34,7 @@ if (process.env.DEVELOPMENT) {
 
 var apiPortal = LucyPortal({
   swagger: Swagger,
+  basePath: '/portal_embed',
   mixpanel: '/js/includes/mixpanel.js',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
@@ -48,9 +49,12 @@ var apiPortal = LucyPortal({
     '/js/kaltura/KalturaVO.js',
     '/js/kaltura/KalturaServices.js',
     '/js/kaltura/KalturaClient.js',
+
+    '/js/includes/mixpanel.js',
     '/js/includes/kc-setup.js',
     '/js/includes/console.js',
   ],
+  showTopLevelNav: false,
   disableAutorefresh: true,
   development: process.env.DEVELOPMENT || false,
   credentialCookie: 'LUCYBOT_RECIPE_CREDS',
@@ -65,8 +69,12 @@ App.get('/', function(req, res) {
 })
 
 require('./codegen').initialize(function(router) {
-  App.use(router);
-  App.use(apiPortal);
+  App.use('/portal_embed', router);
+  App.use('/portal_embed', apiPortal);
+})
+
+App.get('/portal/:page', function(req, res) {
+  res.render('embed', {page: req.params.page})
 })
 
 App.get('/swagger.json', function(req, res) {
