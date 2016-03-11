@@ -13,24 +13,21 @@
       "description": "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show.",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "freeText",
           "label": "Query",
-          "name": "freeText"
+          "default": ""
         },
         {
-          "type": "datetime",
           "name": "createdAtGreaterThanOrEqual",
           "label": "From Date"
         },
         {
           "name": "advancedSearch",
-          "hidden": true,
-          "default": "KalturaMetadataSearchItem"
+          "default": "KalturaMetadataSearchItem",
+          "hidden": true
         },
         {
           "name": "orderBy",
-          "type": "select-chosen",
           "label": "Order By",
           "default": "-createdAt",
           "enum": [
@@ -119,10 +116,8 @@
       "description": "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id.",
       "parameters": [
         {
-          "type": "select-chosen",
-          "label": "UI Configuration ID",
           "name": "uiConf",
-          "required": true,
+          "label": "UI Configuration ID",
           "dynamicEnum": {
             "service": "uiConf",
             "action": "list",

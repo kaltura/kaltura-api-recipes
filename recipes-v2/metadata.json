@@ -12,68 +12,62 @@
       "description": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "name",
           "label": "Profile Name",
-          "name": "name"
+          "default": ""
         },
         {
-          "default": "",
-          "type": "text",
+          "name": "systemName",
           "label": "System Profile Name",
-          "name": "systemName"
+          "default": ""
         },
         {
-          "default": "1",
-          "type": "text",
           "name": "metadataObjectType",
+          "default": "1",
           "hidden": true
         },
         {
-          "default": "1",
-          "type": "text",
           "name": "objectType",
-          "hidden": true
-        },
-        {
           "default": "1",
-          "type": "text",
-          "name": "createMode",
           "hidden": true
         },
         {
-          "default": "this will get overwritten in recipes.js",
-          "type": "text",
-          "label": "XSD data",
+          "name": "createMode",
+          "default": "1",
+          "hidden": true
+        },
+        {
           "name": "xsdData",
+          "label": "XSD data",
+          "default": "this will get overwritten in recipes.js",
           "hidden": true
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/metadata_metadataprofile/action/add",
+        "method": "get"
+      }
     },
     {
       "title": "Add metadata to an entry",
       "description": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "objectId",
           "label": "entryId",
-          "name": "objectId"
+          "default": ""
         },
         {
-          "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>",
-          "type": "text",
+          "name": "xmlData",
           "label": "XML",
-          "name": "xmlData"
+          "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>"
         },
         {
-          "default": "1",
-          "type": "text",
           "name": "objectType",
+          "default": "1",
           "hidden": true
         },
         {
-          "type": "select-chosen",
           "name": "metadataProfileId",
           "label": "Metadata Profile",
           "dynamicEnum": {
@@ -85,53 +79,44 @@
             }
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/add",
+        "method": "get"
+      }
     },
     {
       "title": "Update entry metadata",
       "description": ".",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "id",
           "label": "Metadata ID",
-          "name": "id"
+          "default": ""
         },
         {
-          "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>",
-          "type": "text",
+          "name": "xmlData",
           "label": "XML",
-          "name": "xmlData"
+          "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>"
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/update",
+        "method": "get"
+      }
     },
     {
       "title": "Delete metadata",
       "description": "Browse existing ids in the frame below and click 'Delete' to remove them.",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "objectIdEqual",
           "label": "entryId",
-          "name": "objectIdEqual"
+          "default": ""
         },
         {
-          "type": "select-chosen",
           "name": "metadataProfileIdEqual",
           "label": "Metadata Profile",
-          "arguments": [
-            {
-              "class": "KalturaMetadataFilter",
-              "parameters": {
-                "metadataProfileIdEqual": {
-                  "answer": "metadataProfileIdEqual"
-                },
-                "objectIdEqual": {
-                  "answer": "objectIdEqual"
-                }
-              }
-            }
-          ],
           "dynamicEnum": {
             "service": "metadataProfile",
             "action": "list",

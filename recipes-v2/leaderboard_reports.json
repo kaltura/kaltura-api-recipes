@@ -9,7 +9,6 @@
       "description": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
       "parameters": [
         {
-          "type": "select",
           "name": "reportType",
           "label": "Report Type",
           "default": "13",
@@ -29,42 +28,40 @@
           ]
         },
         {
-          "type": "select-chosen",
           "name": "order",
           "label": "Order By",
           "default": "count_plays",
           "hidden": true
         },
         {
-          "type": "text",
           "name": "fromDay",
           "label": "From Day",
           "default": "20150615"
         },
         {
-          "type": "text",
           "name": "toDay",
           "label": "To Day",
           "default": "20150715"
         },
         {
-          "type": "datetime",
           "name": "fromDate",
           "label": "From Date"
         },
         {
-          "type": "datetime",
           "name": "toDate",
           "label": "To Date"
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/report/action/getTable",
+        "method": "get"
+      }
     },
     {
       "title": "Finding Your Top Contributors",
       "description": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
       "parameters": [
         {
-          "type": "select",
           "name": "reportType",
           "label": "Report Type",
           "default": "5",
@@ -80,33 +77,32 @@
           ]
         },
         {
-          "type": "select-chosen",
           "name": "order",
           "label": "Order By",
           "default": "count_plays",
           "hidden": true
         },
         {
-          "type": "text",
           "name": "fromDay",
           "label": "From Day"
         },
         {
-          "type": "text",
           "name": "toDay",
           "label": "To Day"
         },
         {
-          "type": "datetime",
           "name": "fromDate",
           "label": "From Date"
         },
         {
-          "type": "datetime",
           "name": "toDate",
           "label": "To Date"
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/report/action/getTable",
+        "method": "get"
+      }
     },
     {
       "title": "Ranking Videos by Votes/Likes",
@@ -120,7 +116,6 @@
       "parameters": [
         {
           "name": "orderBy",
-          "type": "select",
           "default": "-rank",
           "enum": [
             {
@@ -135,10 +130,13 @@
         },
         {
           "name": "totalRankGreaterThanOrEqual",
-          "type": "number",
           "default": 1
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      }
     }
   ]
 }

@@ -10,12 +10,10 @@
       "parameters": [
         {
           "name": "cuePointTypeEqual",
-          "type": "text",
           "default": "quiz.QUIZ_QUESTION",
           "hidden": true
         },
         {
-          "type": "select-chosen",
           "name": "uiConf",
           "dynamicEnum": {
             "service": "uiConf",
@@ -40,9 +38,8 @@
           }
         },
         {
-          "type": "select-chosen",
-          "label": "Media Entry",
           "name": "entryIdEqual",
+          "label": "Media Entry",
           "dynamicEnum": {
             "service": "media",
             "action": "list",

@@ -16,7 +16,6 @@
         {
           "name": "mediaType",
           "label": "Media Type",
-          "type": "select",
           "default": 1,
           "enum": [
             {

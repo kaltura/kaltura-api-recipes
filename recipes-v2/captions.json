@@ -9,14 +9,12 @@
       "description": "Choose a video from your library to add captions to. You can then use the page below to upload an SRT file to Kaltura. If you don't have an SRT file handy, you can [download a sample SRT file here](/sample_captions.srt)\n\nJavaScript clients can make use of the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload). Others should utilize the ```uploadToken``` service.",
       "parameters": [
         {
-          "type": "text",
-          "hidden": true,
-          "name": "uiConf"
+          "name": "uiConf",
+          "hidden": true
         },
         {
-          "type": "select-chosen",
-          "label": "Media Entry",
           "name": "entryId",
+          "label": "Media Entry",
           "dynamicEnum": {
             "service": "media",
             "action": "list",
@@ -38,10 +36,9 @@
       "description": "You can use ```captionAssetItem.search``` to search for scenes within your videos.",
       "parameters": [
         {
-          "type": "text",
+          "name": "contentLike",
           "label": "Query",
-          "default": "support",
-          "name": "contentLike"
+          "default": "support"
         }
       ],
       "apiCall": {

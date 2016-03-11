@@ -12,7 +12,6 @@
       ],
       "parameters": [
         {
-          "type": "select-chosen",
           "name": "uiConf",
           "dynamicEnum": {
             "service": "uiConf",
@@ -57,12 +56,10 @@
       "parameters": [
         {
           "name": "name",
-          "type": "text",
           "default": "Webcam Live Stream Test"
         },
         {
           "name": "description",
-          "type": "text",
           "default": "This is a test of Kaltura's Live Webcam streaming"
         },
         {

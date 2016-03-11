@@ -9,7 +9,6 @@
       "description": "Choose a player to view its configuration",
       "parameters": [
         {
-          "type": "select-chosen",
           "name": "id",
           "dynamicEnum": {
             "service": "uiConf",
@@ -32,7 +31,11 @@
             }
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/uiconf/action/list",
+        "method": "get"
+      }
     },
     {
       "title": "Updating the UI conf",

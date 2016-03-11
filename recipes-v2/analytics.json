@@ -16,28 +16,23 @@
       ],
       "parameters": [
         {
-          "type": "text",
           "name": "reportType",
           "default": "1",
           "hidden": true
         },
         {
-          "type": "text",
           "name": "fromDay",
           "label": "From Day"
         },
         {
-          "type": "text",
           "name": "toDay",
           "label": "To Day"
         },
         {
-          "type": "datetime",
           "name": "fromDate",
           "label": "From Date"
         },
         {
-          "type": "datetime",
           "name": "toDate",
           "label": "To Date"
         }
@@ -52,7 +47,6 @@
       "description": "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/alpha/lib/enums/ReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are",
       "parameters": [
         {
-          "type": "select",
           "name": "reportType",
           "label": "Report Type",
           "default": 5,
@@ -152,22 +146,18 @@
           ]
         },
         {
-          "type": "text",
           "name": "fromDay",
           "label": "From Day"
         },
         {
-          "type": "text",
           "name": "toDay",
           "label": "To Day"
         },
         {
-          "type": "datetime",
           "name": "fromDate",
           "label": "From Date"
         },
         {
-          "type": "datetime",
           "name": "toDate",
           "label": "To Date"
         }

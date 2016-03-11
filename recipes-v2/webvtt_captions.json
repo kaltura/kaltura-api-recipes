@@ -8,10 +8,9 @@
       "title": "Get Caption Assets",
       "parameters": [
         {
-          "default": "",
-          "type": "text",
+          "name": "entryIdEqual",
           "label": "Entry ID",
-          "name": "entryIdEqual"
+          "default": ""
         }
       ],
       "apiCall": {
@@ -23,7 +22,6 @@
       "title": "Get Caption Asset Details",
       "parameters": [
         {
-          "type": "select-chosen",
           "name": "captionAssetId",
           "label": "Language",
           "dynamicEnum": {
