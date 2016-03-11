@@ -106,7 +106,11 @@
         "If you create an HTTP Notification, you'll need to set up your server to handle incoming notifications",
         "Use the ```KalturaHttpNotificationClientPlugin``` library to parse incoming requests at the URL you specified."
       ],
-      "parameters": []
+      "parameters": [],
+      "codeSnippet": {
+        "ruby": "puts 'Kaltura Notification:' + params\n",
+        "php": "require_once('lib/KalturaClient.php');\nrequire_once('lib/KalturaPlugins/KalturaHttpNotificationClientPlugin.php');\n\n$object = unserialize($_POST['data']);\n"
+      }
     }
   ]
 }

@@ -52,7 +52,13 @@
     {
       "title": "Adding a Cue Point",
       "description": "Use the form in the [Live Demo](#LiveDemo) window below to add cue points to your video.",
-      "parameters": []
+      "parameters": [],
+      "codeSnippet": {
+        "node": "<lucy include=\"AddAdCuePointForm\"></lucy>\n<script>\n  $('#AddAdCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').load('listCuePoint', data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "ruby": "<lucy include=\"AddAdCuePointForm\"></lucy>\n<script>\n  $('#AddAdCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').load('listCuePoint', data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "php": "<lucy include=\"AddAdCuePointForm\"></lucy>\n<script>\n  $('#AddAdCuePointForm').submit(function() {\n    var data = new FormData(document.getElementById('AddAdCuePointForm'));\n     $.ajax({\n       url: '/addCuePoint.php',\n       type: 'POST',\n       data: data,\n       contentType: false,\n       cache: false,\n       processData: false,\n       success: function (data, textStatus, jqXHR) {\n         $('.container').load('listCuePoint.php', JSON.parse(data));\n       }\n     });\n    return false;\n  })\n</script>\n",
+        "javascript": "<lucy include=\"AddAdCuePointForm\"></lucy>\n<script>\n  $('#AddAdCuePointForm').submit(function() {\n    var cuePoint = new KalturaAdCuePoint();\n    cuePoint.cuePointType = KalturaCuePointType.AD;\n    cuePoint.adType = KalturaAdType.VIDEO;\n    cuePoint.protocolType = KalturaAdProtocolType.VAST;\n    cuePoint.sourceUrl = $('input[name=\"sourceUrl\"]').val();\n    cuePoint.startTime = $('input[name=\"startTime\"]').val();\n    cuePoint.entryId = \"<%- Lucy.answer('entryIdEqual') %>\";\n    client.cuePoint.add(function(success, cuePoint) {\n      $('.container').html(CuePointAddedView({result: cuePoint}));\n    }, cuePoint);\n    return false;\n  })\n</script>\n"
+      }
     }
   ]
 }

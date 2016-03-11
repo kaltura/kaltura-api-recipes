@@ -40,7 +40,13 @@
     {
       "title": "Updating the UI conf",
       "description": "You can use the form below to add, change or remove functionality from your player.",
-      "parameters": []
+      "parameters": [],
+      "codeSnippet": {
+        "node": "<lucy include=\"ModifyUIconfForm\"></lucy>\n<script>\n  $('#ModifyUIconfForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/ModifyUIconf',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "ruby": "uiconf = KalturaUiConf.new();\nuiconf.config=params[:config];\nid = <%- Lucy.code.variable('answers.id') %>;\nresult = @@client.ui_conf_service.update(id,uiconf);\n<%- Lucy.returnCode('result') %>\n",
+        "php": "$id = <%- Lucy.code.variable('answers.id') %>;\n$uiConf = new KalturaUiConf();\n$uiConf->config = $_POST[\"config\"];\n$result = $client->uiConf->update($id, $uiConf);\n<%- Lucy.returnCode('$result') %>\n",
+        "javascript": ""
+      }
     }
   ]
 }
