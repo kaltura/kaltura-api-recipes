@@ -103,7 +103,6 @@ function convertInput(input, step, recipe) {
 
   if (step.apiCall) {
     var regex = new RegExp('^.*\\[(' + newInput.name + ')\\]$');
-    console.log('re');
     var swaggerParam = swagger.paths[step.apiCall.path][step.apiCall.method].parameters
             .forEach(function(p) {
               var match = p.name.match(regex);
