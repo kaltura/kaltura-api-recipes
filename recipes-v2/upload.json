@@ -18,18 +18,14 @@
           "label": "Media Type",
           "default": 1,
           "enum": [
-            {
-              "label": "Video",
-              "value": 1
-            },
-            {
-              "label": "Image",
-              "value": 2
-            },
-            {
-              "label": "Audio",
-              "value": 5
-            }
+            1,
+            2,
+            5
+          ],
+          "enumLabels": [
+            "Video",
+            "Image",
+            "Audio"
           ]
         }
       ],

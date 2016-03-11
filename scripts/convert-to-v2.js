@@ -93,7 +93,10 @@ function convertInput(input) {
   newInput.label       = input.label;
   newInput.default     = input.default;
   newInput.hidden      = input.hidden;
-  newInput.enum        = input.choices;
+  if (input.choices) {
+    newInput.enum        = input.choices.map(c => c.value);
+    newInput.enumLabels  = input.choices.map(c => c.label);
+  }
   newInput.dynamicEnum = input.dynamic_choices;
   return newInput;
 }

@@ -13,18 +13,14 @@
           "label": "Report Type",
           "default": "13",
           "enum": [
-            {
-              "label": "USER_ENGAGEMENT",
-              "value": "11"
-            },
-            {
-              "label": "SPEFICIC_USER_ENGAGEMENT",
-              "value": "12"
-            },
-            {
-              "label": "USER_TOP_CONTENT",
-              "value": "13"
-            }
+            "11",
+            "12",
+            "13"
+          ],
+          "enumLabels": [
+            "USER_ENGAGEMENT",
+            "SPEFICIC_USER_ENGAGEMENT",
+            "USER_TOP_CONTENT"
           ]
         },
         {
@@ -66,14 +62,12 @@
           "label": "Report Type",
           "default": "5",
           "enum": [
-            {
-              "label": "TOP_CONTRIBUTORS",
-              "value": "5"
-            },
-            {
-              "label": "TOP_CREATORS",
-              "value": "20"
-            }
+            "5",
+            "20"
+          ],
+          "enumLabels": [
+            "TOP_CONTRIBUTORS",
+            "TOP_CREATORS"
           ]
         },
         {
@@ -118,14 +112,12 @@
           "name": "orderBy",
           "default": "-rank",
           "enum": [
-            {
-              "label": "TOTAL_RANK_DESC",
-              "value": "-totalRank"
-            },
-            {
-              "label": "RANK_DESC",
-              "value": "-rank"
-            }
+            "-totalRank",
+            "-rank"
+          ],
+          "enumLabels": [
+            "TOTAL_RANK_DESC",
+            "RANK_DESC"
           ]
         },
         {
