@@ -7,10 +7,10 @@
     {
       "title": "Getting a list of entries",
       "description": "Iterating over all entries is achieved by calling media.list() passing along a pager with an index and size",
-      "parameters": [],
       "codeSnippet": {
         "html": "<script>\nfunction loadPage(page_number) {\n  $.ajax({\n    url: '/listMediaPage',\n    type: 'POST',\n    data: {page_index: page_number},\n    success: function(data) {\n      $('#MediaList').html(data);\n    }\n  })\n}\n</script>\n<div id=\"MediaList\">\n  <lucy include=\"KalturaMediaListResponse\"></lucy>\n<div class=\"btn-group\">\n      <a class=\"btn btn-default\" href=\"#\" onclick=\"loadPage(3)\">CLICK</a>\n</div>\n</div>\n"
-      }
+      },
+      "parameters": []
     }
   ]
 }

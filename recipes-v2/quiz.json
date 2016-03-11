@@ -7,9 +7,13 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/list",
+        "method": "get"
+      },
       "parameters": [
         {
-          "name": "cuePointTypeEqual",
+          "name": "filter[cuePointTypeEqual]",
           "default": "quiz.QUIZ_QUESTION",
           "hidden": true
         },
@@ -38,7 +42,7 @@
           }
         },
         {
-          "name": "entryIdEqual",
+          "name": "filter[entryIdEqual]",
           "label": "Media Entry",
           "dynamicEnum": {
             "service": "media",
@@ -49,11 +53,7 @@
             }
           }
         }
-      ],
-      "apiCall": {
-        "path": "/service/cuepoint_cuepoint/action/list",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Adding a Quiz question [Cue Point]",

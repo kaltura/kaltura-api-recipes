@@ -6,20 +6,24 @@
   "steps": [
     {
       "title": "Get Caption Assets",
-      "parameters": [
-        {
-          "name": "entryIdEqual",
-          "label": "Entry ID",
-          "default": ""
-        }
-      ],
       "apiCall": {
         "path": "/service/caption_captionasset/action/list",
         "method": "get"
-      }
+      },
+      "parameters": [
+        {
+          "name": "filter[entryIdEqual]",
+          "label": "Entry ID",
+          "default": ""
+        }
+      ]
     },
     {
       "title": "Get Caption Asset Details",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/get",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "captionAssetId",
@@ -43,11 +47,7 @@
             ]
           }
         }
-      ],
-      "apiCall": {
-        "path": "/service/caption_captionasset/action/get",
-        "method": "get"
-      }
+      ]
     }
   ]
 }

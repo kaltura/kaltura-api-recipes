@@ -7,17 +7,17 @@
     {
       "title": "Checking Permissions",
       "description": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
-      "parameters": [
-        {
-          "name": "nameEqual",
-          "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
-          "hidden": true
-        }
-      ],
       "apiCall": {
         "path": "/service/permission/action/list",
         "method": "get"
-      }
+      },
+      "parameters": [
+        {
+          "name": "filter[nameEqual]",
+          "default": "EVENTNOTIFICATION_PLUGIN_PERMISSION",
+          "hidden": true
+        }
+      ]
     },
     {
       "title": "Notification Template Types",
@@ -26,9 +26,13 @@
         "There are two main types of templates:\n* E-mail templates, which will cause an e-mail to be sent to particular users or administrators\n* HTTP templates, which will cause a particular URL to be called with data for the notification event. You can [read more here](https://github.com/kaltura/server/blob/master/plugins/event_notification/providers/http/README.md) about setting up your server to handle HTTP Notifications.",
         "Which type would you like to create?"
       ],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+        "method": "get"
+      },
       "parameters": [
         {
-          "name": "typeEqual",
+          "name": "filter[typeEqual]",
           "label": "Template Type",
           "enum": [
             "emailNotification.Email",
@@ -39,11 +43,7 @@
             "HTTP Template"
           ]
         }
-      ],
-      "apiCall": {
-        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Choosing a Template to Clone",
@@ -51,6 +51,10 @@
         "In order to create a new notification, you must clone one of the pre-made templates below. You can see the available templates using ```eventNotificationTemplate.listTemplates```",
         "Choose a template to clone."
       ],
+      "apiCall": {
+        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "id",
@@ -74,29 +78,25 @@
             }
           }
         }
-      ],
-      "apiCall": {
-        "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
-        "method": "get"
-      }
+      ]
     },
     {
       "title": "Cloning the Template",
       "description": "Use the form below to fill in some additional details for your template and create it",
-      "parameters": [],
       "apiCall": {
         "path": "/service/eventnotification_eventnotificationtemplate/action/clone",
         "method": "get"
-      }
+      },
+      "parameters": []
     },
     {
       "title": "Viewing your Notification Templates",
       "description": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
-      "parameters": [],
       "apiCall": {
         "path": "/service/eventnotification_eventnotificationtemplate/action/list",
         "method": "get"
-      }
+      },
+      "parameters": []
     },
     {
       "title": "Handling HTTP Notifications",
@@ -104,11 +104,11 @@
         "If you create an HTTP Notification, you'll need to set up your server to handle incoming notifications",
         "Use the ```KalturaHttpNotificationClientPlugin``` library to parse incoming requests at the URL you specified."
       ],
-      "parameters": [],
       "codeSnippet": {
         "ruby": "puts 'Kaltura Notification:' + params\n",
         "php": "require_once('lib/KalturaClient.php');\nrequire_once('lib/KalturaPlugins/KalturaHttpNotificationClientPlugin.php');\n\n$object = unserialize($_POST['data']);\n"
-      }
+      },
+      "parameters": []
     }
   ]
 }

@@ -7,6 +7,12 @@
     {
       "title": "Select a Media Entry",
       "description": "Choose a video from your library to add captions to. You can then use the page below to upload an SRT file to Kaltura. If you don't have an SRT file handy, you can [download a sample SRT file here](/sample_captions.srt)\n\nJavaScript clients can make use of the [jQuery fileupload plugin](https://github.com/kaltura/jQuery-File-Upload). Others should utilize the ```uploadToken``` service.",
+      "codeSnippet": {
+        "node": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "ruby": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "php": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions.php',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
+        "javascript": "<script type=\"text/javascript\">\n  var setupUpload = function() {\n    if (!client.ks) return setTimeout(setupUpload, 100);\n    file = $('input[name=\"fileData\"]').fileupload({\n      apiURL:'<%- Lucy.answer(\"serviceURL\") %>api_v3/',\n      url: '<%- Lucy.answer(\"serviceURL\") %>api_v3/?service=uploadToken&action=upload&format=1',\n      ks: client.ks,\n      singleFileUploads: true,\n      dataType: 'json',\n      autoUpload: true,\n      submit: function(e, data) {\n        $('#Uploading').show();\n      },\n      done: function(e, data) {\n        $('#Uploading').hide();\n        $('#UploadDone').html(CaptionUploadDoneView({result: data.result}));\n      },\n    });\n  };\n  $(document).ready(setupUpload);\n</script>\n\n<h1>Upload Captions</h1>\n<hr>\n<div id=\"Uploading\" class=\"alert alert-info hidden\">\n  <p>Uploading  </p>\n  <i class=\"fa fa-spin fa-refresh\"></i>\n</div>\n<label>Caption File (SRT)</label>\n<input type=\"file\" name=\"fileData\">\n<div id=\"UploadDone\"></div>\n"
+      },
       "parameters": [
         {
           "name": "uiConf",
@@ -24,38 +30,32 @@
             }
           }
         }
-      ],
-      "codeSnippet": {
-        "node": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "ruby": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "php": "<h1>Upload Captions</h1>\n<label>Caption File (SRT)</label>\n<form id=\"UploadForm\">\n  <input type=\"file\" name=\"fileData\">\n  <input type=\"submit\" value=\"Upload\">\n</form>\n<div id=\"UploadDone\"></div>\n\n<script>\n  $('#UploadForm').submit(function() {\n    var data = new FormData(document.getElementById('UploadForm'));\n    $.ajax({\n      url: '/attachCaptions.php',\n      type: 'POST',\n      data: data,\n      mimeType: \"multipart/form-data\",\n      contentType: false,\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('#UploadDone').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "javascript": "<script type=\"text/javascript\">\n  var setupUpload = function() {\n    if (!client.ks) return setTimeout(setupUpload, 100);\n    file = $('input[name=\"fileData\"]').fileupload({\n      apiURL:'<%- Lucy.answer(\"serviceURL\") %>api_v3/',\n      url: '<%- Lucy.answer(\"serviceURL\") %>api_v3/?service=uploadToken&action=upload&format=1',\n      ks: client.ks,\n      singleFileUploads: true,\n      dataType: 'json',\n      autoUpload: true,\n      submit: function(e, data) {\n        $('#Uploading').show();\n      },\n      done: function(e, data) {\n        $('#Uploading').hide();\n        $('#UploadDone').html(CaptionUploadDoneView({result: data.result}));\n      },\n    });\n  };\n  $(document).ready(setupUpload);\n</script>\n\n<h1>Upload Captions</h1>\n<hr>\n<div id=\"Uploading\" class=\"alert alert-info hidden\">\n  <p>Uploading  </p>\n  <i class=\"fa fa-spin fa-refresh\"></i>\n</div>\n<label>Caption File (SRT)</label>\n<input type=\"file\" name=\"fileData\">\n<div id=\"UploadDone\"></div>\n"
-      }
+      ]
     },
     {
       "title": "Attaching the Caption File",
       "description": "Once you've uploaded the file, you'll need to attach it to the video using ```captionAsset.add``` and ```captionAsset.setContent```",
-      "parameters": [],
       "codeSnippet": {
         "ruby": "path = File.join(Dir.pwd, \"public\", params[:fileData].original_filename)\nFile.open(path, \"wb\") { |f| f.write(params[:fileData].read) }\nfile = File.open(path)\nuploadToken = KalturaUploadToken.new();\nresult = @@client.upload_token_service.add(uploadToken)\nresult = @@client.upload_token_service.upload(result.id, file)\ncaptionResource = KalturaUploadedFileTokenResource.new();\ncaptionResource.token = result.id;\ncaptionAsset = KalturaCaptionAsset.new();\ncaptionAsset.format = KalturaCaptionType::SRT;\ncaptionAsset.is_default = 1;\ncaptionAsset.language = KalturaLanguage::EN;\ncaptionAsset.label = 'English';\nnewAsset = @@client.caption_asset_service.add(<%- Lucy.code.variable('answers.entryId') %>, captionAsset)\nresult = @@client.caption_asset_service.set_content(newAsset.id, captionResource)\n<%- Lucy.returnCode('result') %>\n",
         "php": "move_uploaded_file($_FILES[\"fileData\"][\"tmp_name\"], $_FILES[\"fileData\"][\"name\"]);\n$uploadToken = new KalturaUploadToken();\n$result = $client->uploadToken->add($uploadToken);\n$tok=$result->id;\n$resume = null;\n$finalChunk = null;\n$resumeAt = null;\n$result = $client->uploadToken->upload($tok, $_FILES[\"fileData\"][\"name\"], $resume, $finalChunk, $resumeAt);\n\n$captionResource = new KalturaUploadedFileTokenResource();\n$captionResource->token = $result->id;\n$captionAsset = new KalturaCaptionAsset();\n$captionAsset->format = KalturaCaptionType::SRT;\n$captionAsset->isDefault = true;\n$captionAsset->language = KalturaLanguage::EN;\n$captionAsset->label = 'English';\n$newAsset = $client->captionAsset->add(<%- Lucy.code.variable('answers.entryId') %>, $captionAsset);\n$client->captionAsset->setContent($newAsset->id, $captionResource);\n<%- Lucy.returnCode(\"$result\") %>\n",
         "javascript": "var captionResource = new KalturaUploadedFileTokenResource();\ncaptionResource.token = <%- Lucy.code.variable('answers.token') %>;\nvar captionAsset = new KalturaCaptionAsset();\ncaptionAsset.format = KalturaCaptionType.SRT;\ncaptionAsset.isDefault = true;\ncaptionAsset.language = KalturaLanguage.EN;\ncaptionAsset.label = 'English';\nclient.captionAsset.add(function(success, newAsset) {\n  client.captionAsset.setContent(function(success, response) {\n    <%- Lucy.returnCode('response') %>\n  }, newAsset.id, captionResource);\n}, <%- Lucy.code.variable('answers.entryId') %>, captionAsset);\n\n"
-      }
+      },
+      "parameters": []
     },
     {
       "title": "Searching through Captions",
       "description": "You can use ```captionAssetItem.search``` to search for scenes within your videos.",
-      "parameters": [
-        {
-          "name": "contentLike",
-          "label": "Query",
-          "default": "support"
-        }
-      ],
       "apiCall": {
         "path": "/service/captionsearch_captionassetitem/action/search",
         "method": "get"
-      }
+      },
+      "parameters": [
+        {
+          "name": "captionAssetItemFilter[advancedSearch][contentLike]",
+          "label": "Query",
+          "default": "support"
+        }
+      ]
     }
   ]
 }
