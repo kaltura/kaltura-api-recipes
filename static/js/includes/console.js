@@ -17,3 +17,13 @@ var startKS = function() {
 }
 startKS();
 
+window.checkResponse = function(data, status, xhr) {
+  if (data instanceof Document) {
+    var err = $(data).find('error').length;
+    if (err) return {type: 'danger', message: $(data).find('error message').text()};
+  } else if (typeof data === 'object') {
+    var err = data.result.error;
+    if (err) return {type: 'danger', message: err.message};
+  }
+  return {type: 'success', message: 'Success'}
+}
