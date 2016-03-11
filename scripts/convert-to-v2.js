@@ -11,6 +11,7 @@ schema.initialize(function() {
     if (r === 'recipes.js') return;
     if (fs.statSync(V1_DIR + '/' + r).isDirectory()) return;
     var recipe = require(V1_DIR + '/' + r);
+    if (recipe.name === 'authentication') recipe.recipe_steps.unshift(require('../recipes/includes/auth.js').sessionSelect);
     var newRecipe = convertRecipe(recipe);
     fs.writeFileSync(V2_DIR + '/' + r.replace(/\.js$/, '.json'), JSON.stringify(newRecipe, null, 2))
   })
@@ -28,7 +29,6 @@ function convertRecipe(recipe) {
   newRecipe.tags = recipe.tags;
   newRecipe.keywords = recipe.keywords;
   newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
-  if (newRecipe.name === 'authentication') newRecipe.steps.unshift(require('../recipes/includes/auth.js').sessionSelect);
   return newRecipe;
 }
 
