@@ -13,6 +13,12 @@ html, body, iframe, .iframe-container, #Body {
   padding-bottom: 80px;
 }
 
+@media (max-width: 767px) {
+  .iframe-container {
+    top: 270px;
+  }
+}
+
 iframe {
   border: none;
 }
