@@ -5,6 +5,10 @@
   padding-bottom: 12px;
 }
 
+.navbar a {
+  cursor: pointer;
+}
+
 .text-bold {
   font-weight: bold;
 }
@@ -38,4 +42,9 @@ li.signed-in {
 .navbar img {
   max-height: 100%;
 }
+
+.btn.text-left {
+  text-align: left;
+}
+
 
