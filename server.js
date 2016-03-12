@@ -32,6 +32,8 @@ if (process.env.DEVELOPMENT) {
   }))
 }
 
+var recipes = require('./recipes-v2');
+
 var apiPortal = LucyPortal({
   swagger: Swagger,
   basePath: '/portal_embed',
@@ -61,7 +63,7 @@ var apiPortal = LucyPortal({
   embedParameters: {
     format: 1,
   },
-  recipes: require('./recipes-v2.js'),
+  recipes: recipes,
 })
 
 App.get('/', function(req, res) {
@@ -84,11 +86,13 @@ App.get('/swagger.json', function(req, res) {
   res.json(Swagger);
 })
 
-var recipes = new RecipeManager();
-var sitemapUrls = Object.keys(recipes.recipes).map(function(r) {
-  return {url: '/recipes/' + r, priority: .3}
+var sitemapUrls = Object.keys(recipes).map(function(r) {
+  return {url: '/portal/recipes/' + r, priority: .3}
 });
-sitemapUrls.push({url: '/', priority: .9})
+sitemapUrls.push({url: '/portal/readme',        priority: .9})
+sitemapUrls.push({url: '/portal/documentation', priority: .9})
+sitemapUrls.push({url: '/portal/console',       priority: .9})
+sitemapUrls.push({url: '/portal/recipes',       priority: .9})
 var sitemap = require('sitemap').createSitemap({
   hostname: 'https://developer.kaltura.org',
   cacheTime: 1000 * 60 * 10, // ten minutes
@@ -101,8 +105,6 @@ App.use('/sitemap.xml', function(req, res) {
     res.send( xml );
   })
 })
-
-App.use('/discussion', require('./routes/discussion.js'))
 
 if (process.env.LUCYBOT_DEV) {
   console.log('----DEVELOPMENT ENVIRONMENT----');
