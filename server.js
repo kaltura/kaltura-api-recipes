@@ -39,8 +39,7 @@ var apiPortal = LucyPortal({
   mixpanel: '/js/includes/mixpanel.js',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
-    '/css/console.css',
-    '/css/navbar.css',
+    '/css/portal.css',
   ],
   jsIncludes: [
     '/js/kaltura/ox.ajast.js',
