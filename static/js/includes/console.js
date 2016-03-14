@@ -18,7 +18,7 @@ var startKS = function() {
 startKS();
 
 window.checkResponse = function(data, status, xhr) {
-  if (data === null) return {type: 'danger', message: 'Status Code ' + xhr.status + ': ' + xhr.responseText};
+  if (data === null) return {type: 'Success'};
   if (data instanceof Document) {
     var err = $(data).find('error').length;
     if (err) return {type: 'danger', message: $(data).find('error message').text()};
