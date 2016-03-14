@@ -36,7 +36,11 @@
             "User"
           ]
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/session/action/start",
+        "method": "get"
+      }
     },
     {
       "title": "Checking the KS",
