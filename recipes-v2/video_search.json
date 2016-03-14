@@ -71,6 +71,11 @@
             "UPDATED_AT_DESC",
             "VIEWS_DESC"
           ]
+        },
+        {
+          "name": "filter[advancedSearch][objectType]",
+          "default": "",
+          "hidden": true
         }
       ]
     },
