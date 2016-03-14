@@ -7,10 +7,9 @@ window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
   window.KC = new KalturaClient(config);
   KC.session.start(function(success, ks) {
     if (!success || (ks.code && ks.message)) {
-      mixpanel.track('kaltura_session_error', {
-        code: ks.code,
-        message: ks.message,
-      });
+      var trackObj = ks || {};
+      console.lot('fail', trackObj);
+      mixpanel.track('kaltura_session_error', trackObj);
       cb(ks);
       return console.log('Kaltura Error', success, ks);
     }
@@ -32,14 +31,14 @@ window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
           })
         }
         if (uiConfs.length === 0) {
-          $('#Answers').scope().answers['uiConf'] = results.objects[0].id;
+          $('#Recipe').scope().answers['uiConf'] = results.objects[0].id;
           if (RECIPE.name === 'dynamic_thumbnails') {
             $('#Recipe').scope().globalError = 'This recipe requires an HTML5 enabled uiConf. Please use the KMC to create one.';
           } else if (RECIPE.name === 'captions') {
             $('#Recipe').scope().globalError = 'This recipe requires a uiConf with captions enabled. Please use the KMC to create one.';
           }
         } else {
-          $('#Answers').scope().answers['uiConf'] = uiConfs[0].id;
+          $('#Recipe').scope().answers['uiConf'] = uiConfs[0].id;
         }
       })
     }
