@@ -17,12 +17,10 @@
       "parameters": [
         {
           "name": "metadataProfile[name]",
-          "label": "Profile Name",
           "default": ""
         },
         {
           "name": "metadataProfile[systemName]",
-          "label": "System Profile Name",
           "default": ""
         },
         {
@@ -42,7 +40,6 @@
         },
         {
           "name": "xsdData",
-          "label": "XSD data",
           "default": "this will get overwritten in recipes.js",
           "hidden": true
         }
@@ -58,12 +55,10 @@
       "parameters": [
         {
           "name": "objectId",
-          "label": "entryId",
           "default": ""
         },
         {
           "name": "xmlData",
-          "label": "XML",
           "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>"
         },
         {
@@ -73,7 +68,6 @@
         },
         {
           "name": "metadataProfileId",
-          "label": "Metadata Profile",
           "dynamicEnum": {
             "path": "/service/metadata_metadataprofile/action/list",
             "method": "get",
@@ -95,12 +89,10 @@
       "parameters": [
         {
           "name": "id",
-          "label": "Metadata ID",
           "default": ""
         },
         {
           "name": "xmlData",
-          "label": "XML",
           "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>"
         }
       ]
@@ -111,12 +103,10 @@
       "parameters": [
         {
           "name": "objectIdEqual",
-          "label": "entryId",
           "default": ""
         },
         {
           "name": "metadataProfileIdEqual",
-          "label": "Metadata Profile",
           "dynamicEnum": {
             "path": "/service/metadata_metadataprofile/action/list",
             "method": "get",

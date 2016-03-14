@@ -20,7 +20,6 @@
         },
         {
           "name": "entryId",
-          "label": "Media Entry",
           "dynamicEnum": {
             "path": "/service/media/action/list",
             "method": "get",
@@ -52,7 +51,6 @@
       "parameters": [
         {
           "name": "captionAssetItemFilter[advancedSearch][contentLike]",
-          "label": "Query",
           "default": "support"
         }
       ]

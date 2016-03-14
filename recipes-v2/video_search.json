@@ -18,12 +18,10 @@
       "parameters": [
         {
           "name": "filter[freeText]",
-          "label": "Query",
           "default": ""
         },
         {
-          "name": "filter[createdAtGreaterThanOrEqual]",
-          "label": "From Date"
+          "name": "filter[createdAtGreaterThanOrEqual]"
         },
         {
           "name": "advancedSearch",
@@ -32,7 +30,6 @@
         },
         {
           "name": "filter[advancedSearch][orderBy]",
-          "label": "Order By",
           "default": "-createdAt",
           "enum": [
             "+createdAt",
@@ -86,7 +83,6 @@
       "parameters": [
         {
           "name": "uiConf",
-          "label": "UI Configuration ID",
           "dynamicEnum": {
             "path": "/service/uiconf/action/list",
             "method": "get",

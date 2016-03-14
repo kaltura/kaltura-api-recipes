@@ -25,20 +25,16 @@
           "hidden": true
         },
         {
-          "name": "reportInputFilter[fromDay]",
-          "label": "From Day"
+          "name": "reportInputFilter[fromDay]"
         },
         {
-          "name": "reportInputFilter[toDay]",
-          "label": "To Day"
+          "name": "reportInputFilter[toDay]"
         },
         {
-          "name": "reportInputFilter[fromDate]",
-          "label": "From Date"
+          "name": "reportInputFilter[fromDate]"
         },
         {
-          "name": "reportInputFilter[toDate]",
-          "label": "To Date"
+          "name": "reportInputFilter[toDate]"
         }
       ]
     },
@@ -52,7 +48,6 @@
       "parameters": [
         {
           "name": "reportType",
-          "label": "Report Type",
           "default": 5,
           "enum": [
             "1",
@@ -106,20 +101,16 @@
           ]
         },
         {
-          "name": "reportInputFilter[fromDay]",
-          "label": "From Day"
+          "name": "reportInputFilter[fromDay]"
         },
         {
-          "name": "reportInputFilter[toDay]",
-          "label": "To Day"
+          "name": "reportInputFilter[toDay]"
         },
         {
-          "name": "reportInputFilter[fromDate]",
-          "label": "From Date"
+          "name": "reportInputFilter[fromDate]"
         },
         {
-          "name": "reportInputFilter[toDate]",
-          "label": "To Date"
+          "name": "reportInputFilter[toDate]"
         }
       ]
     }

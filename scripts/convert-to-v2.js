@@ -92,7 +92,7 @@ function convertStep(step, recipe) {
 function convertInput(input, step, recipe) {
   var newInput         = {};
   newInput.name        = input.name;
-  newInput.label       = input.label;
+  // newInput.label       = input.label;
   newInput.default     = input.default;
   newInput.hidden      = input.hidden;
   if (input.choices) {

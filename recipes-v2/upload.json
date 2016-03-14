@@ -21,7 +21,6 @@
       "parameters": [
         {
           "name": "mediaType",
-          "label": "Media Type",
           "default": 1,
           "enum": [
             1,

@@ -13,7 +13,6 @@
       "parameters": [
         {
           "name": "filter[entryIdEqual]",
-          "label": "Entry ID",
           "default": ""
         }
       ]
@@ -27,7 +26,6 @@
       "parameters": [
         {
           "name": "captionAssetId",
-          "label": "Language",
           "dynamicEnum": {
             "path": "/service/caption_captionasset/action/list",
             "method": "get",
