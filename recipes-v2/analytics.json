@@ -48,7 +48,7 @@
       "parameters": [
         {
           "name": "reportType",
-          "default": 5,
+          "default": "5",
           "enum": [
             "1",
             "2",

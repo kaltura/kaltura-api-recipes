@@ -52,7 +52,7 @@
           "type": "select",
           "name": "reportType",
           "label": "Report Type",
-          "default": 5,
+          "default": "5",
           "choices": [
             {
               "label": "TOP_CONTENT",
