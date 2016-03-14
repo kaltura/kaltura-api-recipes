@@ -54,6 +54,7 @@ var apiPortal = LucyPortal({
     '/js/includes/mixpanel.js',
     '/js/includes/kc-setup.js',
     '/js/includes/console.js',
+    '/js/includes/dynamic-enum.js',
   ],
   showTopLevelNav: false,
   disableAutorefresh: true,

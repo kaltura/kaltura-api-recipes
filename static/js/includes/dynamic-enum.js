@@ -1,5 +1,6 @@
-window.resolveDynamicChoices = function(dc, callback) {
+window.resolveDynamicEnum = function(dc, callback) {
   if (!KC) return console.log('Error: Kaltura Client is null');
+  console.log('dc', dc);
   var action = dc.action, service = dc.service;
   if (action === 'list') action += 'Action';
   var args = dc.arguments || [];
