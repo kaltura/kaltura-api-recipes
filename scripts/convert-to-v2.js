@@ -108,6 +108,7 @@ function convertInput(input, step, recipe) {
     var swaggerOp = swagger.paths[path].get;
     newInput.dynamicEnum = {
       path: path,
+      method: 'get',
       parameters: [],
       array: 'objects',
       label: input.dynamic_choices.map.label,
