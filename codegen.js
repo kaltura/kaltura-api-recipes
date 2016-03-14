@@ -43,6 +43,8 @@ module.exports.initialize = function(cb) {
               if (BLACKLISTED_FIELDS.indexOf(fieldName) !== -1) continue;
               var fieldType = props[fieldName].type;
               var enumType = props[fieldName].enumType;
+              var existing = paramObject.fields.filter(f => f.name === fieldName && (!f.objectType || f.objectType === objectType));
+              if (existing.length) continue;
               var field = {
                   name: fieldName,
                   type: fieldType,
