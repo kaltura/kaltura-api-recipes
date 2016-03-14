@@ -38,7 +38,6 @@ var apiPortal = LucyPortal({
   swagger: Swagger,
   basePath: '/portal_embed',
   linkBase: '/portal',
-  mixpanel: '/js/includes/mixpanel.js',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
     '/css/portal.css',
