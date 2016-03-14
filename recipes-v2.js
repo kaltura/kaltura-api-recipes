@@ -23,6 +23,7 @@ fs.readdirSync(DIR).forEach(function(r) {
     if (!step.apiCall) return;
     var match = step.apiCall.path.match(/\/service\/(.*)\/action\/(.*)$/);
     opsUsed.push({service: match[1], action: match[2]});
+    if (!step.parameters) step.ignoreParameters = ['format'];
   })
   opsUsed = _.uniqWith(opsUsed, _.isEqual);
   if (opsUsed.length) {
