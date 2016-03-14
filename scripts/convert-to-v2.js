@@ -5,6 +5,7 @@ var swagger = require('../swagger.js');
 
 var V1_DIR = __dirname + '/../recipes';
 var V2_DIR = __dirname + '/../recipes-v2';
+var PATCH_DIR = __dirname + '/../patches';
 
 schema.initialize(function() {
   fs.readdirSync(V1_DIR).forEach(function(r) {
@@ -29,7 +30,14 @@ function convertRecipe(recipe) {
   newRecipe.tags = recipe.tags;
   newRecipe.keywords = recipe.keywords;
   newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
-  return newRecipe;
+
+  return applyPatch(recipe.name, newRecipe)
+}
+
+function applyPatch(name, recipe) {
+  var filename = PATCH_DIR + '/' + name + '.js';
+  if (!fs.existsSync(filename)) return recipe;
+  return require(filename)(recipe);
 }
 
 function convertStep(step, recipe) {
