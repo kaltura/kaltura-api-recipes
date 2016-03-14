@@ -16,6 +16,7 @@ fs.readdirSync(DIR).forEach(function(r) {
   recipe.defaults.serviceURL =
       process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
   recipe.defaults.recipeName = recipe.name;
+  recipe.defaults.format = 1;
 
   var opsUsed = [];
   recipe.steps.forEach(function(step) {

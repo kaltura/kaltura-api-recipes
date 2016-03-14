@@ -15,13 +15,27 @@
     {
       "title": "Creating a new App Token",
       "description": "Create a new app token by calling ```appToken.add```.  You can choose whether the session should have ADMIN or USER level privileges, and you can specify how long the session should last.",
-      "codeSnippet": {
-        "node": "<lucy include=\"AddAppTokenForm\"></lucy>\n<script>\n  $('#AddAppTokenForm').submit(function() {\n    var data = $(this).serialize();\n    data.sessionType = parseInt(data.sessionType);\n    $.ajax({\n      url: '/addAppToken',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').load('listAppToken', data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "ruby": "<lucy include=\"AddAppTokenForm\"></lucy>\n<script>\n  $('#AddAppTokenForm').submit(function() {\n    var data = $(this).serialize();\n    data.sessionType = parseInt(data.sessionType);\n    $.ajax({\n      url: '/addAppToken',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').load('listAppToken', data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "php": "<lucy include=\"AddAppTokenForm\"></lucy>\n<script>\n  $('#AddAppTokenForm').submit(function() {\n    var data = new FormData(document.getElementById('AddAppTokenForm'));\n    data.sessionType = parseInt(data.sessionType);\n     $.ajax({\n       url: '/addAppToken.php',\n       type: 'POST',\n       data: data,\n       contentType: false,\n       cache: false,\n       processData: false,\n       success: function (data, textStatus, jqXHR) {\n         $('.container').load('listAppToken.php', JSON.parse(data));\n       }\n     });\n    return false;\n  })\n</script>\n",
-        "javascript": "<lucy include=\"AddAppTokenForm\"></lucy>\n<script>\n  $('#AddAppTokenForm').submit(function() {\n    var appToken = new KalturaAppToken();\n    appToken.sessionDuration = $('input[name=\"sessionDuration\"]').val();\n    appToken.sessionType = parseInt($('input[name=\"sessionType\"]').val());\n    client.appToken.add(function(success, appToken) {\n      client.appToken.listAction(function(success, response) {\n        $('.container').html(KalturaAppTokenListResponseView({result: response.objects}));\n      })\n    }, appToken);\n    return false;\n  })\n</script>\n"
-      },
-      "parameters": []
+      "apiCall": {
+        "path": "/service/apptoken/action/add",
+        "method": "get"
+      }
+    },
+    {
+      "title": "Deleting an App Token",
+      "description": "Use `appToken.delete` to invalidate your new App Token",
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        }
+      ],
+      "apiCall": {
+        "path": "/service/apptoken/action/delete",
+        "method": "get"
+      }
     }
   ]
 }
