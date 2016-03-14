@@ -37,8 +37,8 @@ fs.readdirSync(DIR).forEach(function(r) {
     ].concat(opsUsed.map(function(op) {
       var url = '/service/' + op.service + '/action/' + op.action;
       url = '/GET' + url;
-      var docUrl = '/console#/Documentation' + url;
-      var conUrl = '/console#/Console' + url;
+      var docUrl = '/portal/console#/Documentation' + url;
+      var conUrl = '/portal/console#/Console' + url;
       return '* `' + op.service + '.' + op.action +
           '` - [Documentation](' + docUrl + '), [Test Console](' + conUrl + ')';
     })).join('\n');
