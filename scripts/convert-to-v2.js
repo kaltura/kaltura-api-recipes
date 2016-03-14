@@ -31,7 +31,7 @@ function convertRecipe(recipe) {
   newRecipe.keywords = recipe.keywords;
   newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
 
-  return applyPatch(recipe.name, newRecipe)
+  return applyPatch(recipe.name, newRecipe) || newRecipe;
 }
 
 function applyPatch(name, recipe) {
