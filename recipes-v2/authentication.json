@@ -14,21 +14,17 @@
       ],
       "parameters": [
         {
-          "name": "partnerId",
-          "label": "Partner ID"
+          "name": "partnerId"
         },
         {
           "name": "userId",
-          "label": "User ID",
           "default": "lucybot@example.com"
         },
         {
-          "name": "secret",
-          "label": "Secret"
+          "name": "secret"
         },
         {
           "name": "sessionType",
-          "label": "Session Type",
           "default": 2,
           "hidden": false,
           "enum": [

@@ -33,7 +33,6 @@
       "parameters": [
         {
           "name": "filter[typeEqual]",
-          "label": "Template Type",
           "enum": [
             "emailNotification.Email",
             "httpNotification.Http"
@@ -58,7 +57,6 @@
       "parameters": [
         {
           "name": "id",
-          "label": "Template to Clone",
           "dynamicEnum": {
             "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
             "method": "get",

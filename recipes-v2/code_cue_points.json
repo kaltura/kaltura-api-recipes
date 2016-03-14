@@ -38,7 +38,6 @@
         },
         {
           "name": "filter[entryIdEqual]",
-          "label": "Media Entry",
           "dynamicEnum": {
             "path": "/service/media/action/list",
             "method": "get",
