@@ -3,8 +3,8 @@ var EJS = require('ejs');
 var Router = require('express').Router();
 var Schema = require('kaltura-schema');
 var Lucy = require('lucy-codegen').Lucy;
-var CodeTemplates = require('kaltura-codegen');
-
+var KCode = require('kaltura-codegen'),
+    CodeTemplates = KCode.templates;
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 var ACTION_FIELDS = ['list', 'clone', 'delete'];
@@ -63,6 +63,7 @@ module.exports.initialize = function(cb) {
     }
 
     Router.post('/code/build/request', function(req, res) {
+      if (process.env.DEVELOPMENT) KCode.populateTemplates();
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
