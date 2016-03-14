@@ -30,6 +30,7 @@
           "label": "Language",
           "dynamicEnum": {
             "path": "/service/caption_captionasset/action/list",
+            "method": "get",
             "parameters": [],
             "array": "objects",
             "label": "label",

@@ -61,6 +61,7 @@
           "label": "Template to Clone",
           "dynamicEnum": {
             "path": "/service/eventnotification_eventnotificationtemplate/action/listTemplates",
+            "method": "get",
             "parameters": [
               {
                 "name": "filter[typeEqual]",

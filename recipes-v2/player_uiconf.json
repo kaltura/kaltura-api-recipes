@@ -16,6 +16,7 @@
           "name": "id",
           "dynamicEnum": {
             "path": "/service/uiconf/action/list",
+            "method": "get",
             "parameters": [
               {
                 "name": "filter[orderBy]",

@@ -76,6 +76,7 @@
           "label": "Metadata Profile",
           "dynamicEnum": {
             "path": "/service/metadata_metadataprofile/action/list",
+            "method": "get",
             "parameters": [],
             "array": "objects",
             "label": "name",
@@ -118,6 +119,7 @@
           "label": "Metadata Profile",
           "dynamicEnum": {
             "path": "/service/metadata_metadataprofile/action/list",
+            "method": "get",
             "parameters": [],
             "array": "objects",
             "label": "name",

@@ -89,6 +89,7 @@
           "label": "UI Configuration ID",
           "dynamicEnum": {
             "path": "/service/uiconf/action/list",
+            "method": "get",
             "parameters": [
               {
                 "name": "filter[orderBy]",

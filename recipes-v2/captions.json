@@ -23,6 +23,7 @@
           "label": "Media Entry",
           "dynamicEnum": {
             "path": "/service/media/action/list",
+            "method": "get",
             "parameters": [],
             "array": "objects",
             "label": "name",

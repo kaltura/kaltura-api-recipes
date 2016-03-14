@@ -16,6 +16,7 @@
           "name": "uiConf",
           "dynamicEnum": {
             "path": "/service/uiconf/action/list",
+            "method": "get",
             "parameters": [
               {
                 "name": "filter[orderBy]",
@@ -35,6 +36,7 @@
           "label": "Media Entry",
           "dynamicEnum": {
             "path": "/service/media/action/list",
+            "method": "get",
             "parameters": [],
             "array": "objects",
             "label": "name",
