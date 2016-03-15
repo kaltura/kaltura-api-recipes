@@ -17,9 +17,10 @@ nav.navbar.navbar-default
       li(ng-class="{active: pathname.indexOf('/portal/recipes') === 0}")
         a(href="/portal/recipes") Code Recipes
       li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-        span
+        span.hidden-sm
           span(ng-bind="user.userId")
           span &nbsp;
+        span
           a(href="javascript:;" ng-click="setUser({})") [sign out]
       li.text-bold(ng-if="!user.userId")
         a#LoginButton(data-toggle="modal" data-target="#Login") Sign In
