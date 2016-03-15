@@ -6,8 +6,8 @@ This project utilizes LucyBot's [code generation
 system](https://github.com/bobby-brennan/lucy-codegen) and [automated API console](https://github.com/lucybot/lucy-console)
 
 
-
 ## Installation
+You need to have NodeJS 4.0 or above installed.
 
 ```bash
 git clone https://github.com/kaltura/kaltura-api-recipes.git && cd kaltura-api-recipes
