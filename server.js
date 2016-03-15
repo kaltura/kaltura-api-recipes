@@ -6,6 +6,7 @@ var fs = require('fs');
 var LucyPortal = require('lucy-api-portal').PortalRouter;
 var Swagger = require('./swagger.js');
 var RecipeManager = require('./recipes/recipes.js');
+var assetMan = require('./asset-man');
 
 var App = Express();
 App.set('views', __dirname + '/views')
@@ -76,7 +77,7 @@ App.get('/portal/recipes/:recipe_name', function(req, res) {
   res.render('embed', {page: '/recipes/' + req.params.recipe_name})
 })
 App.get('/portal/:page', function(req, res) {
-  res.render('embed', {page: req.params.page})
+  res.render('embed', {page: req.params.page, assetMan: assetMan})
 })
 
 App.get('/swagger.json', function(req, res) {
