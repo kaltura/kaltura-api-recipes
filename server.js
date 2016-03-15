@@ -74,7 +74,7 @@ require('./codegen').initialize(function(router) {
 })
 
 App.get('/portal/recipes/:recipe_name', function(req, res) {
-  res.render('embed', {page: '/recipes/' + req.params.recipe_name})
+  res.render('embed', {page: '/recipes/' + req.params.recipe_name, assetMan: assetMan})
 })
 App.get('/portal/:page', function(req, res) {
   res.render('embed', {page: req.params.page, assetMan: assetMan})
