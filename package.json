@@ -18,6 +18,7 @@
   "homepage": "https://github.com/bobby-brennan/kaltura-recipes",
   "dependencies": {
     "async": "^1.2.1",
+    "bb-asset-manager": "^2.0.2",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "ejs": "^2.3.1",
@@ -28,8 +29,8 @@
     "kaltura-schema": "git+https://github.com/bobby-brennan/kaltura-schema.git",
     "kaltura-spec-converter": "git+https://github.com/bobby-brennan/kaltura-spec-converter.git",
     "lodash": "^4.6.1",
-    "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "lucy-api-portal": "git+https://github.com/bobby-brennan/lucy-api-portal.git",
+    "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "markdown-sections": "^1.0.2",
     "marked": "^0.3.5",
     "remove-markdown": "0.0.6",
