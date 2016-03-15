@@ -16,6 +16,8 @@ html
         .container-fluid
           block
       include ./includes/navbar.jade
+    h1.text-center
+      i.fa.fa-3x.fa-spin.fa-refresh
     .iframe-container
       iframe()
     script.
@@ -25,6 +27,7 @@ html
         $('iframe').attr('src', url);
 
         $('iframe').load(function() {
+          $('h1').remove();
           var frame = $('iframe')[0].contentWindow;
           if (window.location.hash) {
             frame.location.hash = window.location.hash;
