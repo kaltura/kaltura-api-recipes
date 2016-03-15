@@ -17,6 +17,13 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
   App.use(require('./routes/basic-auth.js'));
 }
 
+var cache = function(req, res, next) {
+  var maxAge = 60*60;
+  res.setHeader('Cache-Control', 'public, max-age=' + maxAge);
+  next();
+};
+
+if (!process.env.DEVELOPMENT) App.use(cache);
 App.use('/', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
 
@@ -43,18 +50,8 @@ var apiPortal = LucyPortal({
     '/css/portal.css',
   ],
   jsIncludes: [
-    '/js/kaltura/ox.ajast.js',
-    '/js/kaltura/webtoolkit.md5.js',
-    '/js/kaltura/KalturaClientBase.js',
-    '/js/kaltura/KalturaTypes.js',
-    '/js/kaltura/KalturaVO.js',
-    '/js/kaltura/KalturaServices.js',
-    '/js/kaltura/KalturaClient.js',
-
-    '/js/includes/mixpanel.js',
-    '/js/includes/kc-setup.js',
-    '/js/includes/console.js',
-    '/js/includes/dynamic-enum.js',
+    '/minified/js/kaltura.js',
+    '/minified/js/includes.js',
   ],
   showTopLevelNav: false,
   disableAutorefresh: true,
