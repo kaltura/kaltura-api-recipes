@@ -82,11 +82,11 @@ module.exports.initialize = function(cb) {
       lucy.returnCode = function(val, tabs) {
         var ret = '';
         if (lang === 'javascript' || lang === 'node') {
-          ret = 'console.log(' + val + ')';
+          ret = 'console.log(' + val + ');';
         } else if (lang === 'ruby') {
           ret = 'puts ' + val;
         } else if (lang === 'php') {
-          ret = 'echo ' + val;
+          ret = 'echo ' + val + ';';
         }
         for (var i = 0; i < tabs; ++i) ret = ' ' + ret;
         return ret;
