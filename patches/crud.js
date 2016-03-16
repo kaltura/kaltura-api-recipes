@@ -1,4 +1,8 @@
+var VOWELS = ['a', 'e', 'i', 'o', 'u'];
 module.exports = function(recipe, opts) {
+  var isVowel = VOWELS.indexOf(opts.name.charAt(0).toLowerCase() !== -1);
+  var article = isVowel ? ' an ' : ' a ';
+
   recipe.steps[0] = {
     title: 'Getting ' + opts.name + 's',
     description: 'Use `' + opts.service + '.list` to retrieve a list of ' + opts.name + 's',
@@ -16,7 +20,7 @@ module.exports = function(recipe, opts) {
     }
   }
   recipe.steps[2] = {
-    title: 'Retrieving a ' + opts.name,
+    title: 'Retrieving' + article + opts.name,
     description: 'Use `' + opts.service + '.get` to get details for a specific ' + opts.name,
     apiCall: {
       path: '/service/' + opts.serviceName + '/action/get',
@@ -27,7 +31,7 @@ module.exports = function(recipe, opts) {
     ],
   }
   recipe.steps[3] = {
-    title: 'Deleting a ' + opts.name,
+    title: 'Deleting' + article + opts.name,
     description: 'Use `' + opts.service + '.delete` to remove a specific ' + opts.name,
     apiCall: {
       path: '/service/' + opts.serviceName + '/action/delete',
