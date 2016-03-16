@@ -1,6 +1,7 @@
 window.KC = null;
-window.onAuthenticated = function(creds, cb) {
+window.onAuthorization = function(creds, cb) {
   if (!creds.partnerId || !creds.secret) return;
+  if (creds.ks && window.KC) return;
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
@@ -15,8 +16,8 @@ window.onAuthenticated = function(creds, cb) {
     mixpanel.track('kaltura_session', {
       partnerId: creds.partnerId
     });
+    $('#APICall').scope().keys.ks = ks;
     KC.setKs(ks);
-    cb(null, ks);
     KC.uiConf.listAction(function(success, results) {
       var uiConfs = results.objects;
       if (window.RECIPE && RECIPE.name === 'captions') {
@@ -38,6 +39,7 @@ window.onAuthenticated = function(creds, cb) {
       } else {
         $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
       }
+      cb(null, ks);
     });
   }, creds.secret,
   creds.userId,

@@ -3,8 +3,9 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElemen
 mixpanel.init("86f681be6799f4750b83c8c1509420b2");
 ;
 window.KC = null;
-window.onAuthenticated = function(creds, cb) {
+window.onAuthorization = function(creds, cb) {
   if (!creds.partnerId || !creds.secret) return;
+  if (creds.ks && window.KC) return;
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
@@ -19,8 +20,8 @@ window.onAuthenticated = function(creds, cb) {
     mixpanel.track('kaltura_session', {
       partnerId: creds.partnerId
     });
+    $('#APICall').scope().keys.ks = ks;
     KC.setKs(ks);
-    cb(null, ks);
     KC.uiConf.listAction(function(success, results) {
       var uiConfs = results.objects;
       if (window.RECIPE && RECIPE.name === 'captions') {
@@ -42,6 +43,7 @@ window.onAuthenticated = function(creds, cb) {
       } else {
         $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
       }
+      cb(null, ks);
     });
   }, creds.secret,
   creds.userId,
