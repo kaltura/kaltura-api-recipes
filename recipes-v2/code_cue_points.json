@@ -5,18 +5,13 @@
   "icon": "columns",
   "steps": [
     {
-      "title": "Select a Media Entry",
-      "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "title": "Getting Cue Points",
+      "description": "Use `cuePoint.list` to retrieve a list of Cue Points",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
       },
       "parameters": [
-        {
-          "name": "filter[cuePointTypeEqual]",
-          "default": "codeCuePoint.Code",
-          "hidden": true
-        },
         {
           "name": "uiConf",
           "dynamicEnum": {
@@ -28,20 +23,10 @@
                 "value": "-updatedAt"
               },
               {
-                "name": "filter[objTypeEqual]"
+                "name": "filter[objTypeEqual]",
+                "value": "PLAYER,PLAYER_V3"
               }
             ],
-            "array": "objects",
-            "label": "name",
-            "value": "id"
-          }
-        },
-        {
-          "name": "filter[entryIdEqual]",
-          "dynamicEnum": {
-            "path": "/service/media/action/list",
-            "method": "get",
-            "parameters": [],
             "array": "objects",
             "label": "name",
             "value": "id"
@@ -50,14 +35,111 @@
       ]
     },
     {
-      "title": "Adding a Cue Point",
-      "description": "Use the form in the [Live Demo](#LiveDemo) window below to add cue points to your video.\n\n #### [`Add Cue Point`](#LiveDemo)",
-      "codeSnippet": {
-        "node": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCodeCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "ruby": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = $(this).serialize();\n    $.ajax({\n      url: '/addCodeCuePoint',\n      type: 'POST',\n      data: data,\n      contentType: 'application/x-www-form-urlencoded',\n      cache: false,\n      processData: false,\n      success: function (data, textStatus, jqXHR) {\n        $('.container').html(data);\n      }\n    });\n    return false;\n  })\n</script>\n",
-        "php": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var data = new FormData(document.getElementById('AddCodeCuePointForm'));\n     $.ajax({\n       url: '/addCodeCuePoint.php',\n       type: 'POST',\n       data: data,\n       contentType: false,\n       cache: false,\n       processData: false,\n       success: function (data, textStatus, jqXHR) {\n         $('.container').html(data);\n       }\n     });\n    return false;\n  })\n</script>\n",
-        "javascript": "<lucy include=\"AddCodeCuePointForm\"></lucy>\n<script>\n  $('#AddCodeCuePointForm').submit(function() {\n    var cuePoint = new KalturaCodeCuePoint();\n    cuePoint.cuePointType = KalturaCuePointType.CODE;\n    cuePoint.entryId = \"<%- Lucy.answer('entryIdEqual') %>\";\n    cuePoint.code = $('input[name=\"code\"]').val();\n    cuePoint.description = $('input[name=\"description\"]').val();\n    cuePoint.startTime = $('input[name=\"startTime\"]').val();\n    client.cuePoint.add(function(success, cuePoint) {\n      $('.container').html(CodeCuePointAddedView({result: cuePoint}));\n    }, cuePoint);\n    return false;\n  })\n</script>\n"
-      }
+      "title": "Adding a new Cue Point",
+      "description": "Use the controls below to add a new cue point to one of your videos",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/add",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "cuePoint[entryId]",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "parameters": [
+              {
+                "name": "filter[orderBy]",
+                "value": "-updatedAt"
+              },
+              {
+                "name": "filter[objTypeEqual]",
+                "value": "PLAYER,PLAYER_V3"
+              }
+            ],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[entryIdEqual]"
+          }
+        },
+        {
+          "name": "cuePoint[sourceUrl]"
+        },
+        {
+          "name": "cuePoint[startTime]"
+        },
+        {
+          "name": "cuePoint[objectType]",
+          "default": "KalturaCodeCuePoint",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "title": "Retrieving an Cue Point",
+      "description": "Use `cuePoint.get` to get details for a specific Cue Point",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Viewing your Cue Point",
+      "description": "Now you can see your new Cue Point wherever you embed your video.",
+      "apiCall": {
+        "path": "/service/media/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "entryId",
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[entryIdEqual]"
+          }
+        },
+        {
+          "name": "uiConf",
+          "type": "string",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Deleting an Cue Point",
+      "description": "Use `cuePoint.delete` to remove a specific Cue Point",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/delete",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        }
+      ]
     }
   ]
 }
