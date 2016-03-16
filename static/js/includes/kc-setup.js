@@ -16,7 +16,7 @@ window.onAuthenticated = function(creds, cb) {
       partnerId: creds.partnerId
     });
     KC.setKs(ks);
-    if (cb) cb(null, ks);
+    cb(null, ks);
     KC.uiConf.listAction(function(success, results) {
       var uiConfs = results.objects;
       if (window.RECIPE && RECIPE.name === 'captions') {
