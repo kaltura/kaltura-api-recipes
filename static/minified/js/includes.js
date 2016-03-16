@@ -3,8 +3,7 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElemen
 mixpanel.init("86f681be6799f4750b83c8c1509420b2");
 ;
 window.KC = null;
-window.credentialFields = ['partnerId', 'userId', 'secret']
-window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
+window.onAuthenticated = function(creds, cb) {
   if (!creds.partnerId || !creds.secret) return;
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
@@ -51,25 +50,6 @@ window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
 }
 
 ;
-window.credentialFields = ['ks'];
-
-var startKS = function() {
-  var keys = window.getKeys();
-  if (!keys.partnerId && !keys.secret) {
-    setTimeout(startKS, 1000);
-  }
-  else {
-    window.startKalturaSession(keys, function(err, ks) {
-      keys.ks = ks;
-      window.setKeys(keys);
-      KC.uiConf.listAction(function(suc, confs) {
-        window.DEFAULT_ANSWERS = {uiConf: confs.objects[0].id}
-      })
-    });
-  }
-}
-startKS();
-
 window.checkResponse = function(data, status, xhr) {
   if (data === null) return {type: 'success', message: "Success"};
   if (data instanceof Document) {
@@ -80,40 +60,4 @@ window.checkResponse = function(data, status, xhr) {
     if (err) return {type: 'danger', message: data.code + ': ' + data.message};
   }
   return {type: 'success', message: 'Success'}
-}
-;
-window.resolveDynamicEnum = function(dc, callback) {
-  if (!KC) return console.log('Error: Kaltura Client is null');
-  console.log('dc', dc);
-  var action = dc.action, service = dc.service;
-  if (action === 'list') action += 'Action';
-  var args = dc.arguments || [];
-  args = args.map(function(arg) {
-    var cls = new window[arg.class];
-    var params = arg.parameters || {};
-    for (name in params) {
-      var param = params[name];
-      if (param.answer) {
-        cls[name] = $('#Answers').scope().answers[param.answer];
-      } else if (param.enum) {
-        cls[name] = window[param.enum][param.value];
-      } else {
-        cls[name] = param;
-      }
-    };
-    return cls;
-  });
-  var kcb = function(success, results) {
-    if (!success || (results.code && results.message)) {
-      console.log("Kaltura Error", results);
-      return callback(new Error('Error getting choices'));
-    }
-    var choices = results.objects.map(function(obj) {
-      return {value: obj[dc.map.value], label: obj[dc.map.label]};
-    });
-    callback(null, choices);
-  };
-  args.unshift(kcb);
-  var serviceObj = KC[service];
-  serviceObj[action].apply(serviceObj, args);
 }
