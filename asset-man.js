@@ -10,7 +10,6 @@ assetMan.addAsset('includes', {
     '/js/includes/mixpanel.js',
     '/js/includes/kc-setup.js',
     '/js/includes/console.js',
-    '/js/includes/dynamic-enum.js',
   ],
 });
 assetMan.addAsset('kaltura', {

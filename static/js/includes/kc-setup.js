@@ -1,6 +1,5 @@
 window.KC = null;
-window.credentialFields = ['partnerId', 'userId', 'secret']
-window.credentialsChanged = window.startKalturaSession = function(creds, cb) {
+window.onAuthenticated = function(creds, cb) {
   if (!creds.partnerId || !creds.secret) return;
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
