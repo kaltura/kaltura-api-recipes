@@ -13,20 +13,16 @@
       },
       "parameters": [
         {
-          "name": "uiConf",
+          "name": "filter[cuePointTypeEqual]",
+          "default": "codeCuePoint.Code",
+          "hidden": true
+        },
+        {
+          "name": "filter[entryIdEqual]",
           "dynamicEnum": {
-            "path": "/service/uiconf/action/list",
+            "path": "/service/media/action/list",
             "method": "get",
-            "parameters": [
-              {
-                "name": "filter[orderBy]",
-                "value": "-updatedAt"
-              },
-              {
-                "name": "filter[objTypeEqual]",
-                "value": "PLAYER,PLAYER_V3"
-              }
-            ],
+            "parameters": [],
             "array": "objects",
             "label": "name",
             "value": "id"
@@ -45,18 +41,9 @@
         {
           "name": "cuePoint[entryId]",
           "dynamicEnum": {
-            "path": "/service/uiconf/action/list",
+            "path": "/service/media/action/list",
             "method": "get",
-            "parameters": [
-              {
-                "name": "filter[orderBy]",
-                "value": "-updatedAt"
-              },
-              {
-                "name": "filter[objTypeEqual]",
-                "value": "PLAYER,PLAYER_V3"
-              }
-            ],
+            "parameters": [],
             "array": "objects",
             "label": "name",
             "value": "id"
@@ -67,10 +54,13 @@
           }
         },
         {
-          "name": "cuePoint[sourceUrl]"
+          "name": "cuePoint[code]"
         },
         {
           "name": "cuePoint[startTime]"
+        },
+        {
+          "name": "cuePoint[description]"
         },
         {
           "name": "cuePoint[objectType]",
