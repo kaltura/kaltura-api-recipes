@@ -5,8 +5,8 @@
   "icon": "money",
   "steps": [
     {
-      "title": "Get Existing Cue Points",
-      "description": "Choose a video from your library to add cue points to.\n\nYou'll also need to select a uiConf that has cue point tracking enabled. To enable cue point tracking, [visit the KMC](http://kmc.kaltura.com/index.php/kmc/kmc4#studio|universal_studio), click the Monetization ($) tab, and check \"Track cue points\" under the Vast tab\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "title": "Getting Ad Cue Points",
+      "description": "Use `cuePoint.list` to retrieve a list of Ad Cue Points\n\nUse a `KalturaAdCuePointBaseFilter` to retrieve only Ad cue points.",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
@@ -22,11 +22,16 @@
             "label": "name",
             "value": "id"
           }
+        },
+        {
+          "name": "filter[objectType]",
+          "value": "KalturaAdCuePointBaseFilter",
+          "hidden": true
         }
       ]
     },
     {
-      "title": "Adding a Cue Point",
+      "title": "Adding a new Ad Cue Point",
       "description": "Use the controls below to add a new cue point to one of your videos",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/add",
@@ -42,6 +47,10 @@
             "array": "objects",
             "label": "name",
             "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[entryIdEqual]"
           }
         },
         {
@@ -54,6 +63,57 @@
           "name": "cuePoint[objectType]",
           "default": "KalturaAdCuePoint",
           "hidden": true
+        }
+      ]
+    },
+    {
+      "title": "Retrieving a Ad Cue Point",
+      "description": "Use `cuePoint.get` to get details for a specific Ad Cue Point",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Viewing your Advertisement",
+      "description": "Now you can see your new Cue Point wherever you embed your video.",
+      "apiCall": {
+        "path": "/service/media/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "entryId",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "entryId"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Deleting a Ad Cue Point",
+      "description": "Use `cuePoint.delete` to remove a specific Ad Cue Point",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/delete",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
         }
       ]
     }

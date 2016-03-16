@@ -1,13 +1,19 @@
 module.exports = function(recipe) {
-  recipe.steps[0].title = "Get Existing Cue Points"
-  recipe.steps[0].parameters.shift();
+  var mediaParam = recipe.steps[0].parameters[1];
+  require('./crud')(recipe, {
+    name: 'Ad Cue Point',
+    service: 'cuePoint',
+    serviceName: 'cuepoint_cuepoint',
+  });
+  recipe.steps[0].parameters = [mediaParam];
+  recipe.steps[0].parameters.push({
+    name: 'filter[objectType]',
+    value: 'KalturaAdCuePointBaseFilter',
+    hidden: true,
+  });
+  recipe.steps[0].description += '\n\nUse a `KalturaAdCuePointBaseFilter` to retrieve only Ad cue points.';
 
-  delete recipe.steps[1].codeSnippet;
   recipe.steps[1].description = "Use the controls below to add a new cue point to one of your videos";
-  recipe.steps[1].apiCall = {
-    path: '/service/cuepoint_cuepoint/action/add',
-    method: 'get',
-  }
   recipe.steps[1].parameters = [
     {name: 'cuePoint[entryId]'},
     {name: 'cuePoint[sourceUrl]'},
@@ -15,5 +21,18 @@ module.exports = function(recipe) {
     {name: 'cuePoint[objectType]', default: 'KalturaAdCuePoint', hidden: true},
   ]
   recipe.steps[1].parameters[0].dynamicEnum = recipe.steps[0].parameters[0].dynamicEnum;
+  recipe.steps[1].parameters[0].dynamicValue = {fromStep: 0, answer: 'filter[entryIdEqual]'};
+
+  recipe.steps.splice(3, 0, {
+    title: 'Viewing your Advertisement',
+    description: "Now you can see your new Cue Point wherever you embed your video.",
+    apiCall: {
+      path: '/service/media/action/get',
+      method: 'get',
+    },
+    parameters: [
+      {name: 'entryId', dynamicValue: {fromStep: 1, value: 'entryId'}},
+    ],
+  });
   return recipe;
 }
