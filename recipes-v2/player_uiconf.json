@@ -41,8 +41,7 @@
         "ruby": "uiconf = KalturaUiConf.new();\nuiconf.config=params[:config];\nid = <%- Lucy.code.variable('answers.id') %>;\nresult = @@client.ui_conf_service.update(id,uiconf);\n<%- Lucy.returnCode('result') %>\n",
         "php": "$id = <%- Lucy.code.variable('answers.id') %>;\n$uiConf = new KalturaUiConf();\n$uiConf->config = $_POST[\"config\"];\n$result = $client->uiConf->update($id, $uiConf);\n<%- Lucy.returnCode('$result') %>\n",
         "javascript": ""
-      },
-      "parameters": []
+      }
     }
   ]
 }

@@ -28,6 +28,10 @@
     {
       "title": "Adding a Cue Point",
       "description": "Use the controls below to add a new cue point to one of your videos",
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/add",
+        "method": "get"
+      },
       "parameters": [
         {
           "name": "cuePoint[entryId]",
@@ -51,11 +55,7 @@
           "default": "KalturaAdCuePoint",
           "hidden": true
         }
-      ],
-      "apiCall": {
-        "path": "/service/cuepoint_cuepoint/action/add",
-        "method": "get"
-      }
+      ]
     }
   ]
 }

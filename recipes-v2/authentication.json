@@ -48,8 +48,7 @@
       "apiCall": {
         "path": "/service/user/action/get",
         "method": "get"
-      },
-      "parameters": []
+      }
     }
   ]
 }

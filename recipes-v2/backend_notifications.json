@@ -98,8 +98,7 @@
       "apiCall": {
         "path": "/service/eventnotification_eventnotificationtemplate/action/list",
         "method": "get"
-      },
-      "parameters": []
+      }
     },
     {
       "title": "Handling HTTP Notifications",
@@ -110,8 +109,7 @@
       "codeSnippet": {
         "ruby": "puts 'Kaltura Notification:' + params\n",
         "php": "require_once('lib/KalturaClient.php');\nrequire_once('lib/KalturaPlugins/KalturaHttpNotificationClientPlugin.php');\n\n$object = unserialize($_POST['data']);\n"
-      },
-      "parameters": []
+      }
     }
   ]
 }
