@@ -9,8 +9,7 @@
       "apiCall": {
         "path": "/service/apptoken/action/list",
         "method": "get"
-      },
-      "parameters": []
+      }
     },
     {
       "title": "Creating a new App Token",

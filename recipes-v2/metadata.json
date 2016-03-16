@@ -120,8 +120,7 @@
     },
     {
       "title": "Delete metadata profiles",
-      "description": "Browse existing profiles in the frame below and click 'Delete' to remove them.",
-      "parameters": []
+      "description": "Browse existing profiles in the frame below and click 'Delete' to remove them."
     }
   ]
 }

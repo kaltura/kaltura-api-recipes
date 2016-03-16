@@ -93,6 +93,7 @@ function convertStep(step, recipe) {
   }
   if (!newStep.apiCall && !newStep.codeSnippet) console.log('no api call', recipe.name, step.code_snippet);
   newStep.parameters = step.inputs.map(i => convertInput(i, newStep, recipe));
+  if (!newStep.parameters.length) delete newStep.parameters;
 
   return newStep;
 }
