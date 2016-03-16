@@ -52,6 +52,9 @@
             "fromStep": 1,
             "value": "id"
           }
+        },
+        {
+          "name": "fileData"
         }
       ]
     },
@@ -88,7 +91,7 @@
     },
     {
       "title": "Setting Caption Content",
-      "description": "Now that you've created a new Caption Asset you need to associate it with the caption file you uploaded using the `captionAsset.setContent` method",
+      "description": "Now that you've created a new Caption Asset and uploaded your caption file, you need to associate them with each other using the `captionAsset.setContent` method.\n\nSet the `id` parameter to the entryId of a media item, and the `contentResource[token]` parameter  to the Upload Token's ID.",
       "apiCall": {
         "path": "/service/caption_captionasset/action/setContent",
         "method": "get"
@@ -104,6 +107,13 @@
         {
           "name": "contentResource[objectType]",
           "default": "KalturaUploadedFileTokenResource"
+        },
+        {
+          "name": "contentResource[token]",
+          "dynamicValue": {
+            "fromStep": 2,
+            "value": "id"
+          }
         }
       ]
     },
@@ -116,12 +126,12 @@
       },
       "parameters": [
         {
-          "name": "captionAssetItemFilter[advancedSearch][contentLike]",
+          "name": "captionAssetItemFilter[contentLike]",
           "default": "support"
         },
         {
           "name": "captionAssetItemFilter[objectType]",
-          "value": "KalturaCaptionAssetItemFilter",
+          "default": "KalturaCaptionAssetItemFilter",
           "hidden": true
         }
       ]
