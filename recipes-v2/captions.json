@@ -43,7 +43,7 @@
       "description": "Now we'll use the newly created Upload Token to upload the SRT. If you don't have an SRT file handy, you can [download one here](/sample_captions.srt)",
       "apiCall": {
         "path": "/service/uploadtoken/action/upload",
-        "method": "get"
+        "method": "post"
       },
       "parameters": [
         {
