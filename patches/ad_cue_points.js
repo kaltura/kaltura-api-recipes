@@ -31,7 +31,14 @@ module.exports = function(recipe) {
       method: 'get',
     },
     parameters: [
-      {name: 'entryId', dynamicValue: {fromStep: 1, value: 'entryId'}},
+      {name: 'entryId', dynamicValue: {fromStep: 0, answer: 'filter[entryIdEqual]'}},
+      {name: 'uiConf', type: 'string', dynamicEnum: {
+        path: '/service/uiconf/action/list',
+        method: 'get',
+        array: 'objects',
+        value: 'id',
+        label: 'name',
+      }},
     ],
   });
   return recipe;
