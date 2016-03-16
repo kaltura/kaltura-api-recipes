@@ -1,5 +1,5 @@
 var FS = require('fs');
-var Views = require('kaltura-codegen').views;
+var Views = require('kaltura-codegen').templates.views;
 
 var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 
