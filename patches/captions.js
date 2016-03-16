@@ -27,7 +27,7 @@ module.exports = function(recipe) {
         " [download one here](/sample_captions.srt)",
     apiCall: {
       path: '/service/uploadtoken/action/upload',
-      method: 'get',
+      method: 'post',
     },
     parameters: [
       {name: 'uploadTokenId', dynamicValue: {fromStep: 1, value: 'id'}},
