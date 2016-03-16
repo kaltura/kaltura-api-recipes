@@ -20,7 +20,7 @@
       }
     },
     {
-      "title": "Retrieving a App Token",
+      "title": "Retrieving an App Token",
       "description": "Use `appToken.get` to get details for a specific App Token",
       "apiCall": {
         "path": "/service/apptoken/action/get",
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "title": "Deleting a App Token",
+      "title": "Deleting an App Token",
       "description": "Use `appToken.delete` to remove a specific App Token",
       "apiCall": {
         "path": "/service/apptoken/action/delete",

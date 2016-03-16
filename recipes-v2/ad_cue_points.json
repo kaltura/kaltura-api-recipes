@@ -67,7 +67,7 @@
       ]
     },
     {
-      "title": "Retrieving a Ad Cue Point",
+      "title": "Retrieving an Ad Cue Point",
       "description": "Use `cuePoint.get` to get details for a specific Ad Cue Point",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/get",
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "title": "Deleting a Ad Cue Point",
+      "title": "Deleting an Ad Cue Point",
       "description": "Use `cuePoint.delete` to remove a specific Ad Cue Point",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/delete",
