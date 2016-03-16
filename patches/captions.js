@@ -31,6 +31,7 @@ module.exports = function(recipe) {
     },
     parameters: [
       {name: 'uploadTokenId', dynamicValue: {fromStep: 1, value: 'id'}},
+      {name: 'fileData'},
     ]
   })
 
@@ -53,9 +54,11 @@ module.exports = function(recipe) {
 
   recipe.steps.splice(4, 0, {
     title: "Setting Caption Content",
-    description: "Now that you've created a new Caption Asset" +
-        " you need to associate it with the caption file you uploaded using the" +
-        " `captionAsset.setContent` method",
+    description: "Now that you've created a new Caption Asset and uploaded your caption file," +
+        " you need to associate them with each other using the" +
+        " `captionAsset.setContent` method.\n\n" +
+        "Set the `id` parameter to the entryId of a media item, and the `contentResource[token]` parameter " +
+        " to the Upload Token's ID.",
     apiCall: {
       path: '/service/caption_captionasset/action/setContent',
       method: 'get',
@@ -63,12 +66,14 @@ module.exports = function(recipe) {
     parameters: [
       {name: 'id', dynamicValue: {fromStep: 3, value: 'id'}},
       {name: 'contentResource[objectType]', default: 'KalturaUploadedFileTokenResource'},
+      {name: 'contentResource[token]', dynamicValue: {fromStep: 2, value: 'id'}},
     ]
   });
 
+  recipe.steps[5].parameters[0].name = 'captionAssetItemFilter[contentLike]'
   recipe.steps[5].parameters.push({
     name: 'captionAssetItemFilter[objectType]',
-    value: 'KalturaCaptionAssetItemFilter',
+    default: 'KalturaCaptionAssetItemFilter',
     hidden: true,
   })
 }
