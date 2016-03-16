@@ -1,20 +1,11 @@
 module.exports = function(recipe) {
-  recipe.steps[1].apiCall = {
-    path: '/service/apptoken/action/add',
-    method: 'get',
-  };
-  delete recipe.steps[1].codeSnippet;
-  delete recipe.steps[1].parameters;
-
-  recipe.steps.push({
-    title: 'Deleting an App Token',
-    description: 'Use `appToken.delete` to invalidate your new App Token',
-    parameters: [
-      {name: 'id', dynamicValue: {fromStep: 1, value: 'id'}},
-    ],
-    apiCall: {
-      path: '/service/apptoken/action/delete',
-      method: 'get',
-    }
+  var listDesc = recipe.steps[0].description;
+  var addDesc = recipe.steps[1].description;
+  require('./crud')(recipe, {
+    name: 'App Token',
+    service: 'appToken',
+    serviceName: 'apptoken',
   })
+  recipe.steps[0].description = listDesc;
+  recipe.steps[1].description = addDesc;
 }
