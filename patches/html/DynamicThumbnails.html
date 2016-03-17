@@ -1,0 +1,12 @@
+<script src="/js/kaltura_thumb_rotator.js"></script>
+<img src="https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180"
+     width="240" height="180"
+     onmouseover="KalturaThumbRotator.start(this)"
+     onmouseout="KalturaThumbRotator.end(this)"
+     onclick="$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})">
+<h3><%- results[0].name %></h3>
+<p><%- results[0].description %></p>
+<p>
+  <a href="<%- results[0].downloadUrl %>" target="_blank"><%- results[0].downloadUrl %></a>
+</p>
+
