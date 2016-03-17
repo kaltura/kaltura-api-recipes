@@ -5,11 +5,31 @@
   "icon": "image",
   "steps": [
     {
-      "title": "Getting custom thumbnails",
-      "description": "You can use the thumbnail API to embed thumbnail images in your webpage. Simply set\n\n```<img src=\"http://cdn.kaltura.com/p/your_partner_id/thumbnail/entry_id/your_videos_entry_id\">```",
+      "title": "Embedding Custom Thumbnails",
+      "description": [
+        "You can embed thumbnails of your videos using <img> tags with the Thumbnail API.",
+        "Choose a Media Entry to view code for embedding it's thumbnail"
+      ],
+      "apiCall": {
+        "path": "/service/media/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "entryId",
+          "dynamicEnum": {
+            "path": "/service/media/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
+        }
+      ],
       "codeSnippet": {
-        "html": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<style>\n  .player-col {\n    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);\n    padding: 15px;\n  }\n</style>\n<div class=\"row\">\n  <div class=\"player-col col-xs-8 col-xs-offset-2 text-center\">\n    <div id=\"kaltura_player\" style=\"width: 420px; height: 300px; margin: auto;\">\n      <script src=\"https://cdnapisec.kaltura.com/p/{{ answers.partnerId }}/sp/{{ answers.partnerId }}00/embedIframeJs/uiconf_id/{{ answers.uiConf }}/partner_id/{{ answers.partnerId }}?autoembed=true&playerId=kaltura_player&cache_st=1435602081&width=420&height=300\">\n      </script>\n    </div>\n    <p class=\"small\">Click on a thumbnail to choose a video</p>\n  </div>\n</div>\n<hr>\n<lucy for=\"video\" in=\"result\">\n  <lucy if=\"index < 10\">\n    <div class=\"row\">\n      <div class=\"col-xs-3 text-center\">\n        <img src=\"https://cdnapisec.kaltura.com/p/{{video.partnerId}}/thumbnail/entry_id/{{video.id}}/width/240/height/180\"\n             width=\"240\" height=\"180\"\n             onmouseover=\"KalturaThumbRotator.start(this)\" \n             onmouseout=\"KalturaThumbRotator.end(this)\"\n             onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '{{video.id}}'})\">\n      </div>\n      <div class=\"col-xs-8 col-xs-offset-1\">\n        <h3>{{ video.name }}</h3>\n        <p>{{ video.description }}</p>\n        <p>\n          <a href=\"{{ video.downloadUrl }}\" target=\"_blank\">{{ video.downloadUrl }}</a>\n        </p>\n      </div>\n    </div>\n    <hr>\n  </lucy>\n</lucy>\n\n"
-      }
+        "html": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<img src=\"https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180\"\n     width=\"240\" height=\"180\"\n     onmouseover=\"KalturaThumbRotator.start(this)\"\n     onmouseout=\"KalturaThumbRotator.end(this)\"\n     onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})\">\n<h3><%- results[0].name %></h3>\n<p><%- results[0].description %></p>\n<p>\n  <a href=\"<%- results[0].downloadUrl %>\" target=\"_blank\"><%- results[0].downloadUrl %></a>\n</p>\n\n"
+      },
+      "demoHTML": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<img src=\"https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180\"\n     width=\"240\" height=\"180\"\n     onmouseover=\"KalturaThumbRotator.start(this)\"\n     onmouseout=\"KalturaThumbRotator.end(this)\"\n     onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})\">\n<h3><%- results[0].name %></h3>\n<p><%- results[0].description %></p>\n<p>\n  <a href=\"<%- results[0].downloadUrl %>\" target=\"_blank\"><%- results[0].downloadUrl %></a>\n</p>\n\n"
     },
     {
       "title": "Creating rotating thumnail previews",
