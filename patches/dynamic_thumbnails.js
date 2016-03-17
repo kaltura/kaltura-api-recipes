@@ -17,4 +17,16 @@ module.exports = function(recipe) {
   }
   recipe.steps[0].codeSnippet = {html: fs.readFileSync(__dirname + '/html/Thumbnail.html', 'utf8')};
   recipe.steps[0].demoHTML = recipe.steps[0].codeSnippet.html;
+
+  recipe.steps[1] = {
+    title: 'Creating a Thumbnail Viewer',
+    description: "You can use the Thumbnail API to create an interactive video carousel.",
+    apiCall: {
+      path: '/service/media/action/list',
+      method: 'get',
+    },
+    parameters: [{name: 'uiConf', dynamicEnum: require('./enum')('uiconf')}],
+  }
+  recipe.steps[1].codeSnippet = {html: fs.readFileSync(__dirname + '/html/DynamicThumbnails.html', 'utf8')};
+  recipe.steps[1].demoHTML = recipe.steps[1].codeSnippet.html;
 }
