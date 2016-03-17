@@ -21,6 +21,7 @@
     "bb-asset-manager": "^2.0.2",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
+    "compression": "^1.6.1",
     "ejs": "^2.3.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
