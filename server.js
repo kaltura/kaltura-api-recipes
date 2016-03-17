@@ -9,6 +9,7 @@ var RecipeManager = require('./recipes/recipes.js');
 var assetMan = require('./asset-man');
 
 var App = Express();
+App.use(require('compression')());
 App.set('views', __dirname + '/views')
 App.set('view engine', 'jade');
 App.engine('jade', require('jade').__express);
