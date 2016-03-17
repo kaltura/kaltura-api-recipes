@@ -15,6 +15,6 @@ module.exports = function(recipe) {
       {name: 'entryId', dynamicEnum: require('./enum')('media')},
     ],
   }
-  recipe.steps[0].codeSnippet = {html: fs.readFileSync(__dirname + '/html/DynamicThumbnails.html', 'utf8')};
+  recipe.steps[0].codeSnippet = {html: fs.readFileSync(__dirname + '/html/Thumbnail.html', 'utf8')};
   recipe.steps[0].demoHTML = recipe.steps[0].codeSnippet.html;
 }
