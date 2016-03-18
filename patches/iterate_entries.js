@@ -18,9 +18,9 @@ module.exports = function(recipe) {
     value: 'totalCount',
   }
   recipe.steps[1].description = [
-    "Once you've exhausted all entries by increasing pageIndex, the API will simply" +
+    "Once you've exhausted all entries by increasing `pageIndex`, the API will simply" +
         "return an empty array.",
     "Below we've set `pageSize` to 1, and `pageIndex` to the total number of entries available," +
-        "  causing the last item to be shown. Try increasing the `pageIndex`.",
+        "  causing the last item to be shown. Try increasing the `pageIndex` to see how the API responds.",
   ]
 }
