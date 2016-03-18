@@ -23,8 +23,8 @@
     {
       "title": "Getting a list of entries",
       "description": [
-        "Once you've exhausted all entries by increasing pageIndex, the API will simplyreturn an empty array.",
-        "Below we've set `pageSize` to 1, and `pageIndex` to the total number of entries available,  causing the last item to be shown. Try increasing the `pageIndex`."
+        "Once you've exhausted all entries by increasing `pageIndex`, the API will simplyreturn an empty array.",
+        "Below we've set `pageSize` to 1, and `pageIndex` to the total number of entries available,  causing the last item to be shown. Try increasing the `pageIndex` to see how the API responds."
       ],
       "apiCall": {
         "path": "/service/media/action/list",
