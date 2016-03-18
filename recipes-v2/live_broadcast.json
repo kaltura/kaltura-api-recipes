@@ -5,36 +5,15 @@
   "icon": "bullhorn",
   "steps": [
     {
-      "title": "Setup",
+      "title": "Get the LIVE_STREAM Profile",
       "description": [
-        "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry.",
-        "You'll also need to choose a uiConf that supports kRecord."
+        "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry."
       ],
       "apiCall": {
         "path": "/service/conversionprofile/action/list",
         "method": "get"
       },
       "parameters": [
-        {
-          "name": "uiConf",
-          "dynamicEnum": {
-            "path": "/service/uiconf/action/list",
-            "method": "get",
-            "parameters": [
-              {
-                "name": "filter[orderBy]",
-                "value": "-updatedAt"
-              },
-              {
-                "name": "filter[objTypeEqual]",
-                "value": 7
-              }
-            ],
-            "array": "objects",
-            "label": "name",
-            "value": "id"
-          }
-        },
         {
           "name": "filter[nameEqual]",
           "default": "Passthrough",
@@ -89,6 +68,30 @@
           "hidden": true
         }
       ]
+    },
+    {
+      "title": "Embedding the Broadcast Widget",
+      "description": [
+        "You can use the kRecord widget to record your broadcast.",
+        "**Be sure to choose a `uiConf` that supports kRecord**"
+      ],
+      "parameters": [
+        {
+          "name": "uiConf",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
+        }
+      ],
+      "demoHTML": "<div id=\"setupKRecord_msg\">\n  <h2 id=\"krecord_msg\">Starting the KRecord widget...</h2>\n</div>\n\n<div id=\"krecordwrapper\" style=\"width:320px;height:240px;\">\n</div>\n  <script>\n    var swfURL = \"http://cdnapi.kaltura.com/krecord/ui_conf_id/<%-  answers.uiConf  %>\";\n    var broadcastURL = \"<%-  results[1].primaryBroadcastingUrl %>\";\n    var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));\n    var streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));\n    var streamName = \"<%-  results[1].id._1  %>\";\n    streamApp = encodeURIComponent(streamApp);\n    streamName = encodeURIComponent(streamName);\n\n    var flashVars = {\n      debugmode: 'true',\n      isLive: 'true',\n      delegate: 'krecordHandler',\n      rtmpHost: streamHost,\n      localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',\n      themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',\n      fmsApp: streamApp,\n      streamName: streamName,\n      showUi: 'false',\n      showPreviewTimer: 'false',\n      autoPreview: 'false',\n      disableGlobalClick: 'true',\n      soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',\n      ks: window.ks,\n      pid: '<%-  answers.partnerId  %>',\n    };\n    var attributes = {\n      id: 'krecord',\n      name: 'krecord',\n      align: 'middle',\n    };\n    var params = {\n      quality: 'high',\n      bgcolor: '#000',\n      allowscriptaccess: 'always',\n      allownetworking: 'all',\n      wmode: 'opaque',\n      movie: swfURL,\n      allowfullscreen: 'true',\n    };\n\n    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)\n  </script>\n\n<div class=\"span5 offset1\">\n  <button id=\"btn_stream\" style=\"display: none;\" class=\"btn btn-primary btn-large\" onclick=\"startStreaming()\" >\n    Start Streaming\n  </button>\n  <button id=\"btn_stop\" style=\"display: none;\" class=\"btn btn-danger btn-large\" onclick=\"stopStreaming()\" >\n    Stop Streaming\n  </button>\n</div>\n\n<h2 id=\"playertype\"></h2>\n<div id=\"kaltura_player\" style=\"display: none; width: 560px; height: 395px;\"></div>\n<div id=\"setupLiveStream_msg\" style=\"display: none;\">\n  <h2>Setting up your broadcast stream...</h2>\n  <p>Please wait for the live stream to begin. grab a coffee, it can take a few minutes...</p>\n</div>\n<lucy include=\"LiveBroadcastSetup\"></lucy>\n",
+      "codeSnippet": {
+        "html": "<div id=\"setupKRecord_msg\">\n  <h2 id=\"krecord_msg\">Starting the KRecord widget...</h2>\n</div>\n\n<div id=\"krecordwrapper\" style=\"width:320px;height:240px;\">\n</div>\n  <script>\n    var swfURL = \"http://cdnapi.kaltura.com/krecord/ui_conf_id/<%-  answers.uiConf  %>\";\n    var broadcastURL = \"<%-  results[1].primaryBroadcastingUrl %>\";\n    var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));\n    var streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));\n    var streamName = \"<%-  results[1].id._1  %>\";\n    streamApp = encodeURIComponent(streamApp);\n    streamName = encodeURIComponent(streamName);\n\n    var flashVars = {\n      debugmode: 'true',\n      isLive: 'true',\n      delegate: 'krecordHandler',\n      rtmpHost: streamHost,\n      localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',\n      themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',\n      fmsApp: streamApp,\n      streamName: streamName,\n      showUi: 'false',\n      showPreviewTimer: 'false',\n      autoPreview: 'false',\n      disableGlobalClick: 'true',\n      soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',\n      ks: window.ks,\n      pid: '<%-  answers.partnerId  %>',\n    };\n    var attributes = {\n      id: 'krecord',\n      name: 'krecord',\n      align: 'middle',\n    };\n    var params = {\n      quality: 'high',\n      bgcolor: '#000',\n      allowscriptaccess: 'always',\n      allownetworking: 'all',\n      wmode: 'opaque',\n      movie: swfURL,\n      allowfullscreen: 'true',\n    };\n\n    swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)\n  </script>\n\n<div class=\"span5 offset1\">\n  <button id=\"btn_stream\" style=\"display: none;\" class=\"btn btn-primary btn-large\" onclick=\"startStreaming()\" >\n    Start Streaming\n  </button>\n  <button id=\"btn_stop\" style=\"display: none;\" class=\"btn btn-danger btn-large\" onclick=\"stopStreaming()\" >\n    Stop Streaming\n  </button>\n</div>\n\n<h2 id=\"playertype\"></h2>\n<div id=\"kaltura_player\" style=\"display: none; width: 560px; height: 395px;\"></div>\n<div id=\"setupLiveStream_msg\" style=\"display: none;\">\n  <h2>Setting up your broadcast stream...</h2>\n  <p>Please wait for the live stream to begin. grab a coffee, it can take a few minutes...</p>\n</div>\n<lucy include=\"LiveBroadcastSetup\"></lucy>\n",
+        "javascript": "var swfURL = \"http://cdnapi.kaltura.com/krecord/ui_conf_id/<%-  answers.uiConf  %>\";\nvar broadcastURL = \"<%-  results[1].primaryBroadcastingUrl %>\";\nvar streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));\nvar streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));\nvar streamName = \"<%-  results[1].id._1  %>\";\nstreamApp = encodeURIComponent(streamApp);\nstreamName = encodeURIComponent(streamName);\n\nvar flashVars = {\n  debugmode: 'true',\n  isLive: 'true',\n  delegate: 'krecordHandler',\n  rtmpHost: streamHost,\n  localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',\n  themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',\n  fmsApp: streamApp,\n  streamName: streamName,\n  showUi: 'false',\n  showPreviewTimer: 'false',\n  autoPreview: 'false',\n  disableGlobalClick: 'true',\n  soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',\n  ks: window.ks,\n  pid: '<%-  answers.partnerId  %>',\n};\nvar attributes = {\n  id: 'krecord',\n  name: 'krecord',\n  align: 'middle',\n};\nvar params = {\n  quality: 'high',\n  bgcolor: '#000',\n  allowscriptaccess: 'always',\n  allownetworking: 'all',\n  wmode: 'opaque',\n  movie: swfURL,\n  allowfullscreen: 'true',\n};\n\nswfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)"
+      }
     }
   ]
 }
