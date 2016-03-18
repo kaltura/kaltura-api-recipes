@@ -1,9 +1,16 @@
 var fs = require('fs');
+var path = require('path');
 var _ = require('lodash');
 
-var recipes = module.exports = {};
+module.exports = {};
+var recipes = module.exports.recipes = {};
 
 var DIR = __dirname + '/recipes-v2';
+module.exports.save = function(name, recipe, callback) {
+  name = path.join('/', name);
+  name = path.join(DIR, name);
+  FS.writeFile(name, JSON.stringify(recipe, null, 2), callback)
+}
 
 var XSD_DATA = fs.readFileSync(DIR + '/extras/metadata_profile_sample.xsd', 'utf8');
 
