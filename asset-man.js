@@ -4,6 +4,7 @@ var assetMan = module.exports = new (require('bb-asset-manager'))({
   staticDirectory: __dirname + '/static',
   outputDirectory: 'minified',
   cacheID: Math.floor(Math.random() * 100000000),
+  useOriginalAssets: process.env.DEVELOPMENT,
 });
 
 assetMan.addAsset('includes', {
