@@ -33,17 +33,22 @@
         },
         {
           "name": "reportInputFilter[fromDay]",
-          "default": "20150615"
+          "default": "20150101"
         },
         {
           "name": "reportInputFilter[toDay]",
-          "default": "20150715"
+          "default": "20160101"
         },
         {
           "name": "reportInputFilter[fromDate]"
         },
         {
           "name": "reportInputFilter[toDate]"
+        },
+        {
+          "name": "pager[pageSize]",
+          "x-consoleDefault": 10,
+          "hidden": true
         }
       ]
     },
@@ -73,16 +78,23 @@
           "hidden": true
         },
         {
-          "name": "reportInputFilter[fromDay]"
+          "name": "reportInputFilter[fromDay]",
+          "default": "20150101"
         },
         {
-          "name": "reportInputFilter[toDay]"
+          "name": "reportInputFilter[toDay]",
+          "default": "20160101"
         },
         {
           "name": "reportInputFilter[fromDate]"
         },
         {
           "name": "reportInputFilter[toDate]"
+        },
+        {
+          "name": "pager[pageSize]",
+          "x-consoleDefault": 10,
+          "hidden": true
         }
       ]
     },
