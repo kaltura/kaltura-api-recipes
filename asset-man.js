@@ -30,8 +30,6 @@ assetMan.addAsset('core', {
     "/bower/jquery/dist/jquery.min.js",
     "/bower/bootstrap/dist/js/bootstrap.min.js",
     "/bower/angular/angular.min.js",
-    "/bower/marked/lib/marked.js",
-    "/bower/angular-marked/dist/angular-marked.js",
     "/js/ng/locations.js",
     "/js/includes/mixpanel.js",
     "/js/ng/cookie.js",
@@ -41,6 +39,7 @@ assetMan.addAsset('core', {
     '/bower/fontawesome/css/font-awesome.min.css',
     '/css/bootstrap.css',
     '/css/navbar.css',
+    '/css/embed.css',
   ],
 })
 
