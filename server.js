@@ -51,18 +51,19 @@ if (process.env.DEVELOPMENT) {
 
 var recipes = require('./recipes-v2');
 
+var cid = assetMan.options.cacheID || '';
 var apiPortal = LucyPortal({
   swagger: Swagger,
   basePath: '/portal_embed',
-  cacheID: assetMan.options.cacheID,
+  cacheID: cid,
   linkBase: '/portal',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
-    '/css/portal.css',
+    '/css/portal.css?cacheID=' + cid,
   ],
   jsIncludes: [
-    '/minified/js/kaltura.js',
-    '/minified/js/includes.js',
+    '/minified/js/kaltura.js?cacheID=' + cid,
+    '/minified/js/includes.js?cacheID=' + cid,
   ],
   showTopLevelNav: false,
   disableAutorefresh: true,
