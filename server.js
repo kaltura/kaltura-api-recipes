@@ -49,7 +49,7 @@ if (process.env.DEVELOPMENT) {
   }))
 }
 
-var recipes = require('./recipes-v2');
+var recipes = require('./recipes-v2').recipes;
 
 var cid = assetMan.options.cacheID || '';
 var apiPortal = LucyPortal({
@@ -73,6 +73,7 @@ var apiPortal = LucyPortal({
     format: 1,
   },
   recipes: recipes,
+  saveRecipe: process.env.DEVELOPMENT ? require('./recipes-v2').save : null,
 })
 
 App.get('/', function(req, res) {
@@ -84,11 +85,9 @@ require('./codegen').initialize(function(router) {
   App.use('/portal_embed', apiPortal);
 })
 
-App.get('/portal/recipes/:recipe_name', function(req, res) {
-  res.render('embed', {page: '/recipes/' + req.params.recipe_name, assetMan: assetMan})
-})
-App.get('/portal/:page', function(req, res) {
-  res.render('embed', {page: req.params.page, assetMan: assetMan})
+App.use('/portal', function(req, res) {
+  var page = req.originalUrl.substring(7);
+  res.render('embed', {page, assetMan});
 })
 
 App.get('/swagger.json', function(req, res) {
