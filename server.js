@@ -54,6 +54,7 @@ var recipes = require('./recipes-v2');
 var apiPortal = LucyPortal({
   swagger: Swagger,
   basePath: '/portal_embed',
+  cacheID: assetMan.options.cacheID,
   linkBase: '/portal',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
