@@ -25,7 +25,15 @@ var cache = function(req, res, next) {
   next();
 };
 
-if (!process.env.DEVELOPMENT) App.use(cache);
+if (!process.env.DEVELOPMENT) {
+  App.use('/js', cache);
+  App.use('/css', cache);
+  App.use('/fonts', cache);
+  App.use('/img', cache);
+  App.use('/minified', cache);
+  App.use('/portal_embed/minified', cache);
+  App.use('/portal_embed/swagger.js', cache);
+}
 App.use('/', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
 
