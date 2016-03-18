@@ -1,3 +1,5 @@
+<script src="/js/swfobject.js"></script>
+
 <div id="setupKRecord_msg">
   <h2 id="krecord_msg">Starting the KRecord widget...</h2>
 </div>
@@ -9,14 +11,14 @@
     var broadcastURL = "<%-  results[1].primaryBroadcastingUrl %>";
     var streamHost = broadcastURL.substring(0, broadcastURL.indexOf(':', 6));
     var streamApp = broadcastURL.substring(broadcastURL.indexOf('kLive'));
-    var streamName = "<%-  results[1].id._1  %>";
+    var streamName = "<%-  results[1].id  %>_1";
     streamApp = encodeURIComponent(streamApp);
     streamName = encodeURIComponent(streamName);
 
     var flashVars = {
       debugmode: 'true',
       isLive: 'true',
-      delegate: 'krecordHandler',
+      delegate: krecordHandler,
       rtmpHost: streamHost,
       localeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/locale.xml',
       themeUrl: 'http://cdnapi.kaltura.com/flash/krecord/v1.7/skin.swf',
@@ -27,7 +29,7 @@
       autoPreview: 'false',
       disableGlobalClick: 'true',
       soundRate: '44&ish264=true&h264profile=baseline&h264level=3.1&fps=25&soundCodec=Speex',
-      ks: window.ks,
+      ks: '<%- answers.ks %>',
       pid: '<%-  answers.partnerId  %>',
     };
     var attributes = {
@@ -46,6 +48,7 @@
     };
 
     swfobject.embedSWF(swfURL, 'krecordwrapper', '320', '240', '10.0.0', '', flashVars, params, attributes)
+    console.log('embedded', streamHost, streamApp, streamName);
   </script>
 
 <div class="span5 offset1">
@@ -63,4 +66,3 @@
   <h2>Setting up your broadcast stream...</h2>
   <p>Please wait for the live stream to begin. grab a coffee, it can take a few minutes...</p>
 </div>
-<lucy include="LiveBroadcastSetup"></lucy>
