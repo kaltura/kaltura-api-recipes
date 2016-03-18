@@ -18,7 +18,7 @@
   "homepage": "https://github.com/bobby-brennan/kaltura-recipes",
   "dependencies": {
     "async": "^1.2.1",
-    "bb-asset-manager": "^2.0.2",
+    "bb-asset-manager": "^2.1.0",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "compression": "^1.6.1",
