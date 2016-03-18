@@ -85,6 +85,14 @@ require('./codegen').initialize(function(router) {
   App.use('/portal_embed', apiPortal);
 })
 
+if (process.env.DEVELOPMENT) {
+  App.use('/portal/recipes/:recipe', function(req, res, next) {
+    require('./recipes-v2').reload();
+    apiPortal.reloadRecipes();
+    next();
+  });
+}
+
 App.use('/portal', function(req, res) {
   var page = req.originalUrl.substring(7);
   res.render('embed', {page, assetMan});
