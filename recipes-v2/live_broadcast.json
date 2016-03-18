@@ -56,15 +56,15 @@
       },
       "parameters": [
         {
-          "name": "name",
+          "name": "liveStreamEntry[name]",
           "default": "Webcam Live Stream Test"
         },
         {
-          "name": "description",
+          "name": "liveStreamEntry[description]",
           "default": "This is a test of Kaltura's Live Webcam streaming"
         },
         {
-          "name": "mediaType",
+          "name": "liveStreamEntry[mediaType]",
           "default": 201,
           "hidden": true
         },
@@ -84,7 +84,7 @@
           "hidden": true
         },
         {
-          "name": "sourceType",
+          "name": "liveStreamEntry[sourceType]",
           "default": "32",
           "hidden": true
         }
