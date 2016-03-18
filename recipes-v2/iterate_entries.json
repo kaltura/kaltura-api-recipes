@@ -7,9 +7,42 @@
     {
       "title": "Getting a list of entries",
       "description": "Iterating over all entries is achieved by calling media.list() passing along a pager with an index and size",
-      "codeSnippet": {
-        "html": "<script>\nfunction loadPage(page_number) {\n  $.ajax({\n    url: '/listMediaPage',\n    type: 'POST',\n    data: {page_index: page_number},\n    success: function(data) {\n      $('#MediaList').html(data);\n    }\n  })\n}\n</script>\n<div id=\"MediaList\">\n  <lucy include=\"KalturaMediaListResponse\"></lucy>\n<div class=\"btn-group\">\n      <a class=\"btn btn-default\" href=\"#\" onclick=\"loadPage(3)\">CLICK</a>\n</div>\n</div>\n"
-      }
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "pager[pageSize]"
+        },
+        {
+          "name": "pager[pageIndex]"
+        }
+      ]
+    },
+    {
+      "title": "Getting a list of entries",
+      "description": [
+        "Once you've exhausted all entries by increasing pageIndex, the API will simplyreturn an empty array.",
+        "Below we've set `pageSize` to 1, and `pageIndex` to the total number of entries available,  causing the last item to be shown. Try increasing the `pageIndex`."
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "pager[pageSize]",
+          "x-consoleDefault": 1
+        },
+        {
+          "name": "pager[pageIndex]",
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "totalCount"
+          }
+        }
+      ]
     }
   ]
 }
