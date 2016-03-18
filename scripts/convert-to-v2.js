@@ -21,15 +21,16 @@ schema.initialize(function() {
 function convertRecipe(recipe) {
   var newRecipe = {};
 
-  newRecipe.name = recipe.name;
-  newRecipe.title = recipe.title;
-  newRecipe.summary = recipe.description;
-  newRecipe.description = recipe.tip;
+  newRecipe.name           = recipe.name;
+  newRecipe.title          = recipe.title;
+  newRecipe.summary        = recipe.description;
+  newRecipe.description    = recipe.tip;
+  newRecipe.hidden         = recipe.hidden;
   newRecipe.relatedRecipes = recipe.related_recipes;
-  newRecipe.icon = recipe.icon;
-  newRecipe.tags = recipe.tags;
-  newRecipe.keywords = recipe.keywords;
-  newRecipe.steps = recipe.recipe_steps.map(s => convertStep(s, recipe));
+  newRecipe.icon           = recipe.icon;
+  newRecipe.tags           = recipe.tags;
+  newRecipe.keywords       = recipe.keywords;
+  newRecipe.steps          = recipe.recipe_steps.map(s => convertStep(s, recipe));
 
   return applyPatch(recipe.name, newRecipe) || newRecipe;
 }

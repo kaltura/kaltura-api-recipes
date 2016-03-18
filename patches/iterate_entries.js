@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 module.exports = function(recipe) {
+  recipe.hidden = false;
   recipe.steps[0].apiCall = {
     path: '/service/media/action/list',
     method: 'get',
