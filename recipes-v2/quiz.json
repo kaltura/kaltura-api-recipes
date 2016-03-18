@@ -6,40 +6,12 @@
   "steps": [
     {
       "title": "Select a Media Entry",
-      "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.",
+      "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.\n\nSet `cuePointTypeEqual` to `QUIZ_QUESTION` to only show quizes.",
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
       },
       "parameters": [
-        {
-          "name": "filter[cuePointTypeEqual]",
-          "default": "quiz.QUIZ_QUESTION",
-          "hidden": true
-        },
-        {
-          "name": "uiConf",
-          "dynamicEnum": {
-            "path": "/service/uiconf/action/list",
-            "method": "get",
-            "parameters": [
-              {
-                "name": "filter[orderBy]",
-                "value": "-updatedAt"
-              },
-              {
-                "name": "filter[objTypeIn]"
-              },
-              {
-                "name": "filter[tagsMultiLikeOr]",
-                "value": "quiz_player"
-              }
-            ],
-            "array": "objects",
-            "label": "name",
-            "value": "id"
-          }
-        },
         {
           "name": "filter[entryIdEqual]",
           "dynamicEnum": {
@@ -50,12 +22,48 @@
             "label": "name",
             "value": "id"
           }
+        },
+        {
+          "name": "filter[cuePointTypeEqual]",
+          "default": "quiz.QUIZ_QUESTION",
+          "hidden": false
         }
       ]
     },
     {
-      "title": "Adding a Quiz question [Cue Point]",
-      "description": "You can use the form below to add a question to your video."
+      "title": "Adding a Quiz Cue Point",
+      "description": [
+        "Pass a new KalturaQuestionCuePoint to `cuePoint.add` to create a new quiz.",
+        "You can use the form below to add a quiz to the video you selected."
+      ],
+      "apiCall": {
+        "path": "/service/cuepoint_cuepoint/action/add",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "cuePoint[objectType]",
+          "x-consoleDefault": "KalturaQuestionCuePoint",
+          "hidden": true
+        },
+        {
+          "name": "cuePoint[entryId]",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[entryIdEqual]"
+          }
+        },
+        {
+          "name": "cuePoint[question]"
+        },
+        {
+          "name": "cuePoint[explanation]"
+        },
+        {
+          "name": "cuePoint[startTime]"
+        }
+      ]
     }
   ]
 }
