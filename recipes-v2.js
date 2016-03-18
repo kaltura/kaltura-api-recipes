@@ -23,7 +23,6 @@ module.exports.reload = function() {
     if (fs.statSync(filename).isDirectory()) return;
     var name = r.match(/^(.*)\./)[1];
     var recipe = recipes[name] = JSON.parse(fs.readFileSync(filename, 'utf8'));
-    console.log('rl', recipe.steps[0].title);
     recipe.defaults = recipe.defaults || {};
     recipe.defaults.serviceURL =
         process.env.KALTURA_SERVICE_URL || 'https://www.kaltura.com/';
