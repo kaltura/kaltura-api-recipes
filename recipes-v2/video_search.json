@@ -24,7 +24,7 @@
           "name": "filter[createdAtGreaterThanOrEqual]"
         },
         {
-          "name": "advancedSearch",
+          "name": "filter[advancedSearch][objectType]",
           "default": "KalturaMetadataSearchItem",
           "hidden": true
         },
@@ -71,11 +71,6 @@
             "UPDATED_AT_DESC",
             "VIEWS_DESC"
           ]
-        },
-        {
-          "name": "filter[advancedSearch][objectType]",
-          "default": "",
-          "hidden": true
         }
       ]
     },
@@ -83,7 +78,7 @@
       "title": "Video Player",
       "description": "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id.",
       "codeSnippet": {
-        "html": "<div class=\"row\" style=\"margin-bottom: 10px\">\n  <div class=\"col-xs-12 col-md-5\">\n    <h2>{{result.name}}</h2>\n    <p>{{result.description}}</p>\n  </div>\n  <div class=\"col-xs-12 col-md-6 col-md-offset-1\">\n    <script src=\"https://cdnapisec.kaltura.com/p/{{ result.partnerId }}/sp/{{ result.partnerId }}00/embedIframeJs/uiconf_id/{{ answers.uiConf }}/partner_id/{{ result.partnerId }}\">\n    </script>\n    <div id=\"kaltura_player_{{ result.id }}\" style=\"width: 560px; height: 395px;\">\n    </div>\n    <script>\n    kWidget.thumbEmbed({\n      \"targetId\": \"kaltura_player_{{ result.id }}\",\n      \"wid\": \"_{{ result.partnerId }}\",\n      \"uiconf_id\": {{ answers.uiConf }},\n      \"flashvars\": {},\n      \"cache_st\": 1437326770,\n      \"ks\": window.ks,\n      \"entry_id\": \"{{ result.id }}\"\n    });\n    </script>\n  </div>\n</div>\n"
+        "html": "<div class=\"row\" style=\"margin-bottom: 10px\">\n  <div class=\"col-xs-12 col-md-5\">\n    <h2><%- results[0].objects[0].name %></h2>\n    <p><%- results[0].objects[0].description %></p>\n  </div>\n  <div class=\"col-xs-12 col-md-6 col-md-offset-1\">\n    <script src=\"https://cdnapisec.kaltura.com/p/<%-  results[0].objects[0].partnerId  %>/sp/<%-  results[0].objects[0].partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  results[0].objects[0].partnerId  %>\">\n    </script>\n    <div id=\"kaltura_player_<%-  results[0].objects[0].id  %>\" style=\"width: 560px; height: 395px;\">\n    </div>\n    <script>\n    kWidget.thumbEmbed({\n      \"targetId\": \"kaltura_player_<%-  results[0].objects[0].id  %>\",\n      \"wid\": \"_<%-  results[0].objects[0].partnerId  %>\",\n      \"uiconf_id\": <%-  answers.uiConf  %>,\n      \"flashvars\": {},\n      \"cache_st\": 1437326770,\n      \"ks\": window.ks,\n      \"entry_id\": \"<%-  results[0].objects[0].id  %>\"\n    });\n    </script>\n  </div>\n</div>\n"
       },
       "parameters": [
         {
@@ -91,22 +86,91 @@
           "dynamicEnum": {
             "path": "/service/uiconf/action/list",
             "method": "get",
-            "parameters": [
-              {
-                "name": "filter[orderBy]",
-                "value": "-updatedAt"
-              },
-              {
-                "name": "filter[objTypeEqual]",
-                "value": 1
-              }
-            ],
             "array": "objects",
-            "label": "name",
-            "value": "id"
+            "value": "id",
+            "label": "name"
+          }
+        },
+        {
+          "name": "filter[freeText]",
+          "default": "",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[freeText]"
+          }
+        },
+        {
+          "name": "filter[createdAtGreaterThanOrEqual]",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[createdAtGreaterThanOrEqual]"
+          }
+        },
+        {
+          "name": "filter[advancedSearch][objectType]",
+          "default": "KalturaMetadataSearchItem",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[advancedSearch][objectType]"
+          }
+        },
+        {
+          "name": "filter[advancedSearch][orderBy]",
+          "default": "-createdAt",
+          "enum": [
+            "+createdAt",
+            "+duration",
+            "+lastPlayedAt",
+            "+name",
+            "+plays",
+            "+recent",
+            "+startDate",
+            "+updatedAt",
+            "+views",
+            "-createdAt",
+            "-duration",
+            "-lastPlayedAt",
+            "-name",
+            "-plays",
+            "-recent",
+            "-startDate",
+            "-updatedAt",
+            "-views"
+          ],
+          "enumLabels": [
+            "CREATED_AT_ASC",
+            "DURATION_ASC",
+            "LAST_PLAYED_AT_ASC",
+            "NAME_ASC",
+            "PLAYS_ASC",
+            "RECENT_ASC",
+            "START_DATE_ASC",
+            "UPDATED_AT_ASC",
+            "VIEWS_ASC",
+            "CREATED_AT_DESC",
+            "DURATION_DESC",
+            "LAST_PLAYED_AT_DESC",
+            "NAME_DESC",
+            "PLAYS_DESC",
+            "RECENT_DESC",
+            "START_DATE_DESC",
+            "UPDATED_AT_DESC",
+            "VIEWS_DESC"
+          ],
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[advancedSearch][orderBy]"
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      }
     }
   ]
 }

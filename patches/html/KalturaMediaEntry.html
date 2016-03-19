@@ -1,0 +1,23 @@
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xs-12 col-md-5">
+    <h2><%- results[0].objects[0].name %></h2>
+    <p><%- results[0].objects[0].description %></p>
+  </div>
+  <div class="col-xs-12 col-md-6 col-md-offset-1">
+    <script src="https://cdnapisec.kaltura.com/p/<%-  results[0].objects[0].partnerId  %>/sp/<%-  results[0].objects[0].partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  results[0].objects[0].partnerId  %>">
+    </script>
+    <div id="kaltura_player_<%-  results[0].objects[0].id  %>" style="width: 560px; height: 395px;">
+    </div>
+    <script>
+    kWidget.thumbEmbed({
+      "targetId": "kaltura_player_<%-  results[0].objects[0].id  %>",
+      "wid": "_<%-  results[0].objects[0].partnerId  %>",
+      "uiconf_id": <%-  answers.uiConf  %>,
+      "flashvars": {},
+      "cache_st": 1437326770,
+      "ks": window.ks,
+      "entry_id": "<%-  results[0].objects[0].id  %>"
+    });
+    </script>
+  </div>
+</div>
