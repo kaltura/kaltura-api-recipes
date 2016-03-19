@@ -40,8 +40,8 @@
         },
         {
           "name": "xsdData",
-          "default": "this will get overwritten in recipes.js",
-          "hidden": true
+          "hidden": false,
+          "x-inputType": "textarea"
         }
       ]
     },
@@ -55,7 +55,13 @@
       "parameters": [
         {
           "name": "objectId",
-          "default": ""
+          "dynamicEnum": {
+            "path": "/service/media/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
         },
         {
           "name": "xmlData",
@@ -75,13 +81,17 @@
             "array": "objects",
             "label": "name",
             "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
           }
         }
       ]
     },
     {
       "title": "Update entry metadata",
-      "description": ".",
+      "description": "Use `metadata.update` to update the metadata for a given item",
       "apiCall": {
         "path": "/service/metadata_metadata/action/update",
         "method": "get"
@@ -89,7 +99,11 @@
       "parameters": [
         {
           "name": "id",
-          "default": ""
+          "default": "",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
         },
         {
           "name": "xmlData",
@@ -99,11 +113,22 @@
     },
     {
       "title": "Delete metadata",
-      "description": "Browse existing ids in the frame below and click 'Delete' to remove them.",
+      "description": "Use the form below to delete the Metadata you created.",
       "parameters": [
         {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        },
+        {
           "name": "objectIdEqual",
-          "default": ""
+          "default": "",
+          "dynamicValue": {
+            "fromStep": 1,
+            "answer": "objectId"
+          }
         },
         {
           "name": "metadataProfileIdEqual",
@@ -114,13 +139,34 @@
             "array": "objects",
             "label": "name",
             "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
           }
         }
-      ]
+      ],
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/delete",
+        "method": "get"
+      }
     },
     {
       "title": "Delete metadata profiles",
-      "description": "Browse existing profiles in the frame below and click 'Delete' to remove them."
+      "description": "Use the form below to delete the Metadata Profile you created",
+      "apiCall": {
+        "path": "/service/metadata_metadataprofile/action/delete",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
+          }
+        }
+      ]
     }
   ]
 }

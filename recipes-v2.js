@@ -57,7 +57,9 @@ module.exports.reload = function() {
       })).join('\n');
     }
 
-    if (recipe.name === 'metadata') recipe.defaults.xsdData = XSD_DATA;
+    if (recipe.name === 'metadata') {
+      recipe.steps[0].parameters.filter(p => p.name === 'xsdData').forEach(p => p.default = XSD_DATA);
+    }
   })
 }
 module.exports.reload();
