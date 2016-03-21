@@ -1,3 +1,29 @@
+var VAST_URLS = [{
+  "label": "DoubleClick IMA - VAST Overlay",
+  "value": "https://pubads.g.doubleclick.net/gampad/ads?sz=480x70&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dnonlinear&correlator="
+}, {
+  "label": "Sizmek - VAST Linear",
+  "value": "http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=is&c=23&pl=VAST&pli=10724976&PluID=0&pos=113&ord=%5btimestamp%5d&cim=1&t=1&ai=23227072"
+}, {
+  "label": "Liverail - VAST Linear",
+  "value": "http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2"
+}, {
+  "label": "Liverail - VAST Overlay",
+  "value": "http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=228&LR_SCHEMA=vast2"
+}, {
+  "label": "LoopMe - VAST Linear",
+  "value": "http://loopme.me/api/vast/ads?appId=e18c19fa43&vast=2&campid=6029"
+}, {
+  "label": "Innovid - VPAID Linear with Overlay takeover",
+  "value": "http://rtr.innovid.com/r1.55428f380f6ec7.80913641;cb=[timestamp]"
+}, {
+  "label": "AdSpeed - VAST Linear",
+  "value": "http://g.adspeed.net/ad.php?do=vast&aid=115727&cb=1322853066&evtv=single"
+}, {
+  "label": "SpotXchange - VPAID Linear",
+  "value": "http://search.spotxchange.com/vast/2.00/85394?VPAID=js&content_page_url=www.testing123.com&cb=__random-number__&device[devicetype]=1&device[dnt]=0",
+}];
+
 module.exports = function(recipe) {
   var mediaParam = recipe.steps[0].parameters[1];
   require('./crud')(recipe, {
@@ -16,7 +42,12 @@ module.exports = function(recipe) {
   recipe.steps[1].description = "Use the controls below to add a new cue point to one of your videos";
   recipe.steps[1].parameters = [
     {name: 'cuePoint[entryId]'},
-    {name: 'cuePoint[sourceUrl]'},
+    {
+      name: 'cuePoint[sourceUrl]',
+      enum: VAST_URLS.map(u => u.value),
+      enumLabels: VAST_URLS.map(u => u.label),
+      'x-inputType': 'text'
+    },
     {name: 'cuePoint[startTime]'},
     {name: 'cuePoint[objectType]', default: 'KalturaAdCuePoint', hidden: true},
   ]
