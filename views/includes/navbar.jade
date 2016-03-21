@@ -1,27 +1,27 @@
 #Kaltura(ng-controller="Kaltura")
   include ./auth-modals.jade
-  nav#KalturaNav.navbar.navbar-default
+  nav#KalturaNav.navbar.navbar-default.navbar-fixed-top
     .container-fluid
       .navbar-header
+        button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#collapse-bar")
+          i.fa.fa-bars
         a.navbar-brand(href="/")
           img(src="/img/kaltura_dev.png")
-        if typeof recipe !== 'undefined'
-          a.navbar-brand.recipe-navbar-title(href="#")
-            span(href="#")= recipe.title
-      ul.nav.navbar-nav.navbar-right
-        li(ng-class="{active: currentPage === 'readme'}")
-          a(href="/portal/readme") Readme
-        li(ng-class="{active: currentPage === 'documentation'}")
-          a(href="/portal/documentation{{hash}}") Documentation
-        li(ng-class="{active: currentPage === 'console'}")
-          a(href="/portal/console{{hash}}") API Console
-        li(ng-class="{active: currentPage === 'recipes'}")
-          a(href="/portal/recipes") Code Recipes
-        li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-          span.hidden-sm
-            span(ng-bind="user.userId")
-            span &nbsp;
-          span
-            a(href="javascript:;" ng-click="setUser({})") [sign out]
-        li.text-bold(ng-if="!user.userId")
-          a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In
+      #collapse-bar.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          li(ng-class="{active: currentPage === 'readme'}")
+            a(href="/portal/readme") Readme
+          li(ng-class="{active: currentPage === 'documentation'}")
+            a(href="/portal/documentation{{hash}}") Documentation
+          li(ng-class="{active: currentPage === 'console'}")
+            a(href="/portal/console{{hash}}") API Console
+          li(ng-class="{active: currentPage === 'recipes'}")
+            a(href="/portal/recipes") Code Recipes
+          li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
+            span.hidden-sm
+              span(ng-bind="user.userId")
+              span &nbsp;
+            span
+              a(href="javascript:;" ng-click="setUser({})") [sign out]
+          li.text-bold(ng-if="!user.userId")
+            a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In

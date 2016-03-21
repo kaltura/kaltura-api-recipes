@@ -478,7 +478,6 @@ var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
 App.controller('Kaltura', function($scope) {
   $scope.user = {};
-  console.log('cp', $scope.currentPage);
   $scope.pathname = window.location.pathname;
   $scope.hash = window.location.hash;
   $scope.setUser = function(creds) {
