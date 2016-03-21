@@ -19,20 +19,23 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
   App.use(require('./routes/basic-auth.js'));
 }
 
-var cache = function(req, res, next) {
-  var maxAge = 60*60*24;
-  res.setHeader('Cache-Control', 'public, max-age=' + maxAge);
-  next();
-};
-
+var cache = function(age) {
+  age = age || 'med';
+  if (age === 'short') age = 60 * 60;
+  if (age === 'med')   age = 60 * 60 * 24;
+  if (age === 'long')  age = 60 * 60 * 24 * 30;
+  return function(req, res, next) {
+    res.setHeader('Cache-Control', 'public, max-age=' + age);
+    next();
+  };
+}
 if (!process.env.DEVELOPMENT) {
-  App.use('/js', cache);
-  App.use('/css', cache);
-  App.use('/fonts', cache);
-  App.use('/img', cache);
-  App.use('/minified', cache);
-  App.use('/swagger.js', cache);
-  App.use('/swagger.json', cache);
+  App.use(cache('short'));
+  App.use('/fonts', cache('long'));
+  App.use('/img', cache('long'));
+  App.use('/minified', cache());
+  App.use('/swagger.js', cache());
+  App.use('/swagger.json', cache());
 }
 App.use('/', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
