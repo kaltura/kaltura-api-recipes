@@ -1,4 +1,4 @@
-div(ng-controller="Kaltura")
+#Kaltura(ng-controller="Kaltura")
   include ./auth-modals.jade
   nav#KalturaNav.navbar.navbar-default
     .container-fluid
@@ -15,7 +15,7 @@ div(ng-controller="Kaltura")
           a(href="/portal/documentation{{hash}}") Documentation
         li(ng-class="{active: currentPage === 'console'}")
           a(href="/portal/console{{hash}}") API Console
-        li(ng-class="{active: currentPage = 'recipes'}")
+        li(ng-class="{active: currentPage === 'recipes'}")
           a(href="/portal/recipes") Code Recipes
         li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
           span.hidden-sm
