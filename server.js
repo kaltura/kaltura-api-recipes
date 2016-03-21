@@ -57,7 +57,7 @@ var cacheBust = file => file + '?cacheID=' + cid;
 
 var apiPortal = LucyPortal({
   swagger: Swagger,
-  basePath: '/portal',
+  defaultPage: 'readme',
   cacheID: cid,
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
@@ -79,13 +79,9 @@ var apiPortal = LucyPortal({
   saveRecipe: process.env.DEVELOPMENT ? require('./recipes-v2').save : null,
 })
 
-App.get('/', function(req, res) {
-  res.redirect('/portal/recipes');
-})
-
 require('./codegen').initialize(function(router) {
-  App.use('/portal', router);
-  App.use('/portal', apiPortal);
+  App.use(router);
+  App.use(apiPortal);
 })
 
 if (process.env.DEVELOPMENT) {
