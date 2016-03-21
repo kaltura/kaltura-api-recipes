@@ -9,13 +9,13 @@ div(ng-controller="Kaltura")
           a.navbar-brand.recipe-navbar-title(href="#")
             span(href="#")= recipe.title
       ul.nav.navbar-nav.navbar-right
-        li(ng-class="{active: pathname === '/portal/readme'}")
+        li(ng-class="{active: currentPage === 'readme'}")
           a(href="/portal/readme") Readme
-        li(ng-class="{active: pathname === '/portal/documentation'}")
+        li(ng-class="{active: currentPage === 'documentation'}")
           a(href="/portal/documentation{{hash}}") Documentation
-        li(ng-class="{active: pathname === '/portal/console'}")
+        li(ng-class="{active: currentPage === 'console'}")
           a(href="/portal/console{{hash}}") API Console
-        li(ng-class="{active: pathname.indexOf('/portal/recipes') === 0}")
+        li(ng-class="{active: currentPage = 'recipes'}")
           a(href="/portal/recipes") Code Recipes
         li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
           span.hidden-sm
@@ -24,4 +24,4 @@ div(ng-controller="Kaltura")
           span
             a(href="javascript:;" ng-click="setUser({})") [sign out]
         li.text-bold(ng-if="!user.userId")
-          a#LoginButton(data-toggle="modal" data-target="#Login") Sign In
+          a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In

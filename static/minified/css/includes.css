@@ -1,3 +1,7 @@
+.sidebar {
+  top: 90px;
+}
+
 .fa-right {
   margin-left: 8px;
 }
@@ -23,6 +27,10 @@
 
 #KalturaNav.navbar-default .navbar-nav > li.active > a {
   background-color: #008096;
+}
+#KalturaNav.navbar-default .navbar-nav > li.active > a,
+#KalturaNav.navbar-default .navbar-nav > li > a:hover {
+  color: #fff;
 }
 
 #KalturaNav.navbar-default .navbar-nav > li > a {
