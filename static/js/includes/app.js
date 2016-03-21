@@ -1,9 +1,7 @@
-var App = angular.module('App', []);
-
 var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
-App.controller('Body', function($scope) {
+App.controller('Kaltura', function($scope) {
   $scope.user = {};
   $scope.pathname = window.location.pathname;
   $scope.hash = window.location.hash;
@@ -28,12 +26,12 @@ App.controller('Body', function($scope) {
     if ($scope.user.userId) {
       window.location.href = '/recipes/' + name;
     } else {
-      $('#Signup').modal('show');
+      $('#KalturaSignup').modal('show');
     }
   }
 })
 
-App.controller('Login', function($scope) {
+App.controller('KalturaLogin', function($scope) {
   $scope.responses = {};
   $scope.loginInputs = [
     {label: 'E-mail', model:"email", type:"email", required: true},
@@ -73,7 +71,7 @@ App.controller('Login', function($scope) {
       $scope.alert = {success: "You're ready to go!"};
       setTimeout(function() {
         $scope.alert = {};
-        $('#Login').modal('hide');
+        $('#KalturaLogin').modal('hide');
       }, 1500);
     })
     .fail(function(xhr) {
@@ -135,7 +133,7 @@ App.controller('Login', function($scope) {
   }
 });
 
-App.controller('Signup', function($scope) {
+App.controller('KalturaSignup', function($scope) {
   $scope.responses = {};
   $scope.alert = {};
   $scope.inputs = [
@@ -195,7 +193,7 @@ App.controller('Signup', function($scope) {
       $scope.alert = {success: "You're ready to go!"};
       setTimeout(function() {
         $scope.alert = {};
-        $('#Signup').modal('hide');
+        $('#KalturaSignup').modal('hide');
       }, 1500);
     })
     .fail(function(xhr) {
@@ -210,12 +208,3 @@ App.controller('Signup', function($scope) {
     })
   }
 });
-
-$(document).ready(function() {
-  $('#Signup').on('shown.bs.modal', function() {
-    mixpanel.track('signup_start');
-  });
-  $('#Login').on('shown.bs.modal', function() {
-    mixpanel.track('login_start');
-  })
-})
