@@ -87,7 +87,7 @@ require('./codegen').initialize(function(router) {
 })
 
 if (process.env.DEVELOPMENT) {
-  App.use('/portal/recipes/:recipe', function(req, res, next) {
+  App.use('/recipes/:recipe', function(req, res, next) {
     require('./recipes-v2').reload();
     apiPortal.reloadRecipes();
     next();
@@ -99,12 +99,12 @@ App.get('/swagger.json', function(req, res) {
 })
 
 var sitemapUrls = Object.keys(recipes).map(function(r) {
-  return {url: '/portal/recipes/' + r, priority: .3}
+  return {url: '/recipes/' + r, priority: .3}
 });
-sitemapUrls.push({url: '/portal/readme',        priority: .9})
-sitemapUrls.push({url: '/portal/documentation', priority: .9})
-sitemapUrls.push({url: '/portal/console',       priority: .9})
-sitemapUrls.push({url: '/portal/recipes',       priority: .9})
+sitemapUrls.push({url: '/readme',        priority: .9})
+sitemapUrls.push({url: '/documentation', priority: .9})
+sitemapUrls.push({url: '/console',       priority: .9})
+sitemapUrls.push({url: '/recipes',       priority: .9})
 var sitemap = require('sitemap').createSitemap({
   hostname: 'https://developer.kaltura.org',
   cacheTime: 1000 * 60 * 10, // ten minutes
