@@ -696,6 +696,8 @@ window.onAuthorization = function(creds, cb) {
     });
     $('#APICall').scope().keys.ks = ks;
     KC.setKs(ks);
+    var filter = new KalturaUiConfFilter();
+    filter.objTypeEqual = KalturaUiConfObjType.PLAYER;
     KC.uiConf.listAction(function(success, results) {
       var uiConfs = results.objects;
       if (window.RECIPE && RECIPE.name === 'captions') {
@@ -718,7 +720,7 @@ window.onAuthorization = function(creds, cb) {
         $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
       }
       cb(null, ks);
-    });
+    }, filter);
   }, creds.secret,
   creds.userId,
   KalturaSessionType.ADMIN,
