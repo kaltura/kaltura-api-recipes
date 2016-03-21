@@ -8,7 +8,7 @@ window.checkResponse = function(data, status, xhr) {
     var err = data.code && data.message;
     if (err) msg = {type: 'danger', message: data.code + ': ' + data.message};
   }
-  if (msg.type !== 'success') {
+  if (msg.message.indexOf('SERVICE_FORBIDDEN') !== -1) {
     $('#KalturaLogin').modal('show');
   }
   return msg;
