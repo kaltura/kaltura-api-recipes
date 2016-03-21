@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var VAST_URLS = [{
   "label": "DoubleClick IMA - VAST Overlay",
   "value": "https://pubads.g.doubleclick.net/gampad/ads?sz=480x70&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dnonlinear&correlator="
@@ -61,10 +63,24 @@ module.exports = function(recipe) {
       path: '/service/media/action/get',
       method: 'get',
     },
-    parameters: [
-      {name: 'entryId', dynamicValue: {fromStep: 0, answer: 'filter[entryIdEqual]'}},
-      {name: 'uiConf', type: 'string', dynamicEnum: require('./enum')('uiconf')},
-    ],
+    parameters: [{
+      name: 'entryId',
+      dynamicValue: {fromStep: 0, answer: 'filter[entryIdEqual]'},
+      dynamicEnum: require('./enum')('media')
+    }, {
+      name: 'uiConf',
+      type: 'string',
+      dynamicEnum: require('./enum')('uiconf')
+    }],
   });
+
+  recipe.steps.splice(4, 0, {
+    title: 'Listening for Cue Points',
+    description: "You can use kWidget to listen for when your Cue Points are triggered",
+    codeSnippet: {javascript: fs.readFileSync(__dirname + '/html/CuePointListener.js', 'utf8')},
+    demoHTML: fs.readFileSync(__dirname + '/html/CuePointDemo.html', 'utf8'),
+    parameters: recipe.steps[3].parameters,
+  })
+
   return recipe;
 }
