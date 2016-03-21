@@ -61,8 +61,7 @@ var apiPortal = LucyPortal({
   cacheID: cid,
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
-    '/css/navbar.css',
-    '/css/portal.css',
+    '/minified/css/includes.css',
   ].map(cacheBust),
   jsIncludes: [
     '/minified/js/kaltura.js',

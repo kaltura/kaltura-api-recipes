@@ -29,8 +29,8 @@ assetMan.addAsset('includes', {
     '/js/includes/console.js',
   ],
   css: [
+    '/css/portal.css',
     '/css/navbar.css',
-    '/css/embed.css',
   ],
 })
 
