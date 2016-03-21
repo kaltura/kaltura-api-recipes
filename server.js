@@ -31,8 +31,8 @@ if (!process.env.DEVELOPMENT) {
   App.use('/fonts', cache);
   App.use('/img', cache);
   App.use('/minified', cache);
-  App.use('/portal_embed/minified', cache);
-  App.use('/portal_embed/swagger.js', cache);
+  App.use('/portal/minified', cache);
+  App.use('/portal/swagger.js', cache);
 }
 App.use('/', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
