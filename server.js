@@ -50,22 +50,25 @@ if (process.env.DEVELOPMENT) {
 }
 
 var recipes = require('./recipes-v2').recipes;
+var navbarFile = __dirname + '/views/includes/navbar.jade';
 
 var cid = assetMan.options.cacheID || '';
+var cacheBust = file => file + '?cacheID=' + cid;
+
 var apiPortal = LucyPortal({
   swagger: Swagger,
-  basePath: '/portal_embed',
+  basePath: '/portal',
   cacheID: cid,
-  linkBase: '/portal',
   bootstrap: '/css/bootstrap.css',
   cssIncludes: [
-    '/css/portal.css?cacheID=' + cid,
-  ],
+    '/css/navbar.css',
+    '/css/portal.css',
+  ].map(cacheBust),
   jsIncludes: [
-    '/minified/js/kaltura.js?cacheID=' + cid,
-    '/minified/js/includes.js?cacheID=' + cid,
-  ],
-  showTopLevelNav: false,
+    '/minified/js/kaltura.js',
+    '/minified/js/includes.js',
+  ].map(cacheBust),
+  navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
   disableAutorefresh: true,
   development: process.env.DEVELOPMENT || false,
   credentialCookie: 'LUCYBOT_RECIPE_CREDS',
@@ -81,8 +84,8 @@ App.get('/', function(req, res) {
 })
 
 require('./codegen').initialize(function(router) {
-  App.use('/portal_embed', router);
-  App.use('/portal_embed', apiPortal);
+  App.use('/portal', router);
+  App.use('/portal', apiPortal);
 })
 
 if (process.env.DEVELOPMENT) {
@@ -92,11 +95,6 @@ if (process.env.DEVELOPMENT) {
     next();
   });
 }
-
-App.use('/portal', function(req, res) {
-  var page = req.originalUrl.substring(7);
-  res.render('embed', {page, assetMan});
-})
 
 App.get('/swagger.json', function(req, res) {
   res.json(Swagger);

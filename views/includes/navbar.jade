@@ -1,26 +1,27 @@
-include ./auth-modals.jade
-nav.navbar.navbar-default
-  +container
-    .navbar-header
-      a.navbar-brand(href="/")
-        img(src="/img/kaltura_dev.png")
-      if typeof recipe !== 'undefined'
-        a.navbar-brand.recipe-navbar-title(href="#")
-          span(href="#")= recipe.title
-    ul.nav.navbar-nav.navbar-right
-      li(ng-class="{active: pathname === '/portal/readme'}")
-        a(href="/portal/readme") Readme
-      li(ng-class="{active: pathname === '/portal/documentation'}")
-        a(href="/portal/documentation{{hash}}") Documentation
-      li(ng-class="{active: pathname === '/portal/console'}")
-        a(href="/portal/console{{hash}}") API Console
-      li(ng-class="{active: pathname.indexOf('/portal/recipes') === 0}")
-        a(href="/portal/recipes") Code Recipes
-      li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-        span.hidden-sm
-          span(ng-bind="user.userId")
-          span &nbsp;
-        span
-          a(href="javascript:;" ng-click="setUser({})") [sign out]
-      li.text-bold(ng-if="!user.userId")
-        a#LoginButton(data-toggle="modal" data-target="#Login") Sign In
+div(ng-controller="Kaltura")
+  include ./auth-modals.jade
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        a.navbar-brand(href="/")
+          img(src="/img/kaltura_dev.png")
+        if typeof recipe !== 'undefined'
+          a.navbar-brand.recipe-navbar-title(href="#")
+            span(href="#")= recipe.title
+      ul.nav.navbar-nav.navbar-right
+        li(ng-class="{active: pathname === '/portal/readme'}")
+          a(href="/portal/readme") Readme
+        li(ng-class="{active: pathname === '/portal/documentation'}")
+          a(href="/portal/documentation{{hash}}") Documentation
+        li(ng-class="{active: pathname === '/portal/console'}")
+          a(href="/portal/console{{hash}}") API Console
+        li(ng-class="{active: pathname.indexOf('/portal/recipes') === 0}")
+          a(href="/portal/recipes") Code Recipes
+        li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
+          span.hidden-sm
+            span(ng-bind="user.userId")
+            span &nbsp;
+          span
+            a(href="javascript:;" ng-click="setUser({})") [sign out]
+        li.text-bold(ng-if="!user.userId")
+          a#LoginButton(data-toggle="modal" data-target="#Login") Sign In

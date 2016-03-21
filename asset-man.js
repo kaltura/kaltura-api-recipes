@@ -7,13 +7,6 @@ var assetMan = module.exports = new (require('bb-asset-manager'))({
   useOriginalAssets: process.env.DEVELOPMENT,
 });
 
-assetMan.addAsset('includes', {
-  js: [
-    '/js/includes/mixpanel.js',
-    '/js/includes/kc-setup.js',
-    '/js/includes/console.js',
-  ],
-});
 assetMan.addAsset('kaltura', {
   js: [
     '/js/kaltura/ox.ajast.js',
@@ -28,17 +21,14 @@ assetMan.addAsset('kaltura', {
 
 assetMan.addAsset('core', {
   js: [
-    "/bower/jquery/dist/jquery.min.js",
-    "/bower/bootstrap/dist/js/bootstrap.min.js",
-    "/bower/angular/angular.min.js",
-    "/js/ng/locations.js",
     "/js/includes/mixpanel.js",
-    "/js/ng/cookie.js",
-    "/js/ng/app.js",
+    "/js/includes/locations.js",
+    "/js/includes/cookie.js",
+    "/js/includes/app.js",
+    '/js/includes/kc-setup.js',
+    '/js/includes/console.js',
   ],
   css: [
-    '/bower/fontawesome/css/font-awesome.min.css',
-    '/css/bootstrap.css',
     '/css/navbar.css',
     '/css/embed.css',
   ],
