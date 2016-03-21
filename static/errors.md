@@ -1,3 +1,5 @@
+## Error Codes
+
 * `CANNOT_RETRIEVE_ANOTHER_USER_USING_NON_ADMIN_SESSION` - cannot retrieve another user \"@USER_ID@\" using non-admin session
 * `INTERNAL_SERVERL_ERROR` - Internal server error occurred
 * `INTERNAL_SERVERL_ERROR_DEBUG` - Internal server error occurred \"@ERROR@\"
