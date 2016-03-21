@@ -92,6 +92,7 @@ if (process.env.DEVELOPMENT) {
 require('./codegen').initialize(function(router) {
   App.use(router);
   App.use(apiPortal);
+  App.use(Express.static(__dirname + '/static'));
 })
 
 App.get('/swagger.json', function(req, res) {
