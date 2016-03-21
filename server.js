@@ -20,7 +20,7 @@ if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LU
 }
 
 var cache = function(req, res, next) {
-  var maxAge = 60*60;
+  var maxAge = 60*60*24;
   res.setHeader('Cache-Control', 'public, max-age=' + maxAge);
   next();
 };
