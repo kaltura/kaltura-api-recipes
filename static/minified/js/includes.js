@@ -484,7 +484,7 @@ App.controller('Kaltura', function($scope) {
     $scope.user = creds;
     var now = new Date();
     var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
-    var cookie = STORAGE_KEY + '=' + JSON.stringify(creds) + '; expires=' + expires.toUTCString() + '; Path=/';
+    var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
     document.cookie = cookie;
   }
 
@@ -494,15 +494,7 @@ App.controller('Kaltura', function($scope) {
   })[0];
   if (credCookie) {
     var stored = credCookie.substring(STORAGE_KEY.length + 1);
-    $scope.user = JSON.parse(stored);
-  }
-
-  $scope.openRecipe = function(name) {
-    if ($scope.user.userId) {
-      window.location.href = '/recipes/' + name;
-    } else {
-      $('#KalturaSignup').modal('show');
-    }
+    $scope.user = JSON.parse(decodeURIComponent(stored));
   }
 })
 
