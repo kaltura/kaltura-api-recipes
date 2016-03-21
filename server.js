@@ -37,7 +37,7 @@ if (!process.env.DEVELOPMENT) {
   App.use('/swagger.js', cache());
   App.use('/swagger.json', cache());
 }
-App.use('/', Express.static(__dirname + '/static'));
+App.use('/kaltura_static', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
 
 App.use('/auth', require('./routes/partner-auth.js'));
@@ -62,13 +62,13 @@ var apiPortal = LucyPortal({
   swagger: Swagger,
   defaultPage: 'readme',
   cacheID: cid,
-  bootstrap: '/css/bootstrap.css',
+  bootstrap: '/kaltura_static/css/bootstrap.css',
   cssIncludes: [
-    '/minified/css/includes.css',
+    '/kaltura_static/minified/css/includes.css',
   ].map(cacheBust),
   jsIncludes: [
-    '/minified/js/kaltura.js',
-    '/minified/js/includes.js',
+    '/kaltura_static/minified/js/kaltura.js',
+    '/kaltura_static/minified/js/includes.js',
   ].map(cacheBust),
   navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
   disableAutorefresh: true,
