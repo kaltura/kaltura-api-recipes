@@ -1,3 +1,5 @@
+## Kaltura API Overview
+
 Kaltura API documentation provides information to web developers who wish to use Kaltura's Application Programming Interfaces (APIs). To gain a wider understanding of the Kaltura open source video platform, please review the Introduction to Kaltura Platform document.
 
 The Kaltura open source video platform exposes its Server API to web applications by implementing a standard HTTP POST/GET url-encoded requests structure. Kaltura server API's, also named Kaltura Partner Services, are designed to follow REST principles. The server APIs consist of service actions for querying, setting, updating and listing entities as well as for activating processes within Kaltura open source video platform. Service actions are grouped according to the entity type they are applied on, and provide all actions relevant to the specific entity.
