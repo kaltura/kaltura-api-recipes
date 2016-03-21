@@ -81,11 +81,6 @@ var apiPortal = LucyPortal({
   saveRecipe: process.env.DEVELOPMENT ? require('./recipes-v2').save : null,
 })
 
-require('./codegen').initialize(function(router) {
-  App.use(router);
-  App.use(apiPortal);
-})
-
 if (process.env.DEVELOPMENT) {
   App.use('/recipes/:recipe', function(req, res, next) {
     require('./recipes-v2').reload();
@@ -93,6 +88,11 @@ if (process.env.DEVELOPMENT) {
     next();
   });
 }
+
+require('./codegen').initialize(function(router) {
+  App.use(router);
+  App.use(apiPortal);
+})
 
 App.get('/swagger.json', function(req, res) {
   res.json(Swagger);
