@@ -9,10 +9,8 @@
 </script>
 <script type="text/javascript">
 	var myPlayer;
-    console.log('playa')
 	// Bind to cuePointReached event
 	var jsCallbackReady = function( playerId ) {
-        console.log('cb ready!');
 		myPlayer = $('#' + playerId )[0];
 
 		myPlayer.addJsListener("cuePointReached", "writeLog");
@@ -20,7 +18,6 @@
 	};
 
 	var writeLog = function( qPoint ) {
-      console.log('write log', qPoint);
 		var type = (qPoint.context) ? 'Ad' : 'Code';
 		$('#eventRowDesc').after(
 			$('<tr />' ).append(
