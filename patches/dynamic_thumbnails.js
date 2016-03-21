@@ -20,4 +20,6 @@ module.exports = function(recipe) {
   recipe.steps[0].demoHTML = recipe.steps[0].codeSnippet.html;
 
   recipe.steps.pop();
+
+  recipe.finishText = '### Learn More\n\nYou can read more about the Kaltura Thumbnail API at [knowledge.kaltura.com/kaltura-thumbnail-api](http://knowledge.kaltura.com/kaltura-thumbnail-api)';
 }

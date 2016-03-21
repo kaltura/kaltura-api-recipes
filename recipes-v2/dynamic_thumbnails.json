@@ -32,5 +32,6 @@
       },
       "demoHTML": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<img src=\"https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180\"\n     width=\"240\" height=\"180\"\n     onmouseover=\"KalturaThumbRotator.start(this)\"\n     onmouseout=\"KalturaThumbRotator.end(this)\"\n     onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})\">\n<h3><%- results[0].name %></h3>\n<p><%- results[0].description %></p>\n<p>\n  <a href=\"<%- results[0].downloadUrl %>\" target=\"_blank\"><%- results[0].downloadUrl %></a>\n</p>\n\n"
     }
-  ]
+  ],
+  "finishText": "### Learn More\n\nYou can read more about the Kaltura Thumbnail API at [knowledge.kaltura.com/kaltura-thumbnail-api](http://knowledge.kaltura.com/kaltura-thumbnail-api)"
 }

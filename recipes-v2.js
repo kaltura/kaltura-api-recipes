@@ -43,7 +43,7 @@ module.exports.reload = function() {
         return '* ' + op.service + '.' + op.action;
       }).join('\n');
 
-      recipe.finishText = [
+      recipe.finishText = recipe.finishText || [
         '### Learn More',
         'You can learn more about the services and actions used in this recipe by visiting the [API Console](/console)',
         '',
