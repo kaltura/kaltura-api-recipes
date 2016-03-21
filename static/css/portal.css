@@ -2,3 +2,10 @@
   color: #AB7800;
   background-color: #e09d00;
 }
+
+.try-button span {
+  display: none;
+}
+.try-button:before {
+  content: 'Test this API action/service';
+}
