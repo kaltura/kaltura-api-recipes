@@ -19,7 +19,7 @@ assetMan.addAsset('kaltura', {
   ],
 });
 
-assetMan.addAsset('core', {
+assetMan.addAsset('includes', {
   js: [
     "/js/includes/mixpanel.js",
     "/js/includes/locations.js",
