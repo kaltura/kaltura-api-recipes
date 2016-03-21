@@ -88,7 +88,13 @@
             "method": "get",
             "array": "objects",
             "value": "id",
-            "label": "name"
+            "label": "name",
+            "parameters": [
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 1
+              }
+            ]
           }
         },
         {
