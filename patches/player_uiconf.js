@@ -8,13 +8,11 @@ module.exports = function(recipe) {
     path: '/service/uiconf/action/update',
     method: 'get',
   }
-  recipe.steps[1].parameters = [{
+  recipe.steps[1].parameters = [
+    recipe.steps[0].parameters[0],
+  {
     name: 'uiConf[config]',
     'x-inputType': 'textarea',
     dynamicValue: {fromStep: 0, value: 'config'},
-  }, {
-    name: 'id',
-    hidden: true,
-    global: true,
   }]
 }
