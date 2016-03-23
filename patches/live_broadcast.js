@@ -23,7 +23,8 @@ module.exports = function(recipe) {
   }
   var runCode = fs.readFileSync(__dirname + '/html/LiveBroadcastRun.js', 'utf8');
   var html = fs.readFileSync(__dirname + '/html/LiveBroadcast.html', 'utf8');
-  recipe.steps[2].demoHTML = '<script>' + runCode + '</script>' + html;
+  //recipe.steps[2].demoHTML = '<script>' + runCode + '</script>' + html;
+  recipe.steps[2].demoHTML = fs.readFileSync(__dirname + '/html/KRecordTest.html', 'utf8');
   recipe.steps[2].codeSnippet = {html: recipe.steps[2].demoHTML};
   var jsCode = html.match(/<script>([\w\W]*)<\/script>/)[1];
   jsCode = jsCode.split('\n').map(l => l.substring(4)).join('\n');
