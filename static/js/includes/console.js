@@ -2,8 +2,12 @@ window.checkResponse = function(data, status, xhr) {
   var msg = {type: 'success', message: "Success"};
   if (data === null) return msg;
   if (data instanceof Document) {
-    var err = $(data).find('error').length;
-    if (err) msg = {type: 'danger', message: $(data).find('error message').text()};
+    var $data = $(data);
+    if ($data.find('error').length) {
+      var code = $data.find('code').text();
+      var message = $data.find('error message').text();
+      msg = {type: 'danger', message: code + ': ' + message};
+    }
   } else if (typeof data === 'object') {
     var err = data.code && data.message;
     if (err) msg = {type: 'danger', message: data.code + ': ' + data.message};
