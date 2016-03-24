@@ -17,12 +17,14 @@ module.exports.save = function(name, recipe, callback) {
   name = path.join('/', name);
   name = path.join(DIR, name + '.json');
   if (recipe.description) recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
-  delete recipe.defaults.serviceURL;
-  delete recipe.defaults.format;
-  delete recipe.defaults.recipeName;
+  else delete recipe.description;
+  if (recipe.defaults) {
+    delete recipe.defaults.serviceURL;
+    delete recipe.defaults.format;
+    delete recipe.defaults.recipeName;
+    if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
+  }
   if (recipe.finishText && recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
-  if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
-  if (!recipe.description.length) delete recipe.description;
 
   fs.writeFile(name, JSON.stringify(recipe, null, 2), function(err) {
     if (!err && process.env.DEVELOPMENT) module.exports.reload();
