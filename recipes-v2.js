@@ -16,7 +16,8 @@ var DIR = __dirname + '/recipes-v2';
 module.exports.save = function(name, recipe, callback) {
   name = path.join('/', name);
   name = path.join(DIR, name + '.json');
-  if (recipe.description) recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
+  recipe.description = recipe.description || '';
+  recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
   if (!recipe.description.length) delete recipe.description;
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
