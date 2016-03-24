@@ -16,11 +16,11 @@ var DIR = __dirname + '/recipes-v2';
 module.exports.save = function(name, recipe, callback) {
   name = path.join('/', name);
   name = path.join(DIR, name + '.json');
-  recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
+  if (recipe.description) recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
   delete recipe.defaults.serviceURL;
   delete recipe.defaults.format;
   delete recipe.defaults.recipeName;
-  if (recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
+  if (recipe.finishText && recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
   if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
   if (!recipe.description.length) delete recipe.description;
 
