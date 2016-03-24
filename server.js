@@ -78,7 +78,7 @@ var apiPortal = LucyPortal({
     format: 1,
   },
   recipes: recipes,
-  saveRecipe: process.env.DEVELOPMENT ? require('./recipes-v2').save : null,
+  saveRecipe: process.env.DEVELOPMENT || process.env.ENABLE_EDITS ? require('./recipes-v2').save : null,
 })
 
 if (process.env.DEVELOPMENT) {
