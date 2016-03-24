@@ -28,7 +28,7 @@ module.exports.save = function(name, recipe, callback) {
   if (recipe.finishText && recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
 
   fs.writeFile(name, JSON.stringify(recipe, null, 2), function(err) {
-    if (!err && process.env.DEVELOPMENT) module.exports.reload();
+    if (!err) module.exports.reload();
     callback(err);
   })
 }
