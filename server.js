@@ -30,7 +30,6 @@ var cache = function(age) {
   };
 }
 if (!process.env.DEVELOPMENT) {
-  App.use(cache('short'));
   App.use('/fonts', cache('long'));
   App.use('/img', cache('long'));
   App.use('/minified', cache());
