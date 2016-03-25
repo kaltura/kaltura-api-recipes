@@ -1,3 +1,7 @@
+.sidebar {
+  top: 90px;
+}
+
 .heading-icon {
   color: #AB7800;
   background-color: #e09d00;
@@ -10,13 +14,10 @@
   content: 'Test this API action/service';
 }
 
+
+
 body {
   padding-top: 69px;
-}
-
-.sidebar {
-  top: 90px;
-  padding-bottom: 90px;
 }
 
 .fa-right {
