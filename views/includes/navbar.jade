@@ -10,7 +10,7 @@
       #collapse-bar.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
           mixin menu-item(name, label)
-            li(ng-class="{active: currentPage === '#{name}'}")
+            li(ng-class="{active: '#{name}'.indexOf(currentPage) === 0}")
               a(href="{{getLink('#{name}')}}")= label
           +menu-item('documentation', 'Documentation')
           +menu-item('console', 'API Console')
