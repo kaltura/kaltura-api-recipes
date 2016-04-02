@@ -15,7 +15,7 @@ App.controller('Kaltura', function($scope) {
       document.cookie = cookie;
       var call = $('#APICall');
       if (call.length) {
-        var keys = call.scope().keys;
+        var keys = call.scope().keys || {};
         keys.ks = creds.ks;
         keys.partnerId = creds.partnerId;
         keys.secret = creds.secret;

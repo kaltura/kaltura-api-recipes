@@ -16,7 +16,6 @@ window.onAuthorization = function(creds, cb) {
     mixpanel.track('kaltura_session', {
       partnerId: creds.partnerId
     });
-    $('#APICall').scope().keys.ks = ks;
     KC.setKs(ks);
     var filter = new KalturaUiConfFilter();
     filter.objTypeEqual = KalturaUiConfObjType.PLAYER;
@@ -43,7 +42,9 @@ window.onAuthorization = function(creds, cb) {
         }
         uiConfs = results.objects;
       }
-      $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
+      if ($('#APICall').length) {
+        $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
+      }
       cb(null, ks);
     }, filter);
   }, creds.secret,
