@@ -78,6 +78,7 @@ App.controller('KalturaLogin', function($scope) {
       }
       $scope.setUser(creds);
       $scope.alert = {success: "You're ready to go!"};
+      $scope.inputs = $scope.loginInputs;
       setTimeout(function() {
         $scope.alert = {};
         $('#KalturaLogin').modal('hide');
