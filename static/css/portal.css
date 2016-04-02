@@ -14,4 +14,6 @@
   content: 'Test this API action/service';
 }
 
-
+#Recipe .parameter-input label {
+  font-size: 16px;
+}
