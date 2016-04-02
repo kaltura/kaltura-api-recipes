@@ -17,3 +17,4 @@ window.checkResponse = function(data, status, xhr) {
   }
   return msg;
 }
+
