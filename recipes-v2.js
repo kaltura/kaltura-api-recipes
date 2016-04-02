@@ -12,21 +12,26 @@ var LEARN_MORE_PREFIX = [
   '',
 ].join('\n');
 
+function stripConstant(recipe, field, prefix) {
+  recipe[field] = recipe[field] || '';
+  var idx = recipe[field].indexOf(prefix);
+  if (idx !== -1) recipe[field] = recipe[field].substring(0, idx);
+  if (!recipe[field].length) delete recipe[field];
+  else recipe[field] = recipe[field].split('\n\n');
+}
+
 var DIR = __dirname + '/recipes-v2';
 module.exports.save = function(name, recipe, callback) {
   name = path.join('/', name);
   name = path.join(DIR, name + '.json');
-  recipe.description = recipe.description || '';
-  recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
-  if (!recipe.description.length) delete recipe.description;
-  else recipe.description = recipe.description.split('\n\n');
+  stripConstant(recipe, 'description', DESC_PREFIX);
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
     delete recipe.defaults.format;
     delete recipe.defaults.recipeName;
     if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
   }
-  if (recipe.finishText && recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
+  stripConstant(recipe, 'finishText', LEARN_MORE_PREFIX);
   recipe.steps.forEach(function(s) {
     s.description = s.description || '';
     if (!s.description.length) delete s.description;
