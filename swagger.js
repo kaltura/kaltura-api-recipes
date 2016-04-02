@@ -3,15 +3,6 @@ var Views = require('kaltura-codegen').templates.views;
 
 var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 
-var README = FS.readFileSync(__dirname + '/static/README.md', 'utf8');
-Swagger.info['x-lucy/readme'] = [
-  {title: 'Overview', contents: README},
-];
-Swagger.info['x-lucy/readme'].push({
-  title: 'Error Codes',
-  contents: FS.readFileSync(__dirname + '/static/errors.md', 'utf8'),
-})
-
 Swagger['x-lucy/viewSetup'] = FS.readFileSync(__dirname + '/node_modules/kaltura-codegen/code_templates/setups/html.html', 'utf8')
 
 for (var name in Views) {
