@@ -481,11 +481,24 @@ App.controller('Kaltura', function($scope) {
   $scope.pathname = window.location.pathname;
   $scope.hash = window.location.hash;
   $scope.setUser = function(creds) {
-    $scope.user = creds;
-    var now = new Date();
-    var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
-    var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
-    document.cookie = cookie;
+    window.onAuthorization(creds, function(err, ks) {
+      creds.ks = ks;
+      $scope.user = creds;
+      var now = new Date();
+      var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
+      var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
+      document.cookie = cookie;
+      var call = $('#APICall');
+      if (call.length) {
+        var keys = call.scope().keys;
+        keys.ks = creds.ks;
+        keys.partnerId = creds.partnerId;
+        keys.secret = creds.secret;
+        setTimeout(function() {
+          call.scope().$apply();
+        });
+      }
+    })
   }
 
   var cookies = document.cookie.split(';').map(function(c) {return c.trim()});
@@ -493,8 +506,12 @@ App.controller('Kaltura', function($scope) {
     return c.indexOf(STORAGE_KEY) === 0;
   })[0];
   if (credCookie) {
-    var stored = credCookie.substring(STORAGE_KEY.length + 1);
-    $scope.user = JSON.parse(decodeURIComponent(stored));
+    var stored = credCookie.substring(STORAGE_KEY.length + 1) || '{}';
+    var user;
+    try {
+      user = JSON.parse(decodeURIComponent(stored));
+    } catch(e) {}
+    if (user) $scope.setUser(user);
   }
 })
 
@@ -678,8 +695,8 @@ App.controller('KalturaSignup', function($scope) {
 ;
 window.KC = null;
 window.onAuthorization = function(creds, cb) {
-  if (!creds.partnerId || !creds.secret) return;
-  if (creds.ks && window.KC) return;
+  if (!creds.partnerId || !creds.secret) return cb();
+  if (creds.ks && window.KC) return cb();
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
