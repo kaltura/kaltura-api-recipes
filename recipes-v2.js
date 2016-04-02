@@ -19,6 +19,7 @@ module.exports.save = function(name, recipe, callback) {
   recipe.description = recipe.description || '';
   recipe.description = recipe.description.replace(new RegExp(DESC_PREFIX + '[\\w\\W]*$'), '');
   if (!recipe.description.length) delete recipe.description;
+  else recipe.description = recipe.description.split('\n\n');
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
     delete recipe.defaults.format;
@@ -26,6 +27,11 @@ module.exports.save = function(name, recipe, callback) {
     if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
   }
   if (recipe.finishText && recipe.finishText.indexOf(LEARN_MORE_PREFIX === 0)) delete recipe.finishText;
+  recipe.steps.forEach(function(s) {
+    s.description = s.description || '';
+    if (!s.description.length) delete s.description;
+    else s.description = s.description.split('\n\n');
+  })
 
   fs.writeFile(name, JSON.stringify(recipe, null, 2), function(err) {
     if (!err) module.exports.reload();
