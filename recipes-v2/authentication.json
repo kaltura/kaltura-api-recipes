@@ -61,7 +61,9 @@
     {
       "title": "Logging in with your Login ID",
       "description": [
-        "You can also log in with your Login ID and password by using `user.loginByLoginId`. This will return a new KS."
+        "You can also log in with your Login ID and password by using `user.loginByLoginId`. This will return a new KS.",
+        "Note that this KS can only be used to retrieve a list of partnerIds.\nYou can then use one of these partnerIds to get a privileged KS.",
+        ""
       ],
       "apiCall": {
         "path": "/service/user/action/loginByLoginId",

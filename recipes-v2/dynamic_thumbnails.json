@@ -2,7 +2,6 @@
   "name": "dynamic_thumbnails",
   "title": "Animated Thumbnails with CSS Stripes",
   "summary": "Create a gallery page with rotating dynamic thumbnails.",
-  "icon": "image",
   "steps": [
     {
       "title": "Embedding Custom Thumbnails",
@@ -23,7 +22,8 @@
             "method": "get",
             "array": "objects",
             "value": "id",
-            "label": "name"
+            "label": "name",
+            "parameters": []
           }
         }
       ],
@@ -31,7 +31,49 @@
         "html": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<img src=\"https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180\"\n     width=\"240\" height=\"180\"\n     onmouseover=\"KalturaThumbRotator.start(this)\"\n     onmouseout=\"KalturaThumbRotator.end(this)\"\n     onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})\">\n<h3><%- results[0].name %></h3>\n<p><%- results[0].description %></p>\n<p>\n  <a href=\"<%- results[0].downloadUrl %>\" target=\"_blank\"><%- results[0].downloadUrl %></a>\n</p>\n\n"
       },
       "demoHTML": "<script src=\"/js/kaltura_thumb_rotator.js\"></script>\n<img src=\"https://cdnapisec.kaltura.com/p/<%- results[0].partnerId %>/thumbnail/entry_id/<%- results[0].id %>/width/240/height/180\"\n     width=\"240\" height=\"180\"\n     onmouseover=\"KalturaThumbRotator.start(this)\"\n     onmouseout=\"KalturaThumbRotator.end(this)\"\n     onclick=\"$('#kaltura_player')[0].sendNotification('changeMedia', {entryId: '<%- results[0].id %>'})\">\n<h3><%- results[0].name %></h3>\n<p><%- results[0].description %></p>\n<p>\n  <a href=\"<%- results[0].downloadUrl %>\" target=\"_blank\"><%- results[0].downloadUrl %></a>\n</p>\n\n"
+    },
+    {
+      "title": "Making Rotating Thumnails",
+      "parameters": [
+        {
+          "name": "entryId",
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
+          },
+          "dynamicEnum": {
+            "parameters": [],
+            "array": "objects",
+            "path": "/service/media/action/list",
+            "method": "get",
+            "value": "id",
+            "label": "name"
+          }
+        },
+        {
+          "custom": true,
+          "name": "vid_slices",
+          "type": "number",
+          "x-consoleDefault": 10
+        }
+      ],
+      "description": [
+        "You can make your embedded thumbnails rotate through different frames of the video using CSS Stripes.",
+        "To use CSS stripes, create a `<div>` with CSS attribute `background-image` set to your thumbnail's URL.",
+        "Set vid_slices to change how many frames are available to scroll through. Note that the more frames you use,\nthe longer the image will take to load.",
+        "This will return a single image with all the frames side-by-side. To move between frames, set CSS attribute `background-position-x`\nto img_width * frame_number.",
+        ""
+      ],
+      "demoHTML": "<style>\n.img-holder {\n  height: 180px;\n  width: 320px;\n  background-repeat: no-repeat;\n  background-image: url(https://cdnapisec.kaltura.com/p/<%- result.partnerId %>/thumbnail/entry_id/<%- result.id %>/vid_slices/<%- answers.vid_slices %>/widget_id/0/type/2/width/320/height/180)\n}\n</style>\n<div class=\"img-holder\"></div>\n<script>\n  var hovering = false;\n  var frame = 0;\n  setInterval(function() {\n    frame = hovering ? frame + 1 : 0;\n    if (frame >= <%- answers.vid_slices %>) frame = 0;\n    $('.img-holder').css('background-position-x', (-1 * frame * 320) + 'px');\n  }, 500);\n\n  $('.img-holder').mouseover(function() {\n      hovering = true;\n  });\n  $('.img-holder').mouseout(function() {\n      hovering = false;\n  });\n</script>",
+      "apiCall": {
+        "method": "get",
+        "path": "/service/media/action/get"
+      },
+      "codeSnippet": {
+        "html": "<style>\n.img-holder {\n  height: 180px;\n  width: 320px;\n  background-repeat: no-repeat;\n  background-image: url(https://cdnapisec.kaltura.com/p/<%- result.partnerId %>/thumbnail/entry_id/<%- result.id %>/vid_slices/<%- answers.vid_slices %>/widget_id/0/type/2/width/320/height/180)\n}\n</style>\n<div class=\"img-holder\"></div>\n<script>\n  var hovering = false;\n  var frame = 0;\n  setInterval(function() {\n    frame = hovering ? frame + 1 : 0;\n    if (frame >= <%- answers.vid_slices %>) frame = 0;\n    $('.img-holder').css('background-position-x', (-1 * frame * 320) + 'px');\n  }, 500);\n\n  $('.img-holder').mouseover(function() {\n      hovering = true;\n  });\n  $('.img-holder').mouseout(function() {\n      hovering = false;\n  });\n</script>"
+      }
     }
   ],
-  "finishText": "### Learn More\n\nYou can read more about the Kaltura Thumbnail API at [knowledge.kaltura.com/kaltura-thumbnail-api](http://knowledge.kaltura.com/kaltura-thumbnail-api)"
+  "keywords": [],
+  "tags": []
 }
