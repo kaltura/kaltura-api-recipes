@@ -73,7 +73,8 @@ module.exports.reload = function() {
         return '* ' + op.service + '.' + op.action;
       }).join('\n');
 
-      recipe.finishText = recipe.finishText || [LEARN_MORE_PREFIX].concat(opsUsed.map(function(op) {
+      recipe.finishText = recipe.finishText || '';
+      recipe.finishText += [LEARN_MORE_PREFIX].concat(opsUsed.map(function(op) {
         var url = '/service/' + op.service + '/action/' + op.action;
         url = '/GET' + url;
         var docUrl = '/portal/console#/Documentation' + url;
