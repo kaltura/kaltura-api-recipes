@@ -1,7 +1,7 @@
 window.KC = null;
 window.onAuthorization = function(creds, cb) {
-  if (!creds.partnerId || !creds.secret) return;
-  if (creds.ks && window.KC) return;
+  if (!creds.partnerId || !creds.secret) return cb();
+  if (creds.ks && window.KC) return cb();
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
