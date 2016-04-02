@@ -1,7 +1,7 @@
 window.KC = null;
 window.onAuthorization = function(creds, cb) {
-  if (!creds.partnerId || !creds.secret) return;
-  if (creds.ks && window.KC) return;
+  if (!creds.partnerId || !creds.secret) return cb();
+  if (creds.ks && window.KC) return cb();
   var config = new KalturaConfiguration(creds.partnerId);
   config.serviceUrl = "https://www.kaltura.com/";
   window.KC = new KalturaClient(config);
@@ -31,6 +31,9 @@ window.onAuthorization = function(creds, cb) {
           return uiConf.tags && uiConf.tags.indexOf('html5studio') !== -1;
         })
       }
+      uiConfs = uiConfs.filter(function(c) {
+        return (c.html5Url || '').indexOf('/v2') !== -1;
+      });
       if (uiConfs.length === 0) {
         $('#Recipe').scope().answers['uiConf'] = results.objects[0].id;
         if (RECIPE.name === 'dynamic_thumbnails') {
@@ -38,9 +41,9 @@ window.onAuthorization = function(creds, cb) {
         } else if (RECIPE.name === 'captions') {
           $('#Recipe').scope().globalError = 'This recipe requires a uiConf with captions enabled. Please use the KMC to create one.';
         }
-      } else {
-        $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
+        uiConfs = results.objects;
       }
+      $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
       cb(null, ks);
     }, filter);
   }, creds.secret,

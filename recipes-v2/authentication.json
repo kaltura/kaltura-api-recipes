@@ -2,7 +2,10 @@
   "name": "authentication",
   "title": "Authentication",
   "summary": "Learn how to pass your credentials to Kaltura's API and create a Kaltura Session",
-  "description": "This recipe will guide you through the steps necessary to create a Kaltura Session (ks), a temporary authentication token that can provide either user-level or admin-level access to your Kaltura account.",
+  "description": [
+    "This recipe will guide you through the steps necessary to create a Kaltura Session (ks), a temporary authentication token that can provide either user-level or admin-level access to your Kaltura account.",
+    ""
+  ],
   "icon": "lock",
   "steps": [
     {
@@ -44,16 +47,23 @@
     },
     {
       "title": "Checking the KS",
-      "description": "You can validate your Kaltura session by calling ```user.get``` without a User ID, which will return the details of the user associated with the current session",
+      "description": [
+        "You can validate your Kaltura session by calling ```user.get``` without a User ID, which will return the details of the user associated with the current session"
+      ],
       "apiCall": {
         "path": "/service/user/action/get",
         "method": "get"
-      }
+      },
+      "ignoreParameters": [
+        "format"
+      ]
     },
     {
       "title": "Logging in with your Login ID",
       "description": [
-        "You can also log in with your Login ID and password by using `user.loginByLoginId`. This will return a new KS."
+        "You can also log in with your Login ID and password by using `user.loginByLoginId`. This will return a new KS.",
+        "Note that this KS can only be used to retrieve a list of partnerIds.\nYou can then use one of these partnerIds to get a privileged KS.",
+        ""
       ],
       "apiCall": {
         "path": "/service/user/action/loginByLoginId",
@@ -78,7 +88,13 @@
       "apiCall": {
         "path": "/service/partner/action/listPartnersForUser",
         "method": "get"
-      }
+      },
+      "parameters": [],
+      "ignoreParameters": [
+        "format"
+      ]
     }
-  ]
+  ],
+  "keywords": [],
+  "tags": []
 }

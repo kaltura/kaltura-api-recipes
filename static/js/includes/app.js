@@ -6,11 +6,24 @@ App.controller('Kaltura', function($scope) {
   $scope.pathname = window.location.pathname;
   $scope.hash = window.location.hash;
   $scope.setUser = function(creds) {
-    $scope.user = creds;
-    var now = new Date();
-    var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
-    var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
-    document.cookie = cookie;
+    window.onAuthorization(creds, function(err, ks) {
+      creds.ks = ks;
+      $scope.user = creds;
+      var now = new Date();
+      var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
+      var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
+      document.cookie = cookie;
+      var call = $('#APICall');
+      if (call.length) {
+        var keys = call.scope().keys;
+        keys.ks = creds.ks;
+        keys.partnerId = creds.partnerId;
+        keys.secret = creds.secret;
+        setTimeout(function() {
+          call.scope().$apply();
+        });
+      }
+    })
   }
 
   var cookies = document.cookie.split(';').map(function(c) {return c.trim()});
@@ -18,8 +31,12 @@ App.controller('Kaltura', function($scope) {
     return c.indexOf(STORAGE_KEY) === 0;
   })[0];
   if (credCookie) {
-    var stored = credCookie.substring(STORAGE_KEY.length + 1);
-    $scope.user = JSON.parse(decodeURIComponent(stored));
+    var stored = credCookie.substring(STORAGE_KEY.length + 1) || '{}';
+    var user;
+    try {
+      user = JSON.parse(decodeURIComponent(stored));
+    } catch(e) {}
+    if (user) $scope.setUser(user);
   }
 })
 
@@ -61,6 +78,7 @@ App.controller('KalturaLogin', function($scope) {
       }
       $scope.setUser(creds);
       $scope.alert = {success: "You're ready to go!"};
+      $scope.inputs = $scope.loginInputs;
       setTimeout(function() {
         $scope.alert = {};
         $('#KalturaLogin').modal('hide');
