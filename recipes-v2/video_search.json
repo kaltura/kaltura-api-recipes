@@ -10,7 +10,9 @@
   "steps": [
     {
       "title": "Filtering Results",
-      "description": "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show.",
+      "description": [
+        "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show."
+      ],
       "apiCall": {
         "path": "/service/media/action/list",
         "method": "get"
@@ -76,9 +78,11 @@
     },
     {
       "title": "Video Player",
-      "description": "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id.",
+      "description": [
+        "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id."
+      ],
       "codeSnippet": {
-        "html": "<div class=\"row\" style=\"margin-bottom: 10px\">\n  <div class=\"col-xs-12 col-md-5\">\n    <h2><%- results[0].objects[0].name %></h2>\n    <p><%- results[0].objects[0].description %></p>\n  </div>\n  <div class=\"col-xs-12 col-md-6 col-md-offset-1\">\n    <script src=\"https://cdnapisec.kaltura.com/p/<%-  results[0].objects[0].partnerId  %>/sp/<%-  results[0].objects[0].partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  results[0].objects[0].partnerId  %>\">\n    </script>\n    <div id=\"kaltura_player_<%-  results[0].objects[0].id  %>\" style=\"width: 560px; height: 395px;\">\n    </div>\n    <script>\n    kWidget.thumbEmbed({\n      \"targetId\": \"kaltura_player_<%-  results[0].objects[0].id  %>\",\n      \"wid\": \"_<%-  results[0].objects[0].partnerId  %>\",\n      \"uiconf_id\": <%-  answers.uiConf  %>,\n      \"flashvars\": {},\n      \"cache_st\": 1437326770,\n      \"ks\": window.ks,\n      \"entry_id\": \"<%-  results[0].objects[0].id  %>\"\n    });\n    </script>\n  </div>\n</div>\n"
+        "html": "<div class=\"row\" style=\"margin-bottom: 10px\">\n  <div class=\"col-xs-12 col-md-5\">\n    <h2><%- results[0].objects[0].name %></h2>\n    <p><%- results[0].objects[0].description %></p>\n  </div>\n  <div class=\"col-xs-12 col-md-6 col-md-offset-1\">\n    <script src=\"https://cdnapisec.kaltura.com/p/<%-  results[0].objects[0].partnerId  %>/sp/<%-  results[0].objects[0].partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  results[0].objects[0].partnerId  %>\">\n    </script>\n    <div id=\"kaltura_player_<%-  results[0].objects[0].id  %>\" style=\"width: 560px; height: 395px;\">\n    </div>\n    <script>\n    kWidget.embed({\n      \"targetId\": \"kaltura_player_<%-  results[0].objects[0].id  %>\",\n      \"wid\": \"_<%-  results[0].objects[0].partnerId  %>\",\n      \"uiconf_id\": <%-  answers.uiConf  %>,\n      \"flashvars\": {},\n      \"cache_st\": 1437326770,\n      \"ks\": window.ks,\n      \"entry_id\": \"<%-  results[0].objects[0].id  %>\"\n    });\n    </script>\n  </div>\n</div>\n"
       },
       "parameters": [
         {
@@ -178,5 +182,7 @@
         "method": "get"
       }
     }
-  ]
+  ],
+  "keywords": [],
+  "tags": []
 }
