@@ -18,6 +18,14 @@
   font-size: 16px;
 }
 
+#Recipe .well h4 span,
+#Recipe .well h4 a {
+  display: none !important;
+}
+#Recipe .well h4:before {
+  content: 'Set values in the parameters below to try this step';
+}
+
 body {
   padding-top: 69px;
 }
