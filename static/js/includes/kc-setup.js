@@ -25,14 +25,12 @@ window.onAuthorization = function(creds, cb) {
         uiConfs = uiConfs.filter(function(uiConf) {
           return uiConf.confFile.indexOf('Plugin id="closedCaptions') !== -1;
         })
-      } else if (window.RECIPE) {
-        uiConfs = uiConfs.filter(function(uiConf) {
-          return uiConf.tags && uiConf.tags.indexOf('html5studio') !== -1;
-        })
       }
-      uiConfs = uiConfs.filter(function(c) {
-        return (c.html5Url || '').indexOf('/v2') !== -1;
-      });
+      uiConfs = uiConfs.filter(function(uiConf) {
+        return uiConf.tags &&
+               uiConf.tags.indexOf('html5studio') !== -1 &&
+               (uiConf.html5Url || '').indexOf('/v2') !== -1;
+      })
       if (uiConfs.length === 0) {
         $('#Recipe').scope().answers['uiConf'] = results.objects[0].id;
         if (RECIPE.name === 'dynamic_thumbnails') {
