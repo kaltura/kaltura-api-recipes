@@ -34,6 +34,7 @@ if (!process.env.DEVELOPMENT) {
   App.use('/img',            cache('long'));
   App.use('/kaltura_static', cache('med'));
   App.use('/minified',       cache('med'));
+  App.use('/partials',       cache('med'));
   App.use('/swagger.js',     cache('med'));
   App.use('/swagger.json',   cache('med'));
 }
