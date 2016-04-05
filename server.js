@@ -30,11 +30,12 @@ var cache = function(age) {
   };
 }
 if (!process.env.DEVELOPMENT) {
-  App.use('/fonts', cache('long'));
-  App.use('/img', cache('long'));
-  App.use('/minified', cache());
-  App.use('/swagger.js', cache());
-  App.use('/swagger.json', cache());
+  App.use('/fonts',          cache('long'));
+  App.use('/img',            cache('long'));
+  App.use('/kaltura_static', cache('med'));
+  App.use('/minified',       cache('med'));
+  App.use('/swagger.js',     cache('med'));
+  App.use('/swagger.json',   cache('med'));
 }
 App.use('/kaltura_static', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
