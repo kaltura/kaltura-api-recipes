@@ -12,7 +12,7 @@
           mixin menu-item(name, label)
             li(ng-class="{active: '#{name}'.indexOf(currentPage) === 0}")
               a(href="{{getLink('#{name}')}}")= label
-          +menu-item('documentation', 'Documentation')
+          +menu-item('documentation', 'API Docs')
           +menu-item('console', 'API Console')
           +menu-item('recipes', 'Code Recipes')
           li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
