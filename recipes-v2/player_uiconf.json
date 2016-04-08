@@ -1,0 +1,70 @@
+{
+  "name": "player_uiconf",
+  "title": "Player UI conf",
+  "summary": "Learn how to get and update player configuration",
+  "icon": "columns",
+  "steps": [
+    {
+      "title": "Select a player",
+      "description": "Choose a player to view its configuration",
+      "apiCall": {
+        "path": "/service/uiconf/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name",
+            "parameters": [
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 1
+              }
+            ]
+          },
+          "global": true
+        }
+      ]
+    },
+    {
+      "title": "Updating the UI conf",
+      "description": "You can use the form below to add, change or remove functionality from your player.",
+      "apiCall": {
+        "path": "/service/uiconf/action/update",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name",
+            "parameters": [
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 1
+              }
+            ]
+          },
+          "global": true
+        },
+        {
+          "name": "uiConf[config]",
+          "x-inputType": "textarea",
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "config"
+          }
+        }
+      ]
+    }
+  ]
+}

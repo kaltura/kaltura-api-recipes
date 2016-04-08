@@ -1,0 +1,139 @@
+{
+  "name": "webvtt_captions",
+  "title": "Serve WebVTT Captions",
+  "summary": "Learn how to serve a WebVTT caption",
+  "icon": "cc",
+  "steps": [
+    {
+      "title": "Getting Caption Assets",
+      "description": "Use `captionAsset.list` to retrieve a list of Caption Assets",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/list",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "filter[entryIdEqual]",
+          "dynamicEnum": {
+            "path": "/service/media/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Uploading Captions - Create an Upload Token",
+      "description": "Use the uploadToken service to upload an WebVTT file to the Kaltura API. If you don't have an WebVTT file handy, you can [download one here](/sample_captions.srt)\n\nFirst you'll need to use `uploadToken.add` to create a new upload token. In the next step we'll use this token to upload the WebVTT data.",
+      "apiCall": {
+        "path": "/service/uploadtoken/action/add",
+        "method": "get"
+      },
+      "parameters": []
+    },
+    {
+      "title": "Uploading Captions - Send the WebVTT Data",
+      "description": "Now we'll use the newly created Upload Token to upload the WebVTT file.",
+      "apiCall": {
+        "path": "/service/uploadtoken/action/upload",
+        "method": "post"
+      },
+      "parameters": [
+        {
+          "name": "uploadTokenId",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        },
+        {
+          "name": "fileData"
+        }
+      ]
+    },
+    {
+      "title": "Adding a new Caption Asset",
+      "description": "Use `captionAsset.add` to create a new Caption Asset",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/add",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "entryId",
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[entryIdEqual]"
+          }
+        },
+        {
+          "name": "captionAsset[language]",
+          "default": "English"
+        },
+        {
+          "name": "captionAsset[label]"
+        },
+        {
+          "name": "captionAsset[isDefault]"
+        },
+        {
+          "name": "captionAsset[format]",
+          "default": "3"
+        }
+      ]
+    },
+    {
+      "title": "Retrieving an Caption Asset",
+      "description": "Use `captionAsset.get` to get details for a specific Caption Asset",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/get",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "captionAssetId",
+          "dynamicValue": {
+            "fromStep": 3,
+            "value": "id"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Serving WebVTT Captions",
+      "description": "Use `captionAsset.serveWebVTT` to serve your captions",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/serveWebVTT",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "captionAssetId",
+          "dynamicValue": {
+            "fromStep": 3,
+            "value": "id"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Deleting an Caption Asset",
+      "description": "Use `captionAsset.delete` to remove a specific Caption Asset",
+      "apiCall": {
+        "path": "/service/caption_captionasset/action/delete",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "captionAssetId",
+          "dynamicValue": {
+            "fromStep": 3,
+            "value": "id"
+          }
+        }
+      ]
+    }
+  ]
+}

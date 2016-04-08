@@ -3,8 +3,8 @@ var EJS = require('ejs');
 var Router = require('express').Router();
 var Schema = require('kaltura-schema');
 var Lucy = require('lucy-codegen').Lucy;
-var CodeTemplates = require('kaltura-codegen');
-
+var KCode = require('kaltura-codegen'),
+    CodeTemplates = KCode.templates;
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 var ACTION_FIELDS = ['list', 'clone', 'delete'];
@@ -43,6 +43,8 @@ module.exports.initialize = function(cb) {
               if (BLACKLISTED_FIELDS.indexOf(fieldName) !== -1) continue;
               var fieldType = props[fieldName].type;
               var enumType = props[fieldName].enumType;
+              var existing = paramObject.fields.filter(f => f.name === fieldName && (!f.objectType || f.objectType === objectType));
+              if (existing.length) continue;
               var field = {
                   name: fieldName,
                   type: fieldType,
@@ -62,7 +64,8 @@ module.exports.initialize = function(cb) {
       }
     }
 
-    Router.post('/code/build/kc_request', function(req, res) {
+    Router.post('/code/build/request', function(req, res) {
+      if (process.env.DEVELOPMENT) KCode.populateTemplates();
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
@@ -72,18 +75,18 @@ module.exports.initialize = function(cb) {
       req.body.request.query = req.body.request.query || {};
       tmpl = EJS.render(tmpl, codeParams);
       var answers = {};
-      for (var key in req.body.request.query) {
-        answers[key] = {val: req.body.request.query[key]};
+      for (var key in req.body.answers) {
+        answers[key] = {val: req.body.answers[key]};
       }
       var lucy = new Lucy(lang, answers);
       lucy.returnCode = function(val, tabs) {
         var ret = '';
         if (lang === 'javascript' || lang === 'node') {
-          ret = 'console.log(' + val + ')';
+          ret = 'console.log(' + val + ');';
         } else if (lang === 'ruby') {
           ret = 'puts ' + val;
         } else if (lang === 'php') {
-          ret = 'echo ' + val;
+          ret = 'echo ' + val + ';';
         }
         for (var i = 0; i < tabs; ++i) ret = ' ' + ret;
         return ret;

@@ -1,0 +1,172 @@
+{
+  "name": "metadata",
+  "title": "Working with metadata",
+  "summary": "Learn to work with metadata.",
+  "relatedRecipes": [
+    "video_search"
+  ],
+  "icon": "exclamation",
+  "steps": [
+    {
+      "title": "Create metadata profile",
+      "description": "This recipe will walk you through using custom metadata fields with entries. Custom metadata can also be applied to other objects, such as categories.",
+      "apiCall": {
+        "path": "/service/metadata_metadataprofile/action/add",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "metadataProfile[name]",
+          "default": ""
+        },
+        {
+          "name": "metadataProfile[systemName]",
+          "default": ""
+        },
+        {
+          "name": "metadataProfile[metadataObjectType]",
+          "default": "1",
+          "hidden": true
+        },
+        {
+          "name": "objectType",
+          "default": "1",
+          "hidden": true
+        },
+        {
+          "name": "metadataProfile[createMode]",
+          "default": "1",
+          "hidden": true
+        },
+        {
+          "name": "xsdData",
+          "hidden": false,
+          "x-inputType": "textarea"
+        }
+      ]
+    },
+    {
+      "title": "Add metadata to an entry",
+      "description": "To learn how to search through metadata fields, please see the [video_search recipe](https://developer.kaltura.org/recipes/video_search)",
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/add",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "objectId",
+          "dynamicEnum": {
+            "path": "/service/media/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name"
+          }
+        },
+        {
+          "name": "xmlData",
+          "default": "<metadata><Somefield>LINUX RULES</Somefield></metadata>"
+        },
+        {
+          "name": "objectType",
+          "default": "1",
+          "hidden": true
+        },
+        {
+          "name": "metadataProfileId",
+          "dynamicEnum": {
+            "path": "/service/metadata_metadataprofile/action/list",
+            "method": "get",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Update entry metadata",
+      "description": "Use `metadata.update` to update the metadata for a given item",
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/update",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "default": "",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        },
+        {
+          "name": "xmlData",
+          "default": "<metadata><Somefield>NEW VALUE HERE</Somefield></metadata>"
+        }
+      ]
+    },
+    {
+      "title": "Delete metadata",
+      "description": "Use the form below to delete the Metadata you created.",
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 1,
+            "value": "id"
+          }
+        },
+        {
+          "name": "objectIdEqual",
+          "default": "",
+          "dynamicValue": {
+            "fromStep": 1,
+            "answer": "objectId"
+          }
+        },
+        {
+          "name": "metadataProfileIdEqual",
+          "dynamicEnum": {
+            "path": "/service/metadata_metadataprofile/action/list",
+            "method": "get",
+            "parameters": [],
+            "array": "objects",
+            "label": "name",
+            "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
+          }
+        }
+      ],
+      "apiCall": {
+        "path": "/service/metadata_metadata/action/delete",
+        "method": "get"
+      }
+    },
+    {
+      "title": "Delete metadata profiles",
+      "description": "Use the form below to delete the Metadata Profile you created",
+      "apiCall": {
+        "path": "/service/metadata_metadataprofile/action/delete",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
+          }
+        }
+      ]
+    }
+  ]
+}

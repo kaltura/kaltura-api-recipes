@@ -1,0 +1,188 @@
+{
+  "name": "video_search",
+  "title": "Video Search",
+  "summary": "Learn how to search through your video library using Kaltura's API",
+  "relatedRecipes": [
+    "captions",
+    "metadata"
+  ],
+  "icon": "search",
+  "steps": [
+    {
+      "title": "Filtering Results",
+      "description": [
+        "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show."
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      },
+      "parameters": [
+        {
+          "name": "filter[freeText]",
+          "default": ""
+        },
+        {
+          "name": "filter[createdAtGreaterThanOrEqual]"
+        },
+        {
+          "name": "filter[advancedSearch][objectType]",
+          "default": "KalturaMetadataSearchItem",
+          "hidden": true
+        },
+        {
+          "name": "filter[advancedSearch][orderBy]",
+          "default": "-createdAt",
+          "enum": [
+            "+createdAt",
+            "+duration",
+            "+lastPlayedAt",
+            "+name",
+            "+plays",
+            "+recent",
+            "+startDate",
+            "+updatedAt",
+            "+views",
+            "-createdAt",
+            "-duration",
+            "-lastPlayedAt",
+            "-name",
+            "-plays",
+            "-recent",
+            "-startDate",
+            "-updatedAt",
+            "-views"
+          ],
+          "enumLabels": [
+            "CREATED_AT_ASC",
+            "DURATION_ASC",
+            "LAST_PLAYED_AT_ASC",
+            "NAME_ASC",
+            "PLAYS_ASC",
+            "RECENT_ASC",
+            "START_DATE_ASC",
+            "UPDATED_AT_ASC",
+            "VIEWS_ASC",
+            "CREATED_AT_DESC",
+            "DURATION_DESC",
+            "LAST_PLAYED_AT_DESC",
+            "NAME_DESC",
+            "PLAYS_DESC",
+            "RECENT_DESC",
+            "START_DATE_DESC",
+            "UPDATED_AT_DESC",
+            "VIEWS_DESC"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Video Player",
+      "description": [
+        "Here's how to embed the results in HTML. You can select a skin by setting uiconf_id."
+      ],
+      "codeSnippet": {
+        "html": "<div class=\"row\" style=\"margin-bottom: 10px\">\n  <div class=\"col-xs-12 col-md-5\">\n    <h2><%- results[0].objects[0].name %></h2>\n    <p><%- results[0].objects[0].description %></p>\n  </div>\n  <div class=\"col-xs-12 col-md-6 col-md-offset-1\">\n    <script src=\"https://cdnapisec.kaltura.com/p/<%-  results[0].objects[0].partnerId  %>/sp/<%-  results[0].objects[0].partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  results[0].objects[0].partnerId  %>\">\n    </script>\n    <div id=\"kaltura_player_<%-  results[0].objects[0].id  %>\" style=\"width: 560px; height: 395px;\">\n    </div>\n    <script>\n    kWidget.embed({\n      \"targetId\": \"kaltura_player_<%-  results[0].objects[0].id  %>\",\n      \"wid\": \"_<%-  results[0].objects[0].partnerId  %>\",\n      \"uiconf_id\": <%-  answers.uiConf  %>,\n      \"flashvars\": {},\n      \"cache_st\": 1437326770,\n      \"ks\": window.ks,\n      \"entry_id\": \"<%-  results[0].objects[0].id  %>\"\n    });\n    </script>\n  </div>\n</div>\n"
+      },
+      "parameters": [
+        {
+          "name": "uiConf",
+          "dynamicEnum": {
+            "path": "/service/uiconf/action/list",
+            "method": "get",
+            "array": "objects",
+            "value": "id",
+            "label": "name",
+            "parameters": [
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "name": "filter[freeText]",
+          "default": "",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[freeText]"
+          }
+        },
+        {
+          "name": "filter[createdAtGreaterThanOrEqual]",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[createdAtGreaterThanOrEqual]"
+          }
+        },
+        {
+          "name": "filter[advancedSearch][objectType]",
+          "default": "KalturaMetadataSearchItem",
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[advancedSearch][objectType]"
+          }
+        },
+        {
+          "name": "filter[advancedSearch][orderBy]",
+          "default": "-createdAt",
+          "enum": [
+            "+createdAt",
+            "+duration",
+            "+lastPlayedAt",
+            "+name",
+            "+plays",
+            "+recent",
+            "+startDate",
+            "+updatedAt",
+            "+views",
+            "-createdAt",
+            "-duration",
+            "-lastPlayedAt",
+            "-name",
+            "-plays",
+            "-recent",
+            "-startDate",
+            "-updatedAt",
+            "-views"
+          ],
+          "enumLabels": [
+            "CREATED_AT_ASC",
+            "DURATION_ASC",
+            "LAST_PLAYED_AT_ASC",
+            "NAME_ASC",
+            "PLAYS_ASC",
+            "RECENT_ASC",
+            "START_DATE_ASC",
+            "UPDATED_AT_ASC",
+            "VIEWS_ASC",
+            "CREATED_AT_DESC",
+            "DURATION_DESC",
+            "LAST_PLAYED_AT_DESC",
+            "NAME_DESC",
+            "PLAYS_DESC",
+            "RECENT_DESC",
+            "START_DATE_DESC",
+            "UPDATED_AT_DESC",
+            "VIEWS_DESC"
+          ],
+          "hidden": true,
+          "dynamicValue": {
+            "fromStep": 0,
+            "answer": "filter[advancedSearch][orderBy]"
+          }
+        }
+      ],
+      "apiCall": {
+        "path": "/service/media/action/list",
+        "method": "get"
+      }
+    }
+  ],
+  "keywords": [],
+  "tags": []
+}

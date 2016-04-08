@@ -3,20 +3,42 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
-var LucyConsole = require('lucy-console');
+var LucyPortal = require('lucy-api-portal').PortalRouter;
 var Swagger = require('./swagger.js');
 var RecipeManager = require('./recipes/recipes.js');
+var assetMan = require('./asset-man');
 
 var App = Express();
+App.use(require('compression')());
 App.set('views', __dirname + '/views')
 App.set('view engine', 'jade');
 App.engine('jade', require('jade').__express);
+App.use(require('body-parser').json());
 
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
   App.use(require('./routes/basic-auth.js'));
 }
 
-App.use('/', Express.static(__dirname + '/static'));
+var cache = function(age) {
+  age = age || 'med';
+  if (age === 'short') age = 60 * 60;
+  if (age === 'med')   age = 60 * 60 * 24;
+  if (age === 'long')  age = 60 * 60 * 24 * 30;
+  return function(req, res, next) {
+    res.setHeader('Cache-Control', 'public, max-age=' + age);
+    next();
+  };
+}
+if (!process.env.DEVELOPMENT) {
+  App.use('/fonts',          cache('long'));
+  App.use('/img',            cache('long'));
+  App.use('/kaltura_static', cache('med'));
+  App.use('/minified',       cache('med'));
+  App.use('/partials',       cache('med'));
+  App.use('/swagger.js',     cache('med'));
+  App.use('/swagger.json',   cache('med'));
+}
+App.use('/kaltura_static', Express.static(__dirname + '/static'));
 App.use('/img', Express.static(__dirname + '/img'));
 
 App.use('/auth', require('./routes/partner-auth.js'));
@@ -31,44 +53,60 @@ if (process.env.DEVELOPMENT) {
   }))
 }
 
-var apiConsole = new LucyConsole({
+var recipes = require('./recipes-v2').recipes;
+var navbarFile = __dirname + '/views/includes/navbar.jade';
+
+var cid = assetMan.options.cacheID || '';
+var cacheBust = file => file + '?cacheID=' + cid;
+
+var apiPortal = LucyPortal({
   swagger: Swagger,
-  mixpanel: '/js/includes/mixpanel.js',
-  cssIncludes: ['/css/bootstrap.css', '/css/console.css'],
+  defaultPage: 'readme',
+  cacheID: cid,
+  bootstrap: '/kaltura_static/css/bootstrap.css',
+  cssIncludes: [
+    '/kaltura_static/minified/css/includes.css',
+  ].map(cacheBust),
   jsIncludes: [
-    '/js/kaltura/ox.ajast.js',
-    '/js/kaltura/webtoolkit.md5.js',
-    '/js/kaltura/KalturaClientBase.js',
-    '/js/kaltura/KalturaTypes.js',
-    '/js/kaltura/KalturaVO.js',
-    '/js/kaltura/KalturaServices.js',
-    '/js/kaltura/KalturaClient.js',
-    '/js/includes/kc-setup.js',
-    '/js/includes/console.js',
-  ],
+    '/kaltura_static/minified/js/kaltura.js',
+    '/kaltura_static/minified/js/includes.js',
+  ].map(cacheBust),
+  navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
   disableAutorefresh: true,
-  codegenPath: '/code/build/kc_request',
-  basePath: '/console_embed',
   development: process.env.DEVELOPMENT || false,
   credentialCookie: 'LUCYBOT_RECIPE_CREDS',
   embedParameters: {
     format: 1,
   },
+  recipes: recipes,
+  saveRecipe: process.env.DEVELOPMENT || process.env.ENABLE_EDITS ? require('./recipes-v2').save : null,
 })
-App.use('/console_embed', apiConsole.router);
+
+if (process.env.DEVELOPMENT) {
+  App.use('/recipes/:recipe', function(req, res, next) {
+    require('./recipes-v2').reload();
+    apiPortal.reloadRecipes();
+    next();
+  });
+}
+
 require('./codegen').initialize(function(router) {
-  App.use('/console_embed', router);
+  App.use(router);
+  App.use(apiPortal);
+  App.use(Express.static(__dirname + '/static'));
 })
 
 App.get('/swagger.json', function(req, res) {
   res.json(Swagger);
 })
 
-var recipes = new RecipeManager();
-var sitemapUrls = Object.keys(recipes.recipes).map(function(r) {
+var sitemapUrls = Object.keys(recipes).map(function(r) {
   return {url: '/recipes/' + r, priority: .3}
 });
-sitemapUrls.push({url: '/', priority: .9})
+sitemapUrls.push({url: '/readme',        priority: .9})
+sitemapUrls.push({url: '/documentation', priority: .9})
+sitemapUrls.push({url: '/console',       priority: .9})
+sitemapUrls.push({url: '/recipes',       priority: .9})
 var sitemap = require('sitemap').createSitemap({
   hostname: 'https://developer.kaltura.org',
   cacheTime: 1000 * 60 * 10, // ten minutes
@@ -82,33 +120,26 @@ App.use('/sitemap.xml', function(req, res) {
   })
 })
 
-App.use('/discussion', require('./routes/discussion.js'))
-
-require('./routes/recipes.js').getRouter(function(router) {
-  App.use('/recipes_embed', router);
-  App.use('/', require('./routes/pages.js'));
-
-  if (process.env.LUCYBOT_DEV) {
-    console.log('----DEVELOPMENT ENVIRONMENT----');
-    var port = process.env.KALTURA_RECIPES_PORT || 3000;
-    console.log('listening on port ' + port);
-    App.listen(port);
-  } else {
-    var port = process.env.KALTURA_RECIPES_PORT || 443
-    var sslOptions = {
-      key: fs.readFileSync('/etc/ssl/certs/kaltura.org.key'),
-      cert: fs.readFileSync('/etc/ssl/certs/kaltura.org.crt'),
-      ca: fs.readFileSync('/etc/ssl/certs/ca-kaltura.org.crt'),
-      requestCert: true,
-      rejectUnauthorized: false
-    };
-    var secureServer = https.createServer(sslOptions, App).listen(port, function(){
-      console.log("Secure Express server listening on port "+port);
-    });
-    // Redirect from http port 80 to https
-    http.createServer(function (req, res) {
-      res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-      res.end();
-    }).listen(80);
-  }
-});
+if (process.env.LUCYBOT_DEV) {
+  console.log('----DEVELOPMENT ENVIRONMENT----');
+  var port = process.env.KALTURA_RECIPES_PORT || 3000;
+  console.log('listening on port ' + port);
+  App.listen(port);
+} else {
+  var port = process.env.KALTURA_RECIPES_PORT || 443
+  var sslOptions = {
+    key: fs.readFileSync('/etc/ssl/certs/kaltura.org.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/kaltura.org.crt'),
+    ca: fs.readFileSync('/etc/ssl/certs/ca-kaltura.org.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+  };
+  var secureServer = https.createServer(sslOptions, App).listen(port, function(){
+    console.log("Secure Express server listening on port "+port);
+  });
+  // Redirect from http port 80 to https
+  http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+  }).listen(80);
+}

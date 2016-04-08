@@ -1,0 +1,27 @@
+.sidebar {
+  top: 90px;
+}
+
+.heading-icon {
+  color: #AB7800;
+  background-color: #e09d00;
+}
+
+.try-button span {
+  display: none;
+}
+.try-button:before {
+  content: 'Test this API action/service';
+}
+
+#Recipe .parameter-input label {
+  font-size: 16px;
+}
+
+#Recipe .well h4 span,
+#Recipe .well h4 a {
+  display: none !important;
+}
+#Recipe .well h4:before {
+  content: 'Set values in the parameters below to try this step';
+}

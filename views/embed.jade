@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title Kaltura VPaaS API Console
+    meta(name="description" content="Documentation and test console for the Kaltura Video Platform API")
+    meta(name="keywords" content="Kaltura, Video, VPaaS, API, API console, documentation")
+
+    include ./includes/head
+
+  body(ng-app="App")
+    div(ng-controller="Body")
+      mixin container
+        .container-fluid
+          block
+      include ./includes/navbar.jade
+    h1.text-center
+      i.fa.fa-3x.fa-spin.fa-refresh
+    .iframe-container
+      iframe
+    script.
+      $(document).ready(function() {
+        var url = "/portal_embed#{page}";
+        url += window.location.search || '';
+        url += window.location.hash || '';
+        $('iframe').attr('src', url);
+
+        $('iframe').load(function() {
+          $('h1').remove();
+          var frame = $('iframe')[0].contentWindow;
+          if (window.location.hash) {
+            frame.location.hash = window.location.hash;
+          }
+          var lastHash = frame.location.hash;
+          setInterval(function() {
+            if (window.location.hash !== lastHash) {
+              lastHash = frame.location.hash = window.location.hash;
+            } else if (frame.location.hash !== lastHash) {
+              lastHash = window.location.hash = frame.location.hash;
+            }
+          }, 1000)
+        })
+      })

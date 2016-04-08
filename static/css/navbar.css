@@ -1,41 +1,68 @@
-.navbar {
+body {
+  padding-top: 69px;
+}
+
+.fa-right {
+  margin-left: 8px;
+}
+.fa-left {
+  margin-right: 8px;
+}
+
+#KalturaNav.navbar {
   border-radius: 0px;
   background-color: #fff;
   padding-top: 12px;
   padding-bottom: 12px;
+  margin-bottom: 0px;
+}
+
+#KalturaNav.navbar .navbar-toggle {
+  margin-bottom: 0px;
+}
+
+#KalturaNav.navbar a {
+  cursor: pointer;
 }
 
 .text-bold {
   font-weight: bold;
 }
 
-li.signed-in {
-  padding-left: 15px;
-}
-
-.navbar-default .navbar-nav > li.active > a {
+#KalturaNav.navbar-default .navbar-nav > li.active > a {
   background-color: #008096;
 }
+#KalturaNav.navbar-default .navbar-nav > li.active > a,
+#KalturaNav.navbar-default .navbar-nav > li > a:focus,
+#KalturaNav.navbar-default .navbar-nav > li > a:hover {
+  color: #fff;
+}
 
-.navbar-default .navbar-nav > li > a {
+#KalturaNav.navbar-default .navbar-nav > li > a {
   text-align: left;
   color: #333;
 }
 
-.navbar ul {
+#KalturaNav.navbar ul {
   margin-right: 0;
 }
 
-li.signed-in {
+#KalturaNav li.signed-in {
   line-height: 45px;
+  padding-left: 15px;
 }
 
-.navbar .navbar-brand {
+#KalturaNav.navbar .navbar-brand {
   padding: 4px;
   padding-left: 15px;
 }
 
-.navbar img {
+#KalturaNav.navbar img {
   max-height: 100%;
 }
+
+.btn.text-left {
+  text-align: left;
+}
+
 

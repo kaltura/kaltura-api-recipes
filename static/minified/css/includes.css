@@ -1,0 +1,96 @@
+.sidebar {
+  top: 90px;
+}
+
+.heading-icon {
+  color: #AB7800;
+  background-color: #e09d00;
+}
+
+.try-button span {
+  display: none;
+}
+.try-button:before {
+  content: 'Test this API action/service';
+}
+
+#Recipe .parameter-input label {
+  font-size: 16px;
+}
+
+#Recipe .well h4 span,
+#Recipe .well h4 a {
+  display: none !important;
+}
+#Recipe .well h4:before {
+  content: 'Set values in the parameters below to try this step';
+}
+
+body {
+  padding-top: 69px;
+}
+
+.fa-right {
+  margin-left: 8px;
+}
+.fa-left {
+  margin-right: 8px;
+}
+
+#KalturaNav.navbar {
+  border-radius: 0px;
+  background-color: #fff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 0px;
+}
+
+#KalturaNav.navbar .navbar-toggle {
+  margin-bottom: 0px;
+}
+
+#KalturaNav.navbar a {
+  cursor: pointer;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+#KalturaNav.navbar-default .navbar-nav > li.active > a {
+  background-color: #008096;
+}
+#KalturaNav.navbar-default .navbar-nav > li.active > a,
+#KalturaNav.navbar-default .navbar-nav > li > a:focus,
+#KalturaNav.navbar-default .navbar-nav > li > a:hover {
+  color: #fff;
+}
+
+#KalturaNav.navbar-default .navbar-nav > li > a {
+  text-align: left;
+  color: #333;
+}
+
+#KalturaNav.navbar ul {
+  margin-right: 0;
+}
+
+#KalturaNav li.signed-in {
+  line-height: 45px;
+  padding-left: 15px;
+}
+
+#KalturaNav.navbar .navbar-brand {
+  padding: 4px;
+  padding-left: 15px;
+}
+
+#KalturaNav.navbar img {
+  max-height: 100%;
+}
+
+.btn.text-left {
+  text-align: left;
+}
+
+

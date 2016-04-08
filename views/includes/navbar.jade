@@ -1,19 +1,25 @@
-include ./auth-modals.jade
-nav.navbar.navbar-default
-  +container
-    .navbar-header
-      a.navbar-brand(href="/")
-        img(src="/img/kaltura_dev.png")
-      if typeof recipe !== 'undefined'
-        a.navbar-brand.recipe-navbar-title(href="#")
-          span(href="#")= recipe.title
-    ul.nav.navbar-nav.navbar-right
-      li(ng-class="{active: pathname === '/' || pathname.indexOf('/recipes') === 0}")
-        a(href="/") Code Recipes
-      li(ng-class="{active: pathname === '/console'}")
-        a(href="/console") API Console
-      li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-        span Signed in as {{user.userId}} 
-          a(href="javascript:;" ng-click="setUser({})") [sign out]
-      li.text-bold(ng-if="!user.userId")
-        a#LoginButton(data-toggle="modal" data-target="#Login") Sign In
+#Kaltura(ng-controller="Kaltura")
+  include ./auth-modals.jade
+  nav#KalturaNav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#collapse-bar")
+          i.fa.fa-bars
+        a.navbar-brand(href="/")
+          img(src="/img/kaltura_dev.png" height="37" width="157")
+      #collapse-bar.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          mixin menu-item(name, label)
+            li(ng-class="{active: '#{name}'.indexOf(currentPage) === 0}")
+              a(href="{{getLink('#{name}')}}")= label
+          +menu-item('documentation', 'API Docs')
+          +menu-item('console', 'API Console')
+          +menu-item('recipes', 'Code Recipes')
+          li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
+            span.hidden-sm
+              span(ng-bind="user.userId")
+              span &nbsp;
+            span
+              a(href="javascript:;" ng-click="setUser({})") [sign out]
+          li.text-bold(ng-if="!user.userId")
+            a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In

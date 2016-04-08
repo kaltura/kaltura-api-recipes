@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cue Points Vast Ads </title>
+<script type="text/javascript" src="../../../tests/qunit/qunit-bootstrap.js"></script>
+<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
+<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
+<script src="https://cdnapisec.kaltura.com/p/<%-  answers.partnerId  %>/sp/<%- answers.partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%-  answers.partnerId  %>">
+</script>
+<script type="text/javascript">
+	var myPlayer;
+	// Bind to cuePointReached event
+	var jsCallbackReady = function( playerId ) {
+		myPlayer = $('#' + playerId )[0];
+
+		myPlayer.addJsListener("cuePointReached", "writeLog");
+		myPlayer.addJsListener("adOpportunity", "writeLog");
+	};
+
+	var writeLog = function( qPoint ) {
+		var type = (qPoint.context) ? 'Ad' : 'Code';
+		$('#eventRowDesc').after(
+			$('<tr />' ).append(
+				$('<td />').text( (qPoint.cuePoint.title) ? qPoint.cuePoint.title : qPoint.cuePoint.description ),
+				$('<td />').text( type ),
+				$('<td />').text( qPoint.cuePoint.startTime )
+			)
+		);
+	};
+</script>
+</head>
+<body>
+<h2> Cue Points Vast Ads </h2>
+<div id="playbackModeSelector" ></div>
+<br /><br />
+<div id="kaltura_player" style="width:400px;height:333px"></div>
+<script>
+	kWidget.embed({
+		'targetId': 'kaltura_player',
+		'wid': '_<%- answers.partnerId %>',
+		'uiconf_id': '<%- answers.uiConf %>',
+		'entry_id': '<%- answers.entryId %>',
+	})
+</script>
+<div style="float:left;padding-left:20px" >
+	<i>Cue Points events: </i><br />
+	<table border="1" width="520">
+	<tr id="eventRowDesc">
+		<td>Name</td>
+		<td>Type</td>
+		<td>Start Time</td>
+	</tr>
+	</table>
+</div>
+<div style="clear:both"></div>
+</pre>
+</body>
+</html>
