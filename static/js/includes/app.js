@@ -6,9 +6,9 @@ App.controller('Kaltura', function($scope) {
   $scope.pathname = window.location.pathname;
   $scope.hash = window.location.hash;
   $scope.setUser = function(creds) {
+    $scope.user = creds;
     window.onAuthorization(creds, function(err, ks) {
-      creds.ks = ks;
-      $scope.user = creds;
+      $scope.user.ks = creds.ks = ks;
       var now = new Date();
       var expires = new Date(now.getTime() + COOKIE_TIMEOUT_MS);
       var cookie = STORAGE_KEY + '=' + encodeURIComponent(JSON.stringify(creds)) + '; expires=' + expires.toUTCString() + '; Path=/';
