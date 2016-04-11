@@ -48,5 +48,6 @@ mixin modal(id, title, submit)
             .alert.alert-warning(ng-if="alert.warning") {{ alert.warning }}
             .alert.alert-danger(ng-if="alert.danger") {{ alert.danger }}
           button.btn.btn-success(ng-if="!alert.success" type="submit" ng-disabled="loading") 
-            span(ng-if="!loading") #{submit}
-            i.fa.fa-spin.fa-refresh(ng-if="loading")
+            span(ng-show="!loading") #{submit}
+            span(ng-show="loading")
+              i.fa.fa-spin.fa-refresh
