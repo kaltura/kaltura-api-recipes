@@ -27,7 +27,7 @@
 }
 
 body {
-  padding-top: 69px;
+  padding-top: 62px;
 }
 
 .fa-right {
@@ -36,6 +36,12 @@ body {
 .fa-left {
   margin-right: 8px;
 }
+.btn.text-left {
+  text-align: left;
+}
+.text-bold {
+  font-weight: bold;
+}
 
 #KalturaNav.navbar {
   border-radius: 0px;
@@ -43,54 +49,61 @@ body {
   padding-top: 12px;
   padding-bottom: 12px;
   margin-bottom: 0px;
+  padding: 0;
+}
+
+#KalturaNav .dropdown-menu a {
+  color: #333;
+  background-color: #fff;
+}
+#KalturaNav .dropdown-menu a:hover {
+  color: #fff;
+  background-color: #005463;
 }
 
 #KalturaNav.navbar .navbar-toggle {
   margin-bottom: 0px;
+  padding-top: 15px;
+  font-size: 18px;
 }
 
-#KalturaNav.navbar a {
+#KalturaNav.navbar li.navbar-link > a {
   cursor: pointer;
 }
-
-.text-bold {
-  font-weight: bold;
+#KalturaNav.navbar li.navbar-link > .fake-btn,
+#KalturaNav.navbar li.navbar-link > a {
+  color: #333 !important;
+  background-color: #fff !important;
+  padding: 20px;
+  padding-top: 22px;
+}
+#KalturaNav.navbar .navbar-brand {
+  padding-top: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 0px;
+  height: 100%;
+}
+#KalturaNav.navbar .navbar-right li.last-navbar-link {
+  margin-right: -15px;
 }
 
-#KalturaNav.navbar-default .navbar-nav > li.active > a {
-  background-color: #008096;
-}
-#KalturaNav.navbar-default .navbar-nav > li.active > a,
-#KalturaNav.navbar-default .navbar-nav > li > a:focus,
-#KalturaNav.navbar-default .navbar-nav > li > a:hover {
-  color: #fff;
-}
-
-#KalturaNav.navbar-default .navbar-nav > li > a {
+#KalturaNav.navbar-default .navbar-nav li.navbar-link > a {
   text-align: left;
   color: #333;
+}
+#KalturaNav.navbar-default .navbar-left li.navbar-link > a {
+  border-left: 1px solid #ccc;
+}
+#KalturaNav.navbar-default .navbar-left li.last-navbar-link > a {
+  border-right: 1px solid #ccc;
 }
 
 #KalturaNav.navbar ul {
   margin-right: 0;
 }
 
-#KalturaNav li.signed-in {
-  line-height: 45px;
-  padding-left: 15px;
-}
-
-#KalturaNav.navbar .navbar-brand {
-  padding: 4px;
-  padding-left: 15px;
-}
-
 #KalturaNav.navbar img {
   max-height: 100%;
 }
-
-.btn.text-left {
-  text-align: left;
-}
-
 

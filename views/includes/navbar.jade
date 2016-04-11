@@ -6,20 +6,42 @@
         button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#collapse-bar")
           i.fa.fa-bars
         a.navbar-brand(href="/")
-          img(src="/img/kaltura_dev.png" height="37" width="157")
+          img(src="/img/kaltura_dev.png" height="50" width="212")
       #collapse-bar.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-left
+          li.navbar-link
+            a(href="https://vpaas.kaltura.com") VPaaS
+          li.navbar-link
+            a(href="https://vpaas.kaltura.com") Community
+          li.navbar-link.dropdown
+            a.dropdown-toggle(href="https://vpaas.kaltura.com" data-toggle="dropdown")
+              span Tools
+              i.fa.fa-right.fa-chevron-down
+            ul.dropdown-menu
+              li
+                a Link 1
+              li
+                a Link 2
+              li
+                a Link 3
+          li.navbar-link.last-navbar-link.dropdown
+            mixin menu-item(name, label)
+              li
+                a(href="{{getLink('#{name}')}}")= label
+            a.dropdown-toggle(href="https://vpaas.kaltura.com" data-toggle="dropdown")
+              span Resources
+              i.fa.fa-right.fa-chevron-down
+            ul.dropdown-menu
+              +menu-item('documentation', 'API Docs')
+              +menu-item('console', 'API Console')
+              +menu-item('recipes', 'Code Recipes')
         ul.nav.navbar-nav.navbar-right
-          mixin menu-item(name, label)
-            li(ng-class="{active: '#{name}'.indexOf(currentPage) === 0}")
-              a(href="{{getLink('#{name}')}}")= label
-          +menu-item('documentation', 'API Docs')
-          +menu-item('console', 'API Console')
-          +menu-item('recipes', 'Code Recipes')
-          li.signed-in.text-bold(ng-if="user.userId" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false")
-            span.hidden-sm
-              span(ng-bind="user.userId")
-              span &nbsp;
-            span
-              a(href="javascript:;" ng-click="setUser({})") [sign out]
-          li.text-bold(ng-if="!user.userId")
+          li.navbar-link.last-navbar-link.signed-in.text-bold(ng-if="user.userId")
+            .fake-btn
+              span.hidden-xs.hidden-sm
+                span(ng-bind="user.userId")
+                span &nbsp;
+              span
+                a(href="javascript:;" ng-click="setUser({})") [sign out]
+          li.navbar-link.last-navbar-link.text-bold(ng-if="!user.userId")
             a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In
