@@ -92,6 +92,9 @@ if (process.env.DEVELOPMENT) {
 
 require('./codegen').initialize(function(router) {
   App.use(router);
+  App.get('/client_libraries', function(req, res) {
+    res.redirect('/documentation/#/Client%20Libraries');
+  });
   App.use(apiPortal);
   App.use(Express.static(__dirname + '/static'));
 })
