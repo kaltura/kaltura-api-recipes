@@ -34,6 +34,12 @@ body {
 #KalturaNav .fa-search {
   color: #188093;
 }
+#KalturaNav .fa-times {
+  color: #ccc;
+}
+#KalturaNav .search-button {
+  padding: 20px;
+}
 #KalturaNav .fa-search,
 #KalturaNav .fa-times,
 #KalturaNav .fa-bars {
@@ -46,11 +52,12 @@ body {
 }
 #KalturaNav form input {
   height: 62px;
-  width: 375px;
+  width: 550px;
   border-bottom: none;
   border-top: none;
   border-right: none;
   border-left: solid #ccc 1px;
+  border-radius: 5px;
   padding: 24px 0px 22px 15px
 }
 
