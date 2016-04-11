@@ -720,7 +720,7 @@ window.onAuthorization = function(creds, cb) {
     var filter = new KalturaUiConfFilter();
     filter.objTypeEqual = KalturaUiConfObjType.PLAYER;
     KC.uiConf.listAction(function(success, results) {
-      var uiConfs = results.objects;
+      var uiConfs = results.objects || [];
       if (window.RECIPE && RECIPE.name === 'captions') {
         uiConfs = uiConfs.filter(function(uiConf) {
           return uiConf.confFile.indexOf('Plugin id="closedCaptions') !== -1;
@@ -731,16 +731,15 @@ window.onAuthorization = function(creds, cb) {
                uiConf.tags.indexOf('html5studio') !== -1 &&
                (uiConf.html5Url || '').indexOf('/v2') !== -1;
       })
-      if (uiConfs.length === 0) {
-        $('#Recipe').scope().answers['uiConf'] = results.objects[0].id;
+      if (uiConfs.length === 0 && window.RECIPE) {
         if (RECIPE.name === 'dynamic_thumbnails') {
           $('#Recipe').scope().globalError = 'This recipe requires an HTML5 enabled uiConf. Please use the KMC to create one.';
         } else if (RECIPE.name === 'captions') {
           $('#Recipe').scope().globalError = 'This recipe requires a uiConf with captions enabled. Please use the KMC to create one.';
         }
-        uiConfs = results.objects;
+        uiConfs = results.objects || [];
       }
-      if ($('#APICall').length) {
+      if ($('#APICall').length && uiConfs.length) {
         $('#APICall').scope().globalAnswers['uiConf'] = uiConfs[0].id;
       }
       cb(null, ks);

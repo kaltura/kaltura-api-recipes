@@ -59,4 +59,6 @@
               span
                 a(href="javascript:;" ng-click="setUser({})") [sign out]
           li.navbar-link.last-navbar-link.text-bold(ng-if="!user.userId")
+            a#SignupButton(data-toggle="modal" data-target="#KalturaSignup") Sign Up
+          li.navbar-link.last-navbar-link.text-bold(ng-if="!user.userId")
             a#LoginButton(data-toggle="modal" data-target="#KalturaLogin") Sign In
