@@ -8,6 +8,12 @@ body {
   }
 }
 
+@media (max-width: 991px) {
+  #KalturaNav .navbar-header {
+    float: none;
+  }
+}
+
 .fa-right {
   margin-left: 8px;
 }
@@ -21,6 +27,33 @@ body {
   font-weight: bold;
 }
 
+#KalturaNav {
+  border-bottom: 1px solid #ccc;
+}
+
+#KalturaNav .fa-search {
+  color: #188093;
+}
+#KalturaNav .fa-search,
+#KalturaNav .fa-times,
+#KalturaNav .fa-bars {
+  font-size: 18px;
+}
+
+#KalturaNav form {
+  height: 62px;
+  margin: 0;
+}
+#KalturaNav form input {
+  height: 62px;
+  width: 375px;
+  border-bottom: none;
+  border-top: none;
+  border-right: none;
+  border-left: solid #ccc 1px;
+  padding: 24px 0px 22px 15px
+}
+
 #KalturaNav.navbar {
   border-radius: 0px;
   background-color: #fff;
@@ -28,6 +61,7 @@ body {
   padding-bottom: 12px;
   margin-bottom: 0px;
   padding: 0;
+  font-size: 14px;
 }
 
 #KalturaNav .dropdown-menu a {
@@ -39,10 +73,10 @@ body {
   background-color: #005463;
 }
 
-#KalturaNav.navbar .navbar-toggle {
+#KalturaNav.navbar .expand-nav-button {
   margin-bottom: 0px;
-  padding-top: 15px;
-  font-size: 18px;
+  padding: 14px;
+  padding-top: 22px;
 }
 
 #KalturaNav.navbar li.navbar-link > a {

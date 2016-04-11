@@ -3,12 +3,21 @@
   nav#KalturaNav.navbar.navbar-default.navbar-fixed-top
     .container-fluid
       .navbar-header
-        button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#collapse-bar")
-          i.fa.fa-bars
         a.navbar-brand(href="/")
           img(src="/img/kaltura_dev.png" height="50" width="212")
-      #collapse-bar.collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-left
+        a.pull-right.visible-xs.visible-sm.expand-nav-button(ng-click="expandNav = !expandNav")
+          i.fa(ng-class="expandNav ? 'fa-times' : 'fa-bars'")
+      #collapse-bar(ng-class="expandNav ? '' : 'hidden-xs hidden-sm'")
+        form.navbar-form.navbar-left(ng-show="showSearch" ng-submit="search()")
+          .form-group
+            .input-group
+              input.form-control(type="text" placeholder="Search" ng-model="searchQuery")
+          button.btn.btn-link(type="submit")
+            i.fa.fa-search
+          a.btn.btn-link(ng-click="showSearch = false")
+            i.fa.fa-times.text-danger
+
+        ul.nav.navbar-nav.navbar-left(ng-show="!showSearch")
           li.navbar-link
             a(href="https://vpaas.kaltura.com") VPaaS
           li.navbar-link
@@ -24,7 +33,7 @@
                 a Link 2
               li
                 a Link 3
-          li.navbar-link.last-navbar-link.dropdown
+          li.navbar-link.dropdown
             mixin menu-item(name, label)
               li
                 a(href="{{getLink('#{name}')}}")= label
@@ -37,10 +46,14 @@
               +menu-item('recipes', 'Code Recipes')
               li
                 a(href="/documentation#/Client%20Libraries") Client Libraries
+          li.navbar-link.hidden-xs
+            a(ng-click="showSearch = !showSearch")
+              i.fa(ng-class="showSearch ? 'fa-times' : 'fa-search'")
+
         ul.nav.navbar-nav.navbar-right
           li.navbar-link.last-navbar-link.signed-in.text-bold(ng-if="user.userId")
             .fake-btn
-              span.hidden-xs.hidden-sm
+              span.hidden-sm.hidden-md
                 span(ng-bind="user.userId")
                 span &nbsp;
               span

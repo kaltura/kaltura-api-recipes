@@ -38,6 +38,10 @@ App.controller('Kaltura', function($scope) {
     } catch(e) {}
     if (user) $scope.setUser(user);
   }
+
+  $scope.search = function() {
+    window.open('https://vpaas.kaltura.com/search/#stp=1&stq=' + encodeURIComponent($scope.searchQuery), '_blank');
+  }
 })
 
 App.controller('KalturaLogin', function($scope) {
