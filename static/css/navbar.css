@@ -2,6 +2,12 @@ body {
   padding-top: 62px;
 }
 
+@media (max-width: 305px) {
+  #KalturaNav .navbar-brand img {
+    display: none;
+  }
+}
+
 .fa-right {
   margin-left: 8px;
 }
