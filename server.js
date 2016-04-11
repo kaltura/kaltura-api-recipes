@@ -73,6 +73,7 @@ var apiPortal = LucyPortal({
   ].map(cacheBust),
   navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
   disableAutorefresh: true,
+  allowUnsanitizedMarkdown: true,
   development: process.env.DEVELOPMENT || false,
   credentialCookie: 'LUCYBOT_RECIPE_CREDS',
   embedParameters: {
