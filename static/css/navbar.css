@@ -1,6 +1,9 @@
 body {
   padding-top: 62px;
 }
+.sidebar {
+  top: 82px;
+}
 
 @media (max-width: 305px) {
   #KalturaNav .navbar-brand img {
