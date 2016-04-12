@@ -31,6 +31,7 @@ assetMan.addAsset('includes', {
   css: [
     '/css/portal.css',
     '/css/navbar.css',
+    '/css/footer.css',
   ],
 })
 

@@ -55,6 +55,7 @@ if (process.env.DEVELOPMENT) {
 
 var recipes = require('./recipes-v2').recipes;
 var navbarFile = __dirname + '/views/includes/navbar.jade';
+var footerFile = __dirname + '/views/generated/footer.html';
 
 var cid = assetMan.options.cacheID || '';
 var cacheBust = file => file + '?cacheID=' + cid;
@@ -72,6 +73,7 @@ var apiPortal = LucyPortal({
     '/kaltura_static/minified/js/includes.js',
   ].map(cacheBust),
   navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
+  footerHTML: fs.readFileSync(footerFile, 'utf8'),
   disableAutorefresh: true,
   allowUnsanitizedMarkdown: true,
   development: process.env.DEVELOPMENT || false,
