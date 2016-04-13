@@ -2,7 +2,7 @@ var fs = require('fs');
 
 var CLIENT_LANGS = ['php5', 'php53', 'php5Zend', 'csharp', 'ruby', 'java', 'android', 'js', 'python', 'objc', 'cli', 'node'];
 
-var markdown = fs.readFileSync(__dirname + '/markdown/client_libraries.md', 'utf8');
+var clientMD = '';
 /*
 var genDate = fs.readFileSync(__dirname + '/../node_modules/kaltura-schema/api_schema.xml', 'utf8').match(/generatedDate="(\d+)"/)[1];
 genDate = new Date(parseInt(genDate) * 1000);
@@ -17,9 +17,11 @@ var genDate = '14-05-2015';
 CLIENT_LANGS.forEach(function(cl) {
   var link = 'http://cdnbakmi.kaltura.com/content/clientlibs/' + cl + '_' + genDate + '.tar.gz';
   if (cl === 'node') cl = 'nodejs';
-  markdown += '<div class="client-lib-link ' + cl +  '"><a href="' + link + '">' +
+  clientMD += '<div class="client-lib-link ' + cl +  '"><a href="' + link + '">' +
                       '<img src="http://www.kaltura.com/api_v3/testme/images/buttons/' + cl + '.jpg">' +
                    '</a></div>';
 });
 
+var markdown = fs.readFileSync(__dirname + '/markdown/client_libraries.md', 'utf8');
+markdown = markdown.replace('{{ client_libraries }}', clientMD);
 module.exports = markdown;
