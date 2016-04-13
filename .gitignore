@@ -1,3 +1,4 @@
+config.sh
 node_modules/
 static/bower/
 static/test.html

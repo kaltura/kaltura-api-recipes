@@ -49,11 +49,10 @@ sudo -E node server.js
 
 To allow recipe editing from the web I/F, export:
 ```
-USE_BASIC_AUTH=true
-LUCYBOT_USERNAME=root
-LUCYBOT_PASSWD=somepasswd
-DEVELOPMENT=true
+export GITHUB_TOKEN=""
 ```
+You can create a GITHUB_TOKEN by visiting [Personal Access Tokens](https://github.com/settings/tokens)
+and creating a token that has `public_repo` scope.
 
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
 
