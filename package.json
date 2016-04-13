@@ -34,6 +34,7 @@
     "lucy-codegen": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-codegen.git",
     "markdown-sections": "^1.0.2",
     "marked": "^0.3.5",
+    "octonode": "^0.7.5",
     "remove-markdown": "0.0.6",
     "request": "^2.65.0",
     "requestify": "^0.1.17",

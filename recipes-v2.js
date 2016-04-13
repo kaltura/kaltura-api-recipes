@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
+var github = require('octonode').client(process.env.GITHUB_TOKEN);
+var repo = github.repo('kaltura/kaltura-api-recipes');
 
 module.exports = {};
 var recipes = module.exports.recipes = {};
@@ -17,8 +19,6 @@ function stripConstant(recipe, field, prefix) {
 
 var DIR = __dirname + '/recipes-v2';
 module.exports.save = function(name, recipe, callback) {
-  name = path.join('/', name);
-  name = path.join(DIR, name + '.json');
   stripConstant(recipe, 'description', DESC_PREFIX);
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
@@ -31,11 +31,36 @@ module.exports.save = function(name, recipe, callback) {
     if (!s.description.length) delete s.description;
     else s.description = s.description.split('\n\n');
   })
-
-  fs.writeFile(name, JSON.stringify(recipe, null, 2), function(err) {
-    if (!err) module.exports.reload();
-    callback(err);
-  })
+  if (!process.env.ENABLE_EDITS) {
+    var path = 'recipes-v2/' + name + '.json';
+    repo.contents(path, 'recipe-edits', function(err, file) {
+      if (err) return callback(err);
+      repo.updateContents(
+          path,
+          'Update Recipe ' + name,
+          JSON.stringify(recipe, null, 2),
+          file.sha,
+          'recipe-edits',
+          function(err) {
+        repo.pr({
+          title: 'Merge Recipe Edits',
+          body: '',
+          head: 'recipe-edits',
+          base: 'development',
+        }, function(err) {
+          // ignore errors for existing PRs
+          callback();
+        });
+      });
+    });
+  } else {
+    var filename = path.join('/', name);
+    filename = path.join(DIR, filename + '.json');
+    fs.writeFile(filename, JSON.stringify(recipe, null, 2), function(err) {
+      if (!err) module.exports.reload();
+      callback(err);
+    });
+  }
 }
 
 var XSD_DATA = fs.readFileSync(DIR + '/extras/metadata_profile_sample.xsd', 'utf8');
