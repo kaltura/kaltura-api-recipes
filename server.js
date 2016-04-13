@@ -4,7 +4,7 @@ var https = require('https');
 var fs = require('fs');
 
 var LucyPortal = require('lucy-api-portal').PortalRouter;
-var Swagger = require('./swagger.js');
+var Swagger = require('./swagger/swagger.js');
 var RecipeManager = require('./recipes/recipes.js');
 var assetMan = require('./asset-man');
 

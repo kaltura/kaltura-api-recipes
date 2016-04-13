@@ -3,7 +3,7 @@ var Views = require('kaltura-codegen').templates.views;
 
 var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 Swagger['x-navigation'] = require('./navigation.js');
-Swagger['x-lucy/viewSetup'] = FS.readFileSync(__dirname + '/node_modules/kaltura-codegen/code_templates/setups/html.html', 'utf8')
+Swagger['x-lucy/viewSetup'] = FS.readFileSync(__dirname + '/../node_modules/kaltura-codegen/code_templates/setups/html.html', 'utf8')
 
 for (var name in Views) {
   var def = Swagger.definitions[name] = Swagger.definitions[name] || {};
@@ -26,7 +26,7 @@ for (var path in Swagger.paths) {
 
 var Schema = require('kaltura-schema');
 Schema.initialize(function() {
-  var recipes = new (require('./recipes/recipes.js'))({schema: Schema});
+  var recipes = require('../recipes-v2').recipes;
   var recipeLinks = {};
   for (var name in recipes.recipes) {
     var recipe = recipes.recipes[name];
