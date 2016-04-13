@@ -1,4 +1,5 @@
 # Kaltura API SDK - Native Client Libraries
+[[Edit on GitHub]](https://github.com/kaltura/kaltura-api-recipes/edit/development/swagger/markdown/client_libraries.md)
 
 When developing applications that interact with the Kaltura API, it is best to use a native Client Library.
 
