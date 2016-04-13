@@ -1,4 +1,5 @@
 # Kaltura API Overview
+[[Edit on GitHub]](https://github.com/kaltura/kaltura-api-recipes/edit/development/swagger/markdown/overview.md)
 
 Kaltura API documentation provides information to web developers who wish to use Kaltura's Application Programming Interfaces (APIs). To gain a wider understanding of the Kaltura open source video platform, please review the Introduction to Kaltura Platform document.
 
