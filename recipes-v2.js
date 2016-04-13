@@ -7,6 +7,7 @@ var repo = github.repo('kaltura/kaltura-api-recipes');
 module.exports = {};
 var recipes = module.exports.recipes = {};
 
+var SAVE_MESSAGE = "Thanks for contributing! We've opened a pull request on GitHub here: https://github.com/kaltura/kaltura-api-recipes";
 var DESC_PREFIX = 'This recipe uses the following operations';
 
 function stripConstant(recipe, field, prefix) {
@@ -49,7 +50,7 @@ module.exports.save = function(name, recipe, callback) {
           base: 'development',
         }, function(err) {
           // ignore errors for existing PRs
-          callback();
+          callback(null, SAVE_MESSAGE);
         });
       });
     });
@@ -58,7 +59,7 @@ module.exports.save = function(name, recipe, callback) {
     filename = path.join(DIR, filename + '.json');
     fs.writeFile(filename, JSON.stringify(recipe, null, 2), function(err) {
       if (!err) module.exports.reload();
-      callback(err);
+      callback(err, SAVE_MESSAGE);
     });
   }
 }
