@@ -1,4 +1,7 @@
- Kaltura XML Schema Definitions (XSDs) are standard W3C XSD version 1.0 formatted documents that define the structure of Kaltura’s XML-formatted integration interfaces.
+# Kaltura XML Schema
+[[Edit on GitHub]](https://github.com/kaltura/kaltura-api-recipes/edit/development/swagger/markdown/schemas.md)
+
+Kaltura XML Schema Definitions (XSDs) are standard W3C XSD version 1.0 formatted documents that define the structure of Kaltura’s XML-formatted integration interfaces.
 
 Publishers and developers may use the schemas when applying or developing XML-based content management-related integrations with the Kaltura Platform. The Kaltura XML-based interfaces related to content management include bulk content ingestion, cue points handling, and content syndication.
 Each XML schema:
