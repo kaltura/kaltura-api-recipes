@@ -63,6 +63,18 @@ module.exports.save = function(name, recipe, callback) {
   }
 }
 
+module.exports.loadSaved = function(name, cb) {
+  if (process.env.ENABLE_EDITS) {
+    cb(null, recipes[name]);
+  } else {
+    repo.contents('recipes-v2/' + name + '.json', 'recipe-edits', function(err, file) {
+      if (err) return cb(err);
+      var content = new Buffer(file.content, 'base64').toString();
+      cb(null, JSON.parse(content));
+    })
+  }
+}
+
 var XSD_DATA = fs.readFileSync(DIR + '/extras/metadata_profile_sample.xsd', 'utf8');
 
 module.exports.reload = function() {
