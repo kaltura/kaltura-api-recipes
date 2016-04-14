@@ -34,11 +34,11 @@ module.exports.save = function(name, recipe, callback) {
     else s.description = s.description.split('\n\n');
   })
   if (!process.env.ENABLE_EDITS) {
-    var path = 'recipes-v2/' + name + '.json';
-    repo.contents(path, 'recipe-edits', function(err, file) {
+    var filename = 'recipes-v2/' + name + '.json';
+    repo.contents(filename, 'recipe-edits', function(err, file) {
       if (err) return callback(err);
       repo.updateContents(
-          path,
+          filename,
           'Update Recipe ' + name,
           JSON.stringify(recipe, null, 2),
           file.sha,
