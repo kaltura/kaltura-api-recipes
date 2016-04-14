@@ -3,6 +3,7 @@ var path = require('path');
 var _ = require('lodash');
 var github = require('octonode').client(process.env.GITHUB_TOKEN);
 var repo = github.repo('kaltura/kaltura-api-recipes');
+var swagger = require('./swagger/swagger.js');
 
 module.exports = {};
 var recipes = module.exports.recipes = {};
@@ -93,8 +94,9 @@ module.exports.reload = function() {
     var opsUsed = [];
     recipe.steps.forEach(function(step) {
       if (!step.apiCall) return;
+      var opId = swagger.paths[step.apiCall.path][step.apiCall.method].operationId;
       var match = step.apiCall.path.match(/\/service\/(.*)\/action\/(.*)$/);
-      opsUsed.push({service: match[1], action: match[2]});
+      opsUsed.push({service: match[1], action: match[2], tag: opId.substring(0, opId.indexOf('.'))});
       if (!step.parameters) step.ignoreParameters = ['format'];
     })
     opsUsed = _.uniqWith(opsUsed, _.isEqual);
@@ -104,6 +106,12 @@ module.exports.reload = function() {
       recipe.description += DESC_PREFIX + '\n\n' + opsUsed.map(function(op) {
         return '* ' + op.service + '.' + op.action;
       }).join('\n');
+
+      recipe.tags = recipe.tags || [];
+      recipe.tags = recipe.tags.concat(opsUsed.map(function(op) {
+        return op.tag;
+      }))
+      recipe.tags = _.uniq(recipe.tags);
     }
 
     if (recipe.name === 'metadata') {
