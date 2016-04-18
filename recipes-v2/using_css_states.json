@@ -56,7 +56,15 @@
         "javascript": "kWidget.embed({\n\t\"targetId\": \"kaltura_player\",\n\t\"wid\": \"_<%- answers.partnerId  %>\",\n\t\"uiconf_id\": <%-  answers.uiConf  %>,\n\t\"flashvars\": {\n\t\t\"IframeCustomPluginCss1\" : \"//projects.kaltura.com/amir/mobileLargeButton.css\"\n\t},\n\t\"entry_id\": \"<%- answers.entryId %>\"\n});"
       },
       "demoHTML": "<!DOCTYPE html>\n<html>\n<head>\n\t<title>Kaltura Player External Skin Overrides</title>\n\t<script src=\"//cdnapisec.kaltura.com/p/<%- answers.partnerId  %>/sp/<%- answers.partnerId  %>00/embedIframeJs/uiconf_id/<%-  answers.uiConf  %>/partner_id/<%- answers.partnerId  %>\"></script>\n</head>\n<body>\n\n\t<div id=\"kaltura_player\" style=\"width: 560px; height: 395px;\"></div>\n\t<script>\n\t\tkWidget.embed({\n        \t\"targetId\": \"kaltura_player\",\n        \t\"wid\": \"_<%- answers.partnerId  %>\",\n        \t\"uiconf_id\": <%-  answers.uiConf  %>,\n        \t\"flashvars\": {\n        \t\t\"IframeCustomPluginCss1\" : \"//projects.kaltura.com/amir/mobileLargeButton.css\"\n        \t},\n        \t\"entry_id\": \"<%- answers.entryId %>\"\n        });\n\t</script>\n\n</body>\n</html>",
-      "description": "To begin:\n* Create a standalone HTML page, and embed a player using DynamicEmbed method\n* Create a seperate CSS file. Into this CSS file, you will add the custom CSS directives to override the player look & feel you wish\n\nTo know which elements and classes to override, use your browser \"developer tools\" and inspect the various elements you wish to change.  In our case, we would like to change the ```.largePlayBtn``` class.\n\nIn order to target mobile devices only, we can use the player state class ```.mobile``` defined on the player inreface level. So our CSS rule should be:\n\n```\n.mobile .largePlayBtn {\n\tposition: absolute !important;\n\ttop: 50% !important;\n\tleft: 50% !important;\n\tfont-size: 30px !important;\n\tmargin: -0.79em 0 0 -1em !important;\n\ttext-decoration: none; !important\n\twidth: 44px !important;\n\theight: 50px !important;\n\tborder-radius: 35px !important;\n\tpadding-left: 26px !important;\n\tpadding-top: 20px !important;\t\n\tpadding-bottom: 0px !important;\n\tpadding-right: 14px !important;\n\tbackground-color: rgba(255,255,255,0.9) !important; \n\tcolor: #59baf3 !important;\n}\n```\n**Note:** We use the ```!important``` directive to make sure the original class property is overridden by our class.\n\nNow test the code by running the demo. \n\nWhen running on desktop, the regular plarge play button is displayed. However, when runing on a mobile device, the new style applies to the large play button. \n\nYou can use the Chrome dev tools to turn on device mode and chhose a large tablet such as iPad. The hit the \"Refresh Demo\" button to see the new style applied."
+      "description": [
+        "To begin:\n* Create a standalone HTML page, and embed a player using DynamicEmbed method\n* Create a seperate CSS file. Into this CSS file, you will add the custom CSS directives to override the player look & feel you wish",
+        "To know which elements and classes to override, use your browser \"developer tools\" and inspect the various elements you wish to change.  In our case, we would like to change the ```.largePlayBtn``` class.",
+        "In order to target mobile devices only, we can use the player state class ```.mobile``` defined on the player inreface level. So our CSS rule should be:",
+        "```\n.mobile .largePlayBtn {\n\tposition: absolute !important;\n\ttop: 50% !important;\n\tleft: 50% !important;\n\tfont-size: 30px !important;\n\tmargin: -0.79em 0 0 -1em !important;\n\ttext-decoration: none; !important\n\twidth: 44px !important;\n\theight: 50px !important;\n\tborder-radius: 35px !important;\n\tpadding-left: 26px !important;\n\tpadding-top: 20px !important;\t\n\tpadding-bottom: 0px !important;\n\tpadding-right: 14px !important;\n\tbackground-color: rgba(255,255,255,0.9) !important; \n\tcolor: #59baf3 !important;\n}\n```\n**Note:** We use the ```!important``` directive to make sure the original class property is overridden by our class.",
+        "Now test the code by running the demo. ",
+        "When running on desktop, the regular plarge play button is displayed. However, when runing on a mobile device, the new style applies to the large play button. ",
+        "You can use the Chrome dev tools to turn on device mode and chhose a large tablet such as iPad. The hit the \"Refresh Demo\" button to see the new style applied."
+      ]
     }
   ],
   "keywords": [
@@ -73,9 +81,13 @@
     "state",
     "mobile",
     "button",
-    "style"
+    "style",
+    "media"
   ],
   "icon": "eye",
-  "summary": "Use CSS states to define new look & feel for the large play button on mobile devices",
-  "description": "In this recipe, we will learn how to use custom CSS to override the core player layout CSS.\n\nIn our custom CSS we will use player state classes to create specific look and feel for the \nlarge play button in the middel of the player. \n\nWe will apply this new style only when playing the video on mobile devices like phones and tablets.\n\nTo learn more about player CSS states, look at the [player customization](https://kaltura.atlassian.net/wiki/display/MPM/Player+Customization) article, under the \"CSS States\" section.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  "summary": "Set different large play button between mobile and desktop - Using CSS States",
+  "description": [
+    "In this recipe, we will learn how to use custom CSS to override the core player layout CSS. \nIn our custom CSS we will use player state classes to create specific look and feel for the large play button in the middel of the player. \nWe will apply this new style only when playing the video on mobile devices like phones and tablets.\nTo learn more about player CSS states, look at the [player customization](https://vpaas.kaltura.com/documentation/media-player/Player-Customization) article, under the \"CSS States\" section."
+  ],
+  "finishText": "### Summary\nIn this recipe we've learned the following:\n\n* How to inject an external CSS file to the player\n* How to override core player CSS classes\n* How to change CSS classes according to player state\n\nTo learn more about custom CSS file injection and player CSS states, read the [player customization](https://vpaas.kaltura.com/documentation/media-player/Player-Customization) article."
 }
