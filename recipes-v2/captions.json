@@ -6,7 +6,9 @@
   "steps": [
     {
       "title": "Select a Media Entry",
-      "description": "Choose a video from your library to add captions to.",
+      "description": [
+        "Choose a video from your library to add captions to."
+      ],
       "parameters": [
         {
           "name": "uiConf",
@@ -31,7 +33,10 @@
     },
     {
       "title": "Uploading Captions - Create an Upload Token",
-      "description": "Use the uploadToken service to upload an SRT file to the Kaltura API. If you don't have an SRT file handy, you can [download one here](/sample_captions.srt)\n\nFirst you'll need to use `uploadToken.add` to create a new upload token. In the next step we'll use this token to upload the SRT data.",
+      "description": [
+        "Use the uploadToken service to upload an SRT file to the Kaltura API. If you don't have an SRT file handy, you can [download one here](/sample_captions.srt)",
+        "First you'll need to use `uploadToken.add` to create a new upload token. In the next step we'll use this token to upload the SRT data."
+      ],
       "apiCall": {
         "path": "/service/uploadtoken/action/add",
         "method": "get"
@@ -40,7 +45,9 @@
     },
     {
       "title": "Uploading Captions - Send the SRT Data",
-      "description": "Now we'll use the newly created Upload Token to upload the SRT. If you don't have an SRT file handy, you can [download one here](/sample_captions.srt)",
+      "description": [
+        "Now we'll use the newly created Upload Token to upload the SRT. If you don't have an SRT file handy, you can [download one here](/sample_captions.srt)"
+      ],
       "apiCall": {
         "path": "/service/uploadtoken/action/upload",
         "method": "post"
@@ -60,7 +67,9 @@
     },
     {
       "title": "Creating a new Caption Asset",
-      "description": "Next you'll need to create a Caption Asset, which describes the format, language, and label of your captions.",
+      "description": [
+        "Next you'll need to create a Caption Asset, which describes the format, language, and label of your captions."
+      ],
       "apiCall": {
         "path": "/service/caption_captionasset/action/add",
         "method": "get"
@@ -91,7 +100,10 @@
     },
     {
       "title": "Setting Caption Content",
-      "description": "Now that you've created a new Caption Asset and uploaded your caption file, you need to associate them with each other using the `captionAsset.setContent` method.\n\nSet the `id` parameter to the entryId of a media item, and the `contentResource[token]` parameter  to the Upload Token's ID.",
+      "description": [
+        "Now that you've created a new Caption Asset and uploaded your caption file, you need to associate them with each other using the `captionAsset.setContent` method.",
+        "Set the `id` parameter to the entryId of a media item, and the `contentResource[token]` parameter  to the Upload Token's ID."
+      ],
       "apiCall": {
         "path": "/service/caption_captionasset/action/setContent",
         "method": "get"
@@ -119,7 +131,9 @@
     },
     {
       "title": "Searching through Captions",
-      "description": "You can use ```captionAssetItem.search``` to search for scenes within your videos.",
+      "description": [
+        "You can use ```captionAssetItem.search``` to search for scenes within your videos."
+      ],
       "apiCall": {
         "path": "/service/captionsearch_captionassetitem/action/search",
         "method": "get"
@@ -137,12 +151,6 @@
       ]
     }
   ],
-  "defaults": {
-    "serviceURL": "https://www.kaltura.com/",
-    "recipeName": "captions",
-    "format": 1
-  },
-  "description": "This recipe uses the following operations\n\n* media.get\n* uploadtoken.add\n* uploadtoken.upload\n* caption_captionasset.add\n* caption_captionasset.setContent\n* captionsearch_captionassetitem.search",
   "tags": [
     "media",
     "uploadToken",
