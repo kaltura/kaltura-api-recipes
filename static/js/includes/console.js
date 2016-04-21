@@ -81,7 +81,7 @@ window.saveRecipe = function(recipe, callback) {
         github('GET', theirRepoPath + filePath, {}, function(file) {
           github('PUT', theirRepoPath + filePath, {}, {
             message: "Update recipe: " + recipe.name,
-            content: btoa(JSON.stringify(recipe, null, 2)),
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(recipe, null, 2)))),
             sha: file.sha,
           }, function(msg) {
             github('POST', repoPath + '/pulls', {}, {
