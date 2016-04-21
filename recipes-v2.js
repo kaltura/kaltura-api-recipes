@@ -36,30 +36,10 @@ function prepForSave(recipe) {
 
 var DIR = __dirname + '/recipes-v2';
 module.exports.save = function(name, recipe, callback) {
-  prepForSave(recipe);
   if (!process.env.ENABLE_EDITS) {
-    var filename = 'recipes-v2/' + name + '.json';
-    repo.contents(filename, 'recipe-edits', function(err, file) {
-      if (err) return callback(err);
-      repo.updateContents(
-          filename,
-          'Update Recipe ' + name,
-          JSON.stringify(recipe, null, 2),
-          file.sha,
-          'recipe-edits',
-          function(err) {
-        repo.pr({
-          title: 'Merge Recipe Edits',
-          body: '',
-          head: 'recipe-edits',
-          base: 'development',
-        }, function(err) {
-          // ignore errors for existing PRs
-          callback(null, SAVE_MESSAGE);
-        });
-      });
-    });
+    callback("Editing is not enabled on this server.");
   } else {
+    prepForSave(recipe);
     var filename = path.join('/', name);
     filename = path.join(DIR, filename + '.json');
     fs.writeFile(filename, JSON.stringify(recipe, null, 2), function(err) {
