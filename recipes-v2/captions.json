@@ -136,5 +136,18 @@
         }
       ]
     }
-  ]
+  ],
+  "defaults": {
+    "serviceURL": "https://www.kaltura.com/",
+    "recipeName": "captions",
+    "format": 1
+  },
+  "description": "This recipe uses the following operations\n\n* media.get\n* uploadtoken.add\n* uploadtoken.upload\n* caption_captionasset.add\n* caption_captionasset.setContent\n* captionsearch_captionassetitem.search",
+  "tags": [
+    "media",
+    "uploadToken",
+    "captionAsset",
+    "captionAssetItem"
+  ],
+  "keywords": []
 }
