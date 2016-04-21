@@ -23,3 +23,15 @@ window.checkResponse = function(data, status, xhr) {
   return msg;
 }
 
+window.saveRecipe = function(recipe, callback) {
+  var params = {
+    client_id: '1b76941133d82f454418',
+    redirect_uri: 'http://54.201.161.188:3000/oauth_callback.html',
+    scope: 'public_repo',
+  }
+  window.onOAuthComplete = function() {
+    console.log('done', arguments);
+    callback(null, 'Authorized');
+  }
+  window.open('https://github.com/login/oauth/authorize?' + $.param(params), '_blank');
+}
