@@ -11,6 +11,11 @@ window.checkResponse = function(data, status, xhr) {
   } else if (typeof data === 'object') {
     var err = data.code && data.message;
     if (err) msg = {type: 'danger', message: data.code + ': ' + data.message};
+    if (window.RECIPE && data.objectType === 'KalturaUiConfListResponse') {
+      data.objects = data.objects.filter(function(uiConf) {
+        return (uiConf.html5Url || '').indexOf('/v2') !== -1;
+      });
+    }
   }
   if (msg.message.indexOf('SERVICE_FORBIDDEN') !== -1) {
     $('#KalturaLogin').modal('show');
