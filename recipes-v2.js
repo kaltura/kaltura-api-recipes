@@ -60,7 +60,7 @@ module.exports.save = function(name, recipe, callback) {
     filename = path.join(DIR, filename + '.json');
     fs.writeFile(filename, JSON.stringify(recipe, null, 2), function(err) {
       if (!err) module.exports.reload();
-      callback(err, SAVE_MESSAGE);
+      callback(err, "Recipe saved to disk.");
     });
   }
 }
