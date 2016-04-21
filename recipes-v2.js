@@ -19,8 +19,7 @@ function stripConstant(recipe, field, prefix) {
   else recipe[field] = recipe[field].split('\n\n');
 }
 
-var DIR = __dirname + '/recipes-v2';
-module.exports.save = function(name, recipe, callback) {
+function prepForSave(recipe) {
   stripConstant(recipe, 'description', DESC_PREFIX);
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
@@ -32,7 +31,12 @@ module.exports.save = function(name, recipe, callback) {
     s.description = s.description || '';
     if (!s.description.length) delete s.description;
     else s.description = s.description.split('\n\n');
-  })
+  });
+}
+
+var DIR = __dirname + '/recipes-v2';
+module.exports.save = function(name, recipe, callback) {
+  prepForSave(recipe);
   if (!process.env.ENABLE_EDITS) {
     var filename = 'recipes-v2/' + name + '.json';
     repo.contents(filename, 'recipe-edits', function(err, file) {
