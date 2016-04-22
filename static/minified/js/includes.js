@@ -766,7 +766,7 @@ window.checkResponse = function(data, status, xhr) {
     if (err) msg = {type: 'danger', message: data.code + ': ' + data.message};
     if (window.RECIPE && data.objectType === 'KalturaUiConfListResponse') {
       data.objects = data.objects.filter(function(uiConf) {
-        return (uiConf.html5Url || '').indexOf('/v2') !== -1;
+        return (uiConf.html5Url || '').indexOf('/v2') !== -1 || uiConf.objType === KalturaUiConfObjType.KRECORD;
       });
       if (!data.objects.length) return {type: 'danger', message: 'No v2 uiConfs found.'}
     }
