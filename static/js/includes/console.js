@@ -15,6 +15,7 @@ window.checkResponse = function(data, status, xhr) {
       data.objects = data.objects.filter(function(uiConf) {
         return (uiConf.html5Url || '').indexOf('/v2') !== -1;
       });
+      if (!data.objects.length) return {type: 'danger', message: 'No v2 uiConfs found.'}
     }
   }
   if (msg.message.indexOf('SERVICE_FORBIDDEN') !== -1) {
