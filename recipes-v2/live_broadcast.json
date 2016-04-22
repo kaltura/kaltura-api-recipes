@@ -141,6 +141,10 @@
               {
                 "name": "filter[orderBy]",
                 "value": "-updatedAt"
+              },
+              {
+                "name": "filter[objTypeEqual]",
+                "value": 7
               }
             ],
             "array": "objects",
