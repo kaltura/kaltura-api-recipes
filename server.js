@@ -88,7 +88,7 @@ var apiPortal = LucyPortal({
   env: {
     github_client_id: process.env.GITHUB_CLIENT_ID,
     github_client_secret: process.env.GITHUB_CLIENT_SECRET,
-    github_callback_url: 'http://54.201.161.188:3000/oauth_callback.html',
+    github_callback_url: process.env.GITHUB_CALLBACK_URL,
   },
 })
 
