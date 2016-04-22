@@ -31,28 +31,27 @@ This will create:
 
 
 ## Startup
-To use in development mode, export
+To use in **development** mode, export
 ```bash
 export KALTURA_RECIPES_PORT=3000
 export LUCYBOT_DEV=true
+export DEVELOPMENT=true
 node server.js
 ```
 
-To use in production, export
+To use in **production**, export
 ```bash
 export KALTURA_RECIPES_PORT=443
 export KALTURA_SSO_SECRET=""
 export SSO_SYNC_URL=""
 export KALTURA_SSO_PAYLOAD=""
+export GITHUB_CLIENT_ID="your_client_id"
+export GITHUB_CLIENT_SECRET="your_client_secret"
+export GITHUB_CALLBACK_URL="http://location.of.server/oauth_callback.html"
 sudo -E node server.js
 ```
 
-To allow recipe editing from the web I/F, export:
-```
-export GITHUB_TOKEN=""
-```
-You can create a GITHUB_TOKEN by visiting [Personal Access Tokens](https://github.com/settings/tokens)
-and creating a token that has `public_repo` scope.
+You can create a GitHub client ID/Secret by visiting your [Settings Page](https://github.com/settings/developers)
 
 You can use packages like [forever](https://www.npmjs.com/package/forever) to keep the service running in the background.
 
