@@ -111,7 +111,12 @@
           "name": "playerUiConf",
           "type": "string",
           "dynamicEnum": {
-            "parameters": [],
+            "parameters": [
+              {
+                "name": "pager[pageSize]",
+                "value": 500
+              }
+            ],
             "path": "/service/uiconf/action/list",
             "method": "get",
             "array": "objects",
@@ -161,7 +166,12 @@
           "name": "playerUiConf",
           "type": "string",
           "dynamicEnum": {
-            "parameters": [],
+            "parameters": [
+              {
+                "name": "pager[pageSize]",
+                "value": 500
+              }
+            ],
             "path": "/service/uiconf/action/list",
             "method": "get",
             "array": "objects",
