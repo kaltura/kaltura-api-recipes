@@ -63,7 +63,7 @@ var cacheBust = file => file + '?cacheID=' + cid;
 
 var apiPortal = LucyPortal({
   swagger: Swagger,
-  defaultPage: 'readme',
+  defaultPage: 'documentation',
   cacheID: cid,
   bootstrap: '/kaltura_static/css/bootstrap.css',
   cssIncludes: [
@@ -85,6 +85,9 @@ var apiPortal = LucyPortal({
   recipes: recipes,
   saveRecipe: require('./recipes-v2').save,
   loadRecipe: require('./recipes-v2').loadSaved,
+  paths: {
+    documentation: 'api-docs',
+  },
   env: {
     github_client_id: process.env.GITHUB_CLIENT_ID,
     github_client_secret: process.env.GITHUB_CLIENT_SECRET,
@@ -103,7 +106,7 @@ if (process.env.DEVELOPMENT) {
 require('./codegen').initialize(function(router) {
   App.use(router);
   App.get('/client_libraries', function(req, res) {
-    res.redirect('/documentation/#/Client%20Libraries');
+    res.redirect('/api-docs/#/Client%20Libraries');
   });
   App.use(apiPortal);
   App.use(Express.static(__dirname + '/static'));
@@ -117,7 +120,7 @@ var sitemapUrls = Object.keys(recipes).map(function(r) {
   return {url: '/recipes/' + r, priority: .3}
 });
 sitemapUrls.push({url: '/readme',        priority: .9})
-sitemapUrls.push({url: '/documentation', priority: .9})
+sitemapUrls.push({url: '/api-docs', priority: .9})
 sitemapUrls.push({url: '/console',       priority: .9})
 sitemapUrls.push({url: '/recipes',       priority: .9})
 var sitemap = require('sitemap').createSitemap({
