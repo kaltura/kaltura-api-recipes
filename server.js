@@ -84,7 +84,6 @@ var apiPortal = LucyPortal({
   },
   recipes: recipes,
   saveRecipe: require('./recipes-v2').save,
-  loadRecipe: require('./recipes-v2').loadSaved,
   paths: {
     documentation: 'api-docs',
   },
