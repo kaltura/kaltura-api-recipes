@@ -6,6 +6,64 @@
   "icon": "bullhorn",
   "steps": [
     {
+      "title": "Create a KRecord uiConf",
+      "parameters": [
+        {
+          "name": "uiConf[name]"
+        },
+        {
+          "name": "uiConf[description]"
+        },
+        {
+          "name": "uiConf[objType]",
+          "x-consoleDefault": 7
+        },
+        {
+          "name": "uiConf[width]",
+          "hidden": true,
+          "x-consoleDefault": 400
+        },
+        {
+          "name": "uiConf[height]",
+          "x-consoleDefault": 300,
+          "hidden": true
+        },
+        {
+          "name": "uiConf[swfUrl]",
+          "x-consoleDefault": "/flash/krecord/v1.7.1/KRecord.swf",
+          "hidden": true
+        },
+        {
+          "name": "uiConf[swfUrlVersion]",
+          "x-consoleDefault": "v1.7.1",
+          "hidden": true
+        },
+        {
+          "name": "uiConf[confFile]",
+          "x-consoleDefault": "<!-- KRecord does not require XML -->",
+          "hidden": true
+        },
+        {
+          "name": "uiConf[useCdn]",
+          "x-consoleDefault": "true",
+          "hidden": true
+        },
+        {
+          "name": "uiConf[creationMode]",
+          "x-consoleDefault": 2,
+          "hidden": true
+        }
+      ],
+      "apiCall": {
+        "method": "get",
+        "path": "/service/uiconf/action/add"
+      },
+      "description": [
+        "You'll need a uiConf that supports KRecord in order\nto record a live broadcast.",
+        "Use `uiConf.add` below to create one."
+      ]
+    },
+    {
       "title": "Get the LIVE_STREAM Profile",
       "description": [
         "First you'll need to get the LIVE_STREAM conversion profile using `conversionProfile.list()`.  We'll use this profile to create a new liveStream entry."
@@ -48,7 +106,8 @@
         {
           "name": "liveStreamEntry[mediaType]",
           "default": 201,
-          "hidden": true
+          "hidden": true,
+          "x-consoleDefault": 201
         },
         {
           "name": "liveStreamEntry[recordStatus]",
@@ -68,12 +127,13 @@
         {
           "name": "liveStreamEntry[sourceType]",
           "default": "32",
-          "hidden": true
+          "hidden": true,
+          "x-consoleDefault": "32"
         },
         {
           "name": "liveStreamEntry[conversionProfileId]",
           "dynamicValue": {
-            "fromStep": 0,
+            "fromStep": 1,
             "value": "objects.0.id"
           }
         }
