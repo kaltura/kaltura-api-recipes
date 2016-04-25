@@ -823,13 +823,13 @@ function runGitHubOAuth(callback) {
   window.open('https://github.com/login/oauth/authorize?' + $.param(params), '_blank');
 }
 
-window.loadRecipe = function(callback) {
+window.loadRecipe = function(name, callback) {
   runGitHubOAuth(function(err, tok) {
     if (err) return callback(err);
     var github = new GitHub({errBack: callback, token: tok});
     github.req('GET', '/user', {}, function(user) {
       var path = '/repos/' + user.login + '/kaltura-api-recipes';
-      path += '/contents/recipes-v2/' + RECIPE.name + '.json';
+      path += '/contents/recipes-v2/' + name + '.json';
       github.req('GET', path, {}, function(file) {
         var recipe = JSON.parse(atob(file.content));
         recipe.defaults = recipe.defaults || {};
