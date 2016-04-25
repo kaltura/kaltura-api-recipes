@@ -183,12 +183,6 @@
               {
                 "name": "filter[objTypeEqual]",
                 "value": 1
-              },
-              {
-                "name": "filter[tagsMultiLikeAnd]"
-              },
-              {
-                "name": "filter[orderBy]"
               }
             ],
             "path": "/service/uiconf/action/list",
