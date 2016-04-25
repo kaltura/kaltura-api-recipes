@@ -1,6 +1,6 @@
 {
   "name": "video_search",
-  "title": "Video Search!",
+  "title": "Video Search",
   "summary": "Learn how to search through your video library using Kaltura's API",
   "relatedRecipes": [
     "captions",
