@@ -1,8 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
-var github = require('octonode').client(process.env.GITHUB_TOKEN);
-var repo = github.repo('kaltura/kaltura-api-recipes');
 var swagger = require('./swagger/swagger.js');
 
 module.exports = {};
@@ -46,18 +44,6 @@ module.exports.save = function(name, recipe, callback) {
       if (!err) module.exports.reload();
       callback(err, "Recipe saved to disk.");
     });
-  }
-}
-
-module.exports.loadSaved = function(name, cb) {
-  if (process.env.ENABLE_EDITS) {
-    cb(null, recipes[name]);
-  } else {
-    repo.contents('recipes-v2/' + name + '.json', 'recipe-edits', function(err, file) {
-      if (err) return cb(err);
-      var content = new Buffer(file.content, 'base64').toString();
-      cb(null, JSON.parse(content));
-    })
   }
 }
 
