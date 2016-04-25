@@ -164,6 +164,10 @@
             "array": "objects",
             "label": "name",
             "value": "id"
+          },
+          "dynamicValue": {
+            "fromStep": 0,
+            "value": "id"
           }
         },
         {
@@ -204,7 +208,8 @@
   ],
   "tags": [
     "conversionProfile",
-    "liveStream"
+    "liveStream",
+    "uiConf"
   ],
   "keywords": []
 }
