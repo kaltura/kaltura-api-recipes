@@ -78,8 +78,11 @@ window.loadRecipe = function(callback) {
       var path = '/repos/' + user.login + '/kaltura-api-recipes';
       path += '/contents/recipes-v2/' + RECIPE.name + '.json';
       github.req('GET', path, {}, function(file) {
-        var cont = atob(file.content);
-        callback(null, JSON.parse(cont));
+        var recipe = JSON.parse(atob(file.content));
+        recipe.defaults = recipe.defaults || {};
+        recipe.defaults.recipeName = recipe.name;
+        recipe.defaults.format = 1;
+        callback(null, recipe);
       });
     });
   })
