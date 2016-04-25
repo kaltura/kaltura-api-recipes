@@ -19,8 +19,7 @@ function stripConstant(recipe, field, prefix) {
   else recipe[field] = recipe[field].split('\n\n');
 }
 
-var DIR = __dirname + '/recipes-v2';
-module.exports.save = function(name, recipe, callback) {
+function prepForSave(recipe) {
   stripConstant(recipe, 'description', DESC_PREFIX);
   if (recipe.defaults) {
     delete recipe.defaults.serviceURL;
@@ -32,30 +31,15 @@ module.exports.save = function(name, recipe, callback) {
     s.description = s.description || '';
     if (!s.description.length) delete s.description;
     else s.description = s.description.split('\n\n');
-  })
+  });
+}
+
+var DIR = __dirname + '/recipes-v2';
+module.exports.save = function(name, recipe, callback) {
   if (!process.env.ENABLE_EDITS) {
-    var filename = 'recipes-v2/' + name + '.json';
-    repo.contents(filename, 'recipe-edits', function(err, file) {
-      if (err) return callback(err);
-      repo.updateContents(
-          filename,
-          'Update Recipe ' + name,
-          JSON.stringify(recipe, null, 2),
-          file.sha,
-          'recipe-edits',
-          function(err) {
-        repo.pr({
-          title: 'Merge Recipe Edits',
-          body: '',
-          head: 'recipe-edits',
-          base: 'development',
-        }, function(err) {
-          // ignore errors for existing PRs
-          callback(null, SAVE_MESSAGE);
-        });
-      });
-    });
+    callback("Editing is not enabled on this server.");
   } else {
+    prepForSave(recipe);
     var filename = path.join('/', name);
     filename = path.join(DIR, filename + '.json');
     fs.writeFile(filename, JSON.stringify(recipe, null, 2), function(err) {
