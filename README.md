@@ -31,7 +31,7 @@ This will create:
 
 
 ## Startup
-To use in **development** mode, export
+### Development Mode
 ```bash
 export KALTURA_RECIPES_PORT=3000
 export LUCYBOT_DEV=true
@@ -44,7 +44,7 @@ You'll also need to install lucy-api-portal assets via bower:
 cd node_modules/lucy-api-portal && bower install && cd ../..
 ```
 
-To use in **production**, export
+### Production Mode
 ```bash
 export KALTURA_RECIPES_PORT=443
 export KALTURA_SSO_SECRET=""
