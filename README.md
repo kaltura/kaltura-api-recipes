@@ -39,6 +39,11 @@ export DEVELOPMENT=true
 node server.js
 ```
 
+You'll also need to install lucy-api-portal assets via bower:
+```bash
+cd node_modules/lucy-api-portal && npm install && cd ../..
+```
+
 To use in **production**, export
 ```bash
 export KALTURA_RECIPES_PORT=443
