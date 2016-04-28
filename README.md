@@ -41,7 +41,7 @@ node server.js
 
 You'll also need to install lucy-api-portal assets via bower:
 ```bash
-cd node_modules/lucy-api-portal && npm install && cd ../..
+cd node_modules/lucy-api-portal && bower install && cd ../..
 ```
 
 To use in **production**, export
