@@ -34,7 +34,6 @@ This will create:
 ### Development Mode
 ```bash
 export KALTURA_RECIPES_PORT=3000
-export LUCYBOT_DEV=true
 export DEVELOPMENT=true
 node server.js
 ```
