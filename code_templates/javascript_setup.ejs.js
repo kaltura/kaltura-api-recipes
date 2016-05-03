@@ -8,9 +8,6 @@
 
 <script>
   var config = new KalturaConfiguration(<%- answers.partnerId %>);
-<% if (answers.serviceURL) { -%>
-  config.serviceUrl = <%- Lucy.code.variable('answers.serviceURL') %>;
-<% } -%>
   var client = new KalturaClient(config);
   client.session.start(function(success, ks) {
     if (!success || (ks.code && ks.message)) {
