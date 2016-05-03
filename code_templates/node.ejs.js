@@ -3,6 +3,7 @@
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
+
 <%  }) -%>
 client.<%- service %>.<%- action %>(function(results) {
   if (results && results.code && results.message) {

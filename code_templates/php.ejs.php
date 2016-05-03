@@ -10,13 +10,14 @@
     <%- answers.sessionType === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
     <%- answers.partnerId %>);
   $client->setKS($ks);
-<% } -%>
 
+<% } -%>
 <%  parameters.forEach(function(param) { -%>
 <%  var setter = helper.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
 <%- helper.indent(setter, 2) %>
 <%    } -%>
+
 <%  }) -%>
   try {
     $result = $client-><%- service %>-><%- action %>(<%- -%>

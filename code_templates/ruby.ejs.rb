@@ -16,6 +16,7 @@ client.ks = client.session_service.start(
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
+
 <%  }) -%>
 results = client.<%- helper.rewriteService(service) %>.<%- helper.rewriteAction(action) %>(<%- -%>
 <% if (parameters.length === 0) { -%>

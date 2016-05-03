@@ -130,7 +130,7 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     subsetters = field.fields.map(function(f) {
       return self.getFieldSetter(f, parents.concat([field.name]), answers);
     }).filter(function(s) {return s});
-    return setter + self.statementSuffix + '\n' + subsetters.join('\n')
+    return setter + self.statementSuffix + (subsetters.length ? '\n' + subsetters.join('\n') : '');
   } else {
     answer = answers[answerName];
     if (answer === undefined) {
