@@ -17,12 +17,11 @@ client.session.start(function(ks) {
 <% } -%>
 
 <%  parameters.forEach(function(param) { -%>
-<%  var setter = helper.getFieldSetter(param, [], answers); %>
+<%  var setter = helper.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
 <%  }) -%>
-
 client.<%- service %>.<%- action %>(function(results) {
   if (results && results.code && results.message) {
     console.log('Kaltura Error', success, results);

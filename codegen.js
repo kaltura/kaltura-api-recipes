@@ -90,7 +90,7 @@ module.exports.initialize = function(cb) {
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
-      var codeParams = _.extend({answers: req.body.answers}, renderParams[service][action]);
+      var codeParams = _.extend({answers: req.body.answers, showSetup: req.body.showSetup}, renderParams[service][action]);
       res.json({code: lang.template.render(codeParams)});
     })
     cb(Router);

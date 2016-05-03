@@ -51,7 +51,7 @@ CodeTemplate.prototype.reload = function() {
 }
 
 CodeTemplate.prototype.render = function(params) {
-  return EJS.render(this.template, _.extend({helper: this, showSetup: true}, params)).trim();
+  return EJS.render(this.template, _.extend({helper: this}, params)).trim();
 }
 
 CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {

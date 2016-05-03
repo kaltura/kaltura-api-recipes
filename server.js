@@ -91,6 +91,7 @@ var apiPortal = LucyPortal({
     github_client_id: process.env.GITHUB_CLIENT_ID,
     github_client_secret: process.env.GITHUB_CLIENT_SECRET,
     github_callback_url: process.env.GITHUB_CALLBACK_URL,
+    sampleCodeSetup: true,
   },
 })
 
