@@ -21,6 +21,28 @@ describe('Sample Code', function() {
       answers: {},
       showSetup: false,
     },
+  }, {
+    name: 'with_setup',
+    service: 'media',
+    action: 'list',
+    params: {
+      answers: {},
+      showSetup: true,
+    }
+  }, {
+    name: 'with_arguments',
+    service: 'media',
+    action: 'list',
+    params: {
+      answers: {
+        'filter[nameLike]': 'foobar',
+        'filter[statusEqual]': '2',
+        'filter[advancedSearch][objectType]': 'KalturaAttributeCondition',
+        'filter[advancedSearch][value]': 'baz',
+        'pager[pageSize]': 3,
+      },
+      showSetup: false,
+    }
   }]
 
   testCases.forEach(function(testCase) {
