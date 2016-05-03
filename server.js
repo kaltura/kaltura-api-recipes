@@ -136,7 +136,7 @@ App.use('/sitemap.xml', function(req, res) {
   })
 })
 
-if (process.env.LUCYBOT_DEV) {
+if (process.env.DEVELOPMENT) {
   console.log('----DEVELOPMENT ENVIRONMENT----');
   var port = process.env.KALTURA_RECIPES_PORT || 3000;
   console.log('listening on port ' + port);
