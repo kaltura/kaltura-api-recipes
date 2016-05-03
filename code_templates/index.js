@@ -51,6 +51,10 @@ CodeTemplate.prototype.reload = function() {
 }
 
 CodeTemplate.prototype.render = function(params) {
+  params.answers = params.answers || {};
+  params.answers.partnerId = params.answers.partnerId || 'YOUR_PARTNER_ID';
+  params.answers.secret = params.answers.secret || 'YOUR_KALTURA_SECRET';
+  params.answers.userId = params.answers.userId || 'YOUR_USER_ID';
   return EJS.render(this.template, _.extend({helper: this}, params)).trim();
 }
 
