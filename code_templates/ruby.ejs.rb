@@ -28,5 +28,5 @@ results = client.<%- helper.rewriteService(service) %>.<%- helper.rewriteAction(
     <%- param.name %><%- index < parameters.length - 1 ? ',' : ')' %>
 <% }); -%>
 <% } -%>
-puts results
+puts results.inspect
 
