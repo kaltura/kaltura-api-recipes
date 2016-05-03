@@ -139,3 +139,5 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   return setter + self.statementSuffix;
 }
 
+CodeTemplate.LANGUAGES = ['php', 'node', 'javascript', 'ruby'];
+CodeTemplate.LANGUAGE_DETAILS = language_opts;
