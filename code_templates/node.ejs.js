@@ -5,7 +5,7 @@ var client = new Kaltura.KalturaClient(config);
 var sessionID = null;
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
-    console.log('Error starting session', success, ks);
+    console.log('Error starting session', ks);
   } else {
     sessionID = ks;
     client.setKs(ks);
@@ -24,7 +24,7 @@ client.session.start(function(ks) {
 <%  }) -%>
 client.<%- service %>.<%- action %>(function(results) {
   if (results && results.code && results.message) {
-    console.log('Kaltura Error', success, results);
+    console.log('Kaltura Error', results);
   } else {
     console.log('Kaltura Result', results);
   }
