@@ -43,6 +43,16 @@ describe('Sample Code', function() {
       },
       showSetup: false,
     }
+  }, {
+    name: 'primitive_argument',
+    service: 'media',
+    action: 'get',
+    params: {
+      answers: {
+        'entryId': 'abcde',
+      },
+      showSetup: false,
+    }
   }]
 
   testCases.forEach(function(testCase) {

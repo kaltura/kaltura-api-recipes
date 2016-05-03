@@ -107,13 +107,17 @@ CodeTemplate.prototype.render = function(params) {
 CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   var self = this;
   var answerName = '';
-  parents.forEach(function(p) {
-    if (!answerName) answerName += p
-    else answerName += '[' + p + ']'
-  });
-  var parentObjType = answers[answerName + '[objectType]'];
-  if (field.objectType && parentObjType !== field.objectType) return;
-  answerName += '[' + field.name + ']';
+  if (parents.length) {
+    parents.forEach(function(p) {
+      if (!answerName) answerName += p
+      else answerName += '[' + p + ']'
+    });
+    var parentObjType = answers[answerName + '[objectType]'];
+    if (field.objectType && parentObjType !== field.objectType) return;
+    answerName += '[' + field.name + ']';
+  } else {
+    answerName = field.name;
+  }
 
   var setter = this.statementPrefix;
   setter += (parents.length ? parents.map(self.rewriteVariable).join(self.accessor) + self.accessor : self.declarationPrefix);
@@ -129,7 +133,10 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     return setter + self.statementSuffix + '\n' + subsetters.join('\n')
   } else {
     answer = answers[answerName];
-    if (answer === undefined) return;
+    if (answer === undefined) {
+      if (parents.length) return;
+      answer = '';  // TODO: use correct type
+    }
     if (!field.enum) {
       setter += self.getValue(answer);
     } else {
