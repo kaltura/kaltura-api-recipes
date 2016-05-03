@@ -136,7 +136,7 @@ App.use('/sitemap.xml', function(req, res) {
   })
 })
 
-if (process.env.DEVELOPMENT) {
+if (process.env.DEVELOPMENT || process.env.NO_SSL) {
   console.log('----DEVELOPMENT ENVIRONMENT----');
   var port = process.env.KALTURA_RECIPES_PORT || 3000;
   console.log('listening on port ' + port);
