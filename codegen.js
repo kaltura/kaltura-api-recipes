@@ -1,10 +1,11 @@
+var _ = require('lodash');
 var FS = require('fs');
-var EJS = require('ejs');
 var Router = require('express').Router();
 var Schema = require('kaltura-schema');
 var Lucy = require('lucy-codegen').Lucy;
 var KCode = require('kaltura-codegen'),
     CodeTemplates = KCode.templates;
+var CodeTemplate = require('./code_templates');
 
 var BLACKLISTED_FIELDS = ['id', 'partnerId'];
 var ACTION_FIELDS = ['list', 'clone', 'delete'];
@@ -28,73 +29,69 @@ module.exports.initialize = function(cb) {
         if (ACTION_FIELDS.indexOf(action) !== -1) codeParams.action += 'Action';
         for (parameter in actionSchema.parameters) {
           var type = actionSchema.parameters[parameter].type;
-          var paramObject = {name: parameter, class: type}
+          var paramObject = {name: parameter, class: type, type: type};
           var enumType = actionSchema.parameters[parameter].enumType;
           if (enumType) paramObject.enum = {name: enumType, values: Schema.enums[enumType].values};
           codeParams.parameters.push(paramObject);
           if (type.indexOf('Kaltura') !== 0) continue;
 
-          paramObject.fields = [];
-          var cls = Schema.classes[type];
-          if (!cls) throw new Error('Type ' + type + ' not found in schema');
-          paramObject.abstract = (cls.abstract || cls.subclasses) ? true : false;
-          function addProps(props, objectType) {
-            for (var fieldName in props) {
+          function addFieldsFromClass(fields, className, restrict, depth) {
+            if (depth === undefined) depth = 4;
+            if (depth <= 0) return;
+            var cls = Schema.classes[className]
+            if (!cls) {
+              console.log('Type ' + type + ' not found in schema');
+              return;
+            }
+            for (var fieldName in cls.properties) {
               if (BLACKLISTED_FIELDS.indexOf(fieldName) !== -1) continue;
-              var fieldType = props[fieldName].type;
-              var enumType = props[fieldName].enumType;
-              var existing = paramObject.fields.filter(f => f.name === fieldName && (!f.objectType || f.objectType === objectType));
+              var fieldType = cls.properties[fieldName].type;
+              var existing = fields.filter(f => f.name === fieldName && (!f.objectType || f.objectType === className));
               if (existing.length) continue;
               var field = {
                   name: fieldName,
                   type: fieldType,
-                  objectType: objectType,
               };
-              if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values};
-              paramObject.fields.push(field);
+              if (restrict) field.objectType = className;
+              var enumType = cls.properties[fieldName].enumType;
+              if (enumType) field.enum = {name: enumType, values: Schema.enums[enumType].values}
+              if (field.type.indexOf('Kaltura') === 0) {
+                field.fields = [];
+                addFieldsFromClass(field.fields, field.type, false, depth - 1);
+              }
+              fields.push(field);
             }
+            (cls.subclasses || []).forEach(function(subcls) {
+              addFieldsFromClass(fields, subcls, true, depth - 1);
+            })
           }
-          addProps(cls.properties);
-          (cls.subclasses || []).forEach(function(subcls) {
-            addProps(Schema.classes[subcls].properties, subcls);
-          })
+          paramObject.fields = [];
+          addFieldsFromClass(paramObject.fields, type);
         }
         renderParams[serviceSchema.id] = renderParams[serviceSchema.id] || {};
         renderParams[serviceSchema.id][action] = codeParams;
       }
     }
 
+    var LANGS = [
+      {name: 'php'},
+      {name: 'javascript'},
+      {name: 'node'},
+      {name: 'ruby'},
+    ]
+    LANGS.forEach(function(l) {
+      l.template = new CodeTemplate({language: l.name})
+    })
+
     Router.post('/code/build/request', function(req, res) {
-      if (process.env.DEVELOPMENT) KCode.populateTemplates();
+      var lang = LANGS.filter(l => l.name === req.body.language)[0];
+      if (!lang) return res.status(500).send("Unknown language " + req.body.language);
+      if (process.env.DEVELOPMENT) lang.template.reload();
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
-      var lang = req.body.language;
-      var codeParams = renderParams[service][action];
-      var tmpl = CodeTemplates.generic_actions[lang];
-      req.body.request.query = req.body.request.query || {};
-      tmpl = EJS.render(tmpl, codeParams);
-      var answers = {};
-      for (var key in req.body.answers) {
-        answers[key] = {val: req.body.answers[key]};
-      }
-      var lucy = new Lucy(lang, answers);
-      lucy.returnCode = function(val, tabs) {
-        var ret = '';
-        if (lang === 'javascript' || lang === 'node') {
-          ret = 'console.log(' + val + ');';
-        } else if (lang === 'ruby') {
-          ret = 'puts ' + val;
-        } else if (lang === 'php') {
-          ret = 'echo ' + val + ';';
-        }
-        for (var i = 0; i < tabs; ++i) ret = ' ' + ret;
-        return ret;
-      }
-      var code = EJS.render(tmpl, {
-        Lucy: lucy,
-      })
-      res.json({code: code});
+      var codeParams = _.extend({answers: req.body.answers}, renderParams[service][action]);
+      res.json({code: lang.template.render(codeParams)});
     })
     cb(Router);
   });
