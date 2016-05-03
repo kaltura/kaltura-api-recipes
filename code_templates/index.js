@@ -8,6 +8,7 @@ module.exports = CodeTemplate = function(opts) {
   this.objSuffix = '()';
   this.enumPrefix = this.objPrefix = this.enumAccesor = this.declaration = this.variablePrefix = '';
   this.rewriteVariable = this.rewriteAction = this.rewriteService = function(s) {return s};
+  this.getValue = JSON.stringify;
   if (opts.language === 'javascript' || opts.language === 'node') {
     this.declaration = 'var ';
     this.objPrefix = 'new ';
@@ -75,7 +76,7 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     answer = answers[answerName];
     if (answer === undefined) return;
     if (!field.enum) {
-      return setter + JSON.stringify(answer);
+      return setter + self.getValue(answer);
     } else {
       for (var valName in field.enum.values) {
         if (field.enum.values[valName] === answer) {
