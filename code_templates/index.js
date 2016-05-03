@@ -47,7 +47,12 @@ module.exports = CodeTemplate = function(opts) {
 }
 
 CodeTemplate.prototype.reload = function() {
-  this.template = FS.readFileSync(__dirname + '/' + this.language + '.ejs.' + this.ext, 'utf8')
+  var filename = __dirname + '/' + this.language + '.ejs.' + this.ext;
+  this.template = FS.readFileSync(filename, 'utf8');
+  if (this.language === 'javascript' || this.language === 'node') {
+    filename = filename.replace('.ejs', '_setup.ejs');
+    this.setupTemplate = FS.readFileSync(filename, 'utf8');
+  }
 }
 
 CodeTemplate.prototype.render = function(params) {
@@ -55,7 +60,14 @@ CodeTemplate.prototype.render = function(params) {
   params.answers.partnerId = params.answers.partnerId || 'YOUR_PARTNER_ID';
   params.answers.secret = params.answers.secret || 'YOUR_KALTURA_SECRET';
   params.answers.userId = params.answers.userId || 'YOUR_USER_ID';
-  return EJS.render(this.template, _.extend({helper: this}, params)).trim();
+  params = _.extend({helper: this}, params);
+  var code = EJS.render(this.template, params);
+  if (params.showSetup && this.setupTemplate) {
+    params.code = code;
+    return EJS.render(this.setupTemplate, params).trim();
+  } else {
+    return code;
+  }
 }
 
 CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
@@ -97,4 +109,20 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   }
   return setter + self.statementSuffix;
 }
+
+CodeTemplate.prototype.indent = function(code, numSpaces) {
+  if (!numSpaces) return code;
+  var lines = code.split('\n');
+  var spaces = Array(Math.abs(numSpaces) + 1).join(' ');
+  if (numSpaces > 0) {
+    return lines.map(function(l) {return l ? spaces + l : l}).join('\n');
+  } else {
+    return lines.map(function(l) {
+      if (l.indexOf(spaces) === 0) return l.substring(spaces.length);
+      else return l;
+    }).join('\n');
+  }
+}
+
+
 
