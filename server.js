@@ -103,7 +103,7 @@ if (process.env.DEVELOPMENT) {
   });
 }
 
-require('./codegen').initialize(function(router) {
+require('./routes/codegen').initialize(function(router) {
   App.use(router);
   App.get('/client_libraries', function(req, res) {
     res.redirect('/api-docs/#/Client%20Libraries');
