@@ -44,6 +44,7 @@ module.exports = CodeTemplate = function(opts) {
       return this.rewriteVariable(s) + '_service';
     }
   }
+  this.reload();
 }
 
 CodeTemplate.prototype.reload = function() {
