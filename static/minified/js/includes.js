@@ -493,6 +493,7 @@ App.controller('Kaltura', function($scope) {
         var keys = call.scope().keys || {};
         keys.ks = creds.ks;
         keys.partnerId = creds.partnerId;
+        keys.userId = creds.userId;
         keys.secret = creds.secret;
         setTimeout(function() {
           call.scope().$apply();
