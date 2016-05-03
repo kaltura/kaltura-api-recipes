@@ -6,9 +6,9 @@ var language_opts = {
   default: {
     accessor: '.',
     statementPrefix: '',
-    statementSuffix: ';',
+    statementSuffix: '',
     objPrefix: '',
-    objSuffix: '()',
+    objSuffix: '',
     enumPrefix: '',
     enumAccessor: '',
     declarationPrefix: '',
@@ -20,26 +20,31 @@ var language_opts = {
   javascript: {
     ext: 'js',
     declarationPrefix: 'var ',
+    statementSuffix: ';',
     objPrefix: 'new ',
+    objSuffix: '()',
   },
   node: {
     ext: 'js',
     declarationPrefix: 'var ',
+    statementSuffix: ';',
     objPrefix: 'new Kaltura.objects.',
+    objSuffix: '()',
     enumPrefix: 'Kaltura.enums.',
   },
   php: {
     ext: 'php',
-    objPrefix: 'new ',
     accessor: '->',
-    enumAccessor: '::',
     statementPrefix: '$',
+    statementSuffix: ';',
+    objPrefix: 'new ',
+    objSuffix: '()',
+    enumAccessor: '::',
   },
   ruby: {
     ext: 'rb',
     enumAccessor: '::',
     objSuffix: '.new()',
-    statementSuffix: '',
     rewriteVariable: function(v) {
       return v.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
         return lower + '_' + upper.toLowerCase();
