@@ -8,7 +8,7 @@ client.ks = client.session_service.start(
     <%- helper.getValue(answers.secret) %>,
     <%- helper.getValue(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
-    <%- helper.getValue(answers.partnerId) %>)
+    <%- answers.partnerId %>)
 <% } -%>
 
 <%  parameters.forEach(function(param) { -%>

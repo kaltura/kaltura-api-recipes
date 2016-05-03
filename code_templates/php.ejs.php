@@ -8,14 +8,14 @@
     <%- helper.getValue(answers.secret) %>,
     <%- helper.getValue(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
-    <%- helper.getValue(answers.partnerId) %>);
+    <%- answers.partnerId %>);
   $client->setKS($ks);
 <% } -%>
 
 <%  parameters.forEach(function(param) { -%>
 <%  var setter = helper.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
-  <%- setter %>
+<%- helper.indent(setter, 2) %>
 <%    } -%>
 <%  }) -%>
   try {

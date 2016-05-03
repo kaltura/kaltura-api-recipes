@@ -10,7 +10,6 @@ module.exports = CodeTemplate = function(opts) {
   this.enumPrefix = this.objPrefix = this.enumAccesor = this.declaration = this.variablePrefix = '';
   this.rewriteVariable = this.rewriteAction = this.rewriteService = function(s) {return s};
   this.getValue = JSON.stringify;
-  this.indent = '';
   if (opts.language === 'javascript' || opts.language === 'node') {
     this.declaration = 'var ';
     this.objPrefix = 'new ';
@@ -25,7 +24,6 @@ module.exports = CodeTemplate = function(opts) {
     this.enumAccessor = '::';
     this.ext = 'php';
     this.variablePrefix = '$';
-    this.indent = '  ';
   } else if (opts.language === 'ruby') {
     this.ext = 'rb';
     this.enumAccessor = '::';
@@ -45,6 +43,20 @@ module.exports = CodeTemplate = function(opts) {
     }
   }
   this.reload();
+
+  this.indent = function(code, numSpaces) {
+    if (!numSpaces) return code;
+    var lines = code.split('\n');
+    var spaces = Array(Math.abs(numSpaces) + 1).join(' ');
+    if (numSpaces > 0) {
+      return lines.map(function(l) {return l ? spaces + l : l}).join('\n');
+    } else {
+      return lines.map(function(l) {
+        if (l.indexOf(spaces) === 0) return l.substring(spaces.length);
+        else return l;
+      }).join('\n');
+    }
+  }
 }
 
 CodeTemplate.prototype.reload = function() {
@@ -93,7 +105,7 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     subsetters = field.fields.map(function(f) {
       return self.getFieldSetter(f, parents.concat([field.name]), answers);
     }).filter(function(s) {return s});
-    return setter + self.statementSuffix + '\n' + self.indent + subsetters.join('\n' + self.indent)
+    return setter + self.statementSuffix + '\n' + subsetters.join('\n')
   } else {
     answer = answers[answerName];
     if (answer === undefined) return;
@@ -110,20 +122,4 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   }
   return setter + self.statementSuffix;
 }
-
-CodeTemplate.prototype.indent = function(code, numSpaces) {
-  if (!numSpaces) return code;
-  var lines = code.split('\n');
-  var spaces = Array(Math.abs(numSpaces) + 1).join(' ');
-  if (numSpaces > 0) {
-    return lines.map(function(l) {return l ? spaces + l : l}).join('\n');
-  } else {
-    return lines.map(function(l) {
-      if (l.indexOf(spaces) === 0) return l.substring(spaces.length);
-      else return l;
-    }).join('\n');
-  }
-}
-
-
 
