@@ -1,4 +1,3 @@
-
 filter = KalturaMediaEntryFilter.new()
 filter.name_like = "foobar"
 filter.status_equal = KalturaEntryStatus::READY

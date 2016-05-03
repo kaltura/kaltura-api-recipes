@@ -1,4 +1,3 @@
-
 filter = KalturaMediaEntryFilter.new()
 
 pager = KalturaFilterPager.new()
