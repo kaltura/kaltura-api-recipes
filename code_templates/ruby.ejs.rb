@@ -1,3 +1,16 @@
+<% if (typeof showSetup !== undefined && showSetup) { -%>
+require 'kaltura'
+include Kaltura
+
+config = KalturaConfiguration.new()
+client = KalturaClient.new(config);
+client.ks = client.session_service.start(
+    <%- helper.getValue(answers.secret) %>,
+    <%- helper.getValue(answers.userId) %>,
+    <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
+    <%- helper.getValue(answers.partnerId) %>)
+<% } -%>
+
 <%  parameters.forEach(function(param) { -%>
 <%  var setter = helper.getFieldSetter(param, [], answers); %>
 <%    if (setter) { -%>
@@ -5,7 +18,7 @@
 <%    } -%>
 <%  }) -%>
 
-results = @@client.<%- helper.rewriteService(service) %>.<%- helper.rewriteAction(action) %>(<%- -%>
+results = client.<%- helper.rewriteService(service) %>.<%- helper.rewriteAction(action) %>(<%- -%>
 <% if (parameters.length === 0) { -%>
 <%- ')' %>
 <% } else if (parameters.length === 1) { -%>

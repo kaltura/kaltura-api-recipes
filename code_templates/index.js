@@ -6,9 +6,11 @@ module.exports = CodeTemplate = function(opts) {
   this.language = opts.language;
   this.accessor = '.';
   this.objSuffix = '()';
+  this.statementSuffix = ';';
   this.enumPrefix = this.objPrefix = this.enumAccesor = this.declaration = this.variablePrefix = '';
   this.rewriteVariable = this.rewriteAction = this.rewriteService = function(s) {return s};
   this.getValue = JSON.stringify;
+  this.indent = '';
   if (opts.language === 'javascript' || opts.language === 'node') {
     this.declaration = 'var ';
     this.objPrefix = 'new ';
@@ -18,14 +20,17 @@ module.exports = CodeTemplate = function(opts) {
     this.enumPrefix = 'Kaltura.enums.';
     this.objPrefix = 'new Kaltura.objects.';
   } else if (opts.language === 'php') {
+    this.objPrefix = 'new ';
     this.accessor = '->';
     this.enumAccessor = '::';
     this.ext = 'php';
     this.variablePrefix = '$';
+    this.indent = '  ';
   } else if (opts.language === 'ruby') {
     this.ext = 'rb';
     this.enumAccessor = '::';
     this.objSuffix = '.new()';
+    this.statementSuffix = '';
     this.rewriteVariable = function(v) {
       return v.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
         return lower + '_' + upper.toLowerCase();
@@ -46,7 +51,7 @@ CodeTemplate.prototype.reload = function() {
 }
 
 CodeTemplate.prototype.render = function(params) {
-  return EJS.render(this.template, _.extend({helper: this}, params)).trim();
+  return EJS.render(this.template, _.extend({helper: this, showSetup: true}, params)).trim();
 }
 
 CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
@@ -71,19 +76,21 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     subsetters = field.fields.map(function(f) {
       return self.getFieldSetter(f, parents.concat([field.name]), answers);
     }).filter(function(s) {return s});
-    return setter + '\n' + subsetters.join('\n')
+    return setter + self.statementSuffix + '\n' + self.indent + subsetters.join('\n' + self.indent)
   } else {
     answer = answers[answerName];
     if (answer === undefined) return;
     if (!field.enum) {
-      return setter + self.getValue(answer);
+      setter += self.getValue(answer);
     } else {
       for (var valName in field.enum.values) {
         if (field.enum.values[valName] === answer) {
-          return setter + self.enumPrefix + field.enum.name + (self.enumAccessor || self.accessor) + valName;
+          setter += self.enumPrefix + field.enum.name + (self.enumAccessor || self.accessor) + valName;
+          break;
         }
       }
     }
   }
+  return setter + self.statementSuffix;
 }
 
