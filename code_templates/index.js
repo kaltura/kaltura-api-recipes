@@ -2,46 +2,62 @@ var _ = require('lodash');
 var FS = require('fs');
 var EJS = require('ejs');
 
-module.exports = CodeTemplate = function(opts) {
-  this.language = opts.language;
-  this.accessor = '.';
-  this.objSuffix = '()';
-  this.statementSuffix = ';';
-  this.enumPrefix = this.objPrefix = this.enumAccesor = this.declaration = this.variablePrefix = '';
-  this.rewriteVariable = this.rewriteAction = this.rewriteService = function(s) {return s};
-  this.getValue = JSON.stringify;
-  if (opts.language === 'javascript' || opts.language === 'node') {
-    this.declaration = 'var ';
-    this.objPrefix = 'new ';
-    this.ext = 'js';
-  }
-  if (opts.language === 'node') {
-    this.enumPrefix = 'Kaltura.enums.';
-    this.objPrefix = 'new Kaltura.objects.';
-  } else if (opts.language === 'php') {
-    this.objPrefix = 'new ';
-    this.accessor = '->';
-    this.enumAccessor = '::';
-    this.ext = 'php';
-    this.variablePrefix = '$';
-  } else if (opts.language === 'ruby') {
-    this.ext = 'rb';
-    this.enumAccessor = '::';
-    this.objSuffix = '.new()';
-    this.statementSuffix = '';
-    this.rewriteVariable = function(v) {
+var language_opts = {
+  default: {
+    accessor: '.',
+    statementPrefix: '',
+    statementSuffix: ';',
+    objPrefix: '',
+    objSuffix: '()',
+    enumPrefix: '',
+    enumAccessor: '',
+    declarationPrefix: '',
+    getValue: JSON.stringify,
+    rewriteVariable: function(s) {return s},
+    rewriteAction: function(s) {return s},
+    rewriteService: function(s) {return s},
+  },
+  javascript: {
+    ext: 'js',
+    declarationPrefix: 'var ',
+    objPrefix: 'new ',
+  },
+  node: {
+    ext: 'js',
+    declarationPrefix: 'var ',
+    objPrefix: 'new Kaltura.objects.',
+    enumPrefix: 'Kaltura.enums.',
+  },
+  php: {
+    ext: 'php',
+    objPrefix: 'new ',
+    accessor: '->',
+    enumAccessor: '::',
+    statementPrefix: '$',
+  },
+  ruby: {
+    ext: 'rb',
+    enumAccessor: '::',
+    objSuffix: '.new()',
+    statementSuffix: '',
+    rewriteVariable: function(v) {
       return v.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
         return lower + '_' + upper.toLowerCase();
       })
-    }
-    this.rewriteAction = function(a) {
+    },
+    rewriteAction: function(a) {
       if (a.indexOf('Action') !== -1) a = a.substring(0, a.length - 6);
       return this.rewriteVariable(a);
-    }
-    this.rewriteService = function(s) {
+    },
+    rewriteService: function(s) {
       return this.rewriteVariable(s) + '_service';
     }
   }
+}
+
+module.exports = CodeTemplate = function(opts) {
+  this.language = opts.language;
+  _.extend(this, language_opts.default, language_opts[this.language]);
   this.reload();
 
   this.indent = function(code, numSpaces) {
@@ -94,8 +110,8 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   if (field.objectType && parentObjType !== field.objectType) return;
   answerName += '[' + field.name + ']';
 
-  var setter = this.variablePrefix;
-  setter += (parents.length ? parents.map(self.rewriteVariable).join(self.accessor) + self.accessor : self.declaration);
+  var setter = this.statementPrefix;
+  setter += (parents.length ? parents.map(self.rewriteVariable).join(self.accessor) + self.accessor : self.declarationPrefix);
   setter += self.rewriteVariable(field.name) + ' = ';
 
   if (field.type.indexOf('Kaltura') === 0) {
