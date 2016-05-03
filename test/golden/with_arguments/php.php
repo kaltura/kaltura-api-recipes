@@ -1,12 +1,13 @@
 <?php
-
   $filter = new KalturaMediaEntryFilter();
   $filter->nameLike = "foobar";
   $filter->statusEqual = KalturaEntryStatus::READY;
   $filter->advancedSearch = new KalturaAttributeCondition();
   $filter->advancedSearch->value = "baz";
+
   $pager = new KalturaFilterPager();
   $pager->pageSize = 3;
+
   try {
     $result = $client->media->listAction(
       $filter, 

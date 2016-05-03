@@ -1,7 +1,8 @@
 <?php
-
   $entryId = "abcde";
+
   $version = "";
+
   try {
     $result = $client->media->get(
       $entryId, 
