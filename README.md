@@ -33,8 +33,10 @@ This will create:
 ## Startup
 ### Development Mode
 ```bash
+./scripts/install-dev.sh
 export KALTURA_RECIPES_PORT=3000
 export DEVELOPMENT=true
+export NO_SSL=true
 node server.js
 ```
 
