@@ -1,5 +1,24 @@
 include ../mixins/modal.jade
 
+#KalturaGitHubModal.modal.fade(tabindex="-1")
+  .modal-dialog
+    form.modal-content
+      .modal-header
+        h3 Sign in with GitHub
+      .modal-body
+        .alert.alert-info You'll need to log into GitHub to edit and save recipes.
+        p.
+          We'll create a fork of the kaltura-api-recipes repository in your account.
+          When you click "Save", we'll automatically open a pull request with your changes.
+        p.
+          If you revisit this page and want to view your changes before they've been merged,
+          you can click "Load" in the top-right menu
+      .modal-footer
+        a.btn.btn-lg.btn-success(onclick="runGitHubOAuth(hideGitHubModal)")
+          span Sign In
+          i.fa.fa-right.fa-github
+
+
 +modal('KalturaLogin', 'Log in to your Kaltura.com account', 'Log In')
   span Need an account?&nbsp;
   a(data-toggle="modal" data-dismiss="modal" data-target="#Signup") Try Kaltura for free!

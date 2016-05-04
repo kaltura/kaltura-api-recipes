@@ -1,3 +1,13 @@
+if (window.location.pathname.match(/\/edit$/)) {
+  $(document).ready(function() {
+    $('#KalturaGitHubModal').modal('show');
+  });
+}
+
+window.hideGitHubModal = function() {
+  $('#KalturaGitHubModal').modal('hide');
+}
+
 var GitHub = function (opts) {
   this.o = opts;
 }
@@ -25,6 +35,7 @@ GitHub.prototype.req = function(method, path, query, data, innerCb) {
 }
 
 function runGitHubOAuth(callback) {
+  if (window.GITHUB_TOKEN) return callback(null, window.GITHUB_TOKEN);
   window.onOAuthComplete = function(qs) {
     if (qs.error) return callback(qs);
     $.ajax({
@@ -32,6 +43,7 @@ function runGitHubOAuth(callback) {
       url: '/github/access_token?code=' + qs.code,
       headers: {'Content-Type': 'application/json'},
     }).success(function(data) {
+      window.GITHUB_TOKEN = data.access_token;
       callback(null, data.access_token);
     }).fail(function(xhr) {
       callback(xhr.responseText);
