@@ -40,11 +40,6 @@ export NO_SSL=true
 node server.js
 ```
 
-You'll also need to install lucy-api-portal assets via bower:
-```bash
-cd node_modules/lucy-api-portal && bower install && cd ../..
-```
-
 ### Production Mode
 ```bash
 export KALTURA_RECIPES_PORT=443
