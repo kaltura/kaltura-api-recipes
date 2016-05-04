@@ -40,7 +40,9 @@
     },
     {
       "title": "Getting other Report Types",
-      "description": "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/alpha/lib/enums/ReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are",
+      "description": [
+        "You can set reportType to any of the [KalturaReportTypes](https://github.com/kaltura/server/blob/master/alpha/lib/enums/ReportType.php). Set it to TOP_CONTRIBUTORS to Find out who your top contributors are"
+      ],
       "apiCall": {
         "path": "/service/report/action/getTotal",
         "method": "get"
@@ -114,5 +116,8 @@
         }
       ]
     }
+  ],
+  "tags": [
+    "report"
   ]
 }
