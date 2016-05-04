@@ -1,12 +1,14 @@
 {
   "name": "backend_notifications",
-  "title": "Backend and E-mail Notifications",
+  "title": "Backend and Email Notifications",
   "summary": "Set up e-mail alerts and HTTP callbacks that get triggered when your videos become available.",
   "icon": "exclamation",
   "steps": [
     {
       "title": "Checking Permissions",
-      "description": "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service.",
+      "description": [
+        "Use ```permission.list``` with ```nameEqual``` set to ```'EVENTNOTIFICATION_PLUGIN_PERMISSION'``` to check to see if you have permission to use the eventNotification service."
+      ],
       "apiCall": {
         "path": "/service/permission/action/list",
         "method": "get"
@@ -77,7 +79,9 @@
     },
     {
       "title": "Cloning the Template",
-      "description": "Use the form below to fill in some additional details for your template and create it",
+      "description": [
+        "Use the form below to fill in some additional details for your template and create it"
+      ],
       "apiCall": {
         "path": "/service/eventnotification_eventnotificationtemplate/action/clone",
         "method": "get"
@@ -94,11 +98,16 @@
     },
     {
       "title": "Viewing your Notification Templates",
-      "description": "Use ```eventNotificationTemplate.list``` to get a list of your templates.",
+      "description": [
+        "Use ```eventNotificationTemplate.list``` to get a list of your templates."
+      ],
       "apiCall": {
         "path": "/service/eventnotification_eventnotificationtemplate/action/list",
         "method": "get"
-      }
+      },
+      "ignoreParameters": [
+        "format"
+      ]
     },
     {
       "title": "Handling HTTP Notifications",
@@ -111,5 +120,10 @@
         "php": "require_once('lib/KalturaClient.php');\nrequire_once('lib/KalturaPlugins/KalturaHttpNotificationClientPlugin.php');\n\n$object = unserialize($_POST['data']);\n"
       }
     }
-  ]
+  ],
+  "tags": [
+    "permission",
+    "eventNotificationTemplate"
+  ],
+  "keywords": []
 }
