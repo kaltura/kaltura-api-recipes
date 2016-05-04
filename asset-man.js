@@ -27,6 +27,7 @@ assetMan.addAsset('includes', {
     "/js/includes/app.js",
     '/js/includes/kc-setup.js',
     '/js/includes/console.js',
+    '/js/includes/editor.js',
   ],
   css: [
     '/css/portal.css',

@@ -778,6 +778,8 @@ window.checkResponse = function(data, status, xhr) {
   return msg;
 }
 
+
+;
 var GitHub = function (opts) {
   this.o = opts;
 }
