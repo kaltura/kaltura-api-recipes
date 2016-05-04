@@ -33,14 +33,11 @@ This will create:
 ## Startup
 ### Development Mode
 ```bash
+./scripts/install-dev.sh
 export KALTURA_RECIPES_PORT=3000
 export DEVELOPMENT=true
+export NO_SSL=true
 node server.js
-```
-
-You'll also need to install lucy-api-portal assets via bower:
-```bash
-cd node_modules/lucy-api-portal && bower install && cd ../..
 ```
 
 ### Production Mode

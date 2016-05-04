@@ -806,6 +806,7 @@ GitHub.prototype.req = function(method, path, query, data, innerCb) {
 
 function runGitHubOAuth(callback) {
   window.onOAuthComplete = function(qs) {
+    if (qs.error) return callback(qs);
     $.ajax({
       method: 'POST',
       url: '/github/access_token?code=' + qs.code,
@@ -876,7 +877,7 @@ window.saveRecipe = function(recipe, callback) {
             base: 'development',
             head: repo.owner.login + ':development',
           }, function(pr) {
-            callback(null, 'Successfully opened a Pull Request' + (pr.html_url ? ' at ' + pr.html_url : ''));
+            callback(null, 'Successfully opened a Pull Request at ' + (pr.html_url || 'https://github.com/kaltura/kaltura-api-recipes'))
           })
         });
       });
