@@ -22,16 +22,6 @@
   content: 'Set values in the parameters below to try this step';
 }
 
-body {
-  padding-top: 62px;
-}
-.sidebar {
-  top: 62px;
-}
-.sidebar-button.sidebar-button-fixed {
-  top: 62px;
-}
-
 @media (max-width: 305px) {
   #KalturaNav .navbar-brand img {
     display: none;
