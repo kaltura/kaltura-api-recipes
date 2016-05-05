@@ -2,17 +2,28 @@
   "name": "upload",
   "title": "Upload a Video",
   "summary": "Learn how to upload a video to your video library",
-  "description": "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input",
+  "description": [
+    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input",
+    ""
+  ],
   "icon": "upload",
   "steps": [
     {
       "title": "Uploading Files - Create an Upload Token",
-      "description": "Use the uploadToken service to upload a new video file to the Kaltura API. First you'll need to use `uploadToken.add` to create a new upload token.",
+      "description": [
+        "Use the uploadToken service to upload a new video file to the Kaltura API. First you'll need to use `uploadToken.add` to create a new upload token."
+      ],
       "apiCall": {
         "path": "/service/uploadtoken/action/add",
         "method": "get"
       },
-      "parameters": []
+      "parameters": [],
+      "codeSnippet": {
+        "javascript": "$('input[name=\"fileData\"]').fileupload({\n      apiURL:'https://www.kaltura.com/api_v3/',\n      url: 'https://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',\n      ks: client.ks,\n      singleFileUploads: true,\n      dataType: 'json',\n      autoUpload: true,\n      submit: function(e, data) {\n        console.log('uploading...')\n      },\n      done: function(e, data) {\n        console.log('upload done.')\n      },\n});",
+        "node": "auto",
+        "php": "auto",
+        "ruby": "auto"
+      }
     },
     {
       "title": "Uploading Files - Send the Data",
@@ -35,11 +46,19 @@
         {
           "name": "fileData"
         }
-      ]
+      ],
+      "codeSnippet": {
+        "javascript": "$('input[name=\"fileData\"]').fileupload({\n      apiURL:'https://www.kaltura.com/api_v3/',\n      url: 'https://www.kaltura.com/api_v3/?service=uploadToken&action=upload&format=1',\n      ks: client.ks,\n      singleFileUploads: true,\n      dataType: 'json',\n      autoUpload: true,\n      submit: function(e, data) {\n        console.log('uploading...')\n      },\n      done: function(e, data) {\n        console.log('upload done.')\n      },\n});",
+        "node": "auto",
+        "php": "auto",
+        "ruby": "auto"
+      }
     },
     {
       "title": "Creating a Media Entry",
-      "description": "Now we'll create a Media Entry to hold our video. Use the form below to enter your video's details.",
+      "description": [
+        "Now we'll create a Media Entry to hold our video. Use the form below to enter your video's details."
+      ],
       "apiCall": {
         "path": "/service/media/action/add",
         "method": "get"
@@ -58,7 +77,9 @@
     },
     {
       "title": "Attach the Video",
-      "description": "Now that you've created a new Media Entry, you need to associate the uploaded video with it.",
+      "description": [
+        "Now that you've created a new Media Entry, you need to associate the uploaded video with it."
+      ],
       "apiCall": {
         "path": "/service/media/action/addContent",
         "method": "get"
@@ -86,7 +107,9 @@
     },
     {
       "title": "Viewing your Video",
-      "description": "You can use kWidget to embed your video in HTML. The video may not be ready for a minute, so you can poll its status with `media.get` by hitting 'Send Request'.",
+      "description": [
+        "You can use kWidget to embed your video in HTML. The video may not be ready for a minute, so you can poll its status with `media.get` by hitting 'Send Request'."
+      ],
       "apiCall": {
         "path": "/service/media/action/get",
         "method": "get"
@@ -118,5 +141,10 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "uploadToken",
+    "media"
+  ],
+  "keywords": []
 }
