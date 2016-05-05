@@ -3,7 +3,7 @@
   "title": "Upload a Video",
   "summary": "Learn how to upload a video to your video library",
   "description": [
-    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input",
+    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input,",
     ""
   ],
   "icon": "upload",
@@ -12,7 +12,7 @@
       "title": "Uploading Files - Create an Upload Token",
       "description": [
         "Use the uploadToken service to upload a new video file to the Kaltura API. First you'll need to use `uploadToken.add` to create a new upload token.",
-        "If you're working in JavaScript, the [jQuery File Upload widget](https://libraries.io/github/kaltura/jQuery-File-Upload) will take care of this step for you."
+        "If you're working in JavaScript, the [jQuery File Upload widget](https://github.com/kaltura/jQuery-File-Upload) will take care of this step for you."
       ],
       "apiCall": {
         "path": "/service/uploadtoken/action/add",
@@ -29,7 +29,7 @@
     {
       "title": "Uploading Files - Send the Data",
       "description": [
-        "Now we'll use the newly created Upload Token to upload a video file.\nOr, if you're working in JavaScript, you can simply use the [jQuery File Upload widget](https://libraries.io/github/kaltura/jQuery-File-Upload)",
+        "Now we'll use the newly created Upload Token to upload a video file.\nOr, if you're working in JavaScript, you can simply use the [jQuery File Upload widget](https://github.com/kaltura/jQuery-File-Upload)",
         "If you don't have a video file handy, you can right-click [this link](/this-is-my-jam.mp4) and choose **Save As**."
       ],
       "apiCall": {
