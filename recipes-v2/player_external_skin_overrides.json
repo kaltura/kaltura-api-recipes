@@ -3,7 +3,7 @@
   "name": "player_external_skin_overrides",
   "steps": [
     {
-      "title": "Standalone HTML page with Player and custom CSS  file override",
+      "title": "Override the Standalone HTML Page with the Player and Custom CSS  File",
       "parameters": [
         {
           "custom": true,
@@ -51,12 +51,12 @@
         }
       ],
       "description": [
-        "To begin:\n* Create a standalone HTML page, and embed a player using DynamicEmbed method\n* Create a seperate CSS file. Into this CSS file, you will add the custom CSS directives to override the player look & feel you wish",
-        "To know which elements and classes to override, use your browser \"developer tools\" and inspect the various elements you wish to change.  \nYou can also review the full core skin CSS file: [kdark skin](https://github.com/kaltura/mwEmbed/blob/master/skins/kdark/css/layout.css) (the default player skin) and the [ott skin](https://github.com/kaltura/mwEmbed/blob/master/skins/ott/css/layout.css) (the OTT-TV skin).",
-        "When creating your skin, ensure the following:\n* To ensure your class directives override the core player skin directives, add the **!important** rule to your CSS directives.  \n* You can also reference external assets in your CSS file such as images and fonts. You can use relative or full paths to these assets.  ",
-        "To load your custom CSS, add the ```IframeCustomPluginCss1``` flashvar to your player embed code (or via the Player Studio UIVars section).  \nFor example: ```flashvars: {IframeCustomPluginCss1: pathToMy/externalCustomCSSFile.css}```  ",
+        "To begin:\n1.  Create a standalone HTML page, and embed a Player using the DynamicEmbed method.\n2. Create a separate CSS file where you will add the custom CSS directives to override the existing Player look-and-feel according to your preferences.",
+        "To know which elements and classes to override, use your browser \"developer tools\" and inspect the various elements you wish to change.  \nYou can also review the full core skin CSS file [kdark skin](https://github.com/kaltura/mwEmbed/blob/master/skins/kdark/css/layout.css) (the default player skin) and the [ott skin](https://github.com/kaltura/mwEmbed/blob/master/skins/ott/css/layout.css) (the OTT-TV skin) to learn more about the available elements and classes.",
+        "When creating your skin, verify the following:\n* To ensure that your class directives override the core player skin directives, add the **!important** rule to your CSS directives.  \n* You can also reference external assets in your CSS file, such as images and fonts. You may use either relative or full paths to these assets.  ",
+        "To load your custom CSS, add the ```IframeCustomPluginCss1``` flashvar to your Player embed code (or add it through the Player Studio UIVars section).  \nFor example: ```flashvars: {IframeCustomPluginCss1: pathToMy/externalCustomCSSFile.css}```  ",
         "You can define more than one custom CSS files accordingly: ```IframeCustomPluginCss1```, ```IframeCustomPluginCss2```, ```IframeCustomPluginCss3```, etc.  ",
-        "The example below, assumes that you have created your custom CSS file under the ```externalResources``` folder and by the ```IframeCustomPluginCss1.css``` filename."
+        "The example below assumes that you have created your custom CSS file under the ```externalResources``` folder and using the ```IframeCustomPluginCss1.css``` filename."
       ],
       "apiCall": {
         "method": "get",
