@@ -87,7 +87,8 @@
   "icon": "eye",
   "summary": "Set different large play button between mobile and desktop - Using CSS States",
   "description": [
-    "In this recipe, we will learn how to use custom CSS to override the core player layout CSS. \nIn our custom CSS we will use player state classes to create specific look and feel for the large play button in the middel of the player. \nWe will apply this new style only when playing the video on mobile devices like phones and tablets.\nTo learn more about player CSS states, look at the [player customization](https://vpaas.kaltura.com/documentation/media-player/Player-Customization) article, under the \"CSS States\" section."
+    "In this recipe, we will learn how to use custom CSS to override the core player layout CSS. \nIn our custom CSS we will use player state classes to create specific look and feel for the large play button in the middel of the player. \nWe will apply this new style only when playing the video on mobile devices like phones and tablets.\nTo learn more about player CSS states, look at the [player customization](https://vpaas.kaltura.com/documentation/media-player/Player-Customization) article, under the \"CSS States\" section.",
+    ""
   ],
   "finishText": "### Summary\nIn this recipe we've learned the following:\n\n* How to inject an external CSS file to the player\n* How to override core player CSS classes\n* How to change CSS classes according to player state\n\nTo learn more about custom CSS file injection and player CSS states, read the [player customization](https://vpaas.kaltura.com/documentation/media-player/Player-Customization) article."
 }
