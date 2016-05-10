@@ -49,6 +49,17 @@
       ]
     },
     {
+      "title": "Using the App Token to Start a new Session",
+      "parameters": [],
+      "description": [
+        "Once you have an app token, you can use `appToken.startSession` to create a new\nKaltura Session.",
+        "To do this, you'll need to compute the SHA1 hash of the current KS concatenated\nwith the token."
+      ],
+      "codeSnippet": {
+        "node": "var crypto = require('crypto')\n  , shasum = crypto.createHash('sha1');\n\nshasum.update(client.ks + appToken.token);\nvar hash = client.shasum.digest('hex');\n\nclient.appToken.startSession(function(results) {\n  if (results && results.code && results.message) {\n    console.log('Kaltura Error', results);\n  } else {\n    console.log('Kaltura Result', results);\n  }\n},\nappToken.id,\nhash,\nuserId,\ntype,\nexpiry);"
+      }
+    },
+    {
       "title": "Deleting an App Token",
       "description": [
         "Use `appToken.delete` to remove a specific App Token"
@@ -66,17 +77,6 @@
           }
         }
       ]
-    },
-    {
-      "title": "Using the App Token to Start a new Session",
-      "parameters": [],
-      "description": [
-        "Once you have an app token, you can use `appToken.startSession` to create a new\nKaltura Session.",
-        "To do this, you'll need to compute the SHA1 hash of the current KS concatenated\nwith the token."
-      ],
-      "codeSnippet": {
-        "node": "var crypto = require('crypto')\n  , shasum = crypto.createHash('sha1');\n\nshasum.update(client.ks + appToken.token);\nvar hash = client.shasum.digest('hex');\n\nclient.appToken.startSession(function(results) {\n  if (results && results.code && results.message) {\n    console.log('Kaltura Error', results);\n  } else {\n    console.log('Kaltura Result', results);\n  }\n},\nappToken.id,\nhash,\nuserId,\ntype,\nexpiry);"
-      }
     }
   ],
   "tags": [
