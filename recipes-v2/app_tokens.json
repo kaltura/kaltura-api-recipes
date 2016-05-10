@@ -5,23 +5,35 @@
   "steps": [
     {
       "title": "Getting App Tokens",
-      "description": "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens.",
+      "description": [
+        "App Tokens are used for generating Kaltura Sessions, and can control what privileges are granted to the user. Use ```appToken.list``` to see all of your app tokens."
+      ],
       "apiCall": {
         "path": "/service/apptoken/action/list",
         "method": "get"
-      }
+      },
+      "ignoreParameters": [
+        "format"
+      ]
     },
     {
       "title": "Adding a new App Token",
-      "description": "Create a new app token by calling ```appToken.add```.  You can choose whether the session should have ADMIN or USER level privileges, and you can specify how long the session should last.",
+      "description": [
+        "Create a new app token by calling ```appToken.add```.  You can choose whether the session should have ADMIN or USER level privileges, and you can specify how long the session should last."
+      ],
       "apiCall": {
         "path": "/service/apptoken/action/add",
         "method": "get"
-      }
+      },
+      "ignoreParameters": [
+        "format"
+      ]
     },
     {
       "title": "Retrieving an App Token",
-      "description": "Use `appToken.get` to get details for a specific App Token",
+      "description": [
+        "Use `appToken.get` to get details for a specific App Token"
+      ],
       "apiCall": {
         "path": "/service/apptoken/action/get",
         "method": "get"
@@ -37,8 +49,21 @@
       ]
     },
     {
+      "title": "Using the App Token to Start a new Session",
+      "parameters": [],
+      "description": [
+        "Once you have an app token, you can use `appToken.startSession` to create a new\nKaltura Session.",
+        "To do this, you'll need to compute the SHA1 hash of the current KS concatenated\nwith the token."
+      ],
+      "codeSnippet": {
+        "node": "var crypto = require('crypto')\n  , shasum = crypto.createHash('sha1');\n\nshasum.update(client.ks + appToken.token);\nvar hash = client.shasum.digest('hex');\n\nclient.appToken.startSession(function(results) {\n  if (results && results.code && results.message) {\n    console.log('Kaltura Error', results);\n  } else {\n    console.log('Kaltura Result', results);\n  }\n},\nappToken.id,\nhash,\nuserId,\ntype,\nexpiry);"
+      }
+    },
+    {
       "title": "Deleting an App Token",
-      "description": "Use `appToken.delete` to remove a specific App Token",
+      "description": [
+        "Use `appToken.delete` to remove a specific App Token"
+      ],
       "apiCall": {
         "path": "/service/apptoken/action/delete",
         "method": "get"
@@ -53,5 +78,9 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "appToken"
+  ],
+  "keywords": []
 }
