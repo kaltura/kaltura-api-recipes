@@ -11,7 +11,7 @@ style.
 
 #Kaltura(ng-controller="Kaltura")
   include ./auth-modals.jade
-  nav#KalturaNav.navbar.navbar-default.navbar-fixed-top
+  nav#KalturaNav.navbar.navbar-default.navbar-fixed-top(ng-controller="KalturaNav")
     .container-fluid
       .navbar-header
         a.navbar-brand(href="/")
@@ -20,35 +20,14 @@ style.
           i.fa(ng-class="expandNav ? 'fa-times' : 'fa-bars'")
       #collapse-bar(ng-class="expandNav ? '' : 'hidden-xs hidden-sm'")
         ul.nav.navbar-nav.navbar-left(ng-show="!showSearch")
-          li.navbar-link
-            a(href="https://vpaas.kaltura.com") VPaaS
-          li.navbar-link
-            a(href="https://vpaas.kaltura.com") Community
-          li.navbar-link.dropdown
-            a.dropdown-toggle(href="https://vpaas.kaltura.com" data-toggle="dropdown")
-              span Tools
+          li.navbar-link(ng-repeat="link in navbarLinks" ng-class="{'last-navbar-link': $index === navbarLinks.length - 1}")
+            a(href="{{link.href}}" ng-if="link.href" ng-bind="link.title")
+            a.dropdown-toggle(data-toggle="dropdown" ng-if="link.items")
+              span(ng-bind="link.title")
               i.fa.fa-right.fa-chevron-down
             ul.dropdown-menu
-              li
-                a Link 1
-              li
-                a Link 2
-              li
-                a Link 3
-          li.navbar-link.last-navbar-link.dropdown
-            mixin menu-item(name, label)
-              li
-                a(href="{{getLink('#{name}')}}")= label
-            a.dropdown-toggle(href="https://vpaas.kaltura.com" data-toggle="dropdown")
-              span Resources
-              i.fa.fa-right.fa-chevron-down
-            ul.dropdown-menu
-              +menu-item('documentation', 'API Docs')
-              +menu-item('console', 'API Console')
-              +menu-item('recipes', 'Code Recipes')
-              li
-                a(href="/api-docs#/Client%20Libraries") Client Libraries
-
+              li(ng-repeat="item in link.items")
+                a(href="{{item.href}}" ng-bind="item.title")
         form.navbar-form.navbar-right(ng-show="showSearch" ng-submit="search()")
           .form-group
             .input-group

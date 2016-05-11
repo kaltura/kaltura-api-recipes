@@ -28,6 +28,7 @@ assetMan.addAsset('includes', {
     '/js/includes/kc-setup.js',
     '/js/includes/console.js',
     '/js/includes/editor.js',
+    '/js/generated/navbar-links.js',
   ],
   css: [
     '/css/portal.css',

@@ -45,6 +45,10 @@ App.controller('Kaltura', function($scope) {
   }
 })
 
+App.controller('KalturaNav', function($scope) {
+  $scope.navbarLinks = window.KALTURA_NAVBAR_LINKS
+})
+
 App.controller('KalturaLogin', function($scope) {
   $scope.responses = {};
   $scope.loginInputs = [
