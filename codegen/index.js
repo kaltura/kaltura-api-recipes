@@ -2,6 +2,8 @@ var _ = require('lodash');
 var FS = require('fs');
 var EJS = require('ejs');
 
+var TMPL_DIR = __dirname + '/templates';
+
 var language_opts = {
   default: {
     accessor: '.',
@@ -81,7 +83,7 @@ module.exports = CodeTemplate = function(opts) {
 }
 
 CodeTemplate.prototype.reload = function() {
-  var filename = __dirname + '/' + this.language + '.ejs.' + this.ext;
+  var filename = TMPL_DIR + '/' + this.language + '.ejs.' + this.ext;
   this.template = FS.readFileSync(filename, 'utf8');
   if (this.language === 'javascript' || this.language === 'node') {
     filename = filename.replace('.ejs', '_setup.ejs');

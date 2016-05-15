@@ -4,11 +4,11 @@ var Router = require('express').Router();
 var Lucy = require('lucy-codegen').Lucy;
 var KCode = require('kaltura-codegen'),
     CodeTemplates = KCode.templates;
-var CodeTemplate = require('../code_templates');
+var CodeTemplate = require('../codegen');
 
 module.exports = {};
 module.exports.initialize = function(cb) {
-  require('../code_templates/params')(function(renderParams) {
+  require('../codegen/params')(function(renderParams) {
     var LANGS = [
       {name: 'php'},
       {name: 'javascript'},
