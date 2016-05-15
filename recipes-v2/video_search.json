@@ -1,6 +1,6 @@
 {
   "name": "video_search",
-  "title": "Video Search",
+  "title": "Kaltura Media Library Search",
   "summary": "Learn how to search through your video library using Kaltura's API",
   "relatedRecipes": [
     "captions",
@@ -9,9 +9,9 @@
   "icon": "search",
   "steps": [
     {
-      "title": "Filtering Results",
+      "title": "Free Text Search",
       "description": [
-        "This is how to retrieve an array of all your videos. Use Media Entry Filters to select which content you want to show."
+        "To retrieve a list of media entries, use Media Entry Filters to select which content you want to show.  \nThis combination of filter parameters will search through all of the Kaltura Media Entry fields and custom metadata fields, using a free text search and ordered by default using the BM25 algorithm."
       ],
       "apiCall": {
         "path": "/service/media/action/list",
@@ -20,59 +20,18 @@
       "parameters": [
         {
           "name": "filter[freeText]",
-          "default": ""
-        },
-        {
-          "name": "filter[createdAtGreaterThanOrEqual]"
+          "default": "",
+          "x-consoleDefault": ""
         },
         {
           "name": "filter[advancedSearch][objectType]",
           "default": "KalturaMetadataSearchItem",
-          "hidden": true
+          "hidden": false,
+          "x-consoleDefault": "KalturaMetadataSearchItem"
         },
         {
-          "name": "filter[advancedSearch][orderBy]",
-          "default": "-createdAt",
-          "enum": [
-            "+createdAt",
-            "+duration",
-            "+lastPlayedAt",
-            "+name",
-            "+plays",
-            "+recent",
-            "+startDate",
-            "+updatedAt",
-            "+views",
-            "-createdAt",
-            "-duration",
-            "-lastPlayedAt",
-            "-name",
-            "-plays",
-            "-recent",
-            "-startDate",
-            "-updatedAt",
-            "-views"
-          ],
-          "enumLabels": [
-            "CREATED_AT_ASC",
-            "DURATION_ASC",
-            "LAST_PLAYED_AT_ASC",
-            "NAME_ASC",
-            "PLAYS_ASC",
-            "RECENT_ASC",
-            "START_DATE_ASC",
-            "UPDATED_AT_ASC",
-            "VIEWS_ASC",
-            "CREATED_AT_DESC",
-            "DURATION_DESC",
-            "LAST_PLAYED_AT_DESC",
-            "NAME_DESC",
-            "PLAYS_DESC",
-            "RECENT_DESC",
-            "START_DATE_DESC",
-            "UPDATED_AT_DESC",
-            "VIEWS_DESC"
-          ]
+          "name": "filter[orderBy]",
+          "x-consoleDefault": "-weight"
         }
       ]
     },
@@ -226,8 +185,17 @@
       }
     }
   ],
-  "keywords": [],
+  "keywords": [
+    "search",
+    "library search",
+    "kaltura video search",
+    "media list"
+  ],
   "tags": [
-    "media"
-  ]
+    "media",
+    "search",
+    "list"
+  ],
+  "description": "To search for objects in Kaltura, API services expose the list action. For media entries, the list action provides a vast set of filter parameters to allow for granular flexibility in building custom library search experiences, whether it is a free-form search, or a pre-determined gallery.   \nThis recipe will walk through some common scenarios of using the media.list action.  \n\nSearch Operators in the media.list API:\n\n* The following special operators can be used in a free text search field in the Kaltura API:\n* Exclamation mark (!) - AND NOT . Note that AND NOT is not a unary NOT operator. A positive search word must appear before the AND phrase. See here for additional information.\n* Double Quotes (\\\"\\\") - are treated as an EXACT MATCH search operand.\n* Backslash (\\\\) - escape. To search for the character ! you have to enter \\\\! in the search field.\n* Comma (,) - OR\n* Spacebar - AND\n\nWe also recommend reading [Kaltura Search Engine for Media, Metadata and Timeline: Search Behavior and Commands](https://knowledge.kaltura.com/node/247) for more details on the search behavior in the KMC and MediaSpace.",
+  "finishText": "Learn about working with [custom metadata](https://developer.kaltura.com/recipes/metadata)"
 }
