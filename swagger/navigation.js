@@ -1,4 +1,5 @@
 var fs = require('fs');
+var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 
 function readMD(name) {
   return fs.readFileSync(__dirname + '/markdown/' + name + '.md', 'utf8');
@@ -187,6 +188,11 @@ var groups = module.exports = [{
     {tag: "system"},
     {tag: "storageProfile", hidden: true},
   ],
+}, {
+  title: "General Objects",
+  children: Object.keys(Swagger.definitions).map(function(defName) {
+    return {title: defName, definition: defName, object: defName};
+  }),
 }, {
   title: "Error Codes",
   contents: readMD('errors'),
