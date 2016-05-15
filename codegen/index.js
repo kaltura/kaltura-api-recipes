@@ -4,21 +4,22 @@ var EJS = require('ejs');
 
 var TMPL_DIR = __dirname + '/templates';
 
+var DEFAULT_LANGUAGE_OPTS = {
+  accessor: '.',
+  statementPrefix: '',
+  statementSuffix: '',
+  objPrefix: '',
+  objSuffix: '',
+  enumPrefix: '',
+  enumAccessor: '',
+  declarationPrefix: '',
+  getValue: JSON.stringify,
+  rewriteVariable: function(s) {return s},
+  rewriteAction: function(s) {return s},
+  rewriteService: function(s) {return s},
+};
+
 var language_opts = {
-  default: {
-    accessor: '.',
-    statementPrefix: '',
-    statementSuffix: '',
-    objPrefix: '',
-    objSuffix: '',
-    enumPrefix: '',
-    enumAccessor: '',
-    declarationPrefix: '',
-    getValue: JSON.stringify,
-    rewriteVariable: function(s) {return s},
-    rewriteAction: function(s) {return s},
-    rewriteService: function(s) {return s},
-  },
   javascript: {
     ext: 'js',
     declarationPrefix: 'var ',
@@ -59,12 +60,26 @@ var language_opts = {
     rewriteService: function(s) {
       return this.rewriteVariable(s) + '_service';
     }
+  },
+  java: {
+    ext: 'java',
+    accessor: '.',
+    statementSuffix: ';',
+    objPrefix: 'new ',
+    objSuffix: '()',
+    rewriteAction: function(a) {
+      if (a.indexOf('Action') !== -1) a = a.substring(0, a.length - 6);
+      return a;
+    },
+    rewriteService: function(s) {
+      return 'get' + s.charAt(0).toUpperCase() + s.substring(1) + 'Service()';
+    }
   }
 }
 
-module.exports = CodeTemplate = function(opts) {
+var CodeTemplate = function(opts) {
   this.language = opts.language;
-  _.extend(this, language_opts.default, language_opts[this.language]);
+  _.extend(this, DEFAULT_LANGUAGE_OPTS, language_opts[this.language]);
   this.reload();
 
   this.indent = function(code, numSpaces) {
@@ -153,5 +168,8 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
   return setter + self.statementSuffix;
 }
 
-CodeTemplate.LANGUAGES = ['php', 'node', 'javascript', 'ruby'];
-CodeTemplate.LANGUAGE_DETAILS = language_opts;
+module.exports = {}
+for (var lang in language_opts) {
+  module.exports[lang] = {template: new CodeTemplate({language: lang})};
+}
+
