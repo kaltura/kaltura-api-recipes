@@ -28,18 +28,7 @@ style.
             ul.dropdown-menu
               li(ng-repeat="item in link.items")
                 a(href="{{item.href}}" ng-bind="item.title")
-        form.navbar-form.navbar-right(ng-show="showSearch" ng-submit="search()")
-          .form-group
-            .input-group
-              input.form-control(type="text" placeholder="Search" ng-model="searchQuery")
-          a.btn.btn-link.search-button(ng-click="showSearch = false")
-            i.fa.fa-times
-          button.btn.btn-link.search-button(type="submit")
-            i.fa.fa-search
         ul.nav.navbar-nav.navbar-right(ng-show="!showSearch")
-          li.navbar-link.hidden-xs
-            a(ng-click="showSearch = !showSearch")
-              i.fa(ng-class="showSearch ? 'fa-times' : 'fa-search'")
           li.navbar-link.last-navbar-link.signed-in.text-bold(ng-if="user.userId")
             .fake-btn
               span.hidden-sm.hidden-md

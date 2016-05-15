@@ -521,7 +521,13 @@ App.controller('Kaltura', function($scope) {
 })
 
 App.controller('KalturaNav', function($scope) {
-  $scope.navbarLinks = window.KALTURA_NAVBAR_LINKS
+  $scope.navbarLinks = [
+    {title: "VPaaS", href: "https://vpaas.kaltura.com"},
+    {title: "API Docs", href: "/api-docs"},
+    {title: "API Console", href: "/console"},
+    {title: "Client Libraries", href: "/api-docs/#/Client%20Libraries"},
+    {title: "Code Recipes", href: "/recipes"},
+  ]
 })
 
 App.controller('KalturaLogin', function($scope) {
