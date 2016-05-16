@@ -199,7 +199,7 @@ var groups = module.exports = [{
   title: "General Objects",
   children: [{
     title: "Objects",
-    children: definitions.filter(isEnum).filter(d => d.definition.indexOf('Filter') === -1),
+    children: definitions.filter(d => !isEnum(d)).filter(d => d.definition.indexOf('Filter') === -1),
   }, {
     title: "Enums",
     children: definitions.filter(isEnum),
