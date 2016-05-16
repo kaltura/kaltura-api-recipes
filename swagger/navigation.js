@@ -4,6 +4,13 @@ var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 function readMD(name) {
   return fs.readFileSync(__dirname + '/markdown/' + name + '.md', 'utf8');
 }
+var definitions = Object.keys(Swagger.definitions).map(function(defName) {
+  return {title: defName, definition: defName, object: defName};
+});
+function isEnum(defTag) {
+  var def = Swagger.definitions[defTag.definition];
+  return def.oneOf && def.oneOf[0] && def.oneOf[0].enum;
+}
 
 var groups = module.exports = [{
   title: "Overview",
@@ -190,9 +197,16 @@ var groups = module.exports = [{
   ],
 }, {
   title: "General Objects",
-  children: Object.keys(Swagger.definitions).map(function(defName) {
-    return {title: defName, definition: defName, object: defName};
-  }),
+  children: [{
+    title: "Objects",
+    children: definitions.filter(isEnum).filter(d => d.definition.indexOf('Filter') === -1),
+  }, {
+    title: "Enums",
+    children: definitions.filter(isEnum),
+  }, {
+    title: "Filters",
+    children: definitions.filter(d => d.definition.indexOf('Filter') !== -1),
+  }],
 }, {
   title: "Error Codes",
   contents: readMD('errors'),
