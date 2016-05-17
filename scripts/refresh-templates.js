@@ -15,12 +15,17 @@ request.get(FOOTER_URL, function(err, resp, body) {
       .replace(/w-col w-col-4 w-col-medium-6/g, 'col-xs-4 col-md-6')
       .replace(/w-col w-col-8 w-col-medium-6/g, 'col-xs-8 col-md-6')
       .replace(/copyright-container/, 'container copyright-container')
-  fs.writeFileSync(FOOTER_FILE, body);
+      .replace("{{ site.time | date: '%Y' }}", '2016')
+  $ = cheerio.load(body);
+  $('a').each(function() {
+    $(this).attr('href', getLink($(this).attr('href')));
+  })
+  fs.writeFileSync(FOOTER_FILE, $.html().replace(/&apos;/g, '\''));
 })
 
 function getLink(orig) {
   orig = orig || '';
-  return orig.replace('https://developer.kaltura.com', '');
+  return orig.replace('https://developer.kaltura.com', '').replace('http://developer.kaltura.com', '');
 }
 
 request.get(HEADER_URL, function(err, resp, body) {
