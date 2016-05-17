@@ -19,6 +19,7 @@ request.get(FOOTER_URL, function(err, resp, body) {
 })
 
 function getLink(orig) {
+  orig = orig || '';
   return orig.replace('https://developer.kaltura.com', '');
 }
 
