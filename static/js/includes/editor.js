@@ -31,6 +31,7 @@ GitHub.prototype.req = function(method, path, query, data, innerCb) {
       if (err && err.message.indexOf('A pull request already exists') === 0) return innerCb({});
     }
     if (self.o.errBack) self.o.errBack(xhr.responseText);
+    else innerCb(null);
   });
 }
 
@@ -76,6 +77,7 @@ window.loadRecipe = function(name, callback) {
 }
 
 window.saveRecipe = function(recipe, callback) {
+  if (recipe.name === 'new_recipe') return callback("Please specify a unique ID for your recipe.")
   var repoPath = '/repos/kaltura/kaltura-api-recipes';
   var filePath = '/contents/recipes-v2/' + recipe.name + '.json';
   var descLoc = (recipe.description || '').indexOf('This recipe uses the following operations');
@@ -98,11 +100,13 @@ window.saveRecipe = function(recipe, callback) {
     var github = new GitHub({errBack: callback, token: tok});
     github.req('POST', repoPath + '/forks', {}, function(repo) {
       var theirRepoPath = '/repos/' + repo.full_name;
+      github.o.errBack = null;
       github.req('GET', theirRepoPath + filePath, {}, function(file) {
+        github.o.errBack = callback;
         github.req('PUT', theirRepoPath + filePath, {}, {
           message: "Update recipe: " + recipe.name,
           content: btoa(unescape(encodeURIComponent(JSON.stringify(recipe, null, 2)))),
-          sha: file.sha,
+          sha: file ? file.sha : undefined,
         }, function(msg) {
           github.req('POST', repoPath + '/pulls', {}, {
             title: 'Update recipe: ' + recipe.name,
