@@ -4,8 +4,11 @@ var Swagger = module.exports = require('kaltura-spec-converter').swagger;
 function readMD(name) {
   return fs.readFileSync(__dirname + '/markdown/' + name + '.md', 'utf8');
 }
+for (var key in Swagger['x-enums']) {
+  Swagger.definitions[key] = Swagger['x-enums'][key];
+}
 var definitions = Object.keys(Swagger.definitions).map(function(defName) {
-  return {title: defName, definition: defName, object: defName};
+  return {title: defName, definition: defName}
 });
 function isEnum(defTag) {
   var def = Swagger.definitions[defTag.definition];
