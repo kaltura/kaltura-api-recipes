@@ -3,8 +3,7 @@
   "title": "Upload a Video",
   "summary": "Learn how to upload a video to your video library",
   "description": [
-    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input.",
-    "If you're working in a web environment, we highly recommend using the [jQuery Chunked File Upload Library](https://github.com/kaltura/chunked-file-upload-jquery). This library handles chunking files in Javascript, automatically determining the optimal chunk size and number of parallel uploaded chunks, as well as handle pause-and-resume and retry in case of temporary network failures. It completely abstracts and simplifies working with the [uploadToken](https://developer.kaltura.com/api-docs/#/uploadToken) service and file upload flow.",
+    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input.,If you're working in a web environment, we highly recommend using the [jQuery Chunked File Upload Library](https://github.com/kaltura/chunked-file-upload-jquery). This library handles chunking files in Javascript, automatically determining the optimal chunk size and number of parallel uploaded chunks, as well as handle pause-and-resume and retry in case of temporary network failures. It completely abstracts and simplifies working with the [uploadToken](https://developer.kaltura.com/api-docs/#/uploadToken) service and file upload flow.,",
     ""
   ],
   "icon": "upload",
@@ -12,7 +11,8 @@
     {
       "title": "Uploading Files - Create an Upload Token",
       "description": [
-        "Use the uploadToken service to upload a new video file to the Kaltura API. First you'll need to use `uploadToken.add` to create a new upload token."
+        "Use the uploadToken service to upload a new video file to the Kaltura API. First you'll need to use `uploadToken.add` to create a new upload token.",
+        "If you're working in JavaScript, the [jQuery File Upload widget](https://github.com/kaltura/jQuery-File-Upload) will take care of this step for you."
       ],
       "apiCall": {
         "path": "/service/uploadtoken/action/add",
@@ -109,7 +109,7 @@
     {
       "title": "Viewing your Video",
       "description": [
-        "You can use kWidget to embed your video in HTML. The video may not be ready for a minute, so you can poll its status with `media.get` by hitting 'Send Request'."
+        "Using the [Kaltura Player](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html) you can play the newly uploaded video on your website or app.  \nThe Kaltura Player is managed using the uiConf API service. The uiConf service allows you to create and configure many instances of your player, and centrally manage your player design and features. To learn more about the Kaltura Player see: [Kaltura Player Docs](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html).  \nThe video may not be ready for a minute, so you can poll its status with `media.get` by hitting 'Send Request'.  "
       ],
       "apiCall": {
         "path": "/service/media/action/get",
