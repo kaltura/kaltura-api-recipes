@@ -109,7 +109,7 @@
     {
       "title": "Viewing your Video",
       "description": [
-        "Using the [Kaltura Player](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html) you can play the newly uploaded video on your website or app.  \nThe Kaltura Player is managed using the uiConf API service. The uiConf service allows you to create and configure many instances of your player, and centrally manage your player design and features. To learn more about the Kaltura Player see: [Kaltura Player Docs](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html).  \nThe video may not be ready for a minute, so you can poll its status with `media.get` by hitting 'Send Request'.  "
+        "Using the [Kaltura Player](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html) you can play the newly uploaded video on your website or app.  \nThe Kaltura Player is managed using the uiConf API service. The uiConf service allows you to create and configure many instances of your player, and centrally manage your player design and features. To learn more about the Kaltura Player see: [Kaltura Player Docs](https://vpaas.kaltura.com/documentation/04_Web-Video-Player/Player-Configuration.html).  \n  \nYour newly uploaded video is now being prepared for playback across devices. While the video is being prepared, you can poll its status with `media.get` by hitting 'Send Request'.  "
       ],
       "apiCall": {
         "path": "/service/media/action/get",
