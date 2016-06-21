@@ -3,8 +3,7 @@
   "title": "Upload a Video",
   "summary": "Learn how to upload a video to your video library",
   "description": [
-    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input.",
-    "If you're working in a web environment, we highly recommend using the [jQuery Chunked File Upload Library](https://github.com/kaltura/chunked-file-upload-jquery). This library handles chunking files in Javascript, automatically determining the optimal chunk size and number of parallel uploaded chunks, as well as handle pause-and-resume and retry in case of temporary network failures. It completely abstracts and simplifies working with the [uploadToken](https://developer.kaltura.com/api-docs/#/uploadToken) service and file upload flow.",
+    "This recipe will walk you through the process of uploading new videos using the Kaltura API. Video files can be located on disk, or be specified as an HTML file input.,If you're working in a web environment, we highly recommend using the [jQuery Chunked File Upload Library](https://github.com/kaltura/chunked-file-upload-jquery). This library handles chunking files in Javascript, automatically determining the optimal chunk size and number of parallel uploaded chunks, as well as handle pause-and-resume and retry in case of temporary network failures. It completely abstracts and simplifies working with the [uploadToken](https://developer.kaltura.com/api-docs/#/uploadToken) service and file upload flow.,",
     ""
   ],
   "icon": "upload",
@@ -31,7 +30,7 @@
       "title": "Uploading Files - Send the Data",
       "description": [
         "Now we'll use the newly created Upload Token to upload a video file.\nOr, if you're working in JavaScript, you can simply use the [jQuery File Upload widget](https://github.com/kaltura/jQuery-File-Upload)",
-        "If you don't have a video file handy, you can right-click [this link](/this-is-my-jam.mp4) and choose **Save As**."
+        "If you don't have a video file handy, you can right-click [this link](http://cfvod.kaltura.com/pd/p/811441/sp/81144100/serveFlavor/entryId/1_2bjlk7qb/v/2/flavorId/1_d1ft34uv/fileName/Kaltura_Logo_Animation.flv/name/a.flv) and choose **Save As**."
       ],
       "apiCall": {
         "path": "/service/uploadtoken/action/upload",
