@@ -51,7 +51,7 @@ App.controller('KalturaNav', function($scope) {
     {title: "API Docs", href: "/api-docs"},
     {title: "API Console", href: "/console"},
     {title: "Client Libraries", href: "/api-docs/#/Client%20Libraries"},
-    {title: "Code Recipes", href: "/recipes"},
+    {title: "Interactive Workflows", href: "/recipes"},
   ]
 })
 
