@@ -23,8 +23,17 @@ var groups = module.exports = [{
   children: require('./schemas.js'),
 }, {
   title: "Generate API Sessions",
-  children: [
-    {tag: "session"},
+  children: [{
+      title: "session",
+      children: [
+        {operation: "session.start"},
+        {operation: "session.end"},
+        {operation: "session.get"},
+        {operation: "session.impersonate"},
+        {operation: "session.impersonateByKs"},
+        {operation: "session.startWidgetSession"},
+      ]
+    },
     {tag: "appToken"},
     {operation: 'user.loginByLoginId'},
   ],
