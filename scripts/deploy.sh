@@ -1,4 +1,3 @@
-export KALTURA_RECIPES_PORT=3005
 export DEVELOPMENT=
 export ENABLE_EDITS=true
 
