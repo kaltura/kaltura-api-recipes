@@ -21,3 +21,10 @@
 #Recipe #Parameters .panel-heading:before {
   content: 'Set values in the parameters below to try this step';
 }
+
+.console-link span {
+  display: none;
+}
+.console-link:after {
+  content: "Try in API Console";
+}
