@@ -94,11 +94,8 @@
   "icon": "eye",
   "summary": "External CSS files can be loaded during Player load time to override the Player core CSS classes. This recipe shows how to leverage the external CSS loading functionality to quickly customize the player look-and-feel.",
   "description": [
-    "To override the Player core CSS classes, you can load external CSS files during Player load time.  \nThis recipe shows how to leverage the external CSS loading functionality to quickly customize the Player look-and-feel.",
-    "The core CSS classes are defined here:\n* [The kdark skin](https://github.com/kaltura/mwEmbed/blob/master/skins/kdark/css/layout.css)\n* [The ott skin](https://github.com/kaltura/mwEmbed/blob/master/skins/ott/css/layout.css)",
-    "The following services are used in this recipe:\n1. media.list\n2. uiConf.list\n3. The Kaltura Player library",
-    "",
-    "",
+    "To override the Player core CSS classes, you can load external CSS files during Player load time.  \nThis recipe shows how to leverage the external CSS loading functionality to quickly customize the Player look-and-feel.,The core CSS classes are defined here:\n* [The kdark skin](https://github.com/kaltura/mwEmbed/blob/master/skins/kdark/css/layout.css)\n* [The ott skin](https://github.com/kaltura/mwEmbed/blob/master/skins/ott/css/layout.css),The following services are used in this recipe:\n1. media.list\n2. uiConf.list\n3. The Kaltura Player library,,,",
     ""
-  ]
+  ],
+  "sortOrder": 500
 }
