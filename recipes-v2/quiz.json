@@ -6,7 +6,11 @@
   "steps": [
     {
       "title": "Select a Media Entry",
-      "description": "Choose a video from your library to add cue points to.\n\nYou can use ```cuePoint.list``` to see what cue points are already attached.\n\nSet `cuePointTypeEqual` to `QUIZ_QUESTION` to only show quizes.",
+      "description": [
+        "Choose a video from your library to add cue points to.",
+        "You can use ```cuePoint.list``` to see what cue points are already attached.",
+        "Set `cuePointTypeEqual` to `QUIZ_QUESTION` to only show quizes."
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
@@ -65,5 +69,10 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "cuePoint"
+  ],
+  "keywords": [],
+  "sortOrder": 250
 }
