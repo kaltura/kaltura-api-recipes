@@ -6,7 +6,10 @@
   "steps": [
     {
       "title": "Getting Ad Cue Points",
-      "description": "Use `cuePoint.list` to retrieve a list of Ad Cue Points\n\nUse a `KalturaAdCuePointBaseFilter` to retrieve only Ad cue points.",
+      "description": [
+        "Use `cuePoint.list` to retrieve a list of Ad Cue Points",
+        "Use a `KalturaAdCuePointBaseFilter` to retrieve only Ad cue points."
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
@@ -32,7 +35,9 @@
     },
     {
       "title": "Adding a new Ad Cue Point",
-      "description": "Use the controls below to add a new cue point to one of your videos",
+      "description": [
+        "Use the controls below to add a new cue point to one of your videos"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/add",
         "method": "get"
@@ -89,7 +94,9 @@
     },
     {
       "title": "Retrieving an Ad Cue Point",
-      "description": "Use `cuePoint.get` to get details for a specific Ad Cue Point",
+      "description": [
+        "Use `cuePoint.get` to get details for a specific Ad Cue Point"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/get",
         "method": "get"
@@ -106,7 +113,9 @@
     },
     {
       "title": "Viewing your Advertisement",
-      "description": "Now you can see your new Cue Point wherever you embed your video.",
+      "description": [
+        "Now you can see your new Cue Point wherever you embed your video."
+      ],
       "apiCall": {
         "path": "/service/media/action/get",
         "method": "get"
@@ -147,7 +156,9 @@
     },
     {
       "title": "Listening for Cue Points",
-      "description": "You can use kWidget to listen for when your Cue Points are triggered",
+      "description": [
+        "You can use kWidget to listen for when your Cue Points are triggered"
+      ],
       "codeSnippet": {
         "javascript": "kWidget.addReadyCallback(function(playerId){\n  var kdp = $('#' + playerId)[0]; \n  kdp.kBind('cuePointReached', function( qPoint ){\n    var type = (qPoint.context) ? 'Ad' : 'Code';\n    console.log('Cue Point:',\n        type,\n        qPoint.cuePoint.title,\n        qPoint.cuePoint.description,\n        qPoint.cuePoint.startTime);\n  })\n})\n"
       },
@@ -188,7 +199,9 @@
     },
     {
       "title": "Deleting an Ad Cue Point",
-      "description": "Use `cuePoint.delete` to remove a specific Ad Cue Point",
+      "description": [
+        "Use `cuePoint.delete` to remove a specific Ad Cue Point"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/delete",
         "method": "get"
@@ -203,5 +216,11 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "cuePoint",
+    "media"
+  ],
+  "keywords": [],
+  "sortOrder": 150
 }
