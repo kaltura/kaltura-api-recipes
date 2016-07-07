@@ -6,7 +6,10 @@
   "steps": [
     {
       "title": "Finding Your Most Viewed Videos",
-      "description": "You can use ```report.getTable``` to retrieve tables of usage statistics.\n\nFor instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```",
+      "description": [
+        "You can use ```report.getTable``` to retrieve tables of usage statistics.",
+        "For instance, to find the user who played the most videos, select reportType ```USER_TOP_CONTENT``` and order by ```count_plays```"
+      ],
       "apiCall": {
         "path": "/service/report/action/getTable",
         "method": "get"
@@ -54,7 +57,9 @@
     },
     {
       "title": "Finding Your Top Contributors",
-      "description": "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```",
+      "description": [
+        "To find the users who contributed the most content, select reportType ```TOP_CONTRIBUTORS``` and order by ```count_total```"
+      ],
       "apiCall": {
         "path": "/service/report/action/getTable",
         "method": "get"
@@ -130,5 +135,11 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "report",
+    "media"
+  ],
+  "keywords": [],
+  "sortOrder": 450
 }

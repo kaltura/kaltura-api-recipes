@@ -6,7 +6,9 @@
   "steps": [
     {
       "title": "Select a player",
-      "description": "Choose a player to view its configuration",
+      "description": [
+        "Choose a player to view its configuration"
+      ],
       "apiCall": {
         "path": "/service/uiconf/action/get",
         "method": "get"
@@ -33,7 +35,9 @@
     },
     {
       "title": "Updating the UI conf",
-      "description": "You can use the form below to add, change or remove functionality from your player.",
+      "description": [
+        "You can use the form below to add, change or remove functionality from your player."
+      ],
       "apiCall": {
         "path": "/service/uiconf/action/update",
         "method": "get"
@@ -66,5 +70,10 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "uiConf"
+  ],
+  "keywords": [],
+  "sortOrder": 550
 }

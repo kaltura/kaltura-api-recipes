@@ -6,7 +6,9 @@
   "steps": [
     {
       "title": "Getting Cue Points",
-      "description": "Use `cuePoint.list` to retrieve a list of Cue Points",
+      "description": [
+        "Use `cuePoint.list` to retrieve a list of Cue Points"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/list",
         "method": "get"
@@ -32,7 +34,9 @@
     },
     {
       "title": "Adding a new Cue Point",
-      "description": "Use the controls below to add a new cue point to one of your videos",
+      "description": [
+        "Use the controls below to add a new cue point to one of your videos"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/add",
         "method": "get"
@@ -71,7 +75,9 @@
     },
     {
       "title": "Retrieving an Cue Point",
-      "description": "Use `cuePoint.get` to get details for a specific Cue Point",
+      "description": [
+        "Use `cuePoint.get` to get details for a specific Cue Point"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/get",
         "method": "get"
@@ -88,7 +94,9 @@
     },
     {
       "title": "Viewing your Cue Point",
-      "description": "Now you can see your new Cue Point wherever you embed your video.",
+      "description": [
+        "Now you can see your new Cue Point wherever you embed your video."
+      ],
       "apiCall": {
         "path": "/service/media/action/get",
         "method": "get"
@@ -116,7 +124,9 @@
     },
     {
       "title": "Deleting an Cue Point",
-      "description": "Use `cuePoint.delete` to remove a specific Cue Point",
+      "description": [
+        "Use `cuePoint.delete` to remove a specific Cue Point"
+      ],
       "apiCall": {
         "path": "/service/cuepoint_cuepoint/action/delete",
         "method": "get"
@@ -131,5 +141,11 @@
         }
       ]
     }
-  ]
+  ],
+  "tags": [
+    "cuePoint",
+    "media"
+  ],
+  "keywords": [],
+  "sortOrder": 300
 }
