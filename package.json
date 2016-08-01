@@ -17,29 +17,32 @@
   },
   "homepage": "https://github.com/kaltura/kaltura-api-recipes",
   "dependencies": {
-    "bb-asset-manager": "^2.1.0",
-    "body-parser": "^1.13.1",
-    "bower": "^1.4.1",
+    "bb-asset-manager": "^2.2.2",
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
+    "chai": "^3.5.0",
     "compression": "^1.6.1",
-    "ejs": "^2.3.1",
-    "express": "^4.13.0",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
     "jade": "^1.11.0",
-    "jsonwebtoken": "^5.4.0",
+    "jsonwebtoken": "^5.7.0",
     "kaltura-codegen": "git+https://github.com/kaltura/kaltura-api-codegen.git",
     "kaltura-schema": "git+https://github.com/bobby-brennan/kaltura-schema.git",
     "kaltura-spec-converter": "git+https://github.com/bobby-brennan/kaltura-spec-converter.git",
-    "lodash": "^4.6.1",
+    "lodash": "^4.14.1",
     "lucy-api-portal": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-api-portal.git",
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
+    "mocha": "^2.5.3",
     "remove-markdown": "0.0.6",
-    "request": "^2.65.0",
+    "request": "^2.74.0",
     "requestify": "^0.1.17",
-    "sitemap": "^1.4.1"
+    "sitemap": "^1.8.1",
+    "strapping": "^1.6.2"
   },
   "devDependencies": {
-    "chai": "~3.2.0",
+    "chai": "^3.2.0",
     "cheerio": "^0.20.0",
-    "mocha": "~2.2.5",
+    "mocha": "^2.2.5",
     "strapping": "^1.5.2"
   }
 }
