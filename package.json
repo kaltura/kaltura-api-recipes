@@ -7,6 +7,9 @@
     "test": "mocha",
     "postinstall": "./scripts/install.sh"
   },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kaltura/kaltura-api-recipes.git"
