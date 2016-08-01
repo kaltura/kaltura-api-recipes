@@ -1,3 +1,4 @@
+#!/bin/sh
 export DEVELOPMENT=
 export ENABLE_EDITS=true
 
