@@ -1,4 +1,5 @@
 # Error Codes
+
 [[Edit on GitHub]](https://github.com/kaltura/kaltura-api-recipes/edit/development/swagger/markdown/errors.md)
 
 * `CANNOT_RETRIEVE_ANOTHER_USER_USING_NON_ADMIN_SESSION` - cannot retrieve another user \"@USER_ID@\" using non-admin session
@@ -126,6 +127,7 @@
 * `CANNOT_SET_USER_JOIN_POLICY_WHEN_CATEGORY_INHERIT_MEMBERS` - Cannot set user join policy when category is set to inherit
 * `CANNOT_SET_DEFAULT_PERMISSION_LEVEL_WHEN_CATEGORY_INHERIT_MEMBERS` - Cannot set default permission level when category is set to inherit
 * `CANNOT_SET_MULTI_PRIVACY_CONTEXT` -  Cannot set multiple privacy context when Disable Category Limit feature is turned on
+* `AGGREGATION_CATEGORY_WRONG_ASSOCIATION` -  Cannot create aggregation category association
 * `SCHEDULER_HOST_CONFLICT` - Scheduler id \"@SCHED_ID@\" conflicts between hosts: \"@HOST1@\" and \"@HOST2@\"
 * `SCHEDULER_NOT_FOUND` - Scheduler id \"@ID@\" not found
 * `WORKER_NOT_FOUND` - Worker id \"@ID@\" not found
@@ -172,6 +174,7 @@
 * `FILE_NOT_FOUND` - File not found
 * `STORAGE_PROFILE_ID_NOT_FOUND` - Storage profile id @ID@ not found
 * `STORAGE_PROFILE_RULES_NOT_FULFILLED` - Storage profile rules for profile id @ID@ are not fulfilled
+* `FILE_PENDING` - File is pending
 * `CANNOT_RESET_PASSWORD_FOR_SYSTEM_PARTNER` - Password cannot be reset for system partner
 * `REPORT_NOT_FOUND` - Report id \"@ID@\" not found
 * `REPORT_NOT_PUBLIC` - Report id \"@ID@\" is not public
@@ -211,6 +214,8 @@
 * `LIVE_STREAM_EXCEEDED_MAX_TRANSCODED` - Partner exceeded max concurrent transcoded live streams in entry[@ENTRY_ID@]
 * `LIVE_STREAM_EXCEEDED_MAX_RECORDED_DURATION` - Entry exceeded max recorded live stream duration in entry[@ENTRY_ID@]
 * `LIVE_STREAM_ALREADY_BROADCASTING` - Entry [@ENTRY_ID@] already broadcasting to server [@MEDIA_SERVER@]
+* `CANNOT_UPDATE_FIELDS_WHILE_ENTRY_BROADCASTING` - Cannot update [@FIELD@] while entry is broadcasting
+* `CANNOT_UPDATE_FIELDS_RECORDED_ENTRY_STILL_NOT_READY` - Cannot update [@FIELD@] while all vod entry flavors are not ready
 * `DELIVERY_TYPE_NOT_SPECIFIED` - At least one non auto delivery type must be specified
 * `SPHINX_CRITERIA_EXCEEDED_MAX_MATCHES_ALLOWED` - Unable to generate list. max matches value was reached
 * `ASSIGNING_INFO_TO_ENTRY_WITH_PARENT_IS_FORBIDDEN` - assigning categories|scheduling|access control to entry with parent entry \"@ID@\" is not allowed
@@ -221,3 +226,7 @@
 * `MEDIA_SERVER_SERVICE_NOT_FOUND` - Media server [@MEDIA_SERVER_ID@] service [@SERVICE@] not found
 * `HOST_NAME_ALREADY_EXISTS` - Host Name [@HOST_NAME@] already exists
 * `SERVER_NODE_NOT_FOUND` - server node with host name [@HOST_NAME@] not found
+* `ENTRY_SERVER_NODE_NOT_FOUND` - Entry server node with entry id [@ENTRY_ID@] and server type [@SERVER_TYPE@] not found
+* `ENTRY_SERVER_NODE_MULTI_RESULT` - There were several results for entry server node with entry id [@ENTRY_ID@] and server type [@SERVER_TYPE@]
+* `MUST_FILTER_ON_ENTRY_OR_SERVER_TYPE` - Must filter on entry id or server type
+* `ENTRY_SERVER_NODE_OBJECT_TYPE_ERROR` - There is an error in the DB, object type [@OBJ_TYPE@] of EntryServerNode id [@ENTRY_SERVER_NODE_ID@] is unknown
