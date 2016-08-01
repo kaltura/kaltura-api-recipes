@@ -1,5 +1,5 @@
 {
-  "name": "kaltura-recipes",
+  "name": "kaltura-api-recipes",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,15 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bobby-brennan/kaltura-recipes.git"
+    "url": "https://github.com/kaltura/kaltura-api-recipes.git"
   },
   "author": "Bobby Brennan <bobby@lucybot.com> (https://lucybot.com)",
   "bugs": {
-    "url": "https://github.com/bobby-brennan/kaltura-recipes/issues"
+    "url": "https://github.com/kaltura/kaltura-api-recipes/issues"
   },
-  "homepage": "https://github.com/bobby-brennan/kaltura-recipes",
+  "homepage": "https://github.com/kaltura/kaltura-api-recipes",
   "dependencies": {
-    "async": "^1.2.1",
     "bb-asset-manager": "^2.1.0",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
@@ -32,22 +31,15 @@
     "lodash": "^4.6.1",
     "lucy-api-portal": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-api-portal.git",
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
-    "markdown-sections": "^1.0.2",
-    "marked": "^0.3.5",
-    "octonode": "^0.7.5",
     "remove-markdown": "0.0.6",
     "request": "^2.65.0",
     "requestify": "^0.1.17",
-    "sitemap": "^1.4.1",
-    "xml2js": "^0.4.9"
+    "sitemap": "^1.4.1"
   },
   "devDependencies": {
-    "busboy": "~0.2.9",
     "chai": "~3.2.0",
     "cheerio": "^0.20.0",
-    "mkdirp": "~0.5.1",
     "mocha": "~2.2.5",
-    "rimraf": "~2.4.2",
     "strapping": "^1.5.2"
   }
 }
