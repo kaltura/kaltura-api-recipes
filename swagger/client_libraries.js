@@ -13,7 +13,7 @@ var day = genDate.getDate();
 if (day.length === 1) day = '0' + day;
 genDate = day + '-' + month + '-' + year;
 */
-var genDate = '14-05-2015';
+var genDate = '22-06-2016';
 CLIENT_LANGS.forEach(function(cl) {
   var link = 'http://cdnbakmi.kaltura.com/content/clientlibs/' + cl + '_' + genDate + '.tar.gz';
   if (cl === 'node') cl = 'nodejs';
