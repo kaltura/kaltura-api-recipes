@@ -106,7 +106,7 @@
       ],
       "apiCall": {
         "path": "/service/caption_captionasset/action/setContent",
-        "method": "get"
+        "method": "post"
       },
       "parameters": [
         {

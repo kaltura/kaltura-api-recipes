@@ -84,7 +84,7 @@
       ],
       "apiCall": {
         "path": "/service/media/action/addContent",
-        "method": "get"
+        "method": "post"
       },
       "parameters": [
         {

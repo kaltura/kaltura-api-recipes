@@ -64,7 +64,9 @@ module.exports.reload = function() {
     var opsUsed = [];
     recipe.steps.forEach(function(step) {
       if (!step.apiCall) return;
-      var opId = swagger.paths[step.apiCall.path][step.apiCall.method].operationId;
+      var op = swagger.paths[step.apiCall.path][step.apiCall.method];
+      if (!op) throw new Error("In recipe " + recipe.name + " no operation " + step.apiCall.method + " " + step.apiCall.path);
+      var opId = op.operationId;
       var match = step.apiCall.path.match(/\/service\/(.*)\/action\/(.*)$/);
       opsUsed.push({service: match[1], action: match[2], tag: opId.substring(0, opId.indexOf('.'))});
       if (!step.parameters) step.ignoreParameters = ['format'];
