@@ -1,7 +1,7 @@
 var FS = require('fs');
 var Views = require('kaltura-codegen').templates.views;
 
-var Swagger = module.exports = require('kaltura-spec-converter').swagger;
+var Swagger = module.exports = require('./swagger.json');
 Swagger['x-navigation'] = require('./navigation.js');
 Swagger['x-lucy/viewSetup'] = FS.readFileSync(__dirname + '/../node_modules/kaltura-codegen/code_templates/setups/html.html', 'utf8')
 
