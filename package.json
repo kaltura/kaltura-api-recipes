@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kaltura/kaltura-api-recipes",
   "dependencies": {
+    "api-spec-converter": "^2.0.1",
     "bb-asset-manager": "^2.2.2",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
@@ -35,7 +36,6 @@
     "lodash": "^4.14.1",
     "lucy-api-portal": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-api-portal.git",
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
-    "api-spec-converter": "https://github.com/lucybot/api-spec-converter",
     "mocha": "^2.5.3",
     "remove-markdown": "0.0.6",
     "request": "^2.74.0",
