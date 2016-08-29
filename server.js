@@ -72,10 +72,10 @@ console.log('tags', ottSwagger['x-navigation']);
 var ENUM_TMPL = ejs.compile(fs.readFileSync(__dirname + '/swagger/markdown/enum.md', 'utf8'));
 ottSwagger['x-navigation'].push({
     title: "Enums",
-    children: Object.keys(Swagger['x-enums']).map(function(e) {
+    children: Object.keys(ottSwagger['x-enums']).map(function(e) {
       return {
         title: e,
-        contents: ENUM_TMPL({name: e, schema: Swagger['x-enums'][e]}),
+        contents: ENUM_TMPL({name: e, schema: ottSwagger['x-enums'][e]}),
       }
     })
 });
