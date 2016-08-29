@@ -527,8 +527,8 @@ App.controller('KalturaNav', function($scope) {
     {title: "API Docs", href: prefix + "/api-docs"},
     {title: "API Console", href: prefix + "/console"},
     {title: "Client Libraries", href: "/api-docs/#/Client%20Libraries"},
+    {title: "Interactive Workflows", href: prefix + "/recipes"},
   ];
-  if (!prefix) $scope.navbarLinks.push({title: "Interactive Workflows", href: "/recipes"});
 })
 
 App.controller('KalturaLogin', function($scope) {
@@ -851,65 +851,69 @@ function runGitHubOAuth(callback) {
   window.open('https://github.com/login/oauth/authorize?' + $.param(params), '_blank');
 }
 
-window.loadRecipe = function(name, callback) {
-  runGitHubOAuth(function(err, tok) {
-    if (err) return callback(err);
-    var github = new GitHub({errBack: callback, token: tok});
-    github.req('GET', '/user', {}, function(user) {
-      var path = '/repos/' + user.login + '/kaltura-api-recipes';
-      path += '/contents/recipes-v2/' + name + '.json';
-      github.req('GET', path, {}, function(file) {
-        var recipe = JSON.parse(atob(file.content));
-        recipe.defaults = recipe.defaults || {};
-        recipe.defaults.recipeName = recipe.name;
-        recipe.defaults.format = 1;
-        callback(null, recipe);
+if (window.location.pathname.indexOf('/ott') !== 0) {
+
+  window.loadRecipe = function(name, callback) {
+    runGitHubOAuth(function(err, tok) {
+      if (err) return callback(err);
+      var github = new GitHub({errBack: callback, token: tok});
+      github.req('GET', '/user', {}, function(user) {
+        var path = '/repos/' + user.login + '/kaltura-api-recipes';
+        path += '/contents/recipes-v2/' + name + '.json';
+        github.req('GET', path, {}, function(file) {
+          var recipe = JSON.parse(atob(file.content));
+          recipe.defaults = recipe.defaults || {};
+          recipe.defaults.recipeName = recipe.name;
+          recipe.defaults.format = 1;
+          callback(null, recipe);
+        });
       });
-    });
-  })
-}
-
-window.saveRecipe = function(recipe, callback) {
-  if (recipe.name === 'new_recipe') return callback("Please specify a unique ID for your recipe.")
-  var repoPath = '/repos/kaltura/kaltura-api-recipes';
-  var filePath = '/contents/recipes-v2/' + recipe.name + '.json';
-  var descLoc = (recipe.description || '').indexOf('This recipe uses the following operations');
-  if (descLoc === 0) delete recipe.description;
-  else if (descLoc !== -1) recipe.description = recipe.description.substring(0, descLoc).split('\n\n');
-  if (recipe.defaults) {
-    delete recipe.defaults.serviceURL;
-    delete recipe.defaults.format;
-    delete recipe.defaults.recipeName;
-    if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
+    })
   }
-  recipe.steps.forEach(function(s) {
-    s.description = s.description || '';
-    if (!s.description.length) delete s.description;
-    else s.description = s.description.split('\n\n');
-  });
 
-  runGitHubOAuth(function(err, tok) {
-    if (err) return callback(err);
-    var github = new GitHub({errBack: callback, token: tok});
-    github.req('POST', repoPath + '/forks', {}, function(repo) {
-      var theirRepoPath = '/repos/' + repo.full_name;
-      github.o.errBack = null;
-      github.req('GET', theirRepoPath + filePath, {}, function(file) {
-        github.o.errBack = callback;
-        github.req('PUT', theirRepoPath + filePath, {}, {
-          message: "Update recipe: " + recipe.name,
-          content: btoa(unescape(encodeURIComponent(JSON.stringify(recipe, null, 2)))),
-          sha: file ? file.sha : undefined,
-        }, function(msg) {
-          github.req('POST', repoPath + '/pulls', {}, {
-            title: 'Update recipe: ' + recipe.name,
-            base: 'development',
-            head: repo.owner.login + ':development',
-          }, function(pr) {
-            callback(null, 'Successfully opened a Pull Request at ' + (pr.html_url || 'https://github.com/kaltura/kaltura-api-recipes'))
-          })
+  window.saveRecipe = function(recipe, callback) {
+    if (recipe.name === 'new_recipe') return callback("Please specify a unique ID for your recipe.")
+    var repoPath = '/repos/kaltura/kaltura-api-recipes';
+    var filePath = '/contents/recipes-v2/' + recipe.name + '.json';
+    var descLoc = (recipe.description || '').indexOf('This recipe uses the following operations');
+    if (descLoc === 0) delete recipe.description;
+    else if (descLoc !== -1) recipe.description = recipe.description.substring(0, descLoc).split('\n\n');
+    if (recipe.defaults) {
+      delete recipe.defaults.serviceURL;
+      delete recipe.defaults.format;
+      delete recipe.defaults.recipeName;
+      if (!Object.keys(recipe.defaults).length) delete recipe.defaults;
+    }
+    recipe.steps.forEach(function(s) {
+      s.description = s.description || '';
+      if (!s.description.length) delete s.description;
+      else s.description = s.description.split('\n\n');
+    });
+
+    runGitHubOAuth(function(err, tok) {
+      if (err) return callback(err);
+      var github = new GitHub({errBack: callback, token: tok});
+      github.req('POST', repoPath + '/forks', {}, function(repo) {
+        var theirRepoPath = '/repos/' + repo.full_name;
+        github.o.errBack = null;
+        github.req('GET', theirRepoPath + filePath, {}, function(file) {
+          github.o.errBack = callback;
+          github.req('PUT', theirRepoPath + filePath, {}, {
+            message: "Update recipe: " + recipe.name,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(recipe, null, 2)))),
+            sha: file ? file.sha : undefined,
+          }, function(msg) {
+            github.req('POST', repoPath + '/pulls', {}, {
+              title: 'Update recipe: ' + recipe.name,
+              base: 'development',
+              head: repo.owner.login + ':development',
+            }, function(pr) {
+              callback(null, 'Successfully opened a Pull Request at ' + (pr.html_url || 'https://github.com/kaltura/kaltura-api-recipes'))
+            })
+          });
         });
       });
     });
-  });
+  }
+
 }

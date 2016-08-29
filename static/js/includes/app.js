@@ -52,8 +52,8 @@ App.controller('KalturaNav', function($scope) {
     {title: "API Docs", href: prefix + "/api-docs"},
     {title: "API Console", href: prefix + "/console"},
     {title: "Client Libraries", href: "/api-docs/#/Client%20Libraries"},
+    {title: "Interactive Workflows", href: prefix + "/recipes"},
   ];
-  if (!prefix) $scope.navbarLinks.push({title: "Interactive Workflows", href: "/recipes"});
 })
 
 App.controller('KalturaLogin', function($scope) {

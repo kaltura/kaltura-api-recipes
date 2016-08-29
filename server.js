@@ -82,6 +82,10 @@ var ottPortal = LucyPortal({
   paths: {
     documentation: 'api-docs',
   },
+  recipes: __dirname + '/ott-recipes',
+  saveRecipe: function(name, recipe, callback) {
+    fs.writeFile(__dirname + '/ott-recipes/' + name + '.json', JSON.stringify(recipe, null, 2), callback);
+  },
 })
 
 App.use('/ott', ottPortal);
