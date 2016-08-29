@@ -30,9 +30,9 @@ var language_opts = {
     ext: 'js',
     declarationPrefix: 'var ',
     statementSuffix: ';',
-    objPrefix: 'new Kaltura.objects.',
+    objPrefix: 'new Kaltura.kc.objects.',
     objSuffix: '()',
-    enumPrefix: 'Kaltura.enums.',
+    enumPrefix: 'Kaltura.kc.enums.',
   },
   php: {
     ext: 'php',
