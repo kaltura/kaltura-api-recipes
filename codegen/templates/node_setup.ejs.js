@@ -1,6 +1,6 @@
 var Kaltura = require('kaltura');
-var config = new Kaltura.KalturaConfiguration(<%- answers.partnerId %>);
-var client = new Kaltura.KalturaClient(config);
+var config = new Kaltura.kc.KalturaConfiguration(<%- answers.partnerId %>);
+var client = new Kaltura.kc.KalturaClient(config);
 var sessionID = null;
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
