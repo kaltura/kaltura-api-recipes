@@ -2,6 +2,7 @@ var Express = require('express');
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
+var ejs = require('ejs');
 
 var LucyPortal = require('lucy-api-portal').PortalRouter;
 var Swagger = require('./swagger/swagger.js');
@@ -63,6 +64,22 @@ var cacheBust = file => file + '?cacheID=' + cid;
 
 var ottSwagger = require('./swagger/ott.swagger.json');
 ottSwagger.info.description = fs.readFileSync(__dirname + '/swagger/markdown/ott.md', 'utf8');
+ottSwagger['x-navigation'] = ottSwagger.tags.map(function(t) {
+  console.log(t)
+  return {tag: t.name}
+})
+console.log('tags', ottSwagger['x-navigation']);
+var ENUM_TMPL = ejs.compile(fs.readFileSync(__dirname + '/swagger/markdown/enum.md', 'utf8'));
+ottSwagger['x-navigation'].push({
+    title: "Enums",
+    children: Object.keys(Swagger['x-enums']).map(function(e) {
+      return {
+        title: e,
+        contents: ENUM_TMPL({name: e, schema: Swagger['x-enums'][e]}),
+      }
+    })
+});
+
 
 var ottPortal = LucyPortal({
   swagger: ottSwagger,
@@ -82,6 +99,7 @@ var ottPortal = LucyPortal({
   paths: {
     documentation: 'api-docs',
   },
+  allowUnsanitizedMarkdown: true,
   recipes: __dirname + '/ott-recipes',
   saveRecipe: function(name, recipe, callback) {
     fs.writeFile(__dirname + '/ott-recipes/' + name + '.json', JSON.stringify(recipe, null, 2), callback);
