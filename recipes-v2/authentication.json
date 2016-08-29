@@ -27,17 +27,8 @@
           "name": "secret"
         },
         {
-          "name": "sessionType",
-          "default": 2,
-          "hidden": false,
-          "enum": [
-            2,
-            0
-          ],
-          "enumLabels": [
-            "Admin",
-            "User"
-          ]
+          "name": "type",
+          "default": 2
         }
       ],
       "apiCall": {
