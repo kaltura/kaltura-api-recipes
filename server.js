@@ -61,6 +61,31 @@ var footerFile = __dirname + '/views/generated/footer.html';
 var cid = assetMan.options.cacheID || '';
 var cacheBust = file => file + '?cacheID=' + cid;
 
+var ottSwagger = require('./swagger/ott.swagger.json');
+ottSwagger.info.description = fs.readFileSync(__dirname + '/swagger/markdown/ott.md', 'utf8');
+
+var ottPortal = LucyPortal({
+  swagger: ottSwagger,
+  defaultPage: 'documentation',
+  bootstrap: '/kaltura_static/css/bootstrap.css',
+  jsIncludes: [
+    '/kaltura_static/minified/js/kaltura.js',
+    '/kaltura_static/minified/js/includes.js',
+  ].map(cacheBust),
+  cssIncludes: [
+    '/kaltura_static/minified/css/includes.css',
+  ].map(cacheBust),
+  disableAutorefresh: true,
+  basePath: '/ott',
+  navbarHTML: require('jade').compile(fs.readFileSync(navbarFile, 'utf8'), {filename: navbarFile})(),
+  footerHTML: fs.readFileSync(footerFile, 'utf8'),
+  paths: {
+    documentation: 'api-docs',
+  },
+})
+
+App.use('/ott', ottPortal);
+
 var apiPortal = LucyPortal({
   swagger: Swagger,
   defaultPage: 'documentation',

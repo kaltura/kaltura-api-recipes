@@ -521,13 +521,14 @@ App.controller('Kaltura', function($scope) {
 })
 
 App.controller('KalturaNav', function($scope) {
+  var prefix = window.location.pathname.indexOf('/ott') === 0 ? '/ott' : '';
   $scope.navbarLinks = [
     {title: "VPaaS", href: "https://vpaas.kaltura.com"},
-    {title: "API Docs", href: "/api-docs"},
-    {title: "API Console", href: "/console"},
+    {title: "API Docs", href: prefix + "/api-docs"},
+    {title: "API Console", href: prefix + "/console"},
     {title: "Client Libraries", href: "/api-docs/#/Client%20Libraries"},
-    {title: "Interactive Workflows", href: "/recipes"},
-  ]
+  ];
+  if (!prefix) $scope.navbarLinks.push({title: "Interactive Workflows", href: "/recipes"});
 })
 
 App.controller('KalturaLogin', function($scope) {
