@@ -1,7 +1,6 @@
 var Kaltura = require('kaltura');
 var config = new Kaltura.kc.KalturaConfiguration(<%- answers.partnerId %>);
 var client = new Kaltura.kc.KalturaClient(config);
-var sessionID = null;
 client.session.start(function(ks) {
   if (ks.code && ks.message) {
     console.log('Error starting session', ks);
@@ -11,5 +10,5 @@ client.session.start(function(ks) {
   }
 }, <%- helper.getValue(answers.secret) %>,
 <%- helper.getValue(answers.userId) %>,
-<%- answers.sessionType === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
+<%- answers.sessionType === 0 ? 'Kaltura.kc.enums.KalturaSessionType.USER' : 'Kaltura.kc.enums.KalturaSessionType.ADMIN' %>,
 <%- answers.partnerId %>)
