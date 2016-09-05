@@ -32,7 +32,7 @@ client libraries as packages that can be installed via the respective package ma
 
 * PHP `composer require kaltura/api-client-library`
 * NodeJS `npm install kaltura`
-* Ruby `gem install kaltura`
+* Ruby `gem install kaltura-client`
 * Java (via Maven)
 ```
 <dependency>
