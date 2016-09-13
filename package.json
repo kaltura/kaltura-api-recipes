@@ -39,12 +39,12 @@
     "request": "^2.74.0",
     "requestify": "^0.1.17",
     "sitemap": "^1.8.1",
-    "strapping": "^1.6.2"
+    "strapping": "^1.6.2",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "chai": "^3.2.0",
     "cheerio": "^0.20.0",
-    "mocha": "^2.2.5",
-    "strapping": "^1.5.2"
+    "mocha": "^2.2.5"
   }
 }
