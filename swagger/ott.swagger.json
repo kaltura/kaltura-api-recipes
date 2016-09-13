@@ -1,11 +1,10 @@
 {
   "swagger": "2.0",
-  "host": "www.kaltura.com",
+  "host": "tvpapi-stg.as.tvinci.com",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
-  "basePath": "/api_v3",
+  "basePath": "/restful_v4_0/api_v3",
   "info": {
     "title": "Kaltura",
     "description": "The Kaltura API",
