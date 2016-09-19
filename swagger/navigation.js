@@ -125,6 +125,7 @@ var groups = module.exports = [{
 }, {
   title: "Review Media Analytics",
   children: [
+    {tag: "analytics"},
     {tag: "report"},
     {tag: "liveReports"},
     {tag: "liveStats"},
