@@ -164,10 +164,18 @@ var groups = module.exports = [{
     {tag: "responseProfile"},
   ],
 }, {
-  title: "Process and Integrate with Hooks",
+  title: "Integration, Scheduling and Hooks",
   children: [
     {tag: "eventNotificationTemplate"},
     {tag: "scheduledTaskProfile"},
+    {
+      title: "Scheduling Triggers using iCal",
+      children: [
+        {tag: "scheduleEvent"},
+        {tag: "scheduleEventResource"},
+        {tag: "scheduleResource"},
+      ]
+    },
     {tag: "integration"},
     {tag: "businessProcessCase"},
     {tag: "notification", hidden: true},
