@@ -31,9 +31,11 @@ In programming languages that use package managers, Kaltura also provides
 client libraries as packages that can be installed via the respective package manager.
 
 * PHP `composer require kaltura/api-client-library`
-* NodeJS `npm install kaltura`
 * Ruby `gem install kaltura-client`
 * Java (via Maven)
+
+[![NPM](https://nodei.co/npm/kaltura.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/kaltura/)
+
 ```
 <dependency>
   <groupId>com.kaltura</groupId>
