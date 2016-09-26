@@ -30,12 +30,11 @@ Users of self-hosted editions of Kaltura (On-Prem or CE) are encouraged to use t
 In programming languages that use package managers, Kaltura also provides
 client libraries as packages that can be installed via the respective package manager.
 
+[![NPM](https://nodei.co/npm/kaltura.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/kaltura/)
+
 * PHP `composer require kaltura/api-client-library`
 * Ruby `gem install kaltura-client`
 * Java (via Maven)
-
-[![NPM](https://nodei.co/npm/kaltura.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/kaltura/)
-
 ```
 <dependency>
   <groupId>com.kaltura</groupId>
