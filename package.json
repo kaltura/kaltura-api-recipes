@@ -33,7 +33,7 @@
     "kaltura-schema": "git+https://github.com/bobby-brennan/kaltura-schema.git",
     "kaltura-spec-converter": "git+https://github.com/bobby-brennan/kaltura-spec-converter.git",
     "lodash": "^4.14.1",
-    "lucy-api-portal": "git+ssh://git@lucy-codegen:bobby-brennan/lucy-api-portal.git",
+    "lucy-api-portal": "git+ssh://git@lucy-codegen:lucybot/lucy-api-portal.git",
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
     "remove-markdown": "0.0.6",
     "request": "^2.74.0",
