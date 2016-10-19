@@ -17,7 +17,7 @@ var genDate = '22-06-2016';
 CLIENT_LANGS.forEach(function(cl) {
   var link = 'http://cdnbakmi.kaltura.com/content/clientlibs/' + cl + '_' + genDate + '.tar.gz';
   if (cl === 'node') cl = 'nodejs';
-  clientMD += '<div class="client-lib-link ' + cl +  '"><a href="' + link + '">' +
+  clientMD += '<div class="client-lib-link ' + cl +  '" data-language="' + cl + '"><a href="' + link + '">' +
                       '<img src="https://www.kaltura.com/api_v3/testme/images/buttons/' + cl + '.jpg">' +
                    '</a></div>';
 });

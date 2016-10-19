@@ -25,6 +25,12 @@ Users of self-hosted editions of Kaltura (On-Prem or CE) are encouraged to use t
 }
 </style>
 {{ client_libraries }}
+<script>
+  $('.client-lib-link').click(function() {
+    var lang = $(this).attr('data-language');
+    mixpanel.track('client_library', {language: lang});
+  })
+</script>
 
 ## Install Via Package Managers
 In programming languages that use package managers, Kaltura also provides
