@@ -7,7 +7,7 @@
   $ks = $client->session->start(
     <%- helper.getValue(answers.secret) %>,
     <%- helper.getValue(answers.userId) %>,
-    <%- answers.sessionType === 0 ? 'Kaltura.enums.KalturaSessionType.USER' : 'Kaltura.enums.KalturaSessionType.ADMIN' %>,
+    <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>);
   $client->setKS($ks);
 
