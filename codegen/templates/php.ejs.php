@@ -3,6 +3,7 @@
   require_once('lib/KalturaClient.php');
 
   $config = new KalturaConfiguration(<%- helper.getValue(answers.partnerId) %>);
+  $config->serviceUrl = 'https://www.kaltura.com';
   $client = new KalturaClient($config);
   $ks = $client->session->start(
     <%- helper.getValue(answers.secret) %>,
