@@ -8,7 +8,7 @@ client = KalturaClient.new(config);
 client.ks = client.session_service.start(
     <%- helper.getValue(answers.secret) %>,
     <%- helper.getValue(answers.userId) %>,
-    <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
+    <%- answers.sessionType === 0 ? 'Kaltura::KalturaSessionType::USER' : 'Kaltura::KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>)
 
 <% } -%>
