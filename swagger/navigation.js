@@ -171,6 +171,7 @@ var groups = module.exports = [{
     {tag: "scheduledTaskProfile"},
     {
       title: "Scheduling Triggers using iCal",
+      contents: readMD('scheduling'),
       children: [
         {tag: "scheduleEvent"},
         {tag: "scheduleEventResource"},
