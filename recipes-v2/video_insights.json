@@ -19,5 +19,5 @@
   "relatedRecipes": [
     "analytics"
   ],
-  "description": "In recipe you will learn to use Video Insights, granular analytics of various aspects of your media and users behavior."
+  "description": "In this recipe you will learn to use Video Insights, granular analytics of various aspects of your media and users behavior.\n\nSupported metrics:\n\n* playerImpression\n* playRequested\n* play\n* estimatedMinutesWatched\n* averageViewDuration\n* playThrough25\n* playThrough50\n* playThrough75\n* playThrough100\n* playRatio\n* averageViewDropOff\n* view\n* peakView\n\nSupported dimensions: \n\n* partner\n* entry\n* device\n* [to add all dimensions + combinations]"
 }
