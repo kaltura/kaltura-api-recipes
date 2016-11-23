@@ -30,7 +30,7 @@
         "path": "/service/analytics/action/query"
       },
       "description": [
-        "Please specify the parameters below.\nPlease note that granularity of your data is determined by the Dimensions parameter\n"
+        "Please specify the parameters below.\nGranularity of your data is determined by the Dimensions parameter.\nGranularity options are \"day, hour, minute and tenSeconds\".\n"
       ]
     }
   ],
