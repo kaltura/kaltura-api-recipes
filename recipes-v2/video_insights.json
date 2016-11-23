@@ -1,0 +1,23 @@
+{
+  "title": "Video Insights - Advanced Analytics",
+  "name": "video_insights",
+  "steps": [],
+  "keywords": [
+    "analytics",
+    "insights",
+    "graph",
+    "reports"
+  ],
+  "tags": [
+    "analytics",
+    "insights",
+    "graph",
+    "reports"
+  ],
+  "icon": "bar-chart",
+  "summary": "Use this workflow to access advanced analytics features",
+  "relatedRecipes": [
+    "analytics"
+  ],
+  "description": "In recipe you will learn to use Video Insights, granular analytics of various aspects of your media and users behavior."
+}
