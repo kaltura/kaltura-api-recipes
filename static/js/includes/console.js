@@ -24,4 +24,10 @@ window.checkResponse = function(data, status, xhr) {
   return msg;
 }
 
-
+$(document).ready(() => {
+  $('#Recipe').find('.btn:contains(Execute)').click(() => {
+    $('html, body').animate({
+      scrollTop: $("#Response").offset().top - 72,
+    }, 1000);
+  })
+})
