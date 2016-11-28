@@ -1,0 +1,55 @@
+{
+  "title": "Video Insights - Advanced Analytics",
+  "name": "video_insights",
+  "steps": [
+    {
+      "title": "Calling Query Action on the Analytics Service",
+      "parameters": [
+        {
+          "name": "filter[from_time]"
+        },
+        {
+          "name": "filter[to_time]"
+        },
+        {
+          "name": "filter[metrics]"
+        },
+        {
+          "name": "filter[utcOffset]"
+        },
+        {
+          "name": "filter[dimensions]"
+        },
+        {
+          "name": "format",
+          "x-consoleDefault": 1
+        }
+      ],
+      "apiCall": {
+        "method": "get",
+        "path": "/service/analytics/action/query"
+      },
+      "description": [
+        "Please specify the parameters below.\nGranularity of your data is determined by the Dimensions parameter.\nGranularity options are \"day, hour, minute and tenSeconds\".\n"
+      ]
+    }
+  ],
+  "keywords": [
+    "analytics",
+    "insights",
+    "graph",
+    "reports"
+  ],
+  "tags": [
+    "analytics",
+    "insights",
+    "graph",
+    "reports"
+  ],
+  "icon": "bar-chart",
+  "summary": "Use this workflow to access advanced analytics features",
+  "relatedRecipes": [
+    "analytics"
+  ],
+  "description": "In this recipe you will learn to use Video Insights, granular analytics of various aspects of your media and users behavior.\n\nSupported metrics:\n\n* playerImpression,  playRequested, play, playRatio                               \n* estimatedMinutesWatched, averageViewDuration\n* playThrough25, playThrough50, playThrough75, playThrough100\n* averageViewDropOff, view, peakView\n\nSupported dimensions: \n\n* partner\n* entry\n* device\n* [to add all dimensions + combinations]"
+}
