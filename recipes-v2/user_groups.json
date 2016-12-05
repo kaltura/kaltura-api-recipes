@@ -1,0 +1,44 @@
+{
+  "title": "Creating and Managing User Groups via API",
+  "name": "user_groups",
+  "steps": [
+    {
+      "title": "Creating Groups",
+      "parameters": [
+        {
+          "name": "user[type]",
+          "x-consoleDefault": 1
+        },
+        {
+          "name": "user[id]"
+        },
+        {
+          "name": "user[screenName]"
+        }
+      ],
+      "apiCall": {
+        "method": "get",
+        "path": "/service/user/action/add"
+      },
+      "description": [
+        "In ortder to create a group, you will need to use the `user` service, and `add` action.\nThe key part of creating a group is setting the `type` attribute to `GROUP`, and setting the `id` and `screenName`.\n"
+      ]
+    },
+    {
+      "title": "New Step",
+      "parameters": []
+    }
+  ],
+  "keywords": [
+    "groups",
+    "users"
+  ],
+  "tags": [
+    "groups",
+    "users"
+  ],
+  "icon": "users",
+  "summary": "This will walk you through creating, and managing user groups in Kaltura.",
+  "description": "intro",
+  "finishText": "finish"
+}
