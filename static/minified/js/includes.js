@@ -477,7 +477,6 @@ var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
 if (window.location.href.match(/\?.*signup=true/)) {
-  console.log('signup');
   $(document).ready(function() {
     $('#KalturaSignup').modal('show');
   });
