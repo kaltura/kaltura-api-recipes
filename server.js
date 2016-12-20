@@ -1,6 +1,7 @@
 var Express = require('express');
 var http = require('http');
 var https = require('https');
+var path = require('path');
 var fs = require('fs');
 
 var LucyPortal = require('lucy-api-portal').PortalRouter;
@@ -22,8 +23,14 @@ if (process.env.ENABLE_CROSS_ORIGIN) {
   });
 }
 
-if (process.env.USE_V3_RECIPES) {
-  App.use('/workflows', Express.static(__dirname + '/../kaltura-recipes/www'));
+if (process.env.V3_RECIPES) {
+  let staticDir = path.resolve(process.env.V3_RECIPES);
+  App.use('/workflows', Express.static(staticDir));
+  let index = fs.readFileSync(path.join(staticDir, 'index.html'));
+  App.get('/workflows/:name', (req, res) => {
+    res.set('Content-Type', 'text/html');
+    res.send(index);
+  })
 }
 
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
@@ -43,6 +50,7 @@ var cache = function(age) {
 if (!process.env.DEVELOPMENT) {
   App.use('/fonts',          cache('long'));
   App.use('/img',            cache('long'));
+  App.use('/workflows',      cache('med'));
   App.use('/kaltura_static', cache('med'));
   App.use('/minified',       cache('med'));
   App.use('/partials',       cache('med'));
