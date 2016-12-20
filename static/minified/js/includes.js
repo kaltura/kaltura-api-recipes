@@ -476,6 +476,13 @@ STATES.EI.push({label: 'County Waterford', value: 'CO'});
 var COOKIE_TIMEOUT_MS = 900000;
 var STORAGE_KEY = 'LUCYBOT_RECIPE_CREDS';
 
+if (window.location.href.match(/\?.*signup=true/)) {
+  console.log('signup');
+  $(document).ready(function() {
+    $('#KalturaSignup').modal('show');
+  });
+}
+
 App.controller('Kaltura', function($scope) {
   $scope.user = {};
   $scope.pathname = window.location.pathname;

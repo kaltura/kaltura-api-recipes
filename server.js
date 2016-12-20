@@ -22,6 +22,8 @@ if (process.env.ENABLE_CROSS_ORIGIN) {
   });
 }
 
+App.use('/workflows', Express.static(__dirname + '/../lucy-v3/static'));
+
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
   App.use(require('./routes/basic-auth.js'));
 }
