@@ -22,7 +22,9 @@ if (process.env.ENABLE_CROSS_ORIGIN) {
   });
 }
 
-App.use('/workflows', Express.static(__dirname + '/../kaltura-recipes/www'));
+if (process.env.USE_V3_RECIPES) {
+  App.use('/workflows', Express.static(__dirname + '/../kaltura-recipes/www'));
+}
 
 if (process.env.USE_BASIC_AUTH && process.env.LUCYBOT_USERNAME && process.env.LUCYBOT_PASSWD) {
   App.use(require('./routes/basic-auth.js'));
