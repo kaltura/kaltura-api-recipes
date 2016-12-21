@@ -47,7 +47,7 @@ var cache = function(age) {
     next();
   };
 }
-if (!process.env.DEVELOPMENT) {
+if (!process.env.DEVELOPMENT || process.env.USE_CACHE) {
   App.use('/fonts',          cache('long'));
   App.use('/img',            cache('long'));
   App.use('/workflows',      cache('med'));
