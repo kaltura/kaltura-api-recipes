@@ -71,7 +71,7 @@ The (simplified) rules are these:
 * Brackets with a minus sign in front, i.e. `<%- %>` will evaulate the statement inside the brackets and print the result to the code snippet
     * e.g. `<%- 2 + 2 %>` will print "4" to the resulting code snippet
 
-(side note: the "minus sign in back" is only necessary to remove line breaks - see [here](https://github.com/mde/ejs) for the full set of templating rules)
+(side note: the "minus sign in back" is to remove line breaks - see [here](https://github.com/mde/ejs) for the full set of templating rules)
 
 For example
 ```
