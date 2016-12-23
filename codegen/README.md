@@ -67,9 +67,9 @@ print(pager)
 The (simplified) rules are these:
 * Anything not in `<% %>` brackets is copied literally
 * Brackets with a minus sign in back, i.e. `<% -%>` will be evaluated as JavaScript code, and won't affect output
-    * e.g. <% var foo = 'bar' -%> will create local variable foo, but not print anything to the resulting code snippet
+    * e.g. `<% var foo = 'bar' -%>` will create local variable foo, but not print anything to the resulting code snippet
 * Brackets with a minus sign in front, i.e. `<%- %>` will evaulate the statement inside the brackets and print the result to the code snippet
-    * e.g. <%- 2 + 2 %> will print "4" to the resulting code snippet
+    * e.g. `<%- 2 + 2 %>` will print "4" to the resulting code snippet
 
 (side note: the "minus sign in back" is only necessary to remove line breaks - see [here](https://github.com/mde/ejs) for the full set of templating rules)
 
