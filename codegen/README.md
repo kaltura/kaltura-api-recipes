@@ -44,6 +44,25 @@ result = client.<%- service %>.<%- action %>(<%- parameters.map(p => p.name).joi
 print(result)
 ```
 
+which, for `media->list`, `showSetup==true`, and answers `{pager[pageSize]: 10, filter[entryId]: '1_xyz'}`
+might generate the code:
+```
+import Kaltura from './lib/kaltura'
+client = new Kaltura.client()
+client.session.start("abcde",
+                     12345);
+
+filter = new Kaltura.MediaEntryFilter({
+  entryId: '1_xyz',
+});
+pager = new Kaltura.FilterPager({
+  pageSize: 10,
+})
+
+result = client.media.list(filter, pager)
+print(pager)
+```
+
 #### Template Syntax
 The (simplified) rules are these:
 * Anything not in `<% %>` brackets is copied literally
