@@ -41,7 +41,8 @@ client.session.start(<%- codegen.constant(answers.secret) %>,
 <%- codegen.assignment(param, [], answers)
 <% }) // end forEach -%>
 
-result = client.<%- service %>.<%- action %>(<%- parameters.map(p => p.name).join(', '))
+<% var parameterNames = parameters.map(p => p.name) -%>
+result = client.<%- service %>.<%- action %>(<%- parameterNames.join(', ') %>)
 print(result)
 ```
 
