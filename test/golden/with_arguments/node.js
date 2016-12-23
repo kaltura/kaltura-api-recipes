@@ -1,10 +1,10 @@
-var filter = new Kaltura.objects.KalturaMediaEntryFilter();
+var filter = new Kaltura.kc.objects.KalturaMediaEntryFilter();
 filter.nameLike = "foobar";
-filter.statusEqual = Kaltura.enums.KalturaEntryStatus.READY;
-filter.advancedSearch = new Kaltura.objects.KalturaAttributeCondition();
+filter.statusEqual = Kaltura.kc.enums.KalturaEntryStatus.READY;
+filter.advancedSearch = new Kaltura.kc.objects.KalturaAttributeCondition();
 filter.advancedSearch.value = "baz";
 
-var pager = new Kaltura.objects.KalturaFilterPager();
+var pager = new Kaltura.kc.objects.KalturaFilterPager();
 pager.pageSize = 3;
 
 client.media.listAction(function(results) {

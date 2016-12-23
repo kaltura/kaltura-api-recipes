@@ -2,11 +2,12 @@
   require_once('lib/KalturaClient.php');
 
   $config = new KalturaConfiguration("YOUR_PARTNER_ID");
+  $config->serviceUrl = 'https://www.kaltura.com';
   $client = new KalturaClient($config);
   $ks = $client->session->start(
     "YOUR_KALTURA_SECRET",
     "YOUR_USER_ID",
-    Kaltura.enums.KalturaSessionType.ADMIN,
+    KalturaSessionType::ADMIN,
     YOUR_PARTNER_ID);
   $client->setKS($ks);
 

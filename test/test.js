@@ -2,12 +2,13 @@ var _ = require('lodash');
 var fs = require('fs');
 var expect = require('chai').expect;
 
-var CodeTemplate = require('../code_templates');
+var CodeTemplate = require('../codegen');
 
 describe('Sample Code', function() {
   var renderParams = null;
+  this.timeout(5000);
   before(function(done) {
-    require('../code_templates/params.js')(function(params) {
+    require('../codegen/params.js')(function(params) {
       renderParams = params;
       done();
     });

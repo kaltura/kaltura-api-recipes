@@ -1,6 +1,6 @@
-var filter = new Kaltura.objects.KalturaMediaEntryFilter();
+var filter = new Kaltura.kc.objects.KalturaMediaEntryFilter();
 
-var pager = new Kaltura.objects.KalturaFilterPager();
+var pager = new Kaltura.kc.objects.KalturaFilterPager();
 
 client.media.listAction(function(results) {
   if (results && results.code && results.message) {
