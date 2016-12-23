@@ -106,7 +106,7 @@ CodeTemplate.prototype.render = function(params) {
   }
 }
 
-CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
+CodeTemplate.prototype.assignment = function(field, parents, answers) {
   var self = this;
   var answerName = '';
   if (parents.length) {
@@ -130,7 +130,7 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
     if (parents.length && fieldObjType === undefined) return;
     setter += self.objPrefix + (fieldObjType || field.type) + self.objSuffix;
     subsetters = field.fields.map(function(f) {
-      return self.getFieldSetter(f, parents.concat([field.name]), answers);
+      return self.assignment(f, parents.concat([field.name]), answers);
     }).filter(function(s) {return s});
     return setter + self.statementSuffix + (subsetters.length ? '\n' + subsetters.join('\n') : '');
   } else {

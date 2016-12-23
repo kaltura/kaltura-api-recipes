@@ -13,7 +13,7 @@ client.ks = client.session_service.start(
 
 <% } -%>
 <%  parameters.forEach(function(param) { -%>
-<%  var setter = codegen.getFieldSetter(param, [], answers); -%>
+<%  var setter = codegen.assignment(param, [], answers); -%>
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
