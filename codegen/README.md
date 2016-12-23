@@ -24,6 +24,8 @@ Adding a language consists of two steps:
 1. **Writing a code template** - this provides the general structure of code snippets for the language
 2. **Specifying language syntax** - this informs the `codegen` helper on how to declare and initialize variables
 
+Also be sure to add your language to `CodeTemplates.LANGUAGES` in `./codegen/index.js`.
+
 ### Code Templates
 Code templates are written in [EJS](http://www.embeddedjs.com/), or embedded javascript.
 Templates are contained in `./codegen/templates/{language_name}.ejs.{extension}`.
@@ -153,4 +155,11 @@ php: {
 You can also use `language_opts` to override `codegen.constant`, `codegen.assignment`, or pass
 additional helper functions to your template.
 
+## Running Tests
+```
+npm install -g mocha
+mocha
+```
 
+will generate code snippets in `./test/golden/`. You should manually check that the code generated
+there runs properly.
