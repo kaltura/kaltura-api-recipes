@@ -25,40 +25,8 @@ Adding a language consists of two steps:
 2. **Specifying language syntax** - this informs the `codegen` helper on how to declare and initialize variables
 
 ### Code Templates
-Code templates are written in [EJS](http://www.embeddedjs.com/). The (simplified) rules are these:
-
-* Anything not in `<% %>` brackets is copied literally
-* Brackets with a minus sign in back, i.e. `<% -%>` will be evaluated as JavaScript code, and won't affect output
-    * e.g. <% var foo = 'bar' -%> will create local variable foo, but not print anything to the resulting code snippet
-* Brackets with a minus sign in front, i.e. `<%- %>` will evaulate the statement inside the brackets and print the result to the code snippet
-    * e.g. <%- 2 + 2 %> will print "4" to the resulting code snippet
-
-(side note: the "minus sign in back" is only necessary to remove line breaks - see [here](https://github.com/mde/ejs) for the full set of templating rules)
-
-Here's an example:
-```
-<% var foo = 'bar' -%>
-console.log(<%- foo %>);
-```
-
-This will generate:
-```
-console.log(bar);
-```
-
-#### Code Template Input
-Each code template has access to the following variables:
-* `service` - the name of the Kaltura service being used, e.g. `media`.
-* `action` - the name of the action to be performed on that service, e.g. `list` or `add`.
-* `parameters` - a list of top-level parameters on that action, e.g. `filter` for `media.list`.
-* `answers` - key/value pairs for the user's input (i.e. forms inside recipes or the API console), e.g. `answers.partnerId` will usually contain the partnerId for the logged-in user.
-* `showSetup` - whether or not to show "setup" code, e.g. library imports and authentication code
-* `codegen` - a set of codegen utilities, informed by the language's syntax specification (see below)
-    * `codegen.indent(code, numSpaces)` - will indent each line in `code`
-    * `codegen.constant(literal)` - translates a value (e.g. the number `2` or the string `hello "world"`) to the string of code that declares it as a constant in this language (e.g. `2`, `"hello \"world\""`)
-    * `codegen.assignment(parameter, parents, answers)` - declares and initializes a variable for a given parameter (i.e. from `parameters` above) according to the values in `answers`. `parents` should be an empty array.
-
-In pseudocode, the standard code template looks something like this:
+Code templates are written in [EJS](http://www.embeddedjs.com/), or embedded javascript.
+For a pseudocode language, the code template might look something like this:
 
 ```
 <% if (showSetup) { -%>
@@ -75,6 +43,39 @@ client.session.start(<%- codegen.constant(answers.secret) %>,
 result = client.<%- service %>.<%- action %>(<%- parameters.map(p => p.name).join(', '))
 print(result)
 ```
+
+#### Template Syntax
+The (simplified) rules are these:
+* Anything not in `<% %>` brackets is copied literally
+* Brackets with a minus sign in back, i.e. `<% -%>` will be evaluated as JavaScript code, and won't affect output
+    * e.g. <% var foo = 'bar' -%> will create local variable foo, but not print anything to the resulting code snippet
+* Brackets with a minus sign in front, i.e. `<%- %>` will evaulate the statement inside the brackets and print the result to the code snippet
+    * e.g. <%- 2 + 2 %> will print "4" to the resulting code snippet
+
+(side note: the "minus sign in back" is only necessary to remove line breaks - see [here](https://github.com/mde/ejs) for the full set of templating rules)
+
+For example
+```
+<% var foo = 'bar' -%>
+console.log(<%- foo %>);
+```
+will generate:
+```
+console.log(bar);
+```
+
+#### Code Template Input
+Each code template has access to the following variables:
+* `service` - the name of the Kaltura service being used, e.g. `media`.
+* `action` - the name of the action to be performed on that service, e.g. `list` or `add`.
+* `parameters` - a list of top-level parameters on that action, e.g. `filter` for `media.list`.
+* `answers` - key/value pairs for the user's input (i.e. forms inside recipes or the API console), e.g. `answers.partnerId` will usually contain the partnerId for the logged-in user.
+* `showSetup` - whether or not to show "setup" code, e.g. library imports and authentication code
+* `codegen` - a set of codegen utilities, informed by the language's syntax specification (see below)
+    * `codegen.indent(code, numSpaces)` - will indent each line in `code`
+    * `codegen.constant(literal)` - translates a value (e.g. the number `2` or the string `hello "world"`) to the string of code that declares it as a constant in this language (e.g. `2`, `"hello \"world\""`)
+    * `codegen.assignment(parameter, parents, answers)` - declares and initializes a variable for a given parameter (i.e. from `parameters` above) according to the values in `answers`. `parents` should be an empty array.
+
 
 ### Syntax Specification
 The codegen utility `assignment` above has a lot going on under the hood, as it is usually
