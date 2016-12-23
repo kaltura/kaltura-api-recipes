@@ -9,7 +9,7 @@ client.session.start(function(ks) {
     client.setKs(ks);
 <%- helper.indent(code, 4) %>
   }
-}, <%- helper.getValue(answers.secret) %>,
-<%- helper.getValue(answers.userId) %>,
+}, <%- helper.getValueAsConstant(answers.secret) %>,
+<%- helper.getValueAsConstant(answers.userId) %>,
 <%- answers.sessionType === 0 ? 'Kaltura.kc.enums.KalturaSessionType.USER' : 'Kaltura.kc.enums.KalturaSessionType.ADMIN' %>,
 <%- answers.partnerId %>)
