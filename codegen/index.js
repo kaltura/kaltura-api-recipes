@@ -14,7 +14,7 @@ var language_opts = {
     enumPrefix: '',
     enumAccessor: '',
     declarationPrefix: '',
-    getValueAsConstant: JSON.stringify,
+    constant: JSON.stringify,
     rewriteVariable: function(s) {return s},
     rewriteAction: function(s) {return s},
     rewriteService: function(s) {return s},
@@ -140,7 +140,7 @@ CodeTemplate.prototype.getFieldSetter = function(field, parents, answers) {
       answer = '';  // TODO: use correct type
     }
     if (!field.enum) {
-      setter += self.getValueAsConstant(answer);
+      setter += self.constant(answer);
     } else {
       for (var valName in field.enum.values) {
         if (field.enum.values[valName] === answer) {

@@ -2,12 +2,12 @@
 <% if (showSetup) { -%>
   require_once('lib/KalturaClient.php');
 
-  $config = new KalturaConfiguration(<%- codegen.getValueAsConstant(answers.partnerId) %>);
+  $config = new KalturaConfiguration(<%- codegen.constant(answers.partnerId) %>);
   $config->serviceUrl = 'https://www.kaltura.com';
   $client = new KalturaClient($config);
   $ks = $client->session->start(
-    <%- codegen.getValueAsConstant(answers.secret) %>,
-    <%- codegen.getValueAsConstant(answers.userId) %>,
+    <%- codegen.constant(answers.secret) %>,
+    <%- codegen.constant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>);
   $client->setKS($ks);

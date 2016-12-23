@@ -24,8 +24,8 @@
     // as this exposes your Admin Secret to users.
     // Instead, generate a session on the server and pass the
     // KS to the client.
-  }, <%- codegen.getValueAsConstant(answers.secret) %>,
-  <%- codegen.getValueAsConstant(answers.userId) %>,
+  }, <%- codegen.constant(answers.secret) %>,
+  <%- codegen.constant(answers.userId) %>,
   <%- answers.sessionType === 0 ? 'KalturaSessionType.USER' : 'KalturaSessionType.ADMIN' %>,
   <%- answers.partnerId %>)
 </script>

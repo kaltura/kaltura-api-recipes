@@ -6,8 +6,8 @@ config = KalturaConfiguration.new()
 config.service_url = 'https://www.kaltura.com'
 client = KalturaClient.new(config);
 client.ks = client.session_service.start(
-    <%- codegen.getValueAsConstant(answers.secret) %>,
-    <%- codegen.getValueAsConstant(answers.userId) %>,
+    <%- codegen.constant(answers.secret) %>,
+    <%- codegen.constant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'Kaltura::KalturaSessionType::USER' : 'Kaltura::KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>)
 
