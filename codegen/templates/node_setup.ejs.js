@@ -7,9 +7,9 @@ client.session.start(function(ks) {
     console.log('Error starting session', ks);
   } else {
     client.setKs(ks);
-<%- helper.indent(code, 4) %>
+<%- codegen.indent(code, 4) %>
   }
-}, <%- helper.getValueAsConstant(answers.secret) %>,
-<%- helper.getValueAsConstant(answers.userId) %>,
+}, <%- codegen.getValueAsConstant(answers.secret) %>,
+<%- codegen.getValueAsConstant(answers.userId) %>,
 <%- answers.sessionType === 0 ? 'Kaltura.kc.enums.KalturaSessionType.USER' : 'Kaltura.kc.enums.KalturaSessionType.ADMIN' %>,
 <%- answers.partnerId %>)

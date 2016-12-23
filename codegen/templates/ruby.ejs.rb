@@ -6,20 +6,20 @@ config = KalturaConfiguration.new()
 config.service_url = 'https://www.kaltura.com'
 client = KalturaClient.new(config);
 client.ks = client.session_service.start(
-    <%- helper.getValueAsConstant(answers.secret) %>,
-    <%- helper.getValueAsConstant(answers.userId) %>,
+    <%- codegen.getValueAsConstant(answers.secret) %>,
+    <%- codegen.getValueAsConstant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'Kaltura::KalturaSessionType::USER' : 'Kaltura::KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>)
 
 <% } -%>
 <%  parameters.forEach(function(param) { -%>
-<%  var setter = helper.getFieldSetter(param, [], answers); -%>
+<%  var setter = codegen.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
 
 <%  }) -%>
-results = client.<%- helper.rewriteService(service) %>.<%- helper.rewriteAction(action) %>(<%- -%>
+results = client.<%- codegen.rewriteService(service) %>.<%- codegen.rewriteAction(action) %>(<%- -%>
 <% if (parameters.length === 0) { -%>
 <%- ')' %>
 <% } else if (parameters.length === 1) { -%>

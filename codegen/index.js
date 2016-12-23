@@ -96,7 +96,7 @@ CodeTemplate.prototype.render = function(params) {
   params.answers.partnerId = params.answers.partnerId || 'YOUR_PARTNER_ID';
   params.answers.secret = params.answers.secret || 'YOUR_KALTURA_SECRET';
   params.answers.userId = params.answers.userId || 'YOUR_USER_ID';
-  params = _.extend({helper: this}, params);
+  params = _.extend({codegen: this}, params);
   var code = EJS.render(this.template, params);
   if (params.showSetup && this.setupTemplate) {
     params.code = code;

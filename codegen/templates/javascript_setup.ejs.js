@@ -17,15 +17,15 @@
     } else {
       window.ks = ks;
       client.setKs(ks);
-<%- helper.indent(code, 6) %>
+<%- codegen.indent(code, 6) %>
     }
     // Note: this is meant only as a sample.
     // You should NEVER generate sessions on the client,
     // as this exposes your Admin Secret to users.
     // Instead, generate a session on the server and pass the
     // KS to the client.
-  }, <%- helper.getValueAsConstant(answers.secret) %>,
-  <%- helper.getValueAsConstant(answers.userId) %>,
+  }, <%- codegen.getValueAsConstant(answers.secret) %>,
+  <%- codegen.getValueAsConstant(answers.userId) %>,
   <%- answers.sessionType === 0 ? 'KalturaSessionType.USER' : 'KalturaSessionType.ADMIN' %>,
   <%- answers.partnerId %>)
 </script>

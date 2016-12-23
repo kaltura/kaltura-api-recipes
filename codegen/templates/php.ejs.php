@@ -2,21 +2,21 @@
 <% if (showSetup) { -%>
   require_once('lib/KalturaClient.php');
 
-  $config = new KalturaConfiguration(<%- helper.getValueAsConstant(answers.partnerId) %>);
+  $config = new KalturaConfiguration(<%- codegen.getValueAsConstant(answers.partnerId) %>);
   $config->serviceUrl = 'https://www.kaltura.com';
   $client = new KalturaClient($config);
   $ks = $client->session->start(
-    <%- helper.getValueAsConstant(answers.secret) %>,
-    <%- helper.getValueAsConstant(answers.userId) %>,
+    <%- codegen.getValueAsConstant(answers.secret) %>,
+    <%- codegen.getValueAsConstant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
     <%- answers.partnerId %>);
   $client->setKS($ks);
 
 <% } -%>
 <%  parameters.forEach(function(param) { -%>
-<%  var setter = helper.getFieldSetter(param, [], answers); -%>
+<%  var setter = codegen.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
-<%- helper.indent(setter, 2) %>
+<%- codegen.indent(setter, 2) %>
 <%    } -%>
 
 <%  }) -%>

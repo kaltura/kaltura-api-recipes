@@ -1,5 +1,5 @@
 <%  parameters.forEach(function(param) { -%>
-<%  var setter = helper.getFieldSetter(param, [], answers); -%>
+<%  var setter = codegen.getFieldSetter(param, [], answers); -%>
 <%    if (setter) { -%>
 <%- setter %>
 <%    } -%>
