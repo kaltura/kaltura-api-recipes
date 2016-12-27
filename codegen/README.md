@@ -50,7 +50,7 @@ print(result)
 ```
 
 which, for `media->list`, `showSetup==true`, and answers `{pager[pageSize]: 10, filter[entryId]: '1_xyz'}`
-might generate the code:
+would generate the code:
 ```
 import Kaltura from './lib/kaltura'
 client = new Kaltura.client()
