@@ -21,6 +21,7 @@ and any user input, and generates working sample code.
 
 ## Adding Languages
 Adding a language consists of two steps:
+
 1. **Writing a code template** - this provides the general structure of code snippets for the language
 2. **Specifying language syntax** - this informs the `codegen` helper on how to declare and initialize variables
 
