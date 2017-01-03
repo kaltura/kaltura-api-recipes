@@ -27,7 +27,7 @@ if (process.env.V3_RECIPES) {
   let staticDir = path.resolve(process.env.V3_RECIPES);
   App.use('/workflows', Express.static(staticDir));
   let index = fs.readFileSync(path.join(staticDir, 'index.html'));
-  App.get('/workflows*', (req, res) => {
+  App.get(['/new-workflow', '/workflows*'], (req, res) => {
     res.set('Content-Type', 'text/html');
     res.send(index);
   })
