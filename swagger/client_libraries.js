@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var CLIENT_LANGS = ['php5', 'php53', 'php5Zend', 'csharp', 'ruby', 'java', 'android', 'js', 'python', 'objc', 'cli', 'node'];
+var CLIENT_LANGS = ['php53', '', 'php5Zend', 'java', 'csharp', 'ruby', 'python', 'node', 'js', 'cli', 'objc', 'android'];
 
 var clientMD = '';
 /*
@@ -14,12 +14,12 @@ if (day.length === 1) day = '0' + day;
 genDate = day + '-' + month + '-' + year;
 */
 var genDate = '22-06-2016';
-CLIENT_LANGS.forEach(function(cl) {
+CLIENT_LANGS.forEach(function(cl, idx) {
+  if (!cl) return;
   var link = 'http://cdnbakmi.kaltura.com/content/clientlibs/' + cl + '_' + genDate + '.tar.gz';
   if (cl === 'node') cl = 'nodejs';
-  clientMD += '<div class="client-lib-link ' + cl +  '" data-language="' + cl + '"><a href="' + link + '">' +
-                      '<img src="https://www.kaltura.com/api_v3/testme/images/buttons/' + cl + '.jpg">' +
-                   '</a></div>';
+  let offset = idx * -71;
+  clientMD += `<a class="client-lib-link ${cl}" data-language="${cl}" href="${link}" style="background-position: ${offset}px"></a>`;
 });
 
 var markdown = fs.readFileSync(__dirname + '/markdown/client_libraries.md', 'utf8');

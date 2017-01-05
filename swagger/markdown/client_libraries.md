@@ -15,13 +15,13 @@ Users of self-hosted editions of Kaltura (On-Prem or CE) are encouraged to use t
 <style>
 .client-lib-link {
   width: 71px;
+  height: 81px;
   overflow: hidden;
   margin-top: 30px;
   margin-right: 50px;
   display: inline-block;
-}
-.client-lib-link img {
-  height: 100%;
+  background-image: url(/kaltura-client-libraries-icons.png);
+  background-position: -70px;
 }
 </style>
 {{ client_libraries }}
