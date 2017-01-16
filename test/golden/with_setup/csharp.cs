@@ -13,7 +13,6 @@ namespace Kaltura {
 
       Object result = client.MediaService.List(filter, pager);
       Console.WriteLine(result);
-
     }
   }
 }

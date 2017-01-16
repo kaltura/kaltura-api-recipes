@@ -24,8 +24,6 @@ class CodeExample {
 
       Object result = client.getMediaService().list(filter, pager);
       System.out.println(result);
-
-
     } catch (KalturaApiException e) {
       e.printStackTrace();
     }

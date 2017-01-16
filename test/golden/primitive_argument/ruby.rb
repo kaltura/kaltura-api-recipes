@@ -6,4 +6,3 @@ results = client.media_service.get(
     entry_id,
     version)
 puts results.inspect
-

@@ -6,4 +6,3 @@ results = client.media_service.list(
     filter,
     pager)
 puts results.inspect
-

@@ -8,4 +8,3 @@ pager.pageSize = 3;
 
 Object result = client.getMediaService().list(filter, pager);
 System.out.println(result);
-

@@ -138,7 +138,7 @@ module.exports = CodeTemplate = function(opts) {
 
 CodeTemplate.prototype.reload = function() {
   var filename = TMPL_DIR + '/' + this.language + '.ejs.' + this.ext;
-  this.template = FS.readFileSync(filename, 'utf8');
+  this.template = FS.readFileSync(filename, 'utf8').trim();
   let setupFilename = filename.replace('.ejs', '_setup.ejs');
   if (FS.existsSync(setupFilename)) {
     this.setupTemplate = FS.readFileSync(setupFilename, 'utf8');
