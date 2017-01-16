@@ -4,6 +4,10 @@ var EJS = require('ejs');
 
 var TMPL_DIR = __dirname + '/templates';
 
+const replaceActionSuffix = str => {
+  return str.replace(/Action$/, '');
+}
+
 var language_opts = {
   default: {
     accessor: '.',
@@ -53,11 +57,24 @@ var language_opts = {
       })
     },
     rewriteAction: function(a) {
-      if (a.indexOf('Action') !== -1) a = a.substring(0, a.length - 6);
+      a = replaceActionSuffix(a);
       return this.rewriteVariable(a);
     },
     rewriteService: function(s) {
       return this.rewriteVariable(s) + '_service';
+    }
+  },
+  java: {
+    ext: 'java',
+    declarationPrefix: "<%- type.replace(/^string$/, 'String') %> ",
+    statementSuffix: ';',
+    objPrefix: 'new ',
+    objSuffix: '()',
+    rewriteService: function(s) {
+      return 'get' + s.charAt(0).toUpperCase() + s.substring(1) + 'Service()';
+    },
+    rewriteAction: function(s) {
+      return replaceActionSuffix(s);
     }
   }
 }
@@ -85,9 +102,9 @@ module.exports = CodeTemplate = function(opts) {
 CodeTemplate.prototype.reload = function() {
   var filename = TMPL_DIR + '/' + this.language + '.ejs.' + this.ext;
   this.template = FS.readFileSync(filename, 'utf8');
-  if (this.language === 'javascript' || this.language === 'node') {
-    filename = filename.replace('.ejs', '_setup.ejs');
-    this.setupTemplate = FS.readFileSync(filename, 'utf8');
+  let setupFilename = filename.replace('.ejs', '_setup.ejs');
+  if (FS.existsSync(setupFilename)) {
+    this.setupTemplate = FS.readFileSync(setupFilename, 'utf8');
   }
 }
 
@@ -122,7 +139,11 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
   }
 
   var setter = this.statementPrefix;
-  setter += (parents.length ? parents.map(self.rewriteVariable).join(self.accessor) + self.accessor : self.declarationPrefix);
+  if (parents.length) {
+    setter += parents.map(self.rewriteVariable).join(self.accessor) + self.accessor;
+  } else {
+    setter += EJS.render(self.declarationPrefix, {type: field.objectType || field.type});
+  }
   setter += self.rewriteVariable(field.name) + ' = ';
 
   if (field.type.indexOf('Kaltura') === 0) {
@@ -153,5 +174,5 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
   return setter + self.statementSuffix;
 }
 
-CodeTemplate.LANGUAGES = ['php', 'node', 'javascript', 'ruby'];
+CodeTemplate.LANGUAGES = ['php', 'node', 'javascript', 'ruby', 'java'];
 CodeTemplate.LANGUAGE_DETAILS = language_opts;
