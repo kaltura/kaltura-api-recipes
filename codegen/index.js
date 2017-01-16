@@ -75,7 +75,7 @@ var language_opts = {
   },
   java: {
     ext: 'java',
-    declarationPrefix: "<%- type.replace(/^string$/, 'String') %> ",
+    declarationPrefix: "<%- type.replace(/^string$/, 'String').replace(/^bool$/, 'boolean') %> ",
     statementSuffix: ';',
     objPrefix: 'new ',
     objSuffix: '()',
