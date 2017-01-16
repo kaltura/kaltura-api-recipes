@@ -8,6 +8,16 @@ const replaceActionSuffix = str => {
   return str.replace(/Action$/, '');
 }
 
+const capitalize = str => {
+  return str.charAt(0).toUpperCase() + str.substring(1);
+}
+
+const camelCaseToUnderscore = str => {
+  return str.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
+    return lower + '_' + upper.toLowerCase();
+  })
+}
+
 const getDefaultValueForType = (type) => {
   if (type === 'string') return '';
   if (type === 'int') return 0;
@@ -28,6 +38,7 @@ var language_opts = {
     enumAccessor: '',
     declarationPrefix: '',
     constant: JSON.stringify,
+    rewriteAttribute: function(s) {return s},
     rewriteVariable: function(s) {return s},
     rewriteAction: function(s) {return s},
     rewriteService: function(s) {return s},
@@ -60,17 +71,18 @@ var language_opts = {
     ext: 'rb',
     enumAccessor: '::',
     objSuffix: '.new()',
-    rewriteVariable: function(v) {
-      return v.replace(/([a-z])([A-Z])/g, function(whole, lower, upper) {
-        return lower + '_' + upper.toLowerCase();
-      })
+    rewriteVariable: function(s) {
+      return camelCaseToUnderscore(s)
     },
-    rewriteAction: function(a) {
-      a = replaceActionSuffix(a);
-      return this.rewriteVariable(a);
+    rewriteAttribute: function(s) {
+      return camelCaseToUnderscore(s)
+    },
+    rewriteAction: function(s) {
+      s = replaceActionSuffix(s);
+      return camelCaseToUnderscore(s)
     },
     rewriteService: function(s) {
-      return this.rewriteVariable(s) + '_service';
+      return camelCaseToUnderscore(s) + '_service';
     }
   },
   java: {
@@ -85,6 +97,22 @@ var language_opts = {
     rewriteAction: function(s) {
       return replaceActionSuffix(s);
     }
+  },
+  csharp: {
+    ext: 'cs',
+    declarationPrefix: "<%- type %> ",
+    statementSuffix: ';',
+    objPrefix: 'new ',
+    objSuffix: '()',
+    rewriteAttribute: function(s) {
+      return capitalize(s);
+    },
+    rewriteService: function(s) {
+      return capitalize(s) + 'Service';
+    },
+    rewriteAction: function(s) {
+      return capitalize(replaceActionSuffix(s));
+    },
   }
 }
 
@@ -149,11 +177,13 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
 
   var setter = this.statementPrefix;
   if (parents.length) {
-    setter += parents.map(self.rewriteVariable).join(self.accessor) + self.accessor;
+    let attrs = parents.map(p => p);
+    attrs.push(field.name);
+    setter += attrs.map(a => self.rewriteAttribute(a)).join(self.accessor);
   } else {
-    setter += EJS.render(self.declarationPrefix, {type: field.objectType || field.type});
+    setter += EJS.render(self.declarationPrefix, {type: field.objectType || field.type}) + self.rewriteVariable(field.name);
   }
-  setter += self.rewriteVariable(field.name) + ' = ';
+  setter += ' = ';
 
   if (field.type.indexOf('Kaltura') === 0) {
     fieldObjType = answers[answerName + '[objectType]'];
@@ -183,5 +213,5 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
   return setter + self.statementSuffix;
 }
 
-CodeTemplate.LANGUAGES = ['php', 'node', 'javascript', 'ruby', 'java'];
+CodeTemplate.LANGUAGES = Object.keys(language_opts).filter(l => l !== 'default');
 CodeTemplate.LANGUAGE_DETAILS = language_opts;
