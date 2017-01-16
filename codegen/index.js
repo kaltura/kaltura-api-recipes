@@ -8,6 +8,15 @@ const replaceActionSuffix = str => {
   return str.replace(/Action$/, '');
 }
 
+const getDefaultValueForType = (type) => {
+  if (type === 'string') return '';
+  if (type === 'int') return 0;
+  if (type === 'float') return 0.0;
+  if (type === 'bool') return true;
+  if (type === 'array') return [];
+  return null;
+}
+
 var language_opts = {
   default: {
     accessor: '.',
@@ -158,7 +167,7 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
     answer = answers[answerName];
     if (answer === undefined) {
       if (parents.length) return;
-      answer = '';  // TODO: use correct type
+      answer = getDefaultValueForType(field.type);
     }
     if (!field.enum) {
       setter += self.constant(answer);
