@@ -27,7 +27,7 @@ if (process.env.V3_RECIPES) {
   let staticDir = path.resolve(process.env.V3_RECIPES);
   App.use(Express.static(staticDir));
   App.get(['/api-docs*', '/console*', '/workflows*', '/new-workflow'], (req, res) => {
-    fs.readFile(path.join(staticDir, 'console', 'index.html'), 'utf8', (err, index) => {
+    fs.readFile(path.join(staticDir, 'default_index.html'), 'utf8', (err, index) => {
       if (err) return res.status(500).end();
       res.set('Content-Type', 'text/html');
       res.send(index);
