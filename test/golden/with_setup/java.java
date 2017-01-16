@@ -10,7 +10,6 @@ class CodeExample {
   public static void main(String[] args) {
     try {
       KalturaConfiguration config = new KalturaConfiguration();
-      //config.setPartnerId(YOUR_PARTNER_ID);
       config.setEndpoint("https://www.kaltura.com/");
       KalturaClient client = new KalturaClient(config);
       String session = client.getSessionService().start(
