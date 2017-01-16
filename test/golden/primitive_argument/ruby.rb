@@ -3,7 +3,7 @@ entry_id = "abcde"
 version = 0
 
 results = client.media_service.get(
-    entryId,
+    entry_id,
     version)
 puts results.inspect
 

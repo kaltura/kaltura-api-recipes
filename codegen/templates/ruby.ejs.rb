@@ -23,11 +23,11 @@ results = client.<%- codegen.rewriteService(service) %>.<%- codegen.rewriteActio
 <% if (parameters.length === 0) { -%>
 <%- ')' %>
 <% } else if (parameters.length === 1) { -%>
-<%- parameters[0].name + ')' %>
+<%- codegen.rewriteVariable(parameters[0].name) + ')' %>
 <% } else { -%>
 
 <% parameters.forEach(function(param, index) { -%>
-    <%- param.name %><%- index < parameters.length - 1 ? ',' : ')' %>
+    <%- codegen.rewriteVariable(param.name) %><%- index < parameters.length - 1 ? ',' : ')' %>
 <% }); -%>
 <% } -%>
 puts results.inspect
