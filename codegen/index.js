@@ -113,7 +113,14 @@ var language_opts = {
     rewriteAction: function(s) {
       return capitalize(replaceActionSuffix(s));
     },
-  }
+  },
+  python: {
+    ext: 'py',
+    objSuffix: '()',
+    rewriteAction: function(s) {
+      return replaceActionSuffix(s);
+    }
+  },
 }
 
 module.exports = CodeTemplate = function(opts) {
