@@ -188,7 +188,8 @@ CodeTemplate.prototype.assignment = function(field, parents, answers) {
     attrs.push(field.name);
     setter += attrs.map(a => self.rewriteAttribute(a)).join(self.accessor);
   } else {
-    setter += EJS.render(self.declarationPrefix, {type: field.objectType || field.type}) + self.rewriteVariable(field.name);
+    let type = field.enum ? field.enum.name : (field.objectType || field.type);
+    setter += EJS.render(self.declarationPrefix, {type}) + self.rewriteVariable(field.name);
   }
   setter += ' = ';
 

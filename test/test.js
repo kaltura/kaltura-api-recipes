@@ -31,6 +31,16 @@ describe('Sample Code', function() {
       showSetup: true,
     }
   }, {
+    name: 'enum',
+    service: 'session',
+    action: 'start',
+    params: {
+      answers: {
+        type: 0,
+      },
+      showSetup: false,
+    },
+  }, {
     name: 'with_arguments',
     service: 'media',
     action: 'list',
