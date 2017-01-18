@@ -9,7 +9,7 @@ client.ks = client.session_service.start(
     <%- codegen.constant(answers.secret) %>,
     <%- codegen.constant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'Kaltura::KalturaSessionType::USER' : 'Kaltura::KalturaSessionType::ADMIN' %>,
-    <%- answers.partnerId %>)
+    <%- answers.partnerId || 'YOUR_PARTNER_ID' %>)
 
 <% } -%>
 <%  parameters.forEach(function(param) { -%>

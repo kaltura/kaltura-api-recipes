@@ -9,7 +9,7 @@
     <%- codegen.constant(answers.secret) %>,
     <%- codegen.constant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'KalturaSessionType::USER' : 'KalturaSessionType::ADMIN' %>,
-    <%- answers.partnerId %>);
+    <%- answers.partnerId || 'YOUR_PARTNER_ID' %>);
   $client->setKS($ks);
 
 <% } -%>

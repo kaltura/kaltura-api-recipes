@@ -1,7 +1,7 @@
 String secret = "YOUR_KALTURA_SECRET";
 String userId = "YOUR_USER_ID";
 KalturaSessionType type = KalturaSessionType.USER;
-int partnerId = "YOUR_PARTNER_ID";
+int partnerId = 0;
 int expiry = 0;
 String privileges = "";
 

@@ -1,7 +1,7 @@
 <?php
   require_once('lib/KalturaClient.php');
 
-  $config = new KalturaConfiguration("YOUR_PARTNER_ID");
+  $config = new KalturaConfiguration();
   $config->serviceUrl = 'https://www.kaltura.com';
   $client = new KalturaClient($config);
   $ks = $client->session->start(

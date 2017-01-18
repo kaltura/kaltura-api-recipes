@@ -8,7 +8,7 @@ ks = client.session.start(
       <%- codegen.constant(answers.secret) %>,
       <%- codegen.constant(answers.userId) %>,
       <%- answers.sessionType === 0 ? 'KalturaSessionType.USER' : 'KalturaSessionType.ADMIN' %>,
-      <%- codegen.constant(answers.partnerId) %>)
+      <%- codegen.constant(answers.partnerId) || 'YOUR_PARTNER_ID' %>)
 client.setKs(ks)
 <% } -%>
 

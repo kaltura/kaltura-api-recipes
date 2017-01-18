@@ -5,7 +5,7 @@
 
   $type = KalturaSessionType::USER;
 
-  $partnerId = "YOUR_PARTNER_ID";
+  $partnerId = 0;
 
   $expiry = 0;
 

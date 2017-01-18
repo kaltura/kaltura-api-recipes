@@ -1,5 +1,5 @@
 var Kaltura = require('kaltura');
-var config = new Kaltura.kc.KalturaConfiguration(YOUR_PARTNER_ID);
+var config = new Kaltura.kc.KalturaConfiguration();
 config.serviceUrl = 'https://www.kaltura.com';
 var client = new Kaltura.kc.KalturaClient(config);
 client.session.start(function(ks) {

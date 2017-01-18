@@ -4,7 +4,7 @@ user_id = "YOUR_USER_ID"
 
 type = KalturaSessionType::USER
 
-partner_id = "YOUR_PARTNER_ID"
+partner_id = 0
 
 expiry = 0
 

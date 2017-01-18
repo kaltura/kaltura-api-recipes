@@ -7,7 +7,7 @@
 <script src="/js/kaltura/KalturaClient.js"></script>
 
 <script>
-  var config = new KalturaConfiguration(YOUR_PARTNER_ID);
+  var config = new KalturaConfiguration();
   config.serviceUrl = 'https://www.kaltura.com';
   var client = new KalturaClient(config);
   client.session.start(function(success, ks) {

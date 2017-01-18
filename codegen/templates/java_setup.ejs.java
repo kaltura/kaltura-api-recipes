@@ -16,7 +16,7 @@ class CodeExample {
             "<%- answers.secret %>",
             "<%- answers.userId %>",
             KalturaSessionType.ADMIN,
-            <%- answers.partnerId %>);
+            <%- answers.partnerId || 'YOUR_PARTNER_ID' %>);
       client.setKs(session);
 
 <%- codegen.indent(code, 6) %>

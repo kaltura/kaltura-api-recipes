@@ -4,7 +4,7 @@ var userId = "YOUR_USER_ID";
 
 var type = Kaltura.kc.enums.KalturaSessionType.USER;
 
-var partnerId = "YOUR_PARTNER_ID";
+var partnerId = 0;
 
 var expiry = 0;
 

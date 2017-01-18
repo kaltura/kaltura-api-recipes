@@ -12,4 +12,4 @@ client.session.start(function(ks) {
 }, <%- codegen.constant(answers.secret) %>,
 <%- codegen.constant(answers.userId) %>,
 <%- answers.sessionType === 0 ? 'Kaltura.kc.enums.KalturaSessionType.USER' : 'Kaltura.kc.enums.KalturaSessionType.ADMIN' %>,
-<%- answers.partnerId %>)
+<%- answers.partnerId || 'YOUR_PARTNER_ID' %>)
