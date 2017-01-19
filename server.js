@@ -25,8 +25,12 @@ if (process.env.ENABLE_CROSS_ORIGIN) {
 
 if (process.env.V3_RECIPES) {
   let staticDir = path.resolve(process.env.V3_RECIPES);
-  App.use(Express.static(staticDir));
-  App.get(['/api-docs*', '/console*', '/workflows*', '/new-workflow'], (req, res) => {
+  let basePath = process.env.V3_RECIPES_BASE_PATH || '';
+  App.use(basePath, Express.static(staticDir));
+
+  let routes = ['/api-docs', '/console', '/workflows', '/new-workflow', '/preview-workflow'];
+  routes = routes.map(r => basePath + r + '*');
+  App.get(routes, (req, res) => {
     fs.readFile(path.join(staticDir, 'default_index.html'), 'utf8', (err, index) => {
       if (err) return res.status(500).end();
       res.set('Content-Type', 'text/html');
