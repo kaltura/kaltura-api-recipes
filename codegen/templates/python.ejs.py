@@ -17,5 +17,5 @@ client.setKs(ks)
 <% }) -%>
 
 <% var parameterNames = parameters.map(function(p) {return  p.name}) -%>
-result = client.<%- service %>.<%- codegen.rewriteAction(action) %>(<%- parameterNames.join(', ') %>);
+result = client.<%- service %>.<%- action %>(<%- parameterNames.join(', ') %>);
 print(result);

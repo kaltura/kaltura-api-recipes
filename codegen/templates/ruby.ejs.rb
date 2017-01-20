@@ -19,7 +19,7 @@ client.ks = client.session_service.start(
 <%    } -%>
 
 <%  }) -%>
-results = client.<%- codegen.rewriteService(service) %>.<%- codegen.rewriteAction(action) %>(<%- -%>
+results = client.<%- service %>.<%- action %>(<%- -%>
 <% if (parameters.length === 0) { -%>
 <%- ')' %>
 <% } else if (parameters.length === 1) { -%>

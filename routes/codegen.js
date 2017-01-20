@@ -3,6 +3,7 @@ var FS = require('fs');
 var Router = require('express').Router();
 var Lucy = require('lucy-codegen').Lucy;
 var CodeTemplate = require('../codegen');
+var swagger = require('../swagger/swagger.js');
 
 module.exports = {};
 module.exports.initialize = function(cb) {
@@ -21,7 +22,15 @@ module.exports.initialize = function(cb) {
       var path = req.body.request.path;
       var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
       var service = parts[1], action = parts[2];
-      var codeParams = _.extend({answers: req.body.answers, showSetup: req.body.showSetup}, renderParams[service][action]);
+      var operation = swagger.paths[path][req.body.request.method];
+      var codeParams = {
+        service,
+        action,
+        operation,
+        parameters: operation.parameters.filter(p => p.name !== 'format' && p.name.indexOf('[') === 0),
+        answers: req.body.answers,
+        showSetup: req.body.showSetup,
+      }
       res.json({code: lang.template.render(codeParams)});
     })
     cb(Router);
