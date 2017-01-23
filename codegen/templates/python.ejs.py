@@ -1,7 +1,7 @@
 <% if (showSetup) { -%>
 from KalturaClient import *
 from KalturaClient.Plugins.Core import *
-<% plugins.forEach(p => { -%>
+<% plugins.forEach(function(p) { -%>
 from KalturaClient.Plugins.<%- p.charAt(0).toUpperCase() + p.substring(1) %> import *
 <% }) -%>
 
