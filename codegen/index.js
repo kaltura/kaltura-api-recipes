@@ -190,9 +190,14 @@ CodeTemplate.prototype.render = function(input) {
   input.path = pathParts[1];
   input.operation = this.swagger.paths[input.path][input.method];
   input.action = this.rewriteAction(pathParts[3]);
-  let serviceId = pathParts[2];
-  let serviceName = input.operation.tags[0];
-  input.service = this.rewriteService(serviceName, serviceId);
+  input.serviceID = pathParts[2];
+  input.serviceName = input.operation.tags[0];
+  input.service = this.rewriteService(input.serviceName, input.serviceID);
+  input.plugins = [];
+  let tag = this.swagger.tags.filter(t => t.name === input.serviceName)[0];
+  if (tag['x-plugin']) {
+    input.plugins.push(tag['x-plugin']);
+  }
   input.parameters = [];
   if (input.operation['x-parameterGroups']) {
     input.parameters = input.parameters.concat(input.operation['x-parameterGroups'].map(g => {

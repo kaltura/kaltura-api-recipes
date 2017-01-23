@@ -34,6 +34,13 @@ describe('Sample Code', function() {
       }
     }
   }, {
+    name: 'with_plugin',
+    service: 'metadata_metadataprofile',
+    action: 'list',
+    input: {
+      showSetup: true,
+    },
+  }, {
     name: 'with_setup',
     service: 'media',
     action: 'list',

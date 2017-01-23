@@ -1,5 +1,6 @@
 from KalturaClient import *
 from KalturaClient.Plugins.Core import *
+from KalturaClient.Plugins.Metadata import *
 
 config = KalturaConfiguration()
 config.serviceUrl = "https://www.kaltura.com/"
@@ -11,8 +12,8 @@ ks = client.session.start(
       YOUR_PARTNER_ID)
 client.setKs(ks)
 
-filter = KalturaMediaEntryFilter()
+filter = KalturaMetadataProfileFilter()
 pager = KalturaFilterPager()
 
-result = client.media.list(filter, pager);
+result = client.metadata.metadataProfile.list(filter, pager);
 print(result);
