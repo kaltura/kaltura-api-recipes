@@ -7,6 +7,9 @@ It currently supports
 * NodeJS
 * Ruby
 * PHP
+* C#
+* Python
+* Java
 
 ## Overview
 The Kaltura API is defined by an XML schema that sets out 
@@ -26,6 +29,9 @@ Adding a language consists of two steps:
 2. **Specifying language syntax** - this informs the `codegen` helper on how to declare and initialize variables
 
 Also be sure to add your language to `CodeTemplates.LANGUAGES` in `./codegen/index.js`.
+
+You can see [this commit](https://github.com/kaltura/kaltura-api-recipes/commit/5e05bb02952facd3afc6aa5cc7693b4ad135380e),
+which adds Python support, for a minimal example of what it takes to add a new language.
 
 ### Code Templates
 Code templates are written in [EJS](http://www.embeddedjs.com/), or embedded javascript.
