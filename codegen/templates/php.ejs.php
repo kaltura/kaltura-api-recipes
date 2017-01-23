@@ -13,26 +13,12 @@
   $client->setKS($ks);
 
 <% } -%>
-<%  parameters.forEach(function(param) { -%>
-<%  var setter = codegen.assignment(param, [], answers); -%>
-<%    if (setter) { -%>
-<%- codegen.indent(setter, 2) %>
-<%    } -%>
 
-<%  }) -%>
+<%- codegen.assignAllParameters(parameters, answers, 2) %>
+
   try {
-    $result = $client-><%- service %>-><%- action %>(<%- -%>
-<% if (parameters.length === 0) { -%>
-  <%- ');' %>
-<% } else if (parameters.length === 1) { -%>
-  $<%- parameters[0].name %>);
-<% } else { -%>
-
-<% parameters.forEach(function(param, index) { -%>
-      $<%- param.name %><%- index < parameters.length -1 ? ', ' : ');' %>
-<% }); -%>
+    $result = $client-><%- service %>-><%- action %>(<%- parameterNames.join(', ') %>);
     var_dump($result);
-<% } -%>
   } catch (Exception $e) {
     echo $e->getMessage();
   }

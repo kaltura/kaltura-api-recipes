@@ -1,5 +1,4 @@
 var filter = new KalturaMediaEntryFilter();
-
 var pager = new KalturaFilterPager();
 
 client.media.listAction(function(success, results) {

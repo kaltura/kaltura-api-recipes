@@ -76,12 +76,12 @@ var language_opts = {
   php: {
     ext: 'php',
     accessor: '->',
-    statementPrefix: '$',
     statementSuffix: ';',
     objPrefix: 'new ',
     objSuffix: '()',
     enumAccessor: '::',
     rewriteAction: addActionSuffixIfReserved,
+    rewriteVariable: s => '$' + s,
   },
   ruby: {
     ext: 'rb',
@@ -201,6 +201,7 @@ CodeTemplate.prototype.render = function(input) {
     input.operation.parameters
       .filter(p => !p.$ref && p.name.indexOf('[') === -1)
       .map(p => ({name: p.name, schema: p.schema || p})));
+  input.parameterNames = input.parameters.map(p => p.name).map(n => this.rewriteVariable(n));
   input.answers = input.answers || {};
   input.answers.secret = input.answers.secret || 'YOUR_KALTURA_SECRET';
   input.answers.userId = input.answers.userId || 'YOUR_USER_ID';
@@ -212,6 +213,11 @@ CodeTemplate.prototype.render = function(input) {
   } else {
     return code;
   }
+}
+
+CodeTemplate.prototype.assignAllParameters = function(params, answers, indent) {
+  indent = indent || 0;
+  return this.indent(params.map(p => this.assignment(p, [], answers)).join('\n'), indent);
 }
 
 CodeTemplate.prototype.assignment = function(param, dummy, answers) {
@@ -273,7 +279,9 @@ CodeTemplate.prototype.lvalue = function(param, answers) {
   var lvalue = this.statementPrefix;
   if (isChild) {
     let attrs = param.name.split(/\[/).map(s => s.replace(/\]/g, '')).filter(n => n !== 'objectType');
-    lvalue += attrs.map(a => self.rewriteAttribute(a)).join(self.accessor);
+    lvalue += attrs.map((a, idx) => {
+      return idx === 0 ? self.rewriteVariable(a) : self.rewriteAttribute(a);
+    }).join(self.accessor);
   } else {
     let type = enumType || (isPrimitiveSchema(param.schema) ? param.schema.type : param.schema.title) || 'UnknownType';
     type = this.rewriteType(type);
@@ -297,7 +305,6 @@ CodeTemplate.prototype.rvalue = function(param, answers) {
     answer = getDefaultValueForType(param.schema.type);
   }
 
-  let rvalue = '';
   if (!isPrimitiveSchema(param.schema)) {
     if (param.name.indexOf('[objectType]') !== -1) {
       return self.objPrefix + answer + self.objSuffix;

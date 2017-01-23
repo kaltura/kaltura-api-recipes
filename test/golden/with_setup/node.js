@@ -8,7 +8,6 @@ client.session.start(function(ks) {
   } else {
     client.setKs(ks);
     var filter = new Kaltura.kc.objects.KalturaMediaEntryFilter();
-
     var pager = new Kaltura.kc.objects.KalturaFilterPager();
 
     client.media.listAction(function(results) {
@@ -20,7 +19,6 @@ client.session.start(function(ks) {
     },
     filter,
     pager);
-
   }
 }, "YOUR_KALTURA_SECRET",
 "YOUR_USER_ID",

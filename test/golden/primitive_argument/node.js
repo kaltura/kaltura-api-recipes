@@ -1,5 +1,4 @@
 var entryId = "abcde";
-
 var version = 0;
 
 client.media.get(function(results) {
