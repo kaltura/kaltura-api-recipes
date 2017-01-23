@@ -2,7 +2,7 @@ var secret = "YOUR_KALTURA_SECRET";
 var userId = "YOUR_USER_ID";
 var type = KalturaSessionType.USER;
 var partnerId = 0;
-var expiry = 0;
+var expiry = 86400;
 var privileges = "";
 
 client.session.start(function(success, results) {

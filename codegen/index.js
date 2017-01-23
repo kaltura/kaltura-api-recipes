@@ -205,6 +205,12 @@ CodeTemplate.prototype.render = function(input) {
   input.answers = input.answers || {};
   input.answers.secret = input.answers.secret || 'YOUR_KALTURA_SECRET';
   input.answers.userId = input.answers.userId || 'YOUR_USER_ID';
+  input.parameters.forEach(p => {
+    if (input.answers[p.name] === undefined) {
+      let val = p.schema.default || p.schema['x-consoleDefault'];
+      if (val !== undefined) input.answers[p.name] = val;
+    }
+  })
   input = _.extend({codegen: this}, input);
   var code = EJS.render(this.template, input);
   if (input.showSetup && this.setupTemplate) {

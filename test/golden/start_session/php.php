@@ -4,7 +4,7 @@
   $userId = "YOUR_USER_ID";
   $type = KalturaSessionType::USER;
   $partnerId = 0;
-  $expiry = 0;
+  $expiry = 86400;
   $privileges = "";
 
   try {
