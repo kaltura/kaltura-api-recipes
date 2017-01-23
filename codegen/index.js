@@ -217,10 +217,10 @@ CodeTemplate.prototype.render = function(input) {
 
 CodeTemplate.prototype.assignAllParameters = function(params, answers, indent) {
   indent = indent || 0;
-  return this.indent(params.map(p => this.assignment(p, [], answers)).join('\n'), indent);
+  return this.indent(params.map(p => this.assignment(p, answers)).join('\n'), indent);
 }
 
-CodeTemplate.prototype.assignment = function(param, dummy, answers) {
+CodeTemplate.prototype.assignment = function(param, answers) {
   var self = this;
   let assignment = this.lvalue(param, answers) + ' = ' + this.rvalue(param, answers) + this.statementSuffix;
   const findSubschema = (subParamName, schema) => {
@@ -251,7 +251,7 @@ CodeTemplate.prototype.assignment = function(param, dummy, answers) {
     subsetters = subsetters
       .filter(prop => prop.schema)
       .map(function(prop) {
-        return self.assignment(prop, [], answers);
+        return self.assignment(prop, answers);
       });
     assignment = ([assignment]).concat(subsetters).join('\n');
   }
