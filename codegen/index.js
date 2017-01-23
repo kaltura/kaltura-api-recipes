@@ -216,7 +216,7 @@ CodeTemplate.prototype.render = function(input) {
 
 CodeTemplate.prototype.assignment = function(param, dummy, answers) {
   var self = this;
-  let assignment = this.lvalue(param, answers) + ' = ' + this.rvalue(param, answers);
+  let assignment = this.lvalue(param, answers) + ' = ' + this.rvalue(param, answers) + this.statementSuffix;
   const findSubschema = (subParamName, schema) => {
     if (schema.$ref) schema = this.swagger.definitions[schema.$ref.substring('#/definitions/'.length)];
     let propName = subParamName.split(/\[/).map(s => s.replace(/\]/g, '')).pop();
@@ -300,19 +300,19 @@ CodeTemplate.prototype.rvalue = function(param, answers) {
   let rvalue = '';
   if (!isPrimitiveSchema(param.schema)) {
     if (param.name.indexOf('[objectType]') !== -1) {
-      rvalue = self.objPrefix + answer + self.objSuffix;
+      return self.objPrefix + answer + self.objSuffix;
     } else {
-      rvalue = self.objPrefix + param.schema.title + self.objSuffix;
+      return self.objPrefix + param.schema.title + self.objSuffix;
     }
   } else {
-    if (!enm || !enumLabels) {
-      rvalue = self.constant(answer);
-    } else {
+    if (enm && enumLabels) {
       enumName = enumLabels[enm.indexOf(answer)];
-      rvalue = self.enumPrefix + enumType + (self.enumAccessor || self.accessor) + enumName;
+      if (enumName) {
+        return self.enumPrefix + enumType + (self.enumAccessor || self.accessor) + enumName;
+      }
     }
+    return self.constant(answer);
   }
-  return rvalue + self.statementSuffix;
 }
 
 CodeTemplate.LANGUAGES = Object.keys(language_opts).filter(l => l !== 'default');
