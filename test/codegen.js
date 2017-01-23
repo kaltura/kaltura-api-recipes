@@ -17,6 +17,23 @@ describe('Sample Code', function() {
       showSetup: false,
     },
   }, {
+    name: 'start_session',
+    service: 'session',
+    action: 'start',
+    input: {
+      answers: {},
+    },
+  }, {
+    name: 'add_captions',
+    service: 'caption_captionasset',
+    action: 'add',
+    input: {
+      answers: {
+        tags: 'stuff',
+        language: "Arabic",
+      }
+    }
+  }, {
     name: 'with_setup',
     service: 'media',
     action: 'list',
@@ -64,13 +81,17 @@ describe('Sample Code', function() {
     CodeTemplate.LANGUAGES.forEach(function(l) {
       it('should generate for ' + l, function() {
         var tmpl = new CodeTemplate({language: l, swagger: swagger});
+        testCase.input.answers = testCase.input.answers || {};
+        testCase.input.showSetup = testCase.input.showSetup || false;
         testCase.input.path = '/service/' + testCase.service + '/action/' + testCase.action;
         testCase.input.method = 'get';
         testCase.input.service = testCase.service;
         testCase.input.action = testCase.action;
         var code = tmpl.render(testCase.input);
         var ext = CodeTemplate.LANGUAGE_DETAILS[l].ext;
-        fs.writeFileSync(__dirname + '/golden/' + testCase.name + '/' + l + '.' + ext, code);
+        var dir = __dirname + '/golden/' + testCase.name;
+        try {fs.mkdirSync(dir)} catch(e) {}
+        fs.writeFileSync(dir + '/' + l + '.' + ext, code);
       });
     });
   });

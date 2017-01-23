@@ -182,9 +182,9 @@ CodeTemplate.prototype.render = function(input) {
   var self = this;
   var pathParts = input.path.match(/(\/service\/(\w+)\/action\/(\w+))$/);
   input.path = pathParts[1];
-  input.service = this.rewriteService(pathParts[2]);
-  input.action = this.rewriteAction(pathParts[3]);
   input.operation = this.swagger.paths[input.path][input.method];
+  input.action = this.rewriteAction(pathParts[3]);
+  input.service = this.rewriteService(input.operation.tags[0]);
   input.parameters = [];
   if (input.operation['x-parameterGroups']) {
     input.parameters = input.parameters.concat(input.operation['x-parameterGroups'].map(g => {
