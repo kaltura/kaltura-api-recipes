@@ -2,5 +2,5 @@
 captionAsset = KalturaCaptionAsset()
 entryId = ""
 
-result = client.captionAsset.add(captionAsset, entryId);
+result = client.caption.captionAsset.add(captionAsset, entryId);
 print(result);

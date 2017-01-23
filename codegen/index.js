@@ -144,6 +144,12 @@ var language_opts = {
     objSuffix: '()',
     rewriteAction: function(s) {
       return replaceActionSuffix(s);
+    },
+    rewriteService: function(name, id) {
+      // e.g. name = captionAsset, id = caption_captionasset, should return caption.captionAsset
+      let pieces = id.split('_');
+      if (pieces.length === 1) return name;
+      return pieces[0] + '.' + name;
     }
   },
 }
@@ -184,7 +190,9 @@ CodeTemplate.prototype.render = function(input) {
   input.path = pathParts[1];
   input.operation = this.swagger.paths[input.path][input.method];
   input.action = this.rewriteAction(pathParts[3]);
-  input.service = this.rewriteService(input.operation.tags[0]);
+  let serviceId = pathParts[2];
+  let serviceName = input.operation.tags[0];
+  input.service = this.rewriteService(serviceName, serviceId);
   input.parameters = [];
   if (input.operation['x-parameterGroups']) {
     input.parameters = input.parameters.concat(input.operation['x-parameterGroups'].map(g => {
