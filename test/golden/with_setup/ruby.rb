@@ -10,11 +10,9 @@ client.ks = client.session_service.start(
     Kaltura::KalturaSessionType::ADMIN,
     YOUR_PARTNER_ID)
 
-filter = KalturaMediaEntryFilter.new()
 
+filter = KalturaMediaEntryFilter.new()
 pager = KalturaFilterPager.new()
 
-results = client.media_service.list(
-    filter,
-    pager)
+results = client.media_service.list(filter, pager)
 puts results.inspect

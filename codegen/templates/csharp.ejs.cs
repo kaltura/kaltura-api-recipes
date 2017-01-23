@@ -1,7 +1,4 @@
-<% parameters.forEach(function(param) { -%>
-<%- codegen.assignment(param, [], answers) %>
-<% }) -%>
+<%- codegen.assignAllParameters(parameters, answers) %>
 
-<% var parameterNames = parameters.map(function(p) {return  p.name}) -%>
-Object result = client.<%- codegen.rewriteService(service) %>.<%- codegen.rewriteAction(action) %>(<%- parameterNames.join(', ') %>);
+Object result = client.<%- service %>.<%- action %>(<%- parameterNames.join(', ') %>);
 Console.WriteLine(result);

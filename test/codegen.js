@@ -2,23 +2,17 @@ var _ = require('lodash');
 var fs = require('fs');
 var expect = require('chai').expect;
 
+var swagger = require('../swagger/swagger.js');
 var CodeTemplate = require('../codegen');
 
 describe('Sample Code', function() {
-  var renderParams = null;
   this.timeout(5000);
-  before(function(done) {
-    require('../codegen/params.js')(function(params) {
-      renderParams = params;
-      done();
-    });
-  });
 
   var testCases = [{
     name: 'simple',
     service: 'media',
     action: 'list',
-    params: {
+    input: {
       answers: {},
       showSetup: false,
     },
@@ -26,7 +20,7 @@ describe('Sample Code', function() {
     name: 'with_setup',
     service: 'media',
     action: 'list',
-    params: {
+    input: {
       answers: {},
       showSetup: true,
     }
@@ -34,7 +28,7 @@ describe('Sample Code', function() {
     name: 'enum',
     service: 'session',
     action: 'start',
-    params: {
+    input: {
       answers: {
         type: 0,
       },
@@ -44,7 +38,7 @@ describe('Sample Code', function() {
     name: 'with_arguments',
     service: 'media',
     action: 'list',
-    params: {
+    input: {
       answers: {
         'filter[nameLike]': 'foobar',
         'filter[statusEqual]': '2',
@@ -58,7 +52,7 @@ describe('Sample Code', function() {
     name: 'primitive_argument',
     service: 'media',
     action: 'get',
-    params: {
+    input: {
       answers: {
         'entryId': 'abcde',
       },
@@ -69,9 +63,12 @@ describe('Sample Code', function() {
   testCases.forEach(function(testCase) {
     CodeTemplate.LANGUAGES.forEach(function(l) {
       it('should generate for ' + l, function() {
-        var tmpl = new CodeTemplate({language: l});
-        params = _.extend(testCase.params, renderParams[testCase.service][testCase.action]);
-        var code = tmpl.render(params);
+        var tmpl = new CodeTemplate({language: l, swagger: swagger});
+        testCase.input.path = '/service/' + testCase.service + '/action/' + testCase.action;
+        testCase.input.method = 'get';
+        testCase.input.service = testCase.service;
+        testCase.input.action = testCase.action;
+        var code = tmpl.render(testCase.input);
         var ext = CodeTemplate.LANGUAGE_DETAILS[l].ext;
         fs.writeFileSync(__dirname + '/golden/' + testCase.name + '/' + l + '.' + ext, code);
       });

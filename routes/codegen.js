@@ -3,6 +3,7 @@ var FS = require('fs');
 var Router = require('express').Router();
 var Lucy = require('lucy-codegen').Lucy;
 var CodeTemplate = require('../codegen');
+var swagger = require('../swagger/swagger.js');
 
 module.exports = {};
 module.exports.initialize = function(cb) {
@@ -10,7 +11,7 @@ module.exports.initialize = function(cb) {
     const codeTemplates = CodeTemplate.LANGUAGES.map(function(l) {
       return {
         name: l,
-        template: new CodeTemplate({language: l}),
+        template: new CodeTemplate({language: l, swagger}),
       };
     })
 
@@ -18,10 +19,12 @@ module.exports.initialize = function(cb) {
       var lang = codeTemplates.filter(l => l.name === req.body.language)[0];
       if (!lang) return res.status(500).send("Unknown language " + req.body.language);
       if (process.env.DEVELOPMENT) lang.template.reload();
-      var path = req.body.request.path;
-      var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
-      var service = parts[1], action = parts[2];
-      var codeParams = _.extend({answers: req.body.answers, showSetup: req.body.showSetup}, renderParams[service][action]);
+      var codeParams = {
+        path: req.body.request.path,
+        method: req.body.request.method,
+        answers: req.body.answers,
+        showSetup: req.body.showSetup,
+      }
       res.json({code: lang.template.render(codeParams)});
     })
     cb(Router);

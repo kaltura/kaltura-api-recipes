@@ -18,7 +18,6 @@
       window.ks = ks;
       client.setKs(ks);
       var filter = new KalturaMediaEntryFilter();
-
       var pager = new KalturaFilterPager();
 
       client.media.listAction(function(success, results) {
@@ -30,7 +29,6 @@
       },
       filter,
       pager);
-
     }
     // Note: this is meant only as a sample.
     // You should NEVER generate sessions on the client,

@@ -9,26 +9,12 @@ client.ks = client.session_service.start(
     <%- codegen.constant(answers.secret) %>,
     <%- codegen.constant(answers.userId) %>,
     <%- answers.sessionType === 0 ? 'Kaltura::KalturaSessionType::USER' : 'Kaltura::KalturaSessionType::ADMIN' %>,
-    <%- answers.partnerId || 'YOUR_PARTNER_ID' %>)
+    <%- codegen.constant(answers.partnerId) || 'YOUR_PARTNER_ID' %>)
 
 <% } -%>
-<%  parameters.forEach(function(param) { -%>
-<%  var setter = codegen.assignment(param, [], answers); -%>
-<%    if (setter) { -%>
-<%- setter %>
-<%    } -%>
 
-<%  }) -%>
-results = client.<%- codegen.rewriteService(service) %>.<%- codegen.rewriteAction(action) %>(<%- -%>
-<% if (parameters.length === 0) { -%>
-<%- ')' %>
-<% } else if (parameters.length === 1) { -%>
-<%- codegen.rewriteVariable(parameters[0].name) + ')' %>
-<% } else { -%>
+<%- codegen.assignAllParameters(parameters, answers) %>
 
-<% parameters.forEach(function(param, index) { -%>
-    <%- codegen.rewriteVariable(param.name) %><%- index < parameters.length - 1 ? ',' : ')' %>
-<% }); -%>
-<% } -%>
+results = client.<%- service %>.<%- action %>(<%- parameterNames.join(', ') %>)
 puts results.inspect
 

@@ -12,10 +12,7 @@ ks = client.session.start(
 client.setKs(ks)
 <% } -%>
 
-<% parameters.forEach(function(param) { -%>
-<%- codegen.assignment(param, [], answers) %>
-<% }) -%>
+<%- codegen.assignAllParameters(parameters, answers) %>
 
-<% var parameterNames = parameters.map(function(p) {return  p.name}) -%>
-result = client.<%- service %>.<%- codegen.rewriteAction(action) %>(<%- parameterNames.join(', ') %>);
+result = client.<%- service %>.<%- action %>(<%- parameterNames.join(', ') %>);
 print(result);

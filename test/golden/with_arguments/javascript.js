@@ -3,7 +3,6 @@ filter.nameLike = "foobar";
 filter.statusEqual = KalturaEntryStatus.READY;
 filter.advancedSearch = new KalturaAttributeCondition();
 filter.advancedSearch.value = "baz";
-
 var pager = new KalturaFilterPager();
 pager.pageSize = 3;
 

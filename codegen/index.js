@@ -2,7 +2,8 @@ var _ = require('lodash');
 var FS = require('fs');
 var EJS = require('ejs');
 
-var TMPL_DIR = __dirname + '/templates';
+const RESERVED_NAMES = ['list', 'clone', 'delete'];
+const TMPL_DIR = __dirname + '/templates';
 
 const replaceActionSuffix = str => {
   return str.replace(/Action$/, '');
@@ -20,11 +21,22 @@ const camelCaseToUnderscore = str => {
 
 const getDefaultValueForType = (type) => {
   if (type === 'string') return '';
-  if (type === 'int') return 0;
+  if (type === 'integer' || type === 'number') return 0;
   if (type === 'float') return 0.0;
-  if (type === 'bool') return true;
+  if (type === 'boolean') return true;
   if (type === 'array') return [];
   return null;
+}
+
+const isPrimitiveSchema = schema => {
+  if (schema.type === 'object' || schema.type === 'array') return false;
+  if (schema.items || schema.properties) return false;
+  return true;
+}
+
+const addActionSuffixIfReserved = action => {
+  if (RESERVED_NAMES.indexOf(action) !== -1) action += 'Action';
+  return action;
 }
 
 var language_opts = {
@@ -42,6 +54,7 @@ var language_opts = {
     rewriteVariable: function(s) {return s},
     rewriteAction: function(s) {return s},
     rewriteService: function(s) {return s},
+    rewriteType: function(s) {return s},
   },
   javascript: {
     ext: 'js',
@@ -49,6 +62,7 @@ var language_opts = {
     statementSuffix: ';',
     objPrefix: 'new ',
     objSuffix: '()',
+    rewriteAction: addActionSuffixIfReserved,
   },
   node: {
     ext: 'js',
@@ -57,15 +71,17 @@ var language_opts = {
     objPrefix: 'new Kaltura.kc.objects.',
     objSuffix: '()',
     enumPrefix: 'Kaltura.kc.enums.',
+    rewriteAction: addActionSuffixIfReserved,
   },
   php: {
     ext: 'php',
     accessor: '->',
-    statementPrefix: '$',
     statementSuffix: ';',
     objPrefix: 'new ',
     objSuffix: '()',
     enumAccessor: '::',
+    rewriteAction: addActionSuffixIfReserved,
+    rewriteVariable: s => '$' + s,
   },
   ruby: {
     ext: 'rb',
@@ -87,7 +103,7 @@ var language_opts = {
   },
   java: {
     ext: 'java',
-    declarationPrefix: "<%- type.replace(/^string$/, 'String').replace(/^bool$/, 'boolean') %> ",
+    declarationPrefix: "<%- type %> ",
     statementSuffix: ';',
     objPrefix: 'new ',
     objSuffix: '()',
@@ -96,6 +112,11 @@ var language_opts = {
     },
     rewriteAction: function(s) {
       return replaceActionSuffix(s);
+    },
+    rewriteType: function(s) {
+      if (s === 'string') return 'String';
+      if (s === 'integer') return 'int';
+      return s;
     }
   },
   csharp: {
@@ -113,6 +134,10 @@ var language_opts = {
     rewriteAction: function(s) {
       return capitalize(replaceActionSuffix(s));
     },
+    rewriteType: function(s) {
+      if (s === 'integer') return 'int';
+      return s;
+    }
   },
   python: {
     ext: 'py',
@@ -125,6 +150,7 @@ var language_opts = {
 
 module.exports = CodeTemplate = function(opts) {
   this.language = opts.language;
+  this.swagger = opts.swagger;
   _.extend(this, language_opts.default, language_opts[this.language]);
   this.reload();
 
@@ -152,72 +178,148 @@ CodeTemplate.prototype.reload = function() {
   }
 }
 
-CodeTemplate.prototype.render = function(params) {
-  params.answers = params.answers || {};
-  params.answers.secret = params.answers.secret || 'YOUR_KALTURA_SECRET';
-  params.answers.userId = params.answers.userId || 'YOUR_USER_ID';
-  params = _.extend({codegen: this}, params);
-  var code = EJS.render(this.template, params);
-  if (params.showSetup && this.setupTemplate) {
-    params.code = code;
-    return EJS.render(this.setupTemplate, params).trim();
+CodeTemplate.prototype.render = function(input) {
+  var self = this;
+  var pathParts = input.path.match(/(\/service\/(\w+)\/action\/(\w+))$/);
+  input.path = pathParts[1];
+  input.service = this.rewriteService(pathParts[2]);
+  input.action = this.rewriteAction(pathParts[3]);
+  input.operation = this.swagger.paths[input.path][input.method];
+  input.parameters = [];
+  if (input.operation['x-parameterGroups']) {
+    input.parameters = input.parameters.concat(input.operation['x-parameterGroups'].map(g => {
+      let title = g.schema.$ref.substring('#/definitions/'.length);
+      let schema = this.swagger.definitions[title];
+      schema.title = title;
+      return {
+        schema,
+        name: g.name,
+      }
+    }));
+  }
+  input.parameters = input.parameters.concat(
+    input.operation.parameters
+      .filter(p => !p.$ref && p.name.indexOf('[') === -1)
+      .map(p => ({name: p.name, schema: p.schema || p})));
+  input.parameterNames = input.parameters.map(p => p.name).map(n => this.rewriteVariable(n));
+  input.answers = input.answers || {};
+  input.answers.secret = input.answers.secret || 'YOUR_KALTURA_SECRET';
+  input.answers.userId = input.answers.userId || 'YOUR_USER_ID';
+  input = _.extend({codegen: this}, input);
+  var code = EJS.render(this.template, input);
+  if (input.showSetup && this.setupTemplate) {
+    input.code = code;
+    return EJS.render(this.setupTemplate, input).trim();
   } else {
     return code;
   }
 }
 
-CodeTemplate.prototype.assignment = function(field, parents, answers) {
+CodeTemplate.prototype.assignAllParameters = function(params, answers, indent) {
+  indent = indent || 0;
+  return this.indent(params.map(p => this.assignment(p, answers)).join('\n'), indent);
+}
+
+CodeTemplate.prototype.assignment = function(param, answers) {
   var self = this;
-  var answerName = '';
-  if (parents.length) {
-    parents.forEach(function(p) {
-      if (!answerName) answerName += p
-      else answerName += '[' + p + ']'
-    });
-    var parentObjType = answers[answerName + '[objectType]'];
-    if (field.objectType && parentObjType !== field.objectType) return;
-    answerName += '[' + field.name + ']';
-  } else {
-    answerName = field.name;
-  }
-
-  var setter = this.statementPrefix;
-  if (parents.length) {
-    let attrs = parents.map(p => p);
-    attrs.push(field.name);
-    setter += attrs.map(a => self.rewriteAttribute(a)).join(self.accessor);
-  } else {
-    let type = field.enum ? field.enum.name : (field.objectType || field.type);
-    setter += EJS.render(self.declarationPrefix, {type}) + self.rewriteVariable(field.name);
-  }
-  setter += ' = ';
-
-  if (field.type.indexOf('Kaltura') === 0) {
-    fieldObjType = answers[answerName + '[objectType]'];
-    if (parents.length && fieldObjType === undefined) return;
-    setter += self.objPrefix + (fieldObjType || field.type) + self.objSuffix;
-    subsetters = field.fields.map(function(f) {
-      return self.assignment(f, parents.concat([field.name]), answers);
-    }).filter(function(s) {return s});
-    return setter + self.statementSuffix + (subsetters.length ? '\n' + subsetters.join('\n') : '');
-  } else {
-    answer = answers[answerName];
-    if (answer === undefined) {
-      if (parents.length) return;
-      answer = getDefaultValueForType(field.type);
+  let assignment = this.lvalue(param, answers) + ' = ' + this.rvalue(param, answers) + this.statementSuffix;
+  const findSubschema = (subParamName, schema) => {
+    if (schema.$ref) schema = this.swagger.definitions[schema.$ref.substring('#/definitions/'.length)];
+    let propName = subParamName.split(/\[/).map(s => s.replace(/\]/g, '')).pop();
+    if (propName === 'objectType') {
+      return this.swagger.definitions[answers[subParamName]];
+    } else if (schema.properties && schema.properties[propName]) {
+      let subschema = schema.properties[propName];
+      if (isPrimitiveSchema(subschema)) {
+        return subschema;
+      } else {
+        return findSubschema(subParamName, subschema);
+      }
+    } else if (schema.allOf) {
+      return schema.allOf.map(sub => findSubschema(subParamName, sub)).filter(s => s)[0];
     }
-    if (!field.enum) {
-      setter += self.constant(answer);
+    return null;
+  }
+  let isObjectType= param.name.match(/\[objectType\]$/);
+  if (isObjectType || !isPrimitiveSchema(param.schema)) {
+    let name = isObjectType ? param.name.substring(0, param.name.length - 12) : param.name;
+    let subparamRegexp = '^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '\\[\\w+\\](\\[objectType\\])?$';
+    let subschema = isObjectType ? this.swagger.definitions[answers[param.name]] : param.schema;
+    subsetters = Object.keys(answers)
+      .filter(n => n !== param.name && n.match(new RegExp(subparamRegexp)))
+      .map(n => ({name: n, schema: findSubschema(n, subschema)}))
+    subsetters = subsetters
+      .filter(prop => prop.schema)
+      .map(function(prop) {
+        return self.assignment(prop, answers);
+      });
+    assignment = ([assignment]).concat(subsetters).join('\n');
+  }
+  return assignment;
+}
+
+CodeTemplate.prototype.lvalue = function(param, answers) {
+  var self = this;
+  var isChild = param.name.indexOf('[') !== -1;
+  if (param['x-showCondition']) {
+    let cond = param['x-showCondition'];
+    if (cond.value.indexOf(answers[cond.name]) === -1) return;
+  }
+  let enumType = param.schema['x-enumType'];
+  if (param.schema.oneOf && param.schema.oneOf[0].enum) {
+    enumType = param.schema.title;
+  }
+
+  if (param.schema.$ref) {
+    let name = param.schema.$ref.substring('#/definitions/'.length);
+    param.schema = this.swagger.definitions[name];
+    param.schema.title = name;
+  }
+
+  var lvalue = this.statementPrefix;
+  if (isChild) {
+    let attrs = param.name.split(/\[/).map(s => s.replace(/\]/g, '')).filter(n => n !== 'objectType');
+    lvalue += attrs.map((a, idx) => {
+      return idx === 0 ? self.rewriteVariable(a) : self.rewriteAttribute(a);
+    }).join(self.accessor);
+  } else {
+    let type = enumType || (isPrimitiveSchema(param.schema) ? param.schema.type : param.schema.title) || 'UnknownType';
+    type = this.rewriteType(type);
+    lvalue += EJS.render(self.declarationPrefix, {type}) + self.rewriteVariable(param.name);
+  }
+  return lvalue;
+}
+
+CodeTemplate.prototype.rvalue = function(param, answers) {
+  var self = this;
+  let enm = param.schema.enum;
+  let enumLabels = param.schema['x-enumLabels'];
+  let enumType = param.schema['x-enumType'];
+  if (param.schema.oneOf && param.schema.oneOf[0].enum) {
+    enm = param.schema.oneOf.map(sub => sub.enum[0])
+    enumLabels = param.schema.oneOf.map(sub => sub.title);
+    enumType = param.schema.title;
+  }
+  answer = answers[param.name];
+  if (answer === undefined) {
+    answer = getDefaultValueForType(param.schema.type);
+  }
+
+  if (!isPrimitiveSchema(param.schema)) {
+    if (param.name.indexOf('[objectType]') !== -1) {
+      return self.objPrefix + answer + self.objSuffix;
     } else {
-      for (var valName in field.enum.values) {
-        if (field.enum.values[valName] === answer) {
-          setter += self.enumPrefix + field.enum.name + (self.enumAccessor || self.accessor) + valName;
-          break;
-        }
+      return self.objPrefix + param.schema.title + self.objSuffix;
+    }
+  } else {
+    if (enm && enumLabels) {
+      enumName = enumLabels[enm.indexOf(answer)];
+      if (enumName) {
+        return self.enumPrefix + enumType + (self.enumAccessor || self.accessor) + enumName;
       }
     }
+    return self.constant(answer);
   }
-  return setter + self.statementSuffix;
 }
 
 CodeTemplate.LANGUAGES = Object.keys(language_opts).filter(l => l !== 'default');

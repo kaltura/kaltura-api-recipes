@@ -1,13 +1,8 @@
 var secret = "YOUR_KALTURA_SECRET";
-
 var userId = "YOUR_USER_ID";
-
 var type = Kaltura.kc.enums.KalturaSessionType.USER;
-
 var partnerId = 0;
-
 var expiry = 0;
-
 var privileges = "";
 
 client.session.start(function(results) {
