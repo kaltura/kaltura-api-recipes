@@ -180,8 +180,10 @@ CodeTemplate.prototype.reload = function() {
 
 CodeTemplate.prototype.render = function(input) {
   var self = this;
-  input.service = this.rewriteService(input.service);
-  input.action = this.rewriteAction(input.action);
+  var pathParts = input.path.match(/(\/service\/(\w+)\/action\/(\w+))$/);
+  input.path = pathParts[1];
+  input.service = this.rewriteService(pathParts[2]);
+  input.action = this.rewriteAction(pathParts[3]);
   input.operation = this.swagger.paths[input.path][input.method];
   input.parameters = [];
   if (input.operation['x-parameterGroups']) {

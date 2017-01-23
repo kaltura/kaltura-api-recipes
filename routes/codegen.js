@@ -11,7 +11,7 @@ module.exports.initialize = function(cb) {
     const codeTemplates = CodeTemplate.LANGUAGES.map(function(l) {
       return {
         name: l,
-        template: new CodeTemplate({language: l}),
+        template: new CodeTemplate({language: l, swagger}),
       };
     })
 
@@ -19,15 +19,9 @@ module.exports.initialize = function(cb) {
       var lang = codeTemplates.filter(l => l.name === req.body.language)[0];
       if (!lang) return res.status(500).send("Unknown language " + req.body.language);
       if (process.env.DEVELOPMENT) lang.template.reload();
-      var path = req.body.request.path;
-      var parts = path.match(/service\/(\w+)\/action\/(\w+)$/);
-      var service = parts[1], action = parts[2];
-      var operation = swagger.paths[path][req.body.request.method];
       var codeParams = {
-        service,
-        action,
-        operation,
-        parameters: operation.parameters.filter(p => p.name !== 'format' && p.name.indexOf('[') === 0),
+        path: req.body.request.path,
+        method: req.body.request.method,
         answers: req.body.answers,
         showSetup: req.body.showSetup,
       }
