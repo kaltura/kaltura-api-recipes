@@ -31,7 +31,7 @@ describe('Sample Code', function() {
       answers: {
         tags: 'stuff',
         language: "Arabic",
-      }
+      },
     }
   }, {
     name: 'with_plugin',

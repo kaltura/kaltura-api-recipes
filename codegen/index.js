@@ -135,6 +135,7 @@ var language_opts = {
       return capitalize(replaceActionSuffix(s));
     },
     rewriteType: function(s) {
+      if (s.indexOf('Kaltura') === 0) return s.substring('Kaltura'.length);
       if (s === 'integer') return 'int';
       return s;
     }
@@ -184,11 +185,26 @@ CodeTemplate.prototype.reload = function() {
   }
 }
 
+const getDefName = (ref) => {
+  return ref.substring('#/definitions/'.length);
+}
+
 CodeTemplate.prototype.render = function(input) {
   var self = this;
   var pathParts = input.path.match(/(\/service\/(\w+)\/action\/(\w+))$/);
   input.path = pathParts[1];
   input.operation = this.swagger.paths[input.path][input.method];
+  let responseSchema = input.operation.responses[200].schema;
+  if (responseSchema) {
+    if (responseSchema.$ref) responseSchema = this.swagger.definitions[getDefName(responseSchema.$ref)];
+    input.responseType = this.rewriteType(responseSchema.title);
+    if (responseSchema.title.match(/ListResponse$/)) {
+      let items = responseSchema.properties.objects.items;
+      if (items.$ref) items = this.swagger.definitions[getDefName(items.$ref)];
+      input.responseListType = this.rewriteType(items.title);
+    }
+    input.responseType = this.rewriteType(responseSchema.title);
+  }
   input.action = this.rewriteAction(pathParts[3]);
   input.serviceID = pathParts[2];
   input.serviceName = input.operation.tags[0];
@@ -199,21 +215,21 @@ CodeTemplate.prototype.render = function(input) {
     input.plugins.push(tag['x-plugin']);
   }
   input.parameters = [];
-  if (input.operation['x-parameterGroups']) {
-    input.parameters = input.parameters.concat(input.operation['x-parameterGroups'].map(g => {
-      let title = g.schema.$ref.substring('#/definitions/'.length);
+  let addedParameters = [];
+  input.operation.parameters.forEach(p => {
+    if (p.$ref) return;
+    let baseName = p.name.indexOf('[') === -1 ? p.name : p.name.substring(0, p.name.indexOf('['));
+    if (addedParameters.indexOf(baseName) !== -1) return;
+    addedParameters.push(baseName);
+    if (baseName === p.name) {
+      input.parameters.push({name: p.name, schema: p.schema || p})
+    } else {
+      let group = input.operation['x-parameterGroups'].filter(g => g.name === p['x-group'])[0];
+      let title = getDefName(group.schema.$ref);
       let schema = this.swagger.definitions[title];
-      schema.title = title;
-      return {
-        schema,
-        name: g.name,
-      }
-    }));
-  }
-  input.parameters = input.parameters.concat(
-    input.operation.parameters
-      .filter(p => !p.$ref && p.name.indexOf('[') === -1)
-      .map(p => ({name: p.name, schema: p.schema || p})));
+      input.parameters.push({name: group.name, schema});
+    }
+  })
   input.parameterNames = input.parameters.map(p => p.name).map(n => this.rewriteVariable(n));
   input.answers = input.answers || {};
   input.answers.secret = input.answers.secret || 'YOUR_KALTURA_SECRET';
@@ -326,15 +342,15 @@ CodeTemplate.prototype.rvalue = function(param, answers) {
 
   if (!isPrimitiveSchema(param.schema)) {
     if (param.name.indexOf('[objectType]') !== -1) {
-      return self.objPrefix + answer + self.objSuffix;
+      return self.objPrefix + self.rewriteType(answer) + self.objSuffix;
     } else {
-      return self.objPrefix + param.schema.title + self.objSuffix;
+      return self.objPrefix + self.rewriteType(param.schema.title) + self.objSuffix;
     }
   } else {
     if (enm && enumLabels) {
       enumName = enumLabels[enm.indexOf(answer)];
       if (enumName) {
-        return self.enumPrefix + enumType + (self.enumAccessor || self.accessor) + enumName;
+        return self.enumPrefix + self.rewriteType(enumType) + (self.enumAccessor || self.accessor) + enumName;
       }
     }
     return self.constant(answer);
