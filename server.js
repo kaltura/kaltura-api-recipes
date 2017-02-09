@@ -30,6 +30,10 @@ if (process.env.V3_RECIPES) {
 
   let routes = ['/api-docs', '/console', '/workflows', '/new-workflow', '/preview-workflow'];
   routes = routes.map(r => basePath + r + '*');
+  const GH_PAGES_BASE = '/kaltura-recipes-v3';
+  App.use(GH_PAGES_BASE, (req, res, next) => {
+    res.redirect(req.originalUrl.substring(GH_PAGES_BASE.length));
+  })
   App.get(routes, (req, res) => {
     fs.readFile(path.join(staticDir, 'default_index.html'), 'utf8', (err, index) => {
       if (err) return res.status(500).end();
