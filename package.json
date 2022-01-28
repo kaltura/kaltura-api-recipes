@@ -35,7 +35,7 @@
     "lodash": "^4.14.1",
     "lucy-api-portal": "git+ssh://git@lucy-codegen:lucybot/lucy-api-portal.git",
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
-    "remove-markdown": "0.0.6",
+    "remove-markdown": "0.3.0",
     "request": "^2.74.0",
     "requestify": "^0.1.17",
     "sitemap": "^1.8.1",
