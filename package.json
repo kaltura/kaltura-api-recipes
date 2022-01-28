@@ -37,7 +37,7 @@
     "lucy-codegen": "https://github.com/lucybot/lucy-codegen",
     "remove-markdown": "0.0.6",
     "request": "^2.74.0",
-    "requestify": "^0.1.17",
+    "requestify": "^0.2.5",
     "sitemap": "^1.8.1",
     "strapping": "^1.6.2",
     "xml2js": "^0.4.17"
